@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "TisFrontEnd"
+    }
+  },
+  "defaultProject": "TisFrontEnd",
+  "cli": {
+    "analytics": false
+  }
 }

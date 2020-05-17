@@ -1,0 +1,12 @@
+    html {
+        min-height: 100%;
+        position: relative;
+    }
+    
+    footer {
+        background-color: #262626;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        color: #f2f2f2;
+    }
