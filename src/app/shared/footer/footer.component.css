@@ -5,8 +5,14 @@
     
     footer {
         background-color: #262626;
+        /* background-color: #404040; */
         width: 100%;
         position: absolute;
         bottom: 0;
         color: #f2f2f2;
+    }
+    
+    .footer {
+        /* background-color: #575659; */
+        background-color: #404040;
     }
