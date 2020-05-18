@@ -19,7 +19,7 @@
     }
     
     .footer-distributed .footer-left p {
-        color: #f2f2f2;
+        color: #8f9296;
         font-size: 14px;
         margin: 0;
     }
@@ -28,7 +28,7 @@
     .footer-distributed p.footer-links {
         font-size: 18px;
         font-weight: bold;
-        color: #f2f2f2;
+        color: #ffffff !important;
         margin: 0 0 10px;
         padding: 0;
         transition: ease .25s;
@@ -55,7 +55,7 @@
         background-color: #33383b;
         border-radius: 2px;
         font-size: 20px;
-        color: #f2f2f2;
+        color: #ffffff;
         text-align: center;
         line-height: 35px;
         margin-left: 3px;
