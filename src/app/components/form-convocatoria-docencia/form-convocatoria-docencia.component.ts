@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../servicios/form-convocatoria-docencia/user.service'
+import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 @Component({
   selector: 'app-form-convocatoria-docencia',
   templateUrl: './form-convocatoria-docencia.component.html',
@@ -7,25 +8,23 @@ import {UserService} from '../../servicios/form-convocatoria-docencia/user.servi
 })
 export class FormConvocatoriaDocenciaComponent implements OnInit {
 
-  constructor(private servicio: UserService) { }
-
+  constructor(private apiPHP: PhpServeService) { }
+  //la lista de materias que se obtendran de la base de datos
+  materias=null;
+  //objeto materia que se enviara a la base de datos
+  materia={
+    nombreMat:null,
+    idMat:null,
+    cantidadAux: null,
+    hrsMes:null
+  }
   ngOnInit(): void {
-    console.log("holaxdxdxd");
+    this.getNombreMaterias();
   }
-  mensaje="no hay mensaje";
-  prueba() {
-    console.log("hola");
-    alert("xxdxd");
-    console.log("aasdasdasd");
-    this.servicio.prueba().subscribe(
-      datos => {
-        if(datos['resultado'] == 'correcto') {
-          alert(datos['mensaje']);
-        }else{
-          alert(datos['mensaje']);
-        }
-      }
+  getNombreMaterias(){
+    this.apiPHP.getNombreMaterias().subscribe(
+      result=> this.materias=result
     );
-    alert("a ver a ver");
   }
+
 }

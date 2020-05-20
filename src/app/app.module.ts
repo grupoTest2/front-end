@@ -8,7 +8,6 @@ import { NavBarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
 
-import { UserService } from './servicios/form-convocatoria-docencia/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +20,7 @@ import { UserService } from './servicios/form-convocatoria-docencia/user.service
     AppRoutingModule,
     HttpClientModule  
   ],
-  providers: [UserService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
