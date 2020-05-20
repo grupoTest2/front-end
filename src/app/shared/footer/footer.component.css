@@ -16,6 +16,7 @@
         text-align: left;
         font: normal 16px sans-serif;
         padding: 35px 50px;
+        /*position: absolute;*/
     }
     
     .footer-distributed .footer-left p {
