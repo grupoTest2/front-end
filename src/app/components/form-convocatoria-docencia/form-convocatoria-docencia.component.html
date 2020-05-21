@@ -8,7 +8,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
-                <button type="button" (click)="getNombreMaterias()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
@@ -262,32 +262,40 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Items: </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
-                    </div>
+
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Cantidad(Aux.) </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Hrs/mes </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Hrs/mes</label>
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
-                        <select class="browser-default custom-select">
+                        <<<<<<< HEAD <select class="browser-default custom-select">
                             <option selected>Selecione una materia:</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
-                        </select>
+                            </select>
+                            =======
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Seleccionar Materia
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button *ngFor="let mat of listaMaterias" class="dropdown-item" type="button">{{mat.nombreMat}}</button>
+
+                                </div>
+                            </div>
+                            >>>>>>> 09c668578ae373c351187a8a78589c2652dab1a7
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarMateria()">Guardar</button>
             </div>
         </div>
     </div>
