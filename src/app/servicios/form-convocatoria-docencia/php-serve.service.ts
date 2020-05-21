@@ -12,4 +12,8 @@ export class PhpServeService {
   public getNombreMaterias(){
   return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php`);
   }
+  
+  public agregarMateria(materia){
+    return this.http.post(`${this.URL}convocatoriaDocencia/agregarMateria.php`, JSON.stringify(materia));
+  }
 }
