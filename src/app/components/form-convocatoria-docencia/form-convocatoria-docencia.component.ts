@@ -59,11 +59,13 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     this.materia.hrsMes=null;
   }
   agregarMateriaBD(){
-    this.apiPHP.agregarMateria(this.materia).subscribe(
-      datos => {
-        if(datos['resultado'] == 'correcto') {}
-          //indicar que se agrego correctamente
-      });}
+    // this.apiPHP.agregarMateria(this.materia).subscribe(
+    //   datos => {
+    //     if(datos['resultado'] == 'correcto') {}
+    //       //indicar que se agrego correctamente
+    //   });
+    return this.materia;
+    }
   alertEliminar(){
     swal.fire({
       title: 'Eliminar',
