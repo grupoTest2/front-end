@@ -11,7 +11,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+                <button type="button" (click)="agregarMateria()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
@@ -29,7 +29,7 @@
                     
                     <tr *ngFor="let mat of materiasSeleccionadas; index as i">
                         <td class="text-center" scope="row">{{i+1}}</td>
-                        <td class="text-center">{{mat.cantidad}}</td>
+                        <td class="text-center">{{mat.cantidadAux}}</td>
                         <td class="text-center">{{mat.hrsMes}}</td>
                         <td class="text-center">{{mat.nombreMat}}</td>
                         <td class="text-center">
