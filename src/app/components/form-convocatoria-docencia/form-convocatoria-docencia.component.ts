@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
-
+// import $ from "jquery";
 declare var swal: any;
+declare var $: any;
 @Component({
   selector: 'app-form-convocatoria-docencia',
   templateUrl: './form-convocatoria-docencia.component.html',
@@ -52,7 +53,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     this.materia.nombreMat="introduccion a la programacion";
     let objAux= JSON.parse(JSON.stringify(this.materia));
     this.materiasSeleccionadas.push(objAux);
-    console.log(this.materiasSeleccionadas);
+    console.log(this.materiasSeleccionadas); 
   }
   agregarMateria(){
     this.materia.cantidadAux=null;

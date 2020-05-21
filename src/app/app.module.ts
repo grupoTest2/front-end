@@ -23,7 +23,7 @@ import { PhpServeService } from './servicios/form-convocatoria-docencia/php-serv
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule  
+    HttpClientModule
   ],
   providers: [PhpServeService],
   bootstrap: [AppComponent]
