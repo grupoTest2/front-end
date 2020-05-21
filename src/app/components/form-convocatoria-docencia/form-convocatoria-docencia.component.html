@@ -11,7 +11,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
-                <button type="button" (click)="getNombreMaterias()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+                <button type="button" (click)="xd()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
@@ -26,21 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let mat of materias">
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">{{mat.idMat}}</td>
-                        <td class="text-center">{{mat.seleccionado}}</td>
-                        <td class="text-center">{{mat.nombreMat}}</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </td>
-
-                    </tr>
+                    
                     <tr>
                         <td class="text-center" scope="row">1</td>
                         <td class="text-center">9</td>
