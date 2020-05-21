@@ -23,8 +23,13 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   }
   getNombreMaterias(){
     this.apiPHP.getNombreMaterias().subscribe(
-      result=> this.materias=result
+      result => this.materias = result
     );
+  }
+
+  agregarRequisitos(){
+    document.getElementById("tablaRequisitos").innerHTML =
+   '<textarea class="form-control m-3" rows="3">Hola</textarea>';
   }
 
 }
