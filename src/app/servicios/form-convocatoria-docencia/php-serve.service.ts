@@ -10,6 +10,6 @@ export class PhpServeService {
   constructor(private http: HttpClient) { }
 
   public getNombreMaterias(){
-    return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php`);
+  return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php`);
   }
 }
