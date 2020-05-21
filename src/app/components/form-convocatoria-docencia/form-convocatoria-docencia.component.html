@@ -1,13 +1,10 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <form>
         <div class="form-group">
             <label for="titulo">Título</label>
-            <input type="email" class="form-control" id="titulo" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="titulo" aria-describedby="emailHelp">
         </div>
-        <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea class="form-control" id="descripcion" rows="3"></textarea>
-        </div>
+        <br>
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
@@ -15,83 +12,106 @@
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
-            <table class="table align-middle table-hover" id="requerimientos">
-                <thead class="thead-light">
-                    <tr>
-                        <th class="text-center" scope="col">Items</th>
-                        <th class="text-center" scope="col">Cantidad(Aux.)</th>
-                        <th class="text-center" scope="col">Hrs/mes</th>
-                        <th class="text-center" scope="col">Materia</th>
-                        <th class="text-center" scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let mat of materias">
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">{{mat.idMat}}</td>
-                        <td class="text-center">{{mat.seleccionado}}</td>
-                        <td class="text-center">{{mat.nombreMat}}</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">9</td>
-                        <td class="text-center">10</td>
-                        <td class="text-center">Introduccion a la programacion</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
-                                <i class="fa fa-pencil"></i> 
-                            </button>
-                            <button class="btn btn-outline-danger" type="button">
-                            <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">9</td>
-                        <td class="text-center">10</td>
-                        <td contenteditable='true' class="text-center">Introduccion a la programacion</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success" type="button">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center" scope="col">Items</th>
+                            <th class="text-center" scope="col">Cantidad(Aux.)</th>
+                            <th class="text-center" scope="col">Hrs/mes</th>
+                            <th class="text-center" scope="col">Materia</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let mat of materias">
+                            <td class="text-center"></td>
+                            <td class="text-center">{{mat.idMat}}</td>
+                            <td class="text-center">{{mat.seleccionado}}</td>
+                            <td class="text-center">{{mat.nombreMat}}</td>
+                            <td class="text-center">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">1</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">Introduccion a la programacion</td>
+                            <td class="text-center">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">1</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">Introduccion a la programacion</td>
+                            <td class="text-center">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
+        <br>
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label for="requisitos">2.- Requisitos</label>
-                <button class="btn btn-outline-info" onClick="agregarRequisitos" type="button">
+                <button class="btn btn-outline-info" type="button">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-            <ul class="list-group" id="tablaRequisitos">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="mt-3 table-responsive">
+                <table class="table align-middle table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center" scope="col">Detalle Requisito</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
+                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                            <td class="text-right">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
+        <br>
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label for="documentos">3.- Documentos a presentar </label>
@@ -99,55 +119,117 @@
                         <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
-            <textarea class="form-control" id="documentos" rows="3"></textarea>
-            <small id="emailHelp" class="form-text text-muted">NOTA.- Toda la documentación se legalizará gratuitamente en Secretaria del Departamento de Informática y Sistemas. (Presentar original y fotocopias). La documentación no será devuelta. </small>
+            <div class="mt-3 table-responsive">
+                <table class="table align-middle table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center" scope="col">Detalle documentos</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
+                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                            <td class="text-right">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="requisitos">4.- De la forma</label>
+            <label for="requisitos">4.- Formato presentacion documentos</label>
             <textarea class="form-control" id="requisitos" rows="3"></textarea>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="requisitos">5.- Fecha de presentación</label>
+            <label for="requisitos">5.- Calificación de méritos </label>
             <textarea class="form-control" id="requisitos" rows="3"></textarea>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="requisitos">6.- De la calificación de méritos </label>
+            <div class="d-flex justify-content-between align-items-end">
+                <label for="requisitos">6.- Calificación de conocimientos</label>
+                <button class="btn btn-outline-info" type="button">
+                        <i class="fa fa-plus"></i> Añadir
+                </button>
+            </div>
+            <div class="mt-3 table-responsive">
+                <table class="table align-middle table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center" scope="col">Detalle calificacion</th>
+                            <th class="text-center" scope="col">Porcentaje</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
+                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                            <td class="text-center">40%</td>
+                            <td class="text-right">
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="requisitos">7.- Tribunales </label>
             <textarea class="form-control" id="requisitos" rows="3"></textarea>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="requisitos">8.- De los tribunales </label>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="requisitos">9.- Fechas de pruebas </label>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-            <div class="mt-3">
-                <table class="table align-middle table-hover" id="requerimientos">
+            <div class="d-flex justify-content-between align-items-end">
+                <label for="requisitos">8.- Fechas</label>
+                <button class="btn btn-outline-info" type="button">
+                        <i class="fa fa-plus"></i> Añadir
+                </button>
+            </div>
+            <div class="table-responsive mt-3">
+                <table class="table align-middle table-hover table-bordered" id="requerimientos">
                     <thead class="thead-light">
                         <tr>
                             <th class="text-center" scope="col">Eventos</th>
                             <th class="text-center" scope="col">Fechas</th>
                             <th class="text-center" scope="col">Detalles</th>
-                            <th class="text-center" scope="col"></th>
+                            <th class="text-center" scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-center" scope="row">Reclamos </td>
+                            <td class="text-center">Reclamos </td>
                             <td class="text-center">jueves, 13 de febrero de 2020 </td>
                             <td class="text-center">Hasta horas 11:00 a.m. En Secretaria del Departamento de Informática y Sistemas </td>
                             <td class="text-center">
-                                <button class="btn btn-outline-success">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="btn btn-outline-danger">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
+                                <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -156,14 +238,14 @@
             <label for="nota">Nota </label>
             <textarea class="form-control " id="nota" rows="3"></textarea>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="delNombramiento">10.- Del nombramiento </label>
+            <label for="delNombramiento">9.- Del nombramiento </label>
             <textarea class="form-control" id="delNombramiento" rows="3"></textarea>
         </div>
-
+        <br>
     </form>
-
+    <br>
 </div>
 
 
@@ -194,16 +276,12 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
-                        <div class="dropdown">
-                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Seleccione una materia:
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <button class="dropdown-item" type="button">Action</button>
-                                <button class="dropdown-item" type="button">Another action</button>
-                                <button class="dropdown-item" type="button">Something else here</button>
-                            </div>
-                        </div>
+                        <select class="browser-default custom-select">
+                            <option selected>Selecione una materia:</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -214,9 +292,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function agregarRequisitos() {
-        document.getElementById("tablaRequisitos").innerHTML =
-            '<li class="list-group-item">Vestibulum at eros</li>';
-    }
-</script>
