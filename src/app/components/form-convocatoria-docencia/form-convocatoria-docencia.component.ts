@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
-import { ConsoleReporter } from 'jasmine';
+//import { ConsoleReporter } from 'jasmine';
 @Component({
   selector: 'app-form-convocatoria-docencia',
   templateUrl: './form-convocatoria-docencia.component.html',
   styleUrls: ['./form-convocatoria-docencia.component.css']
 })
 export class FormConvocatoriaDocenciaComponent implements OnInit {
-
+  
   constructor(private apiPHP: PhpServeService) { }
   //la lista de materias que se obtendran de la base de datos
   
@@ -18,10 +18,10 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     cantidadAux: null,
     hrsMes:null
   }
+  materiasSeleccionadas:Object[]= new Array();
   listaMaterias:Object[]=new Array();
   ngOnInit(): void {
     this.getNombreMaterias();
-    //this.xd();
   }
   getNombreMaterias(){
     this.apiPHP.getNombreMaterias().subscribe(
@@ -30,7 +30,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
           this.listaMaterias.push(result[i]);
         }
       }
-
+      
     );
     //alert(this.materias);
   }
@@ -45,7 +45,14 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     console.log(this.listaMaterias);
   //alert("asdasds");
   }
-  agregarMateria(){
+  guardarMateria(){
+    console.log(this.materia.cantidadAux);
+    console.log(this.materia.hrsMes);
+    this.materia.nombreMat="introduccion a la programacion";
+    this.materiasSeleccionadas.push(this.materia);
+    console.log(this.materiasSeleccionadas);
+  }
+  agregarMateriaBD(){
     this.apiPHP.agregarMateria(this.materia).subscribe(
       datos => {
         if(datos['resultado'] == 'correcto') {

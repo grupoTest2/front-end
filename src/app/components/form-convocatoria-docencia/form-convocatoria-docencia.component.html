@@ -11,7 +11,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
-                <button type="button" (click)="xd()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
@@ -27,11 +27,11 @@
                 </thead>
                 <tbody>
                     
-                    <tr>
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">9</td>
-                        <td class="text-center">10</td>
-                        <td class="text-center">Introduccion a la programacion</td>
+                    <tr *ngFor="let mat of materiasSeleccionadas; index as i">
+                        <td class="text-center" scope="row">{{i+1}}</td>
+                        <td class="text-center">{{mat.cantidad}}</td>
+                        <td class="text-center">{{mat.hrsMes}}</td>
+                        <td class="text-center">{{mat.nombreMat}}</td>
                         <td class="text-center">
                             <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
                                 <i class="fa fa-pencil"></i> 
@@ -41,20 +41,7 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="text-center" scope="row">1</td>
-                        <td class="text-center">9</td>
-                        <td class="text-center">10</td>
-                        <td contenteditable='true' class="text-center">Introduccion a la programacion</td>
-                        <td class="text-center">
-                            <button class="btn btn-outline-success" type="button">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -166,28 +153,24 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Items: </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
-                    </div>
+                    
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Cantidad(Aux.) </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Hrs/mes </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Hrs/mes</label>
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
                         <div class="dropdown">
                             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Seleccione una materia:
+                              Seleccionar Materia
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <button class="dropdown-item" type="button">Action</button>
-                                <button class="dropdown-item" type="button">Another action</button>
-                                <button class="dropdown-item" type="button">Something else here</button>
+                                <button *ngFor="let mat of listaMaterias" class="dropdown-item" type="button">{{mat.nombreMat}}</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -195,7 +178,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarMateria()">Guardar</button>
             </div>
         </div>
     </div>
