@@ -50,8 +50,13 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     console.log(this.materia.cantidadAux);
     console.log(this.materia.hrsMes);
     this.materia.nombreMat="introduccion a la programacion";
-    this.materiasSeleccionadas.push(this.materia);
+    let objAux= JSON.parse(JSON.stringify(this.materia));
+    this.materiasSeleccionadas.push(objAux);
     console.log(this.materiasSeleccionadas);
+  }
+  agregarMateria(){
+    this.materia.cantidadAux=null;
+    this.materia.hrsMes=null;
   }
   agregarMateriaBD(){
     this.apiPHP.agregarMateria(this.materia).subscribe(

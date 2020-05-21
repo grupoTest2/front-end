@@ -8,11 +8,11 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label>1.- Requerimientos</label>
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+                <button type="button" (click)="agregarMateria()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
                     <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
-            <div class="table-responsive">
+            <<<<<<< HEAD <div class="table-responsive">
                 <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
                     <thead class="thead-light">
                         <tr>
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let mat of materias">
+                        <tr *ngFor="let mat of materiasSeleccionadas; index as i">
                             <td class="text-center"></td>
                             <td class="text-center">{{mat.idMat}}</td>
                             <td class="text-center">{{mat.seleccionado}}</td>
@@ -74,178 +74,209 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
         </div>
-        <br>
-        <div class="form-group">
-            <div class="d-flex justify-content-between align-items-end">
-                <label for="requisitos">2.- Requisitos</label>
-                <button class="btn btn-outline-info" type="button">
+        =======
+        <table class="table align-middle table-hover" id="requerimientos">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center" scope="col">Items</th>
+                    <th class="text-center" scope="col">Cantidad(Aux.)</th>
+                    <th class="text-center" scope="col">Hrs/mes</th>
+                    <th class="text-center" scope="col">Materia</th>
+                    <th class="text-center" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let mat of materiasSeleccionadas; index as i">
+                    <td class="text-center" scope="row">{{i+1}}</td>
+                    <td class="text-center">{{mat.cantidadAux}}</td>
+                    <td class="text-center">{{mat.hrsMes}}</td>
+                    <td class="text-center">{{mat.nombreMat}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                <i class="fa fa-pencil"></i> 
+                            </button>
+                        <button class="btn btn-outline-danger" type="button">
+                            <i class="fa fa-trash-alt"></i>
+                            </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        >>>>>>> f157a927f73b8a630e3377897ba2068860740160
+</div>
+<br>
+<div class="form-group">
+    <div class="d-flex justify-content-between align-items-end">
+        <label for="requisitos">2.- Requisitos</label>
+        <button class="btn btn-outline-info" type="button">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
-            </div>
-            <div class="mt-3 table-responsive">
-                <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center" scope="col">Detalle Requisito</th>
-                            <th class="text-center" scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
-                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
-                            <td class="text-right">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
+    </div>
+    <div class="mt-3 table-responsive">
+        <table class="table align-middle table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center" scope="col">Detalle Requisito</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse, reiciendis
+                        hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                    <td class="text-right">
+                        <div class="btn btn-group" role="group">
+                            <button class="btn btn-outline-success mr-1" type="button">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="d-flex justify-content-between align-items-end">
-                <label for="documentos">3.- Documentos a presentar </label>
-                <button type="button" class="btn btn-outline-info">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <div class="d-flex justify-content-between align-items-end">
+        <label for="documentos">3.- Documentos a presentar </label>
+        <button type="button" class="btn btn-outline-info">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
-            </div>
-            <div class="mt-3 table-responsive">
-                <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center" scope="col">Detalle documentos</th>
-                            <th class="text-center" scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
-                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
-                            <td class="text-right">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
+    </div>
+    <div class="mt-3 table-responsive">
+        <table class="table align-middle table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center" scope="col">Detalle documentos</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse, reiciendis
+                        hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                    <td class="text-right">
+                        <div class="btn btn-group" role="group">
+                            <button class="btn btn-outline-success mr-1" type="button">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="requisitos">4.- Formato presentacion documentos</label>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="requisitos">5.- Calificación de méritos </label>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="d-flex justify-content-between align-items-end">
-                <label for="requisitos">6.- Calificación de conocimientos</label>
-                <button class="btn btn-outline-info" type="button">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label for="requisitos">4.- Formato presentacion documentos</label>
+    <textarea class="form-control" id="requisitos" rows="3"></textarea>
+</div>
+<br>
+<div class="form-group">
+    <label for="requisitos">5.- Calificación de méritos </label>
+    <textarea class="form-control" id="requisitos" rows="3"></textarea>
+</div>
+<br>
+<div class="form-group">
+    <div class="d-flex justify-content-between align-items-end">
+        <label for="requisitos">6.- Calificación de conocimientos</label>
+        <button class="btn btn-outline-info" type="button">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
-            </div>
-            <div class="mt-3 table-responsive">
-                <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center" scope="col">Detalle calificacion</th>
-                            <th class="text-center" scope="col">Porcentaje</th>
-                            <th class="text-center" scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
-                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
-                            <td class="text-center">40%</td>
-                            <td class="text-right">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
+    </div>
+    <div class="mt-3 table-responsive">
+        <table class="table align-middle table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center" scope="col">Detalle calificacion</th>
+                    <th class="text-center" scope="col">Porcentaje</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse, reiciendis
+                        hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                    <td class="text-center">40%</td>
+                    <td class="text-right">
+                        <div class="btn btn-group" role="group">
+                            <button class="btn btn-outline-success mr-1" type="button">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="requisitos">7.- Tribunales </label>
-            <textarea class="form-control" id="requisitos" rows="3"></textarea>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="d-flex justify-content-between align-items-end">
-                <label for="requisitos">8.- Fechas</label>
-                <button class="btn btn-outline-info" type="button">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label for="requisitos">7.- Tribunales </label>
+    <textarea class="form-control" id="requisitos" rows="3"></textarea>
+</div>
+<br>
+<div class="form-group">
+    <div class="d-flex justify-content-between align-items-end">
+        <label for="requisitos">8.- Fechas</label>
+        <button class="btn btn-outline-info" type="button">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
-            </div>
-            <div class="table-responsive mt-3">
-                <table class="table align-middle table-hover table-bordered" id="requerimientos">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center" scope="col">Eventos</th>
-                            <th class="text-center" scope="col">Fechas</th>
-                            <th class="text-center" scope="col">Detalles</th>
-                            <th class="text-center" scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">Reclamos </td>
-                            <td class="text-center">jueves, 13 de febrero de 2020 </td>
-                            <td class="text-center">Hasta horas 11:00 a.m. En Secretaria del Departamento de Informática y Sistemas </td>
-                            <td class="text-center">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+    </div>
+    <div class="table-responsive mt-3">
+        <table class="table align-middle table-hover table-bordered" id="requerimientos">
+            <thead class="thead-light">
+                <tr>
+                    <th class="text-center" scope="col">Eventos</th>
+                    <th class="text-center" scope="col">Fechas</th>
+                    <th class="text-center" scope="col">Detalles</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Reclamos </td>
+                    <td class="text-center">jueves, 13 de febrero de 2020 </td>
+                    <td class="text-center">Hasta horas 11:00 a.m. En Secretaria del Departamento de Informática y Sistemas </td>
+                    <td class="text-center">
+                        <div class="btn btn-group" role="group">
+                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <label for="nota">Nota </label>
-            <textarea class="form-control " id="nota" rows="3"></textarea>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="delNombramiento">9.- Del nombramiento </label>
-            <textarea class="form-control" id="delNombramiento" rows="3"></textarea>
-        </div>
-        <br>
-    </form>
-    <br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <label for="nota">Nota </label>
+    <textarea class="form-control " id="nota" rows="3"></textarea>
+</div>
+<br>
+<div class="form-group">
+    <label for="delNombramiento">9.- Del nombramiento </label>
+    <textarea class="form-control" id="delNombramiento" rows="3"></textarea>
+</div>
+<br>
+</form>
+<br>
 </div>
 
 
