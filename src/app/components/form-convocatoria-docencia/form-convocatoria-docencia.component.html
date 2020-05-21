@@ -273,6 +273,7 @@
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Materia: </label>
                     <select [(ngModel)]="materia.nombreMat" name="nomb" class="browser-default custom-select">
+                            <option selected></option>
                             <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
                         </select>
                 </div>

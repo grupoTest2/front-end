@@ -9,8 +9,7 @@ declare var $: any;
   styleUrls: ['./form-convocatoria-docencia.component.css']
 })
 export class FormConvocatoriaDocenciaComponent implements OnInit {
-  
-  constructor(private apiPHP: PhpServeService) { }
+  idDepartamento=1;
   seleccionMateria:SeleccionMateria;
   materia={
     nombreMat:null,
@@ -21,11 +20,14 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   materiasSeleccionadas:Object[]= new Array();
   listaMaterias:Object[]=new Array();
   listaMateriasDisponibles:String[];
+
+  constructor(private apiPHP: PhpServeService) { }
+  
   ngOnInit(): void {
     this.getNombreMaterias();
   }
   getNombreMaterias(){
-    this.apiPHP.getNombreMaterias().subscribe(
+    this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
       result =>{ 
         for(let i in result){
           this.listaMaterias.push(result[i]);
@@ -45,7 +47,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     //console.log(this.materiasSeleccionadas); 
   }
   agregarMateria(){
-
+    
     this.materia.cantidadAux=null;
     this.materia.hrsMes=null;
     this.listaMateriasDisponibles=this.seleccionMateria.getListaMateriasDisponibles();
@@ -53,12 +55,11 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     
   }
   agregarMateriaBD(){
-    // this.apiPHP.agregarMateria(this.materia).subscribe(
-    //   datos => {
-    //     if(datos['resultado'] == 'correcto') {}
-    //       //indicar que se agrego correctamente
-    //   });
-    return this.materia;
+    this.apiPHP.agregarMateria(this.seleccionMateria.getMateriasSeleccionadas()).subscribe(
+      datos => {
+         alert(datos['mensaje']);
+       }
+       );
     }
     
   alertEliminar(){
@@ -113,10 +114,31 @@ class SeleccionMateria{
     }
     //console.log(this.listaMateriasDisponibles);
   }
-  public agregarMateriaSeleccionada(materia){
-    this.deshabilitarSeleccion(materia.nombreMat);
-    this.materiasSeleccionadas.push(materia);
+  //devuelve el id de la materia que se esta buscando
+  getIdMateria(nombMat){
+    let res=-1;
+    for(let i in this.listaMaterias){
+      let mat:any=this.listaMaterias[i];
+      if(mat.nombreMat==nombMat){
+        res= mat.idMat;
+        break;
+      }
+    }
+    return res;
   }
+
+  public agregarMateriaSeleccionada(materia){
+    if(materia.nombreMat!=null && materia.cantidadAux!=null && materia.hrsMes!=null){
+      let idMateria=this.getIdMateria(materia.nombreMat);
+      if(idMateria!=-1){
+        materia.idMat=idMateria;   
+        this.deshabilitarSeleccion(materia.nombreMat);
+        this.materiasSeleccionadas.push(materia);
+        console.log(JSON.stringify(this.materiasSeleccionadas));
+      }
+    }
+  }
+
   public deshabilitarSeleccion(nombreMatForm){
     for(let i in this.listaMaterias){
       let mat:any=this.listaMaterias[i];
@@ -126,7 +148,10 @@ class SeleccionMateria{
     }
     this.actualizarListaMatDisponibles();
   }
-
+  public existeMateriasSeleccionas(){
+    return this.materiasSeleccionadas.length>0;
+  }
+  
   public getListaMateriasDisponibles(){
     return this.listaMateriasDisponibles;
   }
