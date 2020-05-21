@@ -11,9 +11,7 @@ declare var $: any;
 export class FormConvocatoriaDocenciaComponent implements OnInit {
   
   constructor(private apiPHP: PhpServeService) { }
-  //la lista de materias que se obtendran de la base de datos
-  
-  //objeto materia que se enviara a la base de datos
+  seleccionMateria:SeleccionMateria;
   materia={
     nombreMat:null,
     idMat:null,
@@ -22,6 +20,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   }
   materiasSeleccionadas:Object[]= new Array();
   listaMaterias:Object[]=new Array();
+  listaMateriasDisponibles:String[];
   ngOnInit(): void {
     this.getNombreMaterias();
   }
@@ -31,33 +30,27 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
         for(let i in result){
           this.listaMaterias.push(result[i]);
         }
+      this.seleccionMateria=new SeleccionMateria(this.listaMaterias);
+      this.listaMateriasDisponibles=this.seleccionMateria.getListaMateriasDisponibles();
       }
-      
     );
-    //alert(this.materias);
-  }
-  xd(){
-    for (let i in this.listaMaterias){
-      let mat:any;
-      mat=this.listaMaterias[i];
-      if(mat.nombreMat=="intro"){
-        mat.seleccionado=true;
-      }
-    }
-    console.log(this.listaMaterias);
-  //alert("asdasds");
   }
   guardarMateria(){
     console.log(this.materia.cantidadAux);
     console.log(this.materia.hrsMes);
-    this.materia.nombreMat="introduccion a la programacion";
+    console.log(this.materia.nombreMat);
     let objAux= JSON.parse(JSON.stringify(this.materia));
-    this.materiasSeleccionadas.push(objAux);
-    console.log(this.materiasSeleccionadas); 
+    this.seleccionMateria.agregarMateriaSeleccionada(objAux);
+    this.materiasSeleccionadas=this.seleccionMateria.getMateriasSeleccionadas();
+    //console.log(this.materiasSeleccionadas); 
   }
   agregarMateria(){
+
     this.materia.cantidadAux=null;
     this.materia.hrsMes=null;
+    this.listaMateriasDisponibles=this.seleccionMateria.getListaMateriasDisponibles();
+    console.log(this.listaMateriasDisponibles);
+    
   }
   agregarMateriaBD(){
     // this.apiPHP.agregarMateria(this.materia).subscribe(
@@ -67,6 +60,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     //   });
     return this.materia;
     }
+    
   alertEliminar(){
     swal.fire({
       title: 'Eliminar',
@@ -95,4 +89,49 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   }
 
 }
+class SeleccionMateria{
+  //mis atributos
+  private materiasSeleccionadas:Object[];
+  private listaMaterias:Object[];
+  private listaMateriasDisponibles:String[];
 
+  constructor(listaMat){
+    this.materiasSeleccionadas=new Array();
+    this.listaMaterias=listaMat;
+    //console.log(this.listaMaterias);
+    this.actualizarListaMatDisponibles();
+  }
+
+  public actualizarListaMatDisponibles(){
+    this.listaMateriasDisponibles=new Array();
+    for(let i in this.listaMaterias){
+      let mat:any=this.listaMaterias[i];
+      if(!mat.seleccionado){
+        this.listaMateriasDisponibles.push(mat.nombreMat);
+        
+      }
+    }
+    //console.log(this.listaMateriasDisponibles);
+  }
+  public agregarMateriaSeleccionada(materia){
+    this.deshabilitarSeleccion(materia.nombreMat);
+    this.materiasSeleccionadas.push(materia);
+  }
+  public deshabilitarSeleccion(nombreMatForm){
+    for(let i in this.listaMaterias){
+      let mat:any=this.listaMaterias[i];
+      if(mat.nombreMat==nombreMatForm){
+        mat.seleccionado=true;
+      }
+    }
+    this.actualizarListaMatDisponibles();
+  }
+
+  public getListaMateriasDisponibles(){
+    return this.listaMateriasDisponibles;
+  }
+
+  public getMateriasSeleccionadas(){
+    return this.materiasSeleccionadas;
+  }
+}
