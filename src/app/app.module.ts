@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { FormConvocatoriaDocenciaComponent } from './components/form-convocatori
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

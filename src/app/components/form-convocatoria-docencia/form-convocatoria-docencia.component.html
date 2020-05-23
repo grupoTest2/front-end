@@ -40,7 +40,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -261,26 +261,50 @@
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
-            <div class="modal-body" id="modalMeritos">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label" >Cantidad(Aux.) </label>
-                    <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Hrs/mes</label>
-                    <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Materia: </label>
-                    <select [(ngModel)]="materia.nombreMat" name="nomb" class="browser-default custom-select">
-                            <option selected></option>
-                            <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
-                        </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="guardarMateria()" id="guardar" data-dismiss="modal">Guardar</button>
+            <div class="modal-body" id="modalRequerimientos">
+                <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)">
+                    <div class="form-group">
+                        <label for="items" class="col-form-label">Items: </label>
+                        <input type="number" class="form-control" id="items" formControlName="items">
+                        <small class="text-danger" *ngIf="formRequerimientos.get('items').hasError('required') && formRequerimientos.get('items').touched">
+                            Asigne un item  <small class="fal fa-exclamation-triangle"></small>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Cantidad(Aux.) </label>
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant" formControlName="cantidadAux">
+                        <small class="text-danger" *ngIf="formRequerimientos.get('cantidadAux').hasError('required') && formRequerimientos.get('cantidadAux').touched">
+                            Asigne una cantidad  <small class="fal fa-exclamation-triangle"></small>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Hrs/mes</label>
+                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs" formControlName="horasMes">
+                        <small class="text-danger" *ngIf="formRequerimientos.get('horasMes').hasError('required') && formRequerimientos.get('horasMes').touched">
+                            Asigne las horas <small class="fal fa-exclamation-triangle"></small>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Materia: </label>
+                        <select class="custom-select" formControlName="materia">
+                                <option disabled selected >Seleccione una materia</option>
+                                <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
+                                <option  value="intro">intro</option>
+                                <option  value="intro2">intro2</option>
+                            </select>
+                        <small class="text-danger" *ngIf="formRequerimientos.get('materia').hasError('required') && formRequerimientos.get('materia').touched">
+                            Seleccione una materia <small class="fal fa-exclamation-triangle"></small>
+                        </small>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" [disabled]="formRequerimientos.invalid" class="btn btn-primary" (click)="guardarMateria()" id="guardar">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
