@@ -3,6 +3,8 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
+import { ConsoleReporter } from 'jasmine';
 // import $ from "jquery";
 declare var swal: any;
 declare var $: any;
@@ -14,7 +16,6 @@ declare var $: any;
 export class FormConvocatoriaDocenciaComponent implements OnInit {
 
   formRequerimientos: FormGroup;
-
   idDepartamento = 1;
   seleccionMateria: SeleccionMateria;
   materia = {
