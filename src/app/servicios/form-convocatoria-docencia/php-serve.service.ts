@@ -9,11 +9,11 @@ export class PhpServeService {
   URL= "http://localhost/back-end/apiPHP/";
   constructor(private http: HttpClient) { }
 
-  public getNombreMaterias(){
-  return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php`);
+  public getNombreMaterias(idDep:number){
+  return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php?idDep=${idDep}`);
   }
   
-  public agregarMateria(materia){
-    return this.http.post(`${this.URL}convocatoriaDocencia/agregarMateria.php`, JSON.stringify(materia));
+  public agregarMateria(listaMaterias){
+    return this.http.post(`${this.URL}convocatoriaDocencia/agregarMaterias.php`, JSON.stringify(listaMaterias));
   }
 }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +10,6 @@ import { NavBarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
-import { PhpServeService } from './servicios/form-convocatoria-docencia/php-serve.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,10 @@ import { PhpServeService } from './servicios/form-convocatoria-docencia/php-serv
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [PhpServeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
