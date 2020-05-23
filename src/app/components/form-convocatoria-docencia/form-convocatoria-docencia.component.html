@@ -272,25 +272,26 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Cantidad(Aux.) </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant" formControlName="cantidadAux">
+                        <input type="number" min="1" class="form-control" id="recipient-name"  formControlName="cantidadAux">
                         <small class="text-danger" *ngIf="formRequerimientos.get('cantidadAux').hasError('required') && formRequerimientos.get('cantidadAux').touched">
                             Asigne una cantidad  <small class="fal fa-exclamation-triangle"></small>
                         </small>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Hrs/mes</label>
-                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs" formControlName="horasMes">
+                        <input type="number" min="1" class="form-control" id="recipient-name2" formControlName="horasMes">
                         <small class="text-danger" *ngIf="formRequerimientos.get('horasMes').hasError('required') && formRequerimientos.get('horasMes').touched">
                             Asigne las horas <small class="fal fa-exclamation-triangle"></small>
+                        </small>
+                        <small class="text-danger" *ngIf="!verificarNumero(formRequerimientos.value.horasMes)&&formRequerimientos.get('horasMes').touched">
+                        xdxdxdxd putooo<small class="fal fa-exclamation-triangle"></small>
                         </small>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
                         <select class="custom-select" formControlName="materia">
-                                <option disabled selected >Seleccione una materia</option>
-                                <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
-                                <option  value="intro">intro</option>
-                                <option  value="intro2">intro2</option>
+                                <option disable selected >Seleccione una materia</option>
+                                <option *ngFor="let mat of listaMateriasDisponibles">{{mat}}</option>
                             </select>
                         <small class="text-danger" *ngIf="formRequerimientos.get('materia').hasError('required') && formRequerimientos.get('materia').touched">
                             Seleccione una materia <small class="fal fa-exclamation-triangle"></small>
@@ -302,7 +303,7 @@
                     <hr>
                     <div class="d-flex justify-content-end mt-4">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" [disabled]="formRequerimientos.invalid" class="btn btn-primary" (click)="guardarMateria()" id="guardar">Guardar</button>
+                        <button type="submit" [disabled]="formRequerimientos.invalid" class="btn btn-primary" id="guardar">Guardar</button>
                     </div>
                 </form>
             </div>
