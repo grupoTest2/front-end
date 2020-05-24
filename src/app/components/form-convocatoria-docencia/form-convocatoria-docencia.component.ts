@@ -157,8 +157,27 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
 
 
 
+  // crea tabla meritos-----------------------------------
+  crearTablaMeritos(){
+    var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito")).value;
+    var porcentaje = (<HTMLInputElement>document.getElementById("porcentaje")).value;
+    var descripcionMerito = (<HTMLInputElement>document.getElementById("descripcionMerito")).value;
+    document.getElementById("tablasMeritos").innerHTML='<table class="table align-middle table-hover table-bordered">'
+                                                          +'<thead class="thead-light">'+'<tr>'
+                                                          +'<th class="text-center" scope="col">'+tituloMerito+'</th>'
+                                                          +'<th class="text-center" scope="col">'+porcentaje+' %</th>'
+                                                          +'<th class="text-center" scope="col">'
+                                                          +'<button class="btn btn-outline-primary" type="button">'
+                                                          +'<i class="fa fa-plus"></i>'
+                                                              +'</button></th>'
+                                                          +'</tr>'+'</thead>'
+                                                        +'</table>'
 
+    $('#modalMeritos').modal('hide');
+    (<HTMLInputElement>document.getElementById("tituloMerito")).value = "";
+    (<HTMLInputElement>document.getElementById("porcentaje")).value="";
 
+  }
 
   
 }

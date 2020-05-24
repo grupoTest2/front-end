@@ -10,6 +10,7 @@ import { NavBarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
+import { MeritosComponent } from './components/meritos/meritos.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormConvocatoriaDocenciaComponent } from './components/form-convocatori
     NavBarComponent,
     FooterComponent,
     SidebarComponent,
-    FormConvocatoriaDocenciaComponent
+    FormConvocatoriaDocenciaComponent,
+    MeritosComponent
   ],
   imports: [
     BrowserModule,
