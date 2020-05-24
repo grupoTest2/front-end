@@ -6,7 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 // import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
 // import { ConsoleReporter } from 'jasmine';
 import $ from "jquery";
-import { SeleccionMateria } from 'src/app/models/convocatoria-docente/requerimientos';
+import { SeleccionMateria } from 'src/app/models/convocatoria-docente/seleccion-materias';
 declare var swal: any;
 declare var $: any;
 @Component({
