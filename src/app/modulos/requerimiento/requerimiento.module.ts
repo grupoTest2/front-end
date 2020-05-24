@@ -10,13 +10,12 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class SeleccionMateria {
-
   //mis atributos
   private materiasSeleccionadas: Object[];
   private listaMaterias: Object[];
   private listaMateriasDisponibles: String[];
 
-  constructor(listaMat) {
+  constructor(listaMat:Object[]) {
     this.materiasSeleccionadas = new Array();
     this.listaMaterias = listaMat;
     //console.log(this.listaMaterias);
@@ -79,5 +78,4 @@ export class SeleccionMateria {
   public getMateriasSeleccionadas() {
     return this.materiasSeleccionadas;
   }
-
-}
+ }
