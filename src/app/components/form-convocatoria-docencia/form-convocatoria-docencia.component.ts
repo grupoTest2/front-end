@@ -3,9 +3,7 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import {SeleccionMateria} from 'src/app/modulos/requerimiento/requerimiento.module';
-import { SeleccionRequisito } from 'src/app/modulos/requisito/requisito.module';
-import { Merito } from 'src/app/modulos/merito/merito.module';
+import {SeleccionMateria} from 'src/app/modulos/seleccion-materia/seleccion-materia.module';
 // import $ from "jquery";
  var swal: any;
 declare var $: any;
@@ -19,9 +17,6 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   formRequerimientos: FormGroup;
   idDepartamento = 1;
   seleccionMateria: SeleccionMateria;
-  seleccionRequisito:SeleccionRequisito;
-  listaMeritos:Merito[]=new Array();
-  listaRequisitosSeleccionados:String[];
   materia = {
     nombreMat: null,
     idMat: null,
@@ -38,7 +33,6 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNombreMaterias();
-    this.seleccionRequisito=new SeleccionRequisito();
   }
 
   // formularios con validaciones
@@ -68,6 +62,9 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
       console.log(value.horasMes);
       console.log(value.materia);
   }
+
+
+
   getNombreMaterias() {
     this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
       result => {
@@ -91,7 +88,6 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
     //console.log(this.materiasSeleccionadas); 
     //console.log("funciona el boton");
   }
-
   agregarMateria() {
 
     this.materia.cantidadAux = null;
@@ -102,65 +98,11 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
 
   }
   agregarMateriaBD() {
-    this.apiPHP.agregarRequerimientos(this.seleccionMateria.getMateriasSeleccionadas()).subscribe(
+    this.apiPHP.agregarMateria(this.seleccionMateria.getMateriasSeleccionadas()).subscribe(
       datos => {
         alert(datos['mensaje']);
       }
     );
-  }
-  //metodos para los requisitos
-  establecerRequisitos(){
-
-    this.listaRequisitosSeleccionados=this.seleccionRequisito.getListaRequisitosSeleccionados();
-  }
-  //devuelve una letra del abecedario(minuscula) en base al numero, tomando en cuenta que 0->a
-  public convertirNum(num){
-    return this.seleccionRequisito.getInciso(num);
-  }
-  //metodos de los meritos
-  meritos(){
-    let m1:Merito=new Merito("merito1","descrip1",65);
-    this.agregarMerito(m1);
-    //console.log(this.porcentajeDisponible())
-    let m2:Merito=new Merito("merito2","descrip2",35);
-    this.agregarMerito(m2);
-    //console.log(this.porcentajeDisponible());
-    //console.log(this.listaMeritos);
-    let m3:Merito=new Merito("merito3","descrip3",20);
-    this.agregarMerito2(1,m3);
-    let m4:Merito=new Merito("merito1","descrip1",15);
-    
-    this.agregarMerito2(1,m4);
-    //console.log(this.listaMeritos);
-    let m5:Merito=new Merito("merito5","descrip5",10);
-    this.agregarMerito3(1,0,m5);
-    
-    console.log(this.listaMeritos);
-  }
-  agregarMerito3(i,j,m){
-    let objAux:Merito=this.listaMeritos[i];
-    let listaMe=objAux.getListaMeritos();
-    console.log("la lista de meritos obtenida");
-    console.log(listaMe);
-    console.log(listaMe[j]);
-    listaMe[j].agregarMerito(m);
-  }
-  agregarMerito2(i:number,me:Merito){
-    this.listaMeritos[i].agregarMerito(me);
-  }
-  agregarMerito(merito:Merito){
-    if(this.porcentajeDisponible()>=merito.getPorcentaje()){
-      this.listaMeritos.push(merito);
-    }
-    
-  }
-  porcentajeDisponible(){
-      let sumaPorcentaje:number=0;
-      for (let i in this.listaMeritos) {
-        let objAux:Merito=this.listaMeritos[i];
-        sumaPorcentaje+=objAux.getPorcentaje();
-      }
-      return 100-sumaPorcentaje;
   }
 
   alertEliminar() {
