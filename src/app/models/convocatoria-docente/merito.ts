@@ -4,11 +4,11 @@ export class Merito {
   private descripcion:string;
   private porcentaje:number;
   private listaMeritos:Merito[];
-  public constructor(titulo:string,descrip:string=null,porcentaje:number){
+  public constructor(titulo:string,descrip:string,porcentaje:number, listaMeritos= []){
     this.titulo=titulo;
     this.descripcion=descrip;
     this.porcentaje=porcentaje;
-    this.listaMeritos=new Array();
+    this.listaMeritos=listaMeritos;
   }
   public getTitulo():string{
     return this.titulo;
@@ -44,4 +44,5 @@ export class Merito {
     }
     return this.porcentaje-sumaPorcentaje;
   }
+
 }
