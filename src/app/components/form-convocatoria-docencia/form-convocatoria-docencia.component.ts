@@ -3,8 +3,8 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
-import { ConsoleReporter } from 'jasmine';
+// import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
+// import { ConsoleReporter } from 'jasmine';
 // import $ from "jquery";
 declare var swal: any;
 declare var $: any;
@@ -29,6 +29,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   listaMateriasDisponibles: String[];
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
+    this.buildForm();
 
   }
 
@@ -39,9 +40,8 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   // formularios con validaciones
   private buildForm() {
     this.formRequerimientos = this.formBuilder.group({
-      items: ['',  [Validators.required]],
-      cantidadAux: ['', [Validators.required]],
-      horasMes: ['', [Validators.required]],
+      items: ['',  Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       materia: ['', [Validators.required]],
     });
 
@@ -52,11 +52,44 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   }
   save(event: Event){
       event.preventDefault();
-      const value = this.formRequerimientos.value;
+      if(this.formRequerimientos.valid){
+        const value = this.formRequerimientos.value;
       console.log(value);
+      }else{
+        this.formRequerimientos.markAllAsTouched();
+        console.log("marca");
+      }
   }
 
+  get materiaForm(){
+    return this.formRequerimientos.get('materia');
+  }
+  get materiaFormIsValid(){
+    return this.materiaForm.touched && this.materiaForm.valid;
+  }
+  get materiaFormIsInvalid(){
+    return this.materiaForm.touched && this.materiaForm.invalid;
+  }
 
+  get horasMes(){
+    return this.formRequerimientos.get('horasMes');
+  }
+  get horasMesIsValid(){
+    return this.horasMes.touched && this.horasMes.valid;
+  }
+  get horasMesIsInvalid(){
+    return this.horasMes.touched && this.horasMes.invalid;
+  }
+
+  get item(){
+    return this.formRequerimientos.get('items');
+  }
+  get itemIsValid(){
+    return this.item.touched && this.item.valid;
+  }
+  get itemIsInvalid(){
+    return this.item.touched && this.item.invalid;
+  }
 
   getNombreMaterias() {
     this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
