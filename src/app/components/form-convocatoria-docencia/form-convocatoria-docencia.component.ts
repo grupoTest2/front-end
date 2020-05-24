@@ -44,9 +44,8 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   // formularios con validaciones
   private buildForm() {
     this.formRequerimientos = this.formBuilder.group({
-      items: ['',  [Validators.required]],
-      cantidadAux: ['', [Validators.required]],
-      horasMes: ['', [Validators.required]],
+      items: ['',  Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       materia: ['', [Validators.required]],
     });
     
