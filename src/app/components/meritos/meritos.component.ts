@@ -11,6 +11,7 @@ import { Merito } from '../../models/convocatoria-docente/merito';
 export class MeritosComponent implements OnInit {
 
   tablasMeritos: Merito[] = [];
+  indiceSubMerito: number =0;
   static merito1: Merito = new Merito("","",0,[]);
   static merito2: Merito = new Merito("","",0,[]);
 
@@ -68,10 +69,14 @@ export class MeritosComponent implements OnInit {
       return false;
     }
   }
+  getIndiceSubMerito(i: number){
+    this.indiceSubMerito = i;
+  }
 
   addMeritos(){
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("detalleSubMerito")).value;
     var porcentajeSubMerito = (<HTMLInputElement>document.getElementById("porcentajeSubMerito")).value;
+    this.tablasMeritos
     this.listaMeritosTabla.push(
       {
         tituloSubMerito: tituloSubMerito,
