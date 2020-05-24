@@ -3,7 +3,12 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+<<<<<<< HEAD
 import {SeleccionMateria} from 'src/app/modulos/seleccion-materia/seleccion-materia.module';
+=======
+import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
+import { ConsoleReporter } from 'jasmine';
+>>>>>>> parent of b1fd732... Validacion formulario c
 // import $ from "jquery";
  var swal: any;
 declare var $: any;
@@ -28,7 +33,11 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   listaMateriasDisponibles: String[];
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
+<<<<<<< HEAD
     this.buildForm();
+=======
+
+>>>>>>> parent of b1fd732... Validacion formulario c
   }
 
   ngOnInit(): void {
@@ -38,8 +47,9 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   // formularios con validaciones
   private buildForm() {
     this.formRequerimientos = this.formBuilder.group({
-      items: ['',  Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
-      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      items: ['',  [Validators.required]],
+      cantidadAux: ['', [Validators.required]],
+      horasMes: ['', [Validators.required]],
       materia: ['', [Validators.required]],
     });
     
@@ -54,6 +64,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   save(event: Event){
       event.preventDefault();
       const value = this.formRequerimientos.value;
+<<<<<<< HEAD
       console.log("dentro el save");
       console.log(value);
       
@@ -61,6 +72,9 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
       console.log(value.cantidadAux);
       console.log(value.horasMes);
       console.log(value.materia);
+=======
+      console.log(value);
+>>>>>>> parent of b1fd732... Validacion formulario c
   }
 
 
