@@ -30,7 +30,6 @@
                     </thead>
                     <tbody>
                         <tr *ngIf="merito1.getDescripcion().length != 0">
-                            <!---------------------arreglar ------------------>
                             <td colspan="2">{{merito1.getDescripcion()}}</td>
                             <td class="text-center">
                                 <div class="btn btn-group" role="group">
@@ -43,9 +42,9 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let merito of tablaMeritos[0].listaMeritos; let i = index">
-                            <td>{{merito.tituloSubMerito}}</td>
-                            <td class="text-center">{{merito.porcentajeSubMerito}}</td>
+                        <tr *ngFor="let subMerito of merito1.getListaMeritos(); let i = index">
+                            <td>{{subMerito.getTitulo()}}</td>
+                            <td class="text-center">{{subMerito.getPorcentaje()}}</td>
                             <td class="text-center">
                                 <div class="btn btn-group" role="group">
                                     <button class="btn btn-outline-success mr-1" type="button">
@@ -54,7 +53,7 @@
                                     <button class="btn btn-outline-danger mr-1" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                    <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal2" (click)="getIndiceSubMerito(i);">
+                                    <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal2" (click)="setIndiceSubMerito(i);">
                                         <i class="fa fa-plus" ></i>
                                     </button>
                                 </div>

@@ -50,15 +50,7 @@ export class MeritosComponent implements OnInit {
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje1")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
-    // this.tablaMeritos.push({
-    //   nombre: tituloMerito,
-    //   porcentaje: porcentaje,
-    //   descripcion: descripcionMerito,
-    //   listaMeritos: [],
-    //   subMeritos: []
-    // });
     this.tablasMeritos.push(merito);
-    // console.log(tituloMerito, porcentaje);
     console.log(merito);
   }
 
@@ -69,25 +61,17 @@ export class MeritosComponent implements OnInit {
       return false;
     }
   }
-  getIndiceSubMerito(i: number){
+  setIndiceSubMerito(i: number){
     this.indiceSubMerito = i;
   }
 
   addMeritos(){
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("detalleSubMerito")).value;
-    var porcentajeSubMerito = (<HTMLInputElement>document.getElementById("porcentajeSubMerito")).value;
-    this.tablasMeritos
-    this.listaMeritosTabla.push(
-      {
-        tituloSubMerito: tituloSubMerito,
-        porcentajeSubMerito: porcentajeSubMerito
-      }
-    );
-    this.tablaMeritos[0].listaMeritos.push ({
-      tituloSubMerito: tituloSubMerito,
-      porcentajeSubMerito: porcentajeSubMerito
-    });
-    console.log(tituloSubMerito, porcentajeSubMerito)
+    var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentajeSubMerito")).value);
+    var merito: Merito = new Merito(tituloSubMerito,"",porcentajeSubMerito, []);
+
+    this.tablasMeritos[this.indiceSubMerito].getListaMeritos().push(merito);
+    console.log(this.tablasMeritos[this.indiceSubMerito].getListaMeritos());
   }
 
   addSubMeritos(){
