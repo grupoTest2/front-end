@@ -23,10 +23,13 @@ export class Merito {
   public getListaMeritos():Merito[]{
     return this.listaMeritos;
   }
-  public agregarMerito(merito:Merito){
+  public agregarMerito(merito:Merito):boolean{
+    let res:boolean=false;
     if (this.quedaPorcentaje() && merito.getPorcentaje()<=this.getPorcentajeDisponible()) {
       this.listaMeritos.push(merito);
+      res=true;
     }
+    return res;
   }
   private quedaPorcentaje():boolean{
     let sumaPorcentaje:number=0;
