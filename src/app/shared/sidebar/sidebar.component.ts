@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +16,10 @@ export class SidebarComponent implements OnInit {
       this.estado=false;
     else
       this.estado=true;
+  }
+   //metodo para deslisar el menu despeglabe de la izquierda
+   toggleSideVar() {
+    $('#sidebar').toggleClass('active');
   }
 
 }
