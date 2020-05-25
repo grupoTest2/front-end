@@ -88,10 +88,11 @@ export class MeritosComponent implements OnInit {
     this.indice1 = j;
     this.indice2 = k;
   }
+  /*
   setVariosIndices3(j:number, k: number, l:number) {
     this.indice1 = j;
     this.indice2 = k;
     this.indice3 = l;
-  }
+  }*/
 }
 
