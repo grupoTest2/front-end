@@ -61,6 +61,16 @@ export class MeritosComponent implements OnInit {
     console.log(this.tablasMeritos, "ngFor 3 ----------------------------");
   }
 
+  tieneMeritos(merito: Merito): boolean{
+    return merito.getListaMeritos().length !== 0;
+  }
+  indicesSubMeritos(x: number, y: number){
+    this.indice1 = x;
+    this.indice2 = y;
+  }
+  mostrarSubMeritos(){
+    return this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos();
+  }
 // nivel 4 -----------------------------------------------------------------------
 /*agregarMeritoNivel4() {
   var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito2")).value;
