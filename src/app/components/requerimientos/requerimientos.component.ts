@@ -3,8 +3,9 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import $ from "jquery";
+import * as $ from 'jquery';
 import { SeleccionMateria } from 'src/app/models/convocatoria-docente/seleccion-materias';
+import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
 declare var swal: any;
 declare var tata: any;
 declare var $: any;
@@ -29,6 +30,12 @@ export class RequerimientosComponent implements OnInit {
   listaMaterias: Object[] = new Array();
   listaMateriasDisponibles: String[];
 
+  //objeto para generar que recoorra el ngFor
+  requerimiento: Requerimiento;//////////////
+  listaRequerimientos: Requerimiento[]=[];/////////////
+  ///////////////////////////////////////////
+
+
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
     this.buildForm();
 
@@ -41,7 +48,7 @@ export class RequerimientosComponent implements OnInit {
   // formularios con validaciones
   private buildForm() {
     this.formRequerimientos = this.formBuilder.group({
-      items: ['',  Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      items: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       materia: ['', [Validators.required]],
     });
@@ -51,44 +58,44 @@ export class RequerimientosComponent implements OnInit {
         console.log(value);
       });
   }
-  save(event: Event){
-      event.preventDefault();
-      if(this.formRequerimientos.valid){
-        const value = this.formRequerimientos.value;
+  save(event: Event) {
+    event.preventDefault();
+    if (this.formRequerimientos.valid) {
+      const value = this.formRequerimientos.value;
       console.log(value);
-      }else{
-        this.formRequerimientos.markAllAsTouched();
-        console.log("marca");
-      }
+    } else {
+      this.formRequerimientos.markAllAsTouched();
+      console.log("marca");
+    }
   }
 
-  get materiaForm(){
+  get materiaForm() {
     return this.formRequerimientos.get('materia');
   }
-  get materiaFormIsValid(){
+  get materiaFormIsValid() {
     return this.materiaForm.touched && this.materiaForm.valid;
   }
-  get materiaFormIsInvalid(){
+  get materiaFormIsInvalid() {
     return this.materiaForm.touched && this.materiaForm.invalid;
   }
 
-  get horasMes(){
+  get horasMes() {
     return this.formRequerimientos.get('horasMes');
   }
-  get horasMesIsValid(){
+  get horasMesIsValid() {
     return this.horasMes.touched && this.horasMes.valid;
   }
-  get horasMesIsInvalid(){
+  get horasMesIsInvalid() {
     return this.horasMes.touched && this.horasMes.invalid;
   }
 
-  get item(){
+  get item() {
     return this.formRequerimientos.get('items');
   }
-  get itemIsValid(){
+  get itemIsValid() {
     return this.item.touched && this.item.valid;
   }
-  get itemIsInvalid(){
+  get itemIsInvalid() {
     return this.item.touched && this.item.invalid;
   }
 
@@ -156,17 +163,36 @@ export class RequerimientosComponent implements OnInit {
     })
   }
   // notificaciones--------------------------------
-  toastExitoso(){
+  toastExitoso() {
     tata.success('Agregado.', 'El merito fue creado con exito.', {
       duration: 2000,
       animate: 'slide'
     });
   }
-  toastError(){
+  toastError() {
     tata.error('Elinimado', 'El merito fue creado exitosamente', {
       duration: 2000,
       animate: 'slide'
     });
   }
 
+
+
+
+
+
+
+
+
+
+  // metodos para almacenar lo de la interfaz
+  guardarRequerimientos() {
+    let numeroItems = parseInt($('#itemRequerimiento').val());
+    let horasM = parseInt($('#horasMesRequerimiento').val());
+    let nombreMateria = $('#seleccionaMateria').val()
+
+    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    this.listaRequerimientos.push(this.requerimiento);
+ console.log(this.requerimiento);
+  }
 }
