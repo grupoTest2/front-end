@@ -11,6 +11,11 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
 import { MeritosComponent } from './components/meritos/meritos.component';
+import { RequerimientosComponent } from './components/requerimientos/requerimientos.component';
+import { RequisitosComponent } from './components/requisitos/requisitos.component';
+import { DocumentosPresentarComponent } from './components/documentos-presentar/documentos-presentar.component';
+import { CalificacionConocimientosComponent } from './components/calificacion-conocimientos/calificacion-conocimientos.component';
+import { FechasComponent } from './components/fechas/fechas.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { MeritosComponent } from './components/meritos/meritos.component';
     FooterComponent,
     SidebarComponent,
     FormConvocatoriaDocenciaComponent,
-    MeritosComponent
+    MeritosComponent,
+    RequerimientosComponent,
+    RequisitosComponent,
+    DocumentosPresentarComponent,
+    CalificacionConocimientosComponent,
+    FechasComponent
   ],
   imports: [
     BrowserModule,

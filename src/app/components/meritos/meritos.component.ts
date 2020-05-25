@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Merito } from '../../models/convocatoria-docente/merito';
 
+declare var tata: any;
+declare var $: any;
 @Component({
   selector: 'app-meritos',
   templateUrl: './meritos.component.html',
@@ -36,7 +38,12 @@ export class MeritosComponent implements OnInit {
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     this.tablasMeritos.push(merito);
-
+    this.toastExitoso();
+    $('#modal1').modal('hide'); //cierra el nodal
+    //resetea valores a vacio
+    (<HTMLInputElement>document.getElementById("tituloM1")).value = "";
+    (<HTMLInputElement>document.getElementById("porcentajeM1")).value = "";
+    (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
   }
 
   //nivel 2------------------------------------------------------------
@@ -47,7 +54,10 @@ export class MeritosComponent implements OnInit {
 
     this.tablasMeritos[this.indice1].getListaMeritos().push(merito);
     console.log(this.tablasMeritos);
-    console.log("------------------------------------------------------");
+    this.toastExitoso();
+    $('#modal2').modal('hide');
+    (<HTMLInputElement>document.getElementById("titulo2")).value = "";
+    (<HTMLInputElement>document.getElementById("porcentaje2")).value = "";
   }
 
   // nivel 3 ----------------------------------------------------------
@@ -58,21 +68,35 @@ export class MeritosComponent implements OnInit {
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
 
     this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos().push(merito);
-    console.log(this.tablasMeritos, "ngFor 3 ----------------------------");
+    this.toastExitoso();
+    $('#modal3').modal('hide');
+    (<HTMLInputElement>document.getElementById("tituloMerito3")).value = "";
+    (<HTMLInputElement>document.getElementById("porcentaje3")).value = "";
+    (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
   }
 
-// nivel 4 -----------------------------------------------------------------------
-/*agregarMeritoNivel4() {
-  var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito2")).value;
-  var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
-  var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos2")).value;
-  var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
-
-  this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2]
-    .getListaMeritos()[this.indice3]
-    .getListaMeritos().push(merito);
-  console.log(this.tablasMeritos, "ngFor 3---------------------------------------");
-}*/
+  tieneMeritos(merito: Merito): boolean{
+    return merito.getListaMeritos().length !== 0;
+  }
+  indicesSubMeritos(x: number, y: number){
+    this.indice1 = x;
+    this.indice2 = y;
+  }
+  mostrarSubMeritos(){
+    return this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos();
+  }
+  toastExitoso(){
+    tata.success('Agregado.', 'El merito fue creado con exito.', {
+      duration: 2000,
+      animate: 'slide'
+    });
+  }
+  toastError(){
+    tata.error('Elinimado', 'El merito fue creado exitosamente', {
+      duration: 2000,
+      animate: 'slide'
+    });
+  }
 
 //indice1 -------------------------------------------------------------------------------
   setIndice1(i: number) {

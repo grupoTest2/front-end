@@ -14,7 +14,7 @@
             </div>
             <div class="table-responsive">
                 <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Items</th>
                             <th class="text-center" scope="col">Cantidad(Aux.)</th>
@@ -55,7 +55,7 @@
             </div>
             <div class="mt-3 table-responsive">
                 <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Detalle Requisito</th>
                             <th class="text-center" scope="col">Acciones</th>
@@ -90,7 +90,7 @@
             </div>
             <div class="mt-3 table-responsive">
                 <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Detalle documentos</th>
                             <th class="text-center" scope="col">Acciones</th>
@@ -122,42 +122,7 @@
         </div>
         <br>
         <div class="form-group">
-            <div class="d-flex justify-content-between align-items-end">
-                <label for="requisitos">5.- Calificación de méritos</label>
-                <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modalMeritos">
-                        <i class="fa fa-plus"></i> Añadir
-                </button>
-            </div>
-            <div id="tablasMeritos">
-                <div class="mt-3 table-responsive">
-                    <table class="table align-middle table-hover table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th class="text-center" scope="col">Descripción de meritos</th>
-                                <th class="text-center" scope="col">Porcentaje(%)</th>
-                                <th class="text-center" scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
-                                    reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
-                                <td class="text-center">40</td>
-                                <td class="text-right">
-                                    <div class="btn btn-group" role="group">
-                                        <button class="btn btn-outline-success mr-1" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <app-meritos></app-meritos>
         </div>
         <br>
         <div class="form-group">
@@ -169,7 +134,7 @@
             </div>
             <div class="mt-3 table-responsive">
                 <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Detalle calificacion</th>
                             <th class="text-center" scope="col">Porcentaje(%)</th>
@@ -211,7 +176,7 @@
             </div>
             <div class="table-responsive mt-3">
                 <table class="table align-middle table-hover table-bordered" id="requerimientos">
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Evento</th>
                             <th class="text-center" scope="col">Fechas</th>
@@ -337,7 +302,7 @@
                     </div>
                     <div class="table-responsive mt-3">
                         <table class="table align-middle table-hover table-bordered">
-                            <thead class="thead-light">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th class="text-center" scope="col"><input id="tituloMerito" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
                                     <th class="text-center" scope="col"><input id="porcentaje" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
