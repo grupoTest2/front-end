@@ -4,7 +4,7 @@ export class Merito {
   private descripcion:string;
   private porcentaje:number;
   private listaMeritos:Merito[];
-  public constructor(titulo:string,descrip:string,porcentaje:number, listaMeritos= []){
+  public constructor(titulo:string,descrip:string,porcentaje:number, listaMeritos: Merito[]= []){
     this.titulo=titulo;
     this.descripcion=descrip;
     this.porcentaje=porcentaje;
