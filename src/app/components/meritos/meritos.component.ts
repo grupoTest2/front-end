@@ -11,74 +11,87 @@ import { Merito } from '../../models/convocatoria-docente/merito';
 export class MeritosComponent implements OnInit {
 
   tablasMeritos: Merito[] = [];
-  indiceMerito: number = 0;
-  indiceMerito2: number = 0;
-  indiceSubMerito: number = 0;
-  static merito1: Merito = new Merito("","",0,[]);
+
+  indice1: number = 0;
+  indice2: number = 0;
+  indice3: number = 0;
+
+  //detalles merito
+  merito1: Merito=new Merito(" "," ",0,[]);
+  tituloMerito: String=" ";
+  porcentajeMerito: number=0;
+  descripcionMerito: String=" ";
 
   constructor() {
   }
 
-
   ngOnInit(): void {
   }
 
-  agregar(){
-    var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito1")).value;
-    var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje1")).value);
-    var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos1")).value;
+
+  //nivel 1------------------------------------------------------------
+  agregarMeritoNivel1() {
+    var tituloMerito = (<HTMLInputElement>document.getElementById("tituloM1")).value;
+    var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentajeM1")).value);
+    var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     this.tablasMeritos.push(merito);
-    console.log(merito);
+
   }
 
-  setIndiceMerito(i: number){
-    this.indiceMerito = i;
-  }
-  setIndiceSubMerito(j: number){
-    this.indiceSubMerito = j;
-  }
+  //nivel 2------------------------------------------------------------
+  agregarMeritoNivel2() {
+    var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
+    var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
+    var merito: Merito = new Merito( tituloSubMerito, '', porcentajeSubMerito, []);
 
-  // indices segundo ngFor ----------------------
-  setIndiceMerito1(indiceMerito1: number, indiceMerito2: number){
-    this.indiceMerito = indiceMerito1;
-    this.indiceMerito2 = indiceMerito2;
-  }
-
-  setIndiceSubMerito1(indiceMerito1: number, indiceMerito2: number, indiceSubMerito: number){
-    this.indiceMerito = indiceMerito1;
-    this.indiceMerito2 = indiceMerito2;
-    this.indiceSubMerito = indiceSubMerito;
-  }
-
-  getIndiceSubMerito(){
-    return this.indiceSubMerito;
-  }
-  // segundo ngFor------------------------
-  addMeritos(){
-    var tituloSubMerito = (<HTMLInputElement>document.getElementById("detalleSubMerito")).value;
-    var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentajeSubMerito")).value);
-    var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
-
-    this.tablasMeritos[this.indiceMerito].getListaMeritos().push(merito);
+    this.tablasMeritos[this.indice1].getListaMeritos().push(merito);
     console.log(this.tablasMeritos);
+    console.log("------------------------------------------------------");
   }
 
-  // tercero ngFor -----------------------
-  agregarMeritos(){
-    var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito2")).value;
-    var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
-    var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos2")).value;
+  // nivel 3 ----------------------------------------------------------
+  agregarMeritoNivel3() {
+     var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito3")).value;
+    var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje3")).value);
+    var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos3")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
 
-    this.tablasMeritos[this.indiceMerito].getListaMeritos()[this.indiceMerito2]
-                                         .getListaMeritos()[this.indiceSubMerito]
-                                         .getListaMeritos().push(merito);
-    console.log(this.tablasMeritos, "ngFor 3");
+    this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos().push(merito);
+    console.log(this.tablasMeritos, "ngFor 3 ----------------------------");
   }
 
-  
+// nivel 4 -----------------------------------------------------------------------
+/*agregarMeritoNivel4() {
+  var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito2")).value;
+  var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
+  var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos2")).value;
+  var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
 
+  this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2]
+    .getListaMeritos()[this.indice3]
+    .getListaMeritos().push(merito);
+  console.log(this.tablasMeritos, "ngFor 3---------------------------------------");
+}*/
 
+//indice1 -------------------------------------------------------------------------------
+  setIndice1(i: number) {
+    this.indice1 = i;
+  }
+  setIndice2(j: number) {
+    this.indice2 = j;
+  }
+  setIndice3(k: number) {
+    this.indice3 = k;
+  }
+  setVariosIndices2(j:number, k: number) {
+    this.indice1 = j;
+    this.indice2 = k;
+  }
+  setVariosIndices3(j:number, k: number, l:number) {
+    this.indice1 = j;
+    this.indice2 = k;
+    this.indice3 = l;
+  }
 }
 

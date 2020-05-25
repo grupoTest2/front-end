@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label for="requisitos">5.- Calificación de méritos</label>
-        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal">
+        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal1">
                 <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -16,35 +16,36 @@
                     </tr>
                 </thead>
             </table>
-            <div *ngFor="let merito1 of tablasMeritos; let indiceMerito1 = index" class="mt-0 table-responsive">
+            <div *ngFor="let merito1 of tablasMeritos; let indice1 = index" class="mt-0 table-responsive">
                 <table class="table align-middle table-hover table-bordered">
                     <thead class="thead-light">
                         <tr>
                             <th class="text-center" scope="col">{{merito1.getTitulo()}}</th>
                             <th class="text-center" scope="col" style="width: 150px;">{{merito1.getPorcentaje()}} % </th>
                             <th class="text-center" scope="col" style="width: 200px;">
-                                <button class="btn btn-outline-primary" type="button">
-                                    <i class="fa fa-plus" data-toggle="modal" data-target="#modalSubRequisitos" (click)="setIndiceMerito(indiceMerito1)"></i>
-                                </button></th>
+                                    <div class="btn btn-group" role="group">
+                                    <button class="btn btn-outline-success mr-1" type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger mr-1" type="button">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngIf="merito1.getDescripcion().length !== 0">
                             <td colspan="2">{{merito1.getDescripcion()}}</td>
                             <td class="text-center">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-outline-danger mr-1" type="button">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let merito of merito1.getListaMeritos(); let indiceMerito2 = index">
-                            <td>{{merito.getTitulo()}}</td>
-                            <td class="text-center">{{merito.getPorcentaje()}}</td>
+                        <tr *ngFor="let merito2 of merito1.getListaMeritos(); let indice2 = index">
+                            <td>{{merito2.getTitulo()}}</td>
+                            <td class="text-center">{{merito2.getPorcentaje()}}</td>
                             <td class="text-center">
                                 <div class="btn btn-group" role="group">
                                     <button class="btn btn-outline-success mr-1" type="button">
@@ -53,35 +54,35 @@
                                     <button class="btn btn-outline-danger mr-1" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                    <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal2" (click)="setIndiceMerito1(indiceMerito1, indiceMerito2)">
+                                    <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
                                         <i class="fa fa-plus" ></i>
                                     </button>
                                 </div>
                             </td>
-                            <div *ngFor="let subMerito of merito.getListaMeritos(); let indiceSubMerito = index" class="mt-0 table-responsive">
+                            <div *ngFor="let merito3 of merito2.getListaMeritos(); let indice3 = index" class="mt-0 table-responsive">
                                 <table class="table align-middle table-hover table-bordered">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th class="text-center" scope="col">{{subMerito.getTitulo()}}</th>
-                                            <th class="text-center" scope="col" style="width: 150px;">{{subMerito.getPorcentaje()}} % </th>
+                                            <th class="text-center" scope="col">{{merito3.getTitulo()}}</th>
+                                            <th class="text-center" scope="col" style="width: 150px;">{{merito3.getPorcentaje()}} % </th>
                                             <th class="text-center" scope="col" style="width: 200px;">
-                                                <button class="btn btn-outline-primary" type="button">
-                                                    <i class="fa fa-plus" data-toggle="modal" data-target="#modalSubRequisitos" (click)="setIndiceSubMerito1(indiceMerito1, indiceMerito2, indiceSubMerito)"></i>
-                                                </button>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngIf="subMerito.getDescripcion().length !== 0">
-                                            <td colspan="2">{{subMerito.getDescripcion()}}</td>
+                                        <tr *ngIf="merito3.getDescripcion().length !== 0">
+                                            <td colspan="2">{{merito3.getDescripcion()}}</td>
                                             <td class="text-center">
                                                 <div class="btn btn-group" role="group">
                                                     <button class="btn btn-outline-success mr-1" type="button">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>
+                                                        <i class="fa fa-pencil"></i>
+                                                    </button>
                                                     <button class="btn btn-outline-danger mr-1" type="button">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </button>
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                    <!--<button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
+                                                        <i class="fa fa-plus" ></i>
+                                                    </button>-->
                                                 </div>
                                             </td>
                                         </tr>
@@ -184,7 +185,8 @@
         </table>
     </div> -->
 </div>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--------------------------------modal    1---------------------- -------->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,8 +204,8 @@
                         <table class="table align-middle table-hover table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="text-center" scope="col"><input id="tituloMerito1" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
-                                    <th class="text-center" scope="col"><input id="porcentaje1" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
+                                    <th class="text-center" scope="col"><input id="tituloM1" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
+                                    <th class="text-center" scope="col"><input id="porcentajeM1" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -211,19 +213,19 @@
                     <br>
                     <p class="modal-title" id="descripcionMerito">Agregar descripcion <small class="text-danger">(*)</small> </p>
                     <hr>
-                    <textarea class="form-control" id="requisitos1" rows="3"></textarea>
+                    <textarea class="form-control" id="requisitosM1" rows="3"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="agregar()">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarMeritoNivel1()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="modal fade" id="modalSubRequisitos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--------------------------------modal  2---------------------- -------->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,22 +237,25 @@
             <div class="modal-body" id="modalMeritos">
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Detalle calificacion:</label>
-                    <textarea type="text" class="form-control" rows="3" id="detalleSubMerito"></textarea>
+                    <textarea type="text" class="form-control" rows="3" id="titulo2"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Porcentaje:</label>
-                    <input type="number" min=1 class="form-control" id="porcentajeSubMerito">
+                    <input type="number" min=1 class="form-control" id="porcentaje2">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal" (click)="addMeritos()">Guardar</button>
+                <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal" (click)="agregarMeritoNivel2()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+<!--------------------------------modal 3  ---------------------- -------->
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,8 +273,8 @@
                         <table class="table align-middle table-hover table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="text-center" scope="col"><input id="tituloMerito2" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
-                                    <th class="text-center" scope="col"><input id="porcentaje2" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
+                                    <th class="text-center" scope="col"><input id="tituloMerito3" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
+                                    <th class="text-center" scope="col"><input id="porcentaje3" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -277,12 +282,12 @@
                     <br>
                     <p class="modal-title" id="descripcionMerito">Agregar descripcion <small class="text-danger">(*)</small> </p>
                     <hr>
-                    <textarea class="form-control" id="requisitos2" rows="3"></textarea>
+                    <textarea class="form-control" id="requisitos3" rows="3"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarMeritos()">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarMeritoNivel3()">Guardar</button>
             </div>
         </div>
     </div>
