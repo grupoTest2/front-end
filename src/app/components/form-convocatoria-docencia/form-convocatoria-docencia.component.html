@@ -124,37 +124,39 @@
         <div class="form-group">
             <div class="d-flex justify-content-between align-items-end">
                 <label for="requisitos">5.- Calificación de méritos</label>
-                <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tablaMeritos">
+                <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modalMeritos">
                         <i class="fa fa-plus"></i> Añadir
                 </button>
             </div>
-            <div class="mt-3 table-responsive">
-                <table class="table align-middle table-hover table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center" scope="col">Descripción de meritos</th>
-                            <th class="text-center" scope="col">Porcentaje(%)</th>
-                            <th class="text-center" scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
-                                reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
-                            <td class="text-center">40</td>
-                            <td class="text-right">
-                                <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="tablasMeritos">
+                <div class="mt-3 table-responsive">
+                    <table class="table align-middle table-hover table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center" scope="col">Descripción de meritos</th>
+                                <th class="text-center" scope="col">Porcentaje(%)</th>
+                                <th class="text-center" scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse,
+                                    reiciendis hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                                <td class="text-center">40</td>
+                                <td class="text-right">
+                                    <div class="btn btn-group" role="group">
+                                        <button class="btn btn-outline-success mr-1" type="button">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <br>
@@ -262,47 +264,55 @@
           </button>
             </div>
             <div class="modal-body" id="modalRequerimientos">
-                <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)">
+                <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="items" class="col-form-label">Items: </label>
-                        <input type="number" class="form-control" id="items" formControlName="items">
-                        <small class="text-danger" *ngIf="formRequerimientos.get('items').hasError('required') && formRequerimientos.get('items').touched">
-                            Asigne un item  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
+                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="items" formControlName="items">
+                        <div *ngIf="itemIsInvalid">
+                            <small class="text-danger" *ngIf="item.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="item.hasError('min')">
+                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="item.hasError('pattern')">
+                                Ingrese un valor valido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Cantidad(Aux.) </label>
-                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.cantidadAux" name="cant" formControlName="cantidadAux">
-                        <small class="text-danger" *ngIf="formRequerimientos.get('cantidadAux').hasError('required') && formRequerimientos.get('cantidadAux').touched">
-                            Asigne una cantidad  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Hrs/mes</label>
-                        <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="materia.hrsMes" name="hrs" formControlName="horasMes">
-                        <small class="text-danger" *ngIf="formRequerimientos.get('horasMes').hasError('required') && formRequerimientos.get('horasMes').touched">
-                            Asigne las horas <small class="fal fa-exclamation-triangle"></small>
-                        </small>
+                        <label for="recipient-name" class="col-form-label">Hrs/Mes: </label>
+                        <input type="number" class="form-control" [class.is-invalid]="horasMesIsInvalid" [class.is-valid]="horasMesIsValid" id="horasMes" name="cant" formControlName="horasMes">
+                        <div *ngIf="horasMesIsInvalid">
+                            <small class="text-danger" *ngIf="horasMes.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="horasMes.hasError('min')">
+                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="horasMes.hasError('pattern')">
+                                Ingrese un valor valido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
-                        <select class="custom-select" formControlName="materia">
-                                <option disabled selected >Seleccione una materia</option>
+                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia">
+                                <option disabled >Seleccione una materia</option>
                                 <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
                                 <option  value="intro">intro</option>
                                 <option  value="intro2">intro2</option>
                             </select>
-                        <small class="text-danger" *ngIf="formRequerimientos.get('materia').hasError('required') && formRequerimientos.get('materia').touched">
-                            Seleccione una materia <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                        <div class="invalid-feedback">
-                            Please choose a username.
+                        <div *ngIf="materiaFormIsInvalid">
+                            <small class="text-danger" *ngIf="materiaForm.hasError('required')">
+                                    Seleccione una materia  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
                         </div>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-end mt-4">
+                    <div class="form-group d-flex justify-content-end mt-4">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" [disabled]="formRequerimientos.invalid" class="btn btn-primary" (click)="guardarMateria()" id="guardar">Guardar</button>
+                        <button type="submit" class="btn btn-primary" (onClick)="guardarMateria()" id="guardar">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -311,29 +321,26 @@
 </div>
 
 <!-- Modal para agregar meritos -->
-<div class="modal fade" id="tablaMeritos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMeritos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="">Agregar nuevo merito</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" id="modalMeritos">
                 <div class="form-group">
                     <div class="d-flex justify-content-between align-items-end">
                         <label for="requisitos"></label>
-                        <button class="btn btn-outline-info" type="button" id="but_add">
-                                <i class="fa fa-plus"></i> Añadir
-                        </button>
                     </div>
                     <div class="table-responsive mt-3">
-                        <table class="table align-middle table-hover table-bordered" id="makeEditable">
+                        <table class="table align-middle table-hover table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="text-center" scope="col"><input class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
-                                    <th class="text-center" scope="col"><input class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
+                                    <th class="text-center" scope="col"><input id="tituloMerito" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
+                                    <th class="text-center" scope="col"><input id="porcentaje" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -341,11 +348,15 @@
                             </tbody>
                         </table>
                     </div>
+                    <br>
+                    <p class="modal-title" id="descripcionMerito">Agregar descripcion <small class="text-danger">(*)</small> </p>
+                    <hr>
+                    <textarea class="form-control" id="requisitos" rows="3"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                <button type="submit" class="btn btn-primary" (click)="crearTablaMeritos()">Guardar</button>
             </div>
         </div>
     </div>

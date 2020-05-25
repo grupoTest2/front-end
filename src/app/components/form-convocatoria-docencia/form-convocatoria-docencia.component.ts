@@ -3,9 +3,10 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
-import { ConsoleReporter } from 'jasmine';
-// import $ from "jquery";
+// import { PruebaModule } from 'src/app/modulos/prueba/prueba.module';
+// import { ConsoleReporter } from 'jasmine';
+import $ from "jquery";
+import { SeleccionMateria } from 'src/app/models/convocatoria-docente/seleccion-materias';
 declare var swal: any;
 declare var $: any;
 @Component({
@@ -29,6 +30,7 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   listaMateriasDisponibles: String[];
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
+    this.buildForm();
 
   }
 
@@ -39,9 +41,8 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   // formularios con validaciones
   private buildForm() {
     this.formRequerimientos = this.formBuilder.group({
-      items: ['',  [Validators.required]],
-      cantidadAux: ['', [Validators.required]],
-      horasMes: ['', [Validators.required]],
+      items: ['',  Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       materia: ['', [Validators.required]],
     });
 
@@ -52,11 +53,44 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
   }
   save(event: Event){
       event.preventDefault();
-      const value = this.formRequerimientos.value;
+      if(this.formRequerimientos.valid){
+        const value = this.formRequerimientos.value;
       console.log(value);
+      }else{
+        this.formRequerimientos.markAllAsTouched();
+        console.log("marca");
+      }
   }
 
+  get materiaForm(){
+    return this.formRequerimientos.get('materia');
+  }
+  get materiaFormIsValid(){
+    return this.materiaForm.touched && this.materiaForm.valid;
+  }
+  get materiaFormIsInvalid(){
+    return this.materiaForm.touched && this.materiaForm.invalid;
+  }
 
+  get horasMes(){
+    return this.formRequerimientos.get('horasMes');
+  }
+  get horasMesIsValid(){
+    return this.horasMes.touched && this.horasMes.valid;
+  }
+  get horasMesIsInvalid(){
+    return this.horasMes.touched && this.horasMes.invalid;
+  }
+
+  get item(){
+    return this.formRequerimientos.get('items');
+  }
+  get itemIsValid(){
+    return this.item.touched && this.item.valid;
+  }
+  get itemIsInvalid(){
+    return this.item.touched && this.item.invalid;
+  }
 
   getNombreMaterias() {
     this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
@@ -124,78 +158,28 @@ export class FormConvocatoriaDocenciaComponent implements OnInit {
 
 
 
+  // crea tabla meritos-----------------------------------
+  crearTablaMeritos(){
+    var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito")).value;
+    var porcentaje = (<HTMLInputElement>document.getElementById("porcentaje")).value;
+    var descripcionMerito = (<HTMLInputElement>document.getElementById("descripcionMerito")).value;
+    document.getElementById("tablasMeritos").innerHTML='<table class="table align-middle table-hover table-bordered">'
+                                                          +'<thead class="thead-light">'+'<tr>'
+                                                          +'<th class="text-center" scope="col">'+tituloMerito+'</th>'
+                                                          +'<th class="text-center" scope="col">'+porcentaje+' %</th>'
+                                                          +'<th class="text-center" scope="col">'
+                                                          +'<button class="btn btn-outline-primary" type="button">'
+                                                          +'<i class="fa fa-plus"></i>'
+                                                              +'</button></th>'
+                                                          +'</tr>'+'</thead>'
+                                                        +'</table>'
 
+    $('#modalMeritos').modal('hide');
+    (<HTMLInputElement>document.getElementById("tituloMerito")).value = "";
+    (<HTMLInputElement>document.getElementById("porcentaje")).value="";
 
+  }
 
   
-}
-class SeleccionMateria {
-  //mis atributos
-  private materiasSeleccionadas: Object[];
-  private listaMaterias: Object[];
-  private listaMateriasDisponibles: String[];
 
-  constructor(listaMat) {
-    this.materiasSeleccionadas = new Array();
-    this.listaMaterias = listaMat;
-    //console.log(this.listaMaterias);
-    this.actualizarListaMatDisponibles();
-  }
-
-  public actualizarListaMatDisponibles() {
-    this.listaMateriasDisponibles = new Array();
-    for (let i in this.listaMaterias) {
-      let mat: any = this.listaMaterias[i];
-      if (!mat.seleccionado) {
-        this.listaMateriasDisponibles.push(mat.nombreMat);
-
-      }
-    }
-    //console.log(this.listaMateriasDisponibles);
-  }
-  //devuelve el id de la materia que se esta buscando
-  getIdMateria(nombMat) {
-    let res = -1;
-    for (let i in this.listaMaterias) {
-      let mat: any = this.listaMaterias[i];
-      if (mat.nombreMat == nombMat) {
-        res = mat.idMat;
-        break;
-      }
-    }
-    return res;
-  }
-
-  public agregarMateriaSeleccionada(materia) {
-    if (materia.nombreMat != null && materia.cantidadAux != null && materia.hrsMes != null) {
-      let idMateria = this.getIdMateria(materia.nombreMat);
-      if (idMateria != -1) {
-        materia.idMat = idMateria;
-        this.deshabilitarSeleccion(materia.nombreMat);
-        this.materiasSeleccionadas.push(materia);
-        console.log(JSON.stringify(this.materiasSeleccionadas));
-      }
-    }
-  }
-
-  public deshabilitarSeleccion(nombreMatForm) {
-    for (let i in this.listaMaterias) {
-      let mat: any = this.listaMaterias[i];
-      if (mat.nombreMat == nombreMatForm) {
-        mat.seleccionado = true;
-      }
-    }
-    this.actualizarListaMatDisponibles();
-  }
-  public existeMateriasSeleccionas() {
-    return this.materiasSeleccionadas.length > 0;
-  }
-
-  public getListaMateriasDisponibles() {
-    return this.listaMateriasDisponibles;
-  }
-
-  public getMateriasSeleccionadas() {
-    return this.materiasSeleccionadas;
-  }
 }
