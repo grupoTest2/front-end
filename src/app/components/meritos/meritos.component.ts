@@ -45,6 +45,12 @@ export class MeritosComponent implements OnInit {
     this.indiceMerito2 = indiceMerito2;
   }
 
+  setIndiceSubMerito1(indiceMerito1: number, indiceMerito2: number, indiceSubMerito: number){
+    this.indiceMerito = indiceMerito1;
+    this.indiceMerito2 = indiceMerito2;
+    this.indiceSubMerito = indiceSubMerito;
+  }
+
   getIndiceSubMerito(){
     return this.indiceSubMerito;
   }
@@ -54,7 +60,7 @@ export class MeritosComponent implements OnInit {
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentajeSubMerito")).value);
     var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
 
-    this.tablasMeritos[this.indiceSubMerito].getListaMeritos().push(merito);
+    this.tablasMeritos[this.indiceMerito].getListaMeritos().push(merito);
     console.log(this.tablasMeritos);
   }
 
@@ -65,22 +71,14 @@ export class MeritosComponent implements OnInit {
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos2")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
 
-    this.tablasMeritos[this.indiceMerito].getListaMeritos()[this.indiceMerito2].getListaMeritos().push(merito);
+    this.tablasMeritos[this.indiceMerito].getListaMeritos()[this.indiceMerito2]
+                                         .getListaMeritos()[this.indiceSubMerito]
+                                         .getListaMeritos().push(merito);
     console.log(this.tablasMeritos, "ngFor 3");
   }
 
-  agregarDatosMeritos(nombre: string, descripcion: string, porcentaje: number){
-    const merito: Merito = new Merito(nombre, descripcion, porcentaje, []);
-    this.tablasMeritos.push(merito);
-  }
+  
 
-  crearSubTablasMeritos(nombre: string, descripcion: string, porcentaje: number, i: number){
-    const merito: Merito = new Merito(nombre, descripcion, porcentaje, []);
-    this.tablasMeritos[i].getListaMeritos().push(merito);
-  }
 
-  mostrarMerito(merito:Merito){
-    console.log("---------------------------------", merito);
-  }
 }
 
