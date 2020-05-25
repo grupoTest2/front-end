@@ -20,7 +20,7 @@
                 <table class="table align-middle table-hover table-bordered">
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-center" scope="col">{{merito1.getTitulo()}}</th>
+                            <th class="text-center" scope="col">{{merito1.getTitulo() |titlecase}}</th>
                             <th class="text-center" scope="col" style="width: 150px;">{{merito1.getPorcentaje()}} % </th>
                             <th class="text-center" scope="col" style="width: 200px;">
                                 <div class="btn btn-group" role="group">
@@ -39,8 +39,8 @@
                     </thead>
                     <tbody>
                         <tr *ngIf="merito1.getDescripcion().length !== 0">
-                            <td colspan="2">{{merito1.getDescripcion()}}</td>
-                            <td class="text-center">
+                            <td colspan="2" class="table-active font-weight-normal">{{merito1.getDescripcion() | titlecase}}</td>
+                            <td class="text-center table-active">
                             </td>
                         </tr>
                         <tr *ngFor="let merito2 of merito1.getListaMeritos(); let indice2 = index">
@@ -112,11 +112,6 @@
                                                         <th class="text-center" scope="col">{{i+1}}.-{{merito3.getTitulo()}}</th>
                                                         <th class="text-center" scope="col" style="width: 150px;">{{merito3.getPorcentaje()}} % </th>
                                                         <th class="text-center" scope="col" style="width: 200px;">
-                                                        </th>
-                                                    </tr>
-                                                    <tr *ngIf="merito3.getDescripcion().length !== 0">
-                                                        <td colspan="2">{{merito3.getDescripcion()}}</td>
-                                                        <td class="text-center">
                                                             <div class="btn btn-group" role="group">
                                                                 <button class="btn btn-outline-success mr-1" type="button">
                                                                     <i class="fa fa-pencil"></i>
@@ -124,10 +119,13 @@
                                                                 <button class="btn btn-outline-danger mr-1" type="button">
                                                                     <i class="fa fa-trash-alt"></i>
                                                                 </button>
-                                                                <!-- <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
-                                                                    <i class="fa fa-plus" ></i>
-                                                                </button> -->
                                                             </div>
+                                                        </th>
+                                                    </tr>
+                                                    <tr *ngIf="merito3.getDescripcion().length !== 0">
+                                                        <td colspan="2">{{merito3.getDescripcion()}}</td>
+                                                        <td class="text-center">
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
