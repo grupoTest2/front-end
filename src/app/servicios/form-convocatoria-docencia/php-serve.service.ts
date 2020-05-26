@@ -13,7 +13,20 @@ export class PhpServeService {
   return this.http.get(`${this.URL}convocatoriaDocencia/obtenerNombreMaterias.php?idDep=${idDep}`);
   }
   
-  public agregarMateria(listaMaterias){
+  public agregarRequerimientos(listaMaterias){
     return this.http.post(`${this.URL}convocatoriaDocencia/agregarMaterias.php`, JSON.stringify(listaMaterias));
+  }
+  public getRequisitos(){
+  return this.http.get(`${this.URL}convocatoriaDocencia/obtenerRequisitos.php`);
+  }
+  public agregarRequisitos(listaRequisitos){
+    return this.http.post(`${this.URL}convocatoriaDocencia/establecerRequisitos.php`, JSON.stringify(listaRequisitos));
+  }
+  public getEventos(){
+    return this.http.get(`${this.URL}convocatoriaDocencia/obtenerEventos.php`);
+  }
+
+  public agregarEventos(listaEventos){
+    return this.http.post(`${this.URL}convocatoriaDocencia/establecerEventos.php`, JSON.stringify(listaEventos));
   }
 }

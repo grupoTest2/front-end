@@ -1,11 +1,12 @@
 import { Requerimiento } from './requerimiento';
+import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 
 export class SeleccionRequerimiento{
     //mis atributos
     private materiasSeleccionadas:Requerimiento[];
     private listaMaterias: Object[];
     private listaMateriasDisponibles: String[];
-  
+    
     constructor(listaMat:Object[]) {
       this.materiasSeleccionadas = new Array();
       this.listaMaterias = listaMat;
@@ -25,7 +26,7 @@ export class SeleccionRequerimiento{
       //console.log(this.listaMateriasDisponibles);
     }
     //devuelve el id de la materia que se esta buscando
-    getIdMateria(nombMat) {
+    private getIdMateria(nombMat) {
       let res = -1;
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
