@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Merito } from '../../models/convocatoria-docente/merito';
+import { SeleccionMerito } from 'src/app/models/convocatoria-docente/seleccion-meritos';
 
 declare var tata: any;
 declare var $: any;
@@ -12,8 +13,8 @@ declare var $: any;
 
 export class MeritosComponent implements OnInit {
 
-  tablasMeritos: Merito[] = [];
-
+  tablasMeritos: Merito[];
+  seleccionMerito:SeleccionMerito;
   indice1: number = 0;
   indice2: number = 0;
   indice3: number = 0;
@@ -28,6 +29,8 @@ export class MeritosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.seleccionMerito=new SeleccionMerito();
+    this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
   }
 
 
@@ -37,8 +40,16 @@ export class MeritosComponent implements OnInit {
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentajeM1")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
-    this.tablasMeritos.push(merito);
-    this.toastExitoso();
+    //agregar merito a traves del objeto seleccionMerito
+    let resp=this.seleccionMerito.agregarMerito(merito);
+    if(resp){
+      //el merito se agrego correctamente
+      this.toastExitoso();
+    }else{
+      //error, el merito no se pudo agregar(por problema de porcentajes)
+    }
+    this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
+    
     $('#modal1').modal('hide'); //cierra el nodal
     //resetea valores a vacio
     (<HTMLInputElement>document.getElementById("tituloM1")).value = "";

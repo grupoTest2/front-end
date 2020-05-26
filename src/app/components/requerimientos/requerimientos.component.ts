@@ -4,7 +4,7 @@ import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/ph
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
-import { SeleccionMateria } from 'src/app/models/convocatoria-docente/seleccion-materias';
+import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
 import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
 declare var swal: any;
 declare var tata: any;
@@ -19,23 +19,14 @@ export class RequerimientosComponent implements OnInit {
 
   formRequerimientos: FormGroup;
   idDepartamento = 1;
-  seleccionMateria: SeleccionMateria;
-  materia = {
-    nombreMat: null,
-    idMat: null,
-    cantidadAux: null,
-    hrsMes: null
-  }
-  materiasSeleccionadas: Object[] = new Array();
+  seleccionRequerimiento:SeleccionRequerimiento;
+
+  requerimientosSeleccionados: Requerimiento[] = new Array();
   listaMaterias: Object[] = new Array();
   listaMateriasDisponibles: String[];
 
-  //objeto para generar que recoorra el ngFor
-  requerimiento: Requerimiento;//////////////
-  listaRequerimientos: Requerimiento[] = [];/////////////
-  ///////////////////////////////////////////
+  requerimiento: Requerimiento;
 
-  materias: string[] = ["mat1", "mat2", "mat3"];
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
     this.buildForm();
 
@@ -98,38 +89,23 @@ export class RequerimientosComponent implements OnInit {
   get itemIsInvalid() {
     return this.item.touched && this.item.invalid;
   }
-
+  //obtiene las materias desde la base de datos a traves de php
   getNombreMaterias() {
     this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
       result => {
         for (let i in result) {
           this.listaMaterias.push(result[i]);
         }
-        this.seleccionMateria = new SeleccionMateria(this.listaMaterias);
-        this.listaMateriasDisponibles = this.seleccionMateria.getListaMateriasDisponibles();
+        this.seleccionRequerimiento = new SeleccionRequerimiento(this.listaMaterias);
+        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        //console.log(this.listaMateriasDisponibles);
+        //let objAux = JSON.parse(JSON.stringify(this.materia));
       }
     );
   }
-  guardarMateria() {
-    console.log(this.materia.cantidadAux);
-    console.log(this.materia.hrsMes);
-    console.log(this.materia.nombreMat);
-    let objAux = JSON.parse(JSON.stringify(this.materia));
-    this.seleccionMateria.agregarMateriaSeleccionada(objAux);
-    this.materiasSeleccionadas = this.seleccionMateria.getMateriasSeleccionadas();
-    //console.log(this.materiasSeleccionadas);
-    console.log("funciona el boton");
-  }
-  agregarMateria() {
-
-    this.materia.cantidadAux = null;
-    this.materia.hrsMes = null;
-    this.listaMateriasDisponibles = this.seleccionMateria.getListaMateriasDisponibles();
-    console.log(this.listaMateriasDisponibles);
-
-  }
+  //envia las materias seleccionadas a la base de datos
   agregarMateriaBD() {
-    this.apiPHP.agregarMateria(this.seleccionMateria.getMateriasSeleccionadas()).subscribe(
+    this.apiPHP.agregarMateria(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
       datos => {
         alert(datos['mensaje']);
       }
@@ -183,8 +159,12 @@ export class RequerimientosComponent implements OnInit {
     let nombreMateria = $('#seleccionaMateria').val()
     console.log("00000000", nombreMateria);
     this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-    this.listaRequerimientos.push(this.requerimiento);
+    this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
     console.log(this.requerimiento);
+    this.requerimientosSeleccionados=this.seleccionRequerimiento.getMateriasSeleccionadas();
+    console.log("mis req selecciondos ");
+    console.log(JSON.stringify(this.seleccionRequerimiento.getMateriasSeleccionadas()));
+    this.listaMateriasDisponibles=this.seleccionRequerimiento.getListaMateriasDisponibles();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');

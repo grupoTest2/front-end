@@ -1,6 +1,8 @@
-export class SeleccionMateria {
+import { Requerimiento } from './requerimiento';
+
+export class SeleccionRequerimiento{
     //mis atributos
-    private materiasSeleccionadas: Object[];
+    private materiasSeleccionadas:Requerimiento[];
     private listaMaterias: Object[];
     private listaMateriasDisponibles: String[];
   
@@ -35,16 +37,15 @@ export class SeleccionMateria {
       return res;
     }
   
-    public agregarMateriaSeleccionada(materia) {
-      if (materia.nombreMat != null && materia.cantidadAux != null && materia.hrsMes != null) {
-        let idMateria = this.getIdMateria(materia.nombreMat);
+    public agregarRequerimientoSeleccionado(req:Requerimiento) {
+        let idMateria = this.getIdMateria(req.getnombreMateria());
         if (idMateria != -1) {
-          materia.idMat = idMateria;
-          this.deshabilitarSeleccion(materia.nombreMat);
-          this.materiasSeleccionadas.push(materia);
+          req.setIdMat(idMateria);
+          this.deshabilitarSeleccion(req.getnombreMateria());
+          this.materiasSeleccionadas.push(req);
           //console.log(JSON.stringify(this.materiasSeleccionadas));
         }
-      }
+      
     }
   
     public deshabilitarSeleccion(nombreMatForm) {
@@ -55,6 +56,9 @@ export class SeleccionMateria {
         }
       }
       this.actualizarListaMatDisponibles();
+    }
+    public hayMateriasDisponibles(){
+      return this.listaMateriasDisponibles.length>0;
     }
     public existeMateriasSeleccionas() {
       return this.materiasSeleccionadas.length > 0;

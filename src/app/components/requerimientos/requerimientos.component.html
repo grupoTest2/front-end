@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label>1.- Requerimientos</label>
-        <button type="button" (click)="agregarMateria()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos" (click)="resetForm()">
+        <button *ngIf="seleccionRequerimiento.hayMateriasDisponibles()" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos" (click)="resetForm()">
             <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let requerimiento of listaRequerimientos; index as i">
+                <tr *ngFor="let requerimiento of requerimientosSeleccionados; index as i">
                     <td class="text-center">{{requerimiento.getCantidadItem()}}</td>
                     <td class="text-center">{{requerimiento.getHrsAcademicas()}}</td>
                     <td class="text-center">{{requerimiento.getnombreMateria()}}</td>
@@ -82,7 +82,7 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
                         <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
-                                <option *ngFor="let mat of materias; let i = index" [value]="mat" >{{mat}}</option>
+                                <option *ngFor="let mat of listaMateriasDisponibles; let i = index" [value]="mat" >{{mat}}</option>
                             </select>
                         <div *ngIf="materiaFormIsInvalid">
                             <small class="text-danger" *ngIf="materiaForm.hasError('required')">
