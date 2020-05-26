@@ -105,11 +105,11 @@ export class RequerimientosComponent implements OnInit {
   }
   //envia las materias seleccionadas a la base de datos
   agregarMateriaBD() {
-    this.apiPHP.agregarMateria(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
+   /* this.apiPHP.agregarMateria(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
       datos => {
         alert(datos['mensaje']);
       }
-    );
+    );*/
   }
 
   alertEliminar() {

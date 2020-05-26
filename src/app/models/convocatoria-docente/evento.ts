@@ -6,7 +6,7 @@ export class Evento{
     private horaIni:String;
     private horaFin:String;
 
-    public constructor(nombre,fechaIni,fechaFin,horaIni,horaFin){
+    public constructor(nombre,fechaIni,fechaFin,horaIni=" ",horaFin=" "){
         this.nombre=nombre;
         this.fechaIni=fechaIni;
         this.fechaFin=fechaFin;

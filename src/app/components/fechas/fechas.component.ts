@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Fecha } from 'src/app/models/convocatoria-docente/fecha';
+import { Evento } from 'src/app/models/convocatoria-docente/Evento';
 import * as $ from 'jquery';
 
 @Component({
@@ -8,24 +8,22 @@ import * as $ from 'jquery';
   styleUrls: ['./fechas.component.css']
 })
 export class FechasComponent implements OnInit {
-   fecha:Fecha;
-   listaFechas:Fecha[]=[];
+   evento:Evento;
+   listaEvento:Evento[]=[];
   constructor() { }
 
   ngOnInit(): void {
   }
-  agregarFecha(){
-    let descripcionFecha = $('#descripcionFecha').val();
-    let eventoFecha = $('#eventoFecha').val();
-    let fecha = $('#fecha').val();
-    this.fecha=new Fecha(eventoFecha,descripcionFecha,fecha);
-    this.listaFechas.push(this.fecha);
-    console.log(this.listaFechas+"--------------------------------");
+  agregarEvento(){
+    let nombreNombre = $('#nombreEvento').val();
+    let fechaInicio = $('#fechaInicio').val();
+    let fechaFin = $('#fechaFin').val();
+    this.evento=new Evento(nombreNombre,fechaInicio,fechaFin);
+    this.listaEvento.push(this.evento);
+    console.log(this.listaEvento+"--------------------------------");
   }
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+")     ";
     return caracter;
   }
-
-
 }
