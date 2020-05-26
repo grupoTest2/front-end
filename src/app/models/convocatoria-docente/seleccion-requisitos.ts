@@ -1,10 +1,15 @@
+import { Requisito } from './requisito';
+
 export class SeleccionRequisito {
-    private listaRequisitosSeleccionados:String[];
+    private listaRequisitosSeleccionados:Requisito[];
     public constructor(){
       this.listaRequisitosSeleccionados=new Array();
     }
-    public getListaRequisitosSeleccionados():String[]{
+    public getListaRequisitosSeleccionados():Requisito[]{
       return this.listaRequisitosSeleccionados;
+    }
+    public agregarRequisito(req:Requisito){
+      this.listaRequisitosSeleccionados.push(req);
     }
   }
   
