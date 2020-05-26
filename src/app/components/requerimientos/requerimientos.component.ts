@@ -32,10 +32,10 @@ export class RequerimientosComponent implements OnInit {
 
   //objeto para generar que recoorra el ngFor
   requerimiento: Requerimiento;//////////////
-  listaRequerimientos: Requerimiento[]=[];/////////////
+  listaRequerimientos: Requerimiento[] = [];/////////////
   ///////////////////////////////////////////
 
-
+  materias: string[] = ["mat1", "mat2", "mat3"];
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
     this.buildForm();
 
@@ -117,7 +117,7 @@ export class RequerimientosComponent implements OnInit {
     let objAux = JSON.parse(JSON.stringify(this.materia));
     this.seleccionMateria.agregarMateriaSeleccionada(objAux);
     this.materiasSeleccionadas = this.seleccionMateria.getMateriasSeleccionadas();
-    //console.log(this.materiasSeleccionadas); 
+    //console.log(this.materiasSeleccionadas);
     console.log("funciona el boton");
   }
   agregarMateria() {
@@ -181,10 +181,23 @@ export class RequerimientosComponent implements OnInit {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
-
+    console.log("00000000", nombreMateria);
     this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
     this.listaRequerimientos.push(this.requerimiento);
- console.log(this.requerimiento);
+    console.log(this.requerimiento);
+    tata.success('Agregado.', 'Se agregó con exito.');
+    this.formRequerimientos.reset();
+    $('#tablaRequerimientos').modal('hide');
 
- }
+  }
+  formValido(){
+    if(this.formRequerimientos.valid){
+      this.guardarRequerimientos();
+    }else{
+      tata.error('Error', 'Formulario invalido')
+    }
+  }
+  resetForm(){
+    this.buildForm();
+  }
 }

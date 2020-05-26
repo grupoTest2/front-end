@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label>1.- Requerimientos</label>
-        <button type="button" (click)="agregarMateria()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos">
+        <button type="button" (click)="agregarMateria()" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos" (click)="resetForm()">
             <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -81,11 +81,8 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
-                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materiaRequerimiento" id="seleccionaMateria">
-                                <option disabled >Seleccione una materia</option>
-                                <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
-                                <option  value="intro">intro</option>
-                                <option  value="intro2">intro2</option>
+                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
+                                <option *ngFor="let mat of materias; let i = index" [value]="mat" >{{mat}}</option>
                             </select>
                         <div *ngIf="materiaFormIsInvalid">
                             <small class="text-danger" *ngIf="materiaForm.hasError('required')">
@@ -95,8 +92,8 @@
                     </div>
                     <hr>
                     <div class="form-group d-flex justify-content-end mt-4">
-                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal" (click)="guardarRequerimientos()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" (onClick)="guardarRequerimientos()" id="guardar">Guardar</button>
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" (click)="formValido()" id="guardar">Guardar</button>
                     </div>
                 </form>
             </div>
