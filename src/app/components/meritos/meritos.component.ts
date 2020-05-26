@@ -16,13 +16,13 @@ declare var $: any;
 
 export class MeritosComponent implements OnInit {
 
-  tablasMeritos: Merito[] = [];
+  tablasMeritos: Merito[];
   formMeritos: FormGroup;
 
   seleccionMerito:SeleccionMerito;
   indice1: number = 0;
   indice2: number = 0;
-  indice3: number = 0;
+  indice3: number = 0; 
 
   //detalles merito
   merito1: Merito = new Merito(" ", " ", 0, []);
