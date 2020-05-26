@@ -62,10 +62,17 @@ export class MeritosComponent implements OnInit {
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
     var merito: Merito = new Merito( tituloSubMerito, '', porcentajeSubMerito, []);
-
-    this.tablasMeritos[this.indice1].getListaMeritos().push(merito);
+    console.log("indice numero: "+this.indice1);
+    let resp=this.seleccionMerito.agregarSubMerito(merito,this.indice1);
+    if(resp){
+      //todo posi
+      this.toastExitoso();
+    }else{
+      //no se pudo agregar
+    }
+    this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
     console.log(this.tablasMeritos);
-    this.toastExitoso();
+    
     $('#modal2').modal('hide');
     (<HTMLInputElement>document.getElementById("titulo2")).value = "";
     (<HTMLInputElement>document.getElementById("porcentaje2")).value = "";
@@ -77,9 +84,16 @@ export class MeritosComponent implements OnInit {
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje3")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos3")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
-
-    this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos().push(merito);
-    this.toastExitoso();
+    let resp= this.seleccionMerito.agregarSubSubMerito(merito,this.indice1,this.indice2);
+    if(resp){
+      //todo posi
+      this.toastExitoso();
+    }else{
+      //no se pudo agregar
+    }
+    this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
+    console.log("tercer nivel...........");
+    console.log(this.tablasMeritos);
     $('#modal3').modal('hide');
     (<HTMLInputElement>document.getElementById("tituloMerito3")).value = "";
     (<HTMLInputElement>document.getElementById("porcentaje3")).value = "";
