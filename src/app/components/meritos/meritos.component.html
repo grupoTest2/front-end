@@ -250,14 +250,34 @@
                         <label for="requisitos"></label>
                     </div>
                     <div class="table-responsive mt-3">
-                        <table class="table align-middle table-hover table-bordered">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="text-center" scope="col"><input id="tituloM1" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
-                                    <th class="text-center" scope="col"><input id="porcentajeM1" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <form [formGroup]="formMeritos" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                            <table class="table align-middle table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center" scope="col"><input id="tituloM1" class="form-control" [class.is-invalid]="tituloIsInvalid" [class.is-valid]="tituloIsValid" formControlName="titulo" type="text" placeholder="Ingrese detalle merito">
+                                            <div *ngIf="tituloIsInvalid">
+                                                <small class="text-danger" *ngIf="titulo.hasError('required')">
+                                                    Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                                <small class="text-danger" *ngIf="titulo.hasError('minLength')">
+                                                    Texto muy corto  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                            </div>
+                                        </th>
+                                        <th class="text-center" scope="col"><input id="porcentajeM1" class="form-control" [class.is-invalid]="porcentajeIsInvalid" [class.is-valid]="porcentajeIsValid" formControlName="porcentaje" type="number" min=1 placeholder="Porcentaje%">
+                                            <div *ngIf="porcentajeIsInvalid">
+                                                <small class="text-danger" *ngIf="porcentaje.hasError('required')">
+                                                    Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                                <small class="text-danger" *ngIf="porcentaje.hasError('min')">
+                                                    Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </form>
                     </div>
                     <br>
                     <p class="modal-title" id="descripcionMerito">Agregar descripcion <small class="text-danger">(*)</small> </p>
@@ -284,14 +304,32 @@
           </button>
             </div>
             <div class="modal-body" id="modalMeritos">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Detalle calificacion:</label>
-                    <textarea type="text" class="form-control" rows="3" id="titulo2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Porcentaje:</label>
-                    <input type="number" min=1 class="form-control" id="porcentaje2">
-                </div>
+                <form [formGroup]="formMeritos" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Detalle calificacion:</label>
+                        <textarea type="text" class="form-control" [class.is-invalid]="tituloIsInvalid" [class.is-valid]="tituloIsValid" formControlName="titulo" rows="3" id="titulo2"></textarea>
+                        <div *ngIf="tituloIsInvalid">
+                            <small class="text-danger" *ngIf="titulo.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="titulo.hasError('minLength')">
+                                Texto muy corto  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Porcentaje:</label>
+                        <input type="number" min=1 class="form-control" [class.is-invalid]="porcentajeIsInvalid" [class.is-valid]="porcentajeIsValid" formControlName="porcentaje" id="porcentaje2">
+                        <div *ngIf="porcentajeIsInvalid">
+                            <small class="text-danger" *ngIf="porcentaje.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="porcentaje.hasError('min')">
+                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -319,14 +357,34 @@
                         <label for="requisitos"></label>
                     </div>
                     <div class="table-responsive mt-3">
-                        <table class="table align-middle table-hover table-bordered">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="text-center" scope="col"><input id="tituloMerito3" class="form-control" type="text" placeholder="Ingrese detalle merito"></th>
-                                    <th class="text-center" scope="col"><input id="porcentaje3" class="form-control" type="number" min=1 placeholder="Porcentaje%"></th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <form [formGroup]="formMeritos" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                            <table class="table align-middle table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center" scope="col"><input id="tituloMerito3" class="form-control" [class.is-invalid]="tituloIsInvalid" [class.is-valid]="tituloIsValid" formControlName="titulo" type="text" placeholder="Ingrese detalle merito">
+                                            <div *ngIf="tituloIsInvalid">
+                                                <small class="text-danger" *ngIf="titulo.hasError('required')">
+                                                    Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                                <small class="text-danger" *ngIf="titulo.hasError('minLength')">
+                                                    Texto muy corto  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                            </div>
+                                        </th>
+                                        <th class="text-center" scope="col"><input id="porcentaje3" class="form-control" [class.is-invalid]="porcentajeIsInvalid" [class.is-valid]="porcentajeIsValid" formControlName="porcentaje" type="number" min=1 placeholder="Porcentaje%">
+                                            <div *ngIf="porcentajeIsInvalid">
+                                                <small class="text-danger" *ngIf="porcentaje.hasError('required')">
+                                                    Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                                <small class="text-danger" *ngIf="porcentaje.hasError('min')">
+                                                    Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                                                </small>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </form>
                     </div>
                     <br>
                     <p class="modal-title" id="descripcionMerito">Agregar descripcion <small class="text-danger">(*)</small> </p>
