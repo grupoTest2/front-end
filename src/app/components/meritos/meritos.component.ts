@@ -85,6 +85,7 @@ export class MeritosComponent implements OnInit {
     if(this.formMeritos.valid){
       this.agregarMeritoNivel1();
     }else{
+      this.formMeritos.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');
     }
   }
@@ -92,6 +93,7 @@ export class MeritosComponent implements OnInit {
     if(this.formMeritos.valid){
       this.agregarMeritoNivel2();
     }else{
+      this.formMeritos.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');
     }
   }
@@ -99,12 +101,13 @@ export class MeritosComponent implements OnInit {
     if(this.formMeritos.valid){
       this.agregarMeritoNivel3();
     }else{
+      this.formMeritos.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');
     }
   }
-  resetForm(){
-    this.buildForm();
-  }
+  // resetForm(){
+  //   this.buildForm();
+  // }
 
 
   //nivel 1------------------------------------------------------------
@@ -115,19 +118,19 @@ export class MeritosComponent implements OnInit {
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     //agregar merito a traves del objeto seleccionMerito
     let resp=this.seleccionMerito.agregarMerito(merito);
-    if(resp){
+    $('#modal1').modal('hide');
+    if(this.formMeritos.valid){
       //el merito se agrego correctamente
       this.toastExitoso();
+     
     }else{
       //error, el merito no se pudo agregar(por problema de porcentajes)
     }
     this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
-    
-    $('#modal1').modal('hide'); //cierra el nodal
-    //resetea valores a vacio
-    (<HTMLInputElement>document.getElementById("tituloM1")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentajeM1")).value = "";
     (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
+     //cierra el nodal
+     this.formMeritos.reset();
+     this.buildForm();
   }
 
   //nivel 2------------------------------------------------------------
@@ -135,11 +138,11 @@ export class MeritosComponent implements OnInit {
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
     var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
-
-    var merito: Merito = new Merito( tituloSubMerito, '', porcentajeSubMerito, []);
     console.log("indice numero: "+this.indice1);
     let resp=this.seleccionMerito.agregarSubMerito(merito,this.indice1);
-    if(resp){
+    $('#modal2').modal('hide');
+    if(this.formMeritos.valid){
+      
       //todo posi
       this.toastExitoso();
     }else{
@@ -147,10 +150,8 @@ export class MeritosComponent implements OnInit {
     }
     this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
     console.log(this.tablasMeritos);
-    
-    $('#modal2').modal('hide');
-    (<HTMLInputElement>document.getElementById("titulo2")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentaje2")).value = "";
+    this.formMeritos.reset();
+    this.buildForm();
   }
 
   // nivel 3 ----------------------------------------------------------
@@ -160,19 +161,20 @@ export class MeritosComponent implements OnInit {
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos3")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     let resp= this.seleccionMerito.agregarSubSubMerito(merito,this.indice1,this.indice2);
-    if(resp){
-      //todo posi
+    $('#modal3').modal('hide');
+    if(this.formMeritos.valid){
       this.toastExitoso();
+      //todo posi
     }else{
       //no se pudo agregar
     }
     this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
     console.log("tercer nivel...........");
     console.log(this.tablasMeritos);
-    $('#modal3').modal('hide');
-    (<HTMLInputElement>document.getElementById("tituloMerito3")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentaje3")).value = "";
     (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
+    this.formMeritos.reset();
+    this.buildForm();
+    
   }
 
   tieneMeritos(merito: Merito): boolean {
