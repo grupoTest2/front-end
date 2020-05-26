@@ -1,1 +1,69 @@
-<p>fechas works!</p>
+<div class="form-group">
+    <div class="d-flex justify-content-between align-items-end">
+        <label for="requisitos">8.- Fechas</label>
+        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tablaFechas">
+                <i class="fa fa-plus"></i> Añadir
+        </button>
+    </div>
+    <div class="table-responsive mt-3">
+        <table class="table align-middle table-hover table-bordered" id="requerimientos">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center" scope="col">Evento</th>
+                    <th class="text-center" scope="col">Fechas</th>
+                    <th class="text-center" scope="col">Detalles</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Reclamos </td>
+                    <td class="text-center">13/02/2020 </td>
+                    <td class="text-center">Hasta horas 11:00 a.m. En Secretaria del Departamento de Informática y Sistemas </td>
+                    <td class="text-center">
+                        <div class="btn btn-group" role="group">
+                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger" type="button">
+                                <i class="fa fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal para agregar fechas -->
+<div class="modal fade" id="tablaFechas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Agregar nueva fecha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" id="modalMeritos">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Evento</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Fecha</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Detalles</label>
+                    <textarea type="text" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

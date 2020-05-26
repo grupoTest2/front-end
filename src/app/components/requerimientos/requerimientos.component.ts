@@ -194,7 +194,7 @@ export class RequerimientosComponent implements OnInit {
     if(this.formRequerimientos.valid){
       this.guardarRequerimientos();
     }else{
-      tata.error('Error', 'Formulario invalido')
+      tata.error('Error', 'Formulario invalido');
     }
   }
   resetForm(){

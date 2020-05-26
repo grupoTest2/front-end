@@ -16,6 +16,7 @@ import { RequisitosComponent } from './components/requisitos/requisitos.componen
 import { DocumentosPresentarComponent } from './components/documentos-presentar/documentos-presentar.component';
 import { CalificacionConocimientosComponent } from './components/calificacion-conocimientos/calificacion-conocimientos.component';
 import { FechasComponent } from './components/fechas/fechas.component';
+import { TribunalesComponent } from './components/tribunales/tribunales.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FechasComponent } from './components/fechas/fechas.component';
     RequisitosComponent,
     DocumentosPresentarComponent,
     CalificacionConocimientosComponent,
-    FechasComponent
+    FechasComponent,
+    TribunalesComponent
   ],
   imports: [
     BrowserModule,
