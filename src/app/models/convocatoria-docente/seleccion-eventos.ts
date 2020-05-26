@@ -1,9 +1,9 @@
 import { Evento } from './evento';
 
 export class SeleccionEvento{
-    private listaEventosSelecciados:Evento[];
-    private listaEventos:Object[];
-    private listaEventosDisponibles:String[];
+    private listaEventosSelecciados:Evento[];//seleccionados
+    private listaEventos:Object[];//
+    private listaEventosDisponibles:String[];//extridsos de la bd
 
     public constructor(listaE:Object[]){
         this.listaEventosSelecciados=new Array();
