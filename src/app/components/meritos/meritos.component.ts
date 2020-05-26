@@ -136,7 +136,6 @@ export class MeritosComponent implements OnInit {
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
     var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
 
-    this.tablasMeritos[this.indice1].getListaMeritos().push(merito);
     var merito: Merito = new Merito( tituloSubMerito, '', porcentajeSubMerito, []);
     console.log("indice numero: "+this.indice1);
     let resp=this.seleccionMerito.agregarSubMerito(merito,this.indice1);
