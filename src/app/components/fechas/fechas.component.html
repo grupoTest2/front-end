@@ -16,10 +16,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center">Reclamos </td>
-                    <td class="text-center">13/02/2020 </td>
-                    <td class="text-center">Hasta horas 11:00 a.m. En Secretaria del Departamento de Informática y Sistemas </td>
+                <tr *ngFor="let fecha of listaFechas; index as i"> 
+                    <td class="text-center">{{getindice(i)}} {{fecha.getDescripcion()}} </td>
+                    <td class="text-center">{{fecha.getFecha()}} </td>
+                    <td class="text-center">{{fecha.getDescripcion()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
@@ -49,20 +49,20 @@
             <div class="modal-body" id="modalMeritos">
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Evento</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="eventoFecha">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Fecha</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" id="fecha">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Detalles</label>
-                    <textarea type="text" class="form-control" rows="3"></textarea>
+                    <textarea type="text" class="form-control" rows="3" id="descripcionFecha"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal" (click)="agregarFecha()">Guardar</button>
             </div>
         </div>
     </div>

@@ -188,7 +188,6 @@ export class RequerimientosComponent implements OnInit {
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
-
   }
   formValido(){
     if(this.formRequerimientos.valid){
