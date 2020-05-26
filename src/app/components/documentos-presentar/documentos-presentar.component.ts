@@ -30,5 +30,4 @@ export class DocumentosPresentarComponent implements OnInit {
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+") ";
     return caracter;
   }
-
 }

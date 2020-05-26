@@ -14,9 +14,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td scope="row">Ser alumno regular de la facultaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio soluta temporibus amet atque. Iste dolorem veniam consectetur esse, reiciendis
-                        hic velit temporibus porro, autem quisquam sint. Vitae quaerat dicta nobis. </td>
+                <tr *ngFor="let requisito of listaRequisito; index as i"> 
+                    <td scope="row">{{getindice(i)}} {{requisito.getDescripcion()}}</td>
                     <td class="text-right">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button">
@@ -47,12 +46,12 @@
             <div class="modal-body" id="modalRequisitos">
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Detalle Requisito:</label>
-                    <textarea class="form-control" rows="3" id="detalleRequisito"></textarea>
+                    <textarea class="form-control" rows="3" id="descripcionRequisito"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarRequisito()">Guardar</button>
             </div>
         </div>
     </div>
