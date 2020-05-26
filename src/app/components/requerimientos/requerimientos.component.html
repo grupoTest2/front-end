@@ -10,18 +10,16 @@
             <thead class="thead-dark">
                 <tr>
                     <th class="text-center" scope="col">Items</th>
-                    <th class="text-center" scope="col">Cantidad(Aux.)</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
                     <th class="text-center" scope="col">Materia</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let mat of materiasSeleccionadas; index as i">
-                    <td class="text-center" scope="row">{{i+1}}</td>
-                    <td class="text-center">{{mat.cantidadAux}}</td>
-                    <td class="text-center">{{mat.hrsMes}}</td>
-                    <td class="text-center">{{mat.nombreMat}}</td>
+                <tr *ngFor="let requerimiento of listaRequerimientos; index as i">
+                    <td class="text-center">{{requerimiento.getCantidadItem()}}</td>
+                    <td class="text-center">{{requerimiento.getHrsAcademicas()}}</td>
+                    <td class="text-center">{{requerimiento.getnombreMateria()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
@@ -53,7 +51,7 @@
                 <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="items" class="col-form-label">Items: </label>
-                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="items" formControlName="items">
+                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
                         <div *ngIf="itemIsInvalid">
                             <small class="text-danger" *ngIf="item.hasError('required')">
                                 Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
@@ -68,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Hrs/Mes: </label>
-                        <input type="number" class="form-control" [class.is-invalid]="horasMesIsInvalid" [class.is-valid]="horasMesIsValid" id="horasMes" name="cant" formControlName="horasMes">
+                        <input type="number" class="form-control" [class.is-invalid]="horasMesIsInvalid" [class.is-valid]="horasMesIsValid" id="horasMesRequerimiento" name="cant" formControlName="horasMes">
                         <div *ngIf="horasMesIsInvalid">
                             <small class="text-danger" *ngIf="horasMes.hasError('required')">
                                 Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
@@ -83,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Materia: </label>
-                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia">
+                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materiaRequerimiento" id="seleccionaMateria">
                                 <option disabled >Seleccione una materia</option>
                                 <option *ngFor="let mat of listaMateriasDisponibles"  >{{mat}}</option>
                                 <option  value="intro">intro</option>
@@ -97,8 +95,8 @@
                     </div>
                     <hr>
                     <div class="form-group d-flex justify-content-end mt-4">
-                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" (onClick)="guardarMateria()" id="guardar">Guardar</button>
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal" (click)="guardarRequerimientos()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" (onClick)="guardarRequerimientos()" id="guardar">Guardar</button>
                     </div>
                 </form>
             </div>
