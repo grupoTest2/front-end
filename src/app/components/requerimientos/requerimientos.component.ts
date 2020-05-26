@@ -176,15 +176,6 @@ export class RequerimientosComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-
-
   // metodos para almacenar lo de la interfaz
   guardarRequerimientos() {
     let numeroItems = parseInt($('#itemRequerimiento').val());
@@ -194,5 +185,6 @@ export class RequerimientosComponent implements OnInit {
     this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
     this.listaRequerimientos.push(this.requerimiento);
  console.log(this.requerimiento);
-  }
+
+ }
 }
