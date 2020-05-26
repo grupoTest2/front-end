@@ -1,22 +1,15 @@
+import { Requisito } from './requisito';
+
 export class SeleccionRequisito {
-    
-    private listaRequisitos:Object[];
-    private listaRequisitosSeleccionados:String[];
+    private listaRequisitosSeleccionados:Requisito[];
     public constructor(){
       this.listaRequisitosSeleccionados=new Array();
-      for(let i=1;i<5;i++){
-        let mensaje="este es un requisito"+i;
-        this.listaRequisitosSeleccionados.push(mensaje);
-      }
     }
-    public getInciso(num){
-      //console.log("veamos............");
-      let inciso=String.fromCharCode(97+num)+")";
-      //console.log(inciso);
-      return inciso;
-    }
-    public getListaRequisitosSeleccionados():String[]{
+    public getListaRequisitosSeleccionados():Requisito[]{
       return this.listaRequisitosSeleccionados;
+    }
+    public agregarRequisito(req:Requisito){
+      this.listaRequisitosSeleccionados.push(req);
     }
   }
   
