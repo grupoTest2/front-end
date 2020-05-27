@@ -35,4 +35,20 @@ export class SeleccionMerito {
     public getTablaMeritos(){
         return this.tablaMeritos;
     }
+    public setIdLanzamientoConv(idLanzConv){
+        for(let i in this.tablaMeritos){
+            let objAux=this.tablaMeritos[i];
+            objAux.setLanzConv(idLanzConv);
+            let listaSubMeritos=objAux.getListaMeritos();
+            for(let j in listaSubMeritos){
+                let objAux2=listaSubMeritos[j];
+                objAux2.setLanzConv(idLanzConv);
+                let listaSubMeritos2=objAux2.getListaMeritos();
+                for(let k in listaSubMeritos2){
+                    let objAux3=listaSubMeritos2[k];
+                    objAux3.setLanzConv(idLanzConv);
+                }
+            }
+        }
+    }
 }

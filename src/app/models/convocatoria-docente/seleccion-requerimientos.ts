@@ -58,11 +58,19 @@ export class SeleccionRequerimiento{
       }
       this.actualizarListaMatDisponibles();
     }
+
     public hayMateriasDisponibles(){
       return this.listaMateriasDisponibles.length>0;
     }
+
     public existeMateriasSeleccionas() {
       return this.materiasSeleccionadas.length > 0;
+    }
+
+    public setLanzamientoConv(idLanzConv){
+      for(let i in this.materiasSeleccionadas){
+        this.materiasSeleccionadas[i].setIdLanzamientoConv(idLanzConv);
+      }
     }
   
     public getListaMateriasDisponibles() {

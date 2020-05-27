@@ -1,6 +1,7 @@
 //import { Materia } from './materia';
 
 export class Requerimiento {
+    private idLanzConv:number;
     private cantidadItem: number;
     private hrsAcademicas: number;
     private nombreMateria: String;
@@ -10,17 +11,19 @@ export class Requerimiento {
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria =nombreM;
     }
-    getCantidadItem(){
+    public getCantidadItem(){
         return this.cantidadItem;
     }
-    getHrsAcademicas(){
+    public getHrsAcademicas(){
         return this.hrsAcademicas;
     }
-    getnombreMateria(){
+    public getnombreMateria(){
         return this.nombreMateria;
     }
     public setIdMat(id:number){
         this.idMat=id;
     }
-    
+    public setIdLanzamientoConv(idLanzConv){
+        this.idLanzConv=idLanzConv;
+    }
 }

@@ -11,5 +11,10 @@ export class SeleccionRequisito {
     public agregarRequisito(req:Requisito){
       this.listaRequisitosSeleccionados.push(req);
     }
+    public setIdLanzamientoConvocatoria(idLanzConv){
+      for(let i in this.listaRequisitosSeleccionados){
+        this.listaRequisitosSeleccionados[i].setIdLanzConv(idLanzConv);
+      }
+    }
   }
   

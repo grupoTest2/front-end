@@ -29,12 +29,22 @@ export class RequisitosComponent implements OnInit {
     let caracter:String=String.fromCharCode(indice+97)+")     ";
     return caracter;
   }
-  agregarRequisitosBD(){
+  //funcion para agregar los requisitos a la base de datos, se requiere del id lanzamiento de convocatoria
+  agregarRequisitosBD(idLanzConv):boolean{
+    let resp:boolean=false;
+    this.seleccionRequisitos.setIdLanzamientoConvocatoria(idLanzConv);
     this.apiPHP.agregarRequisitos(this.seleccionRequisitos.getListaRequisitosSeleccionados()).subscribe(
       datos => {
+        if(datos['resultado']=="correcto"){
+          //se agrego correctamente
+          resp=true;
+        }else{
+          //ocurrio un error al guardar los datos 
+        }
         alert(datos['mensaje']);
       }
     );
+    return resp;
   }
 
 }

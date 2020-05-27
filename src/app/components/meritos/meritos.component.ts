@@ -177,12 +177,22 @@ export class MeritosComponent implements OnInit {
     this.buildForm();
     
   }
-  agregarMeritosDB(){
+  //metodo que agrega la lista de meritos selecciondos a la base de datos
+  agregarMeritosDB(idLanzConv){
+    let resp:boolean=false;
+    this.seleccionMerito.setIdLanzamientoConv(idLanzConv);
     this.phpApi.agregarMeritos(this.seleccionMerito.getTablaMeritos()).subscribe(
       datos => {
+        if(datos['resultado']=='correcto'){
+          //se agrega correctamente
+          resp=true;
+        }else{
+          //no se pudo agregar a la base de datos
+        }
         alert(datos['mensaje']);
       }
     );
+    return resp;
   }
 
   tieneMeritos(merito: Merito): boolean {

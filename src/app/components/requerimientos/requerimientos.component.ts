@@ -104,12 +104,21 @@ export class RequerimientosComponent implements OnInit {
     );
   }
   //envia las materias seleccionadas a la base de datos
-  agregarRequerimientosBD() {
-   this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
-      datos => {
-        alert(datos['mensaje']);
-      }
-    );
+  agregarRequerimientosBD(idLanzConv):boolean{
+    let resp:boolean=false;
+    this.seleccionRequerimiento.setLanzamientoConv(idLanzConv);
+    this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
+        datos => {
+          if(datos['resultado']=='correcto'){
+            //se agrega correctamente a la base de datos
+            resp=true;
+          }else{
+            //no se pudo agregar
+          }
+          alert(datos['mensaje']);
+        }
+      );
+      return resp;
   }
 
   alertEliminar() {
