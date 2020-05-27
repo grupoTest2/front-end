@@ -231,7 +231,7 @@
                     <div class="table-responsive mt-3">
                         <form [formGroup]="formMeritos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                             <div class="form-group">
-                                <label class="col-form-label">Ingrese merito</label>
+                                <label class="col-form-label">Ingrese nuevo merito</label>
                                 <input id="tituloMerito3" class="form-control" [class.is-invalid]="tituloIsInvalid" [class.is-valid]="tituloIsValid" formControlName="titulo" type="text" placeholder="Ingrese detalle merito">
                                 <div *ngIf="tituloIsInvalid">
                                     <small class="text-danger" *ngIf="titulo.hasError('required')">
