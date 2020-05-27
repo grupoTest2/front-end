@@ -18,6 +18,9 @@ import { CalificacionConocimientosComponent } from './components/calificacion-co
 import { FechasComponent } from './components/fechas/fechas.component';
 import { TribunalesComponent } from './components/tribunales/tribunales.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -40,9 +43,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
