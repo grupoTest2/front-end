@@ -47,7 +47,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <div>{{indice2+1}}.-{{ merito2.getTitulo()}}</div>
-                                    <button *ngIf="tieneMeritos(merito2)" class="btn btn-outline-secondary" type="submit" data-toggle="modal" data-target="#modalSub" (click)="indicesSubMeritos(indice1, indice2)">
+                                    <button *ngIf="tieneMeritos(merito2)" class="btn btn-outline-secondary" type="submit" data-toggle="modal" data-tooltip="tooltip" data-target="#modalSub" data-placement="top" title="Ver detalles del merito" (click)="indicesSubMeritos(indice1, indice2)">
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>
@@ -117,92 +117,6 @@
         </div>
     </div>
 </div>
-<!-- <div class="table-responsive">
-    <table class="table align-middle table-hover table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th class="text-center" scope="col">Descripción de meritos</th>
-                <th class="text-center" scope="col" style="width: 150px;">Porcentaje(%)</th>
-                <th class="text-center" scope="col" style="width: 200px;">Acciones</th>
-            </tr>
-        </thead>
-    </table>
-    <table class="table align-middle table-hover table-bordered" *ngFor="let merito1 of tablasMeritos; let indiceMerito1 = index">
-        <thead class="thead-light">
-            <tr>
-                <th class="text-center" scope="col">{{merito1.getTitulo()}}</th>
-                <th class="text-center" scope="col" style="width: 150px;">{{merito1.getPorcentaje()}} % </th>
-                <th class="text-center" scope="col" style="width: 200px;">
-                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
-                            <i class="fa fa-plus" ></i>
-                        </button></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngIf="merito1.getDescripcion().length !== 0">
-                <td colspan="2">{{merito1.getDescripcion()}}</td>
-                <td class="text-center">
-                    <div class="btn btn-group" role="group">
-                        <button class="btn btn-outline-success mr-1" type="button">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                        <button class="btn btn-outline-danger mr-1" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                    </div>
-                </td>
-            </tr>
-            <tr *ngFor="let merito2 of merito1.getListaMeritos(); let indice2 = index">
-                <td>{{merito2.getTitulo()}}</td>
-                <td class="text-center">{{merito2.getPorcentaje()}}</td>
-                <td class="text-center">
-                    <div class="btn btn-group" role="group">
-                        <button class="btn btn-outline-success mr-1" type="button">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                        <button class="btn btn-outline-danger mr-1" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
-                                <i class="fa fa-plus" ></i>
-                            </button>
-                    </div>
-                </td>
-            </tr>
-            <ul *ngFor="let merito2 of merito1.getListaMeritos(); let indice2 = index">
-                <li colspan="3" *ngFor="let merito3 of merito2.getListaMeritos(); let indice3 = index">
-                    <table class=" table align-middle table-hover table-bordered ">
-                        <thead class="thead-light ">
-                            <tr>
-                                <th class="text-center " scope="col ">{{merito3.getTitulo()}}</th>
-                                <th class="text-center " scope="col " style="width: 150px; ">{{merito3.getPorcentaje()}} % </th>
-                                <th class="text-center " scope="col " style="width: 200px; ">
-                                    <button class="btn btn-outline-primary " type="button">
-                                            <i class="fa fa-plus" data-toggle="modal" data-target="#modalSubRequisitos"></i>
-                                        </button>
-                                </th>
-                            </tr>
-                            <tr *ngIf="merito3.getDescripcion().length !==0 ">
-                                <td colspan="2 ">{{merito3.getDescripcion()}}</td>
-                                <td class="text-center ">
-                                    <div class="btn btn-group " role="group ">
-                                        <button class="btn btn-outline-success mr-1 " type="button ">
-                                            <i class="fa fa-pencil "></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger mr-1 " type="button ">
-                                            <i class="fa fa-trash-alt "></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table>
-                </li>
-            </ul>
-
-        </tbody>
-    </table>
-</div> -->
 
 <!--------------------------------modal    1---------------------- -------->
 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

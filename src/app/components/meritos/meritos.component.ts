@@ -27,6 +27,9 @@ export class MeritosComponent implements OnInit {
   descripcionMerito: String = " ";
 
   constructor(private formBuilder: FormBuilder) {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    })
     this.buildForm();
   }
 
