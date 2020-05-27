@@ -54,12 +54,20 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Fecha inicio </label>
-                    <input type="date" class="form-control" id="fechaInicio">
+                    <label class="col-form-label mr-1">Fecha Inicio: </label>
+                    <div class="d-flex justify-content">
+                        <input matInput [matDatepicker]="picker" class="form-control" placeholder="Fecha inicio">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Fecha finalizacion</label>
-                    <input type="text" class="form-control datepicker" id="fechaFin">
+                    <label class="col-form-label mr-1">Fecha fin: </label>
+                    <div class="d-flex justify-content">
+                        <input matInput [matDatepicker]="picker1" class="form-control" placeholder="Fecha fin">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
