@@ -3,6 +3,7 @@ import { Evento } from 'src/app/models/convocatoria-docente/Evento';
 import * as $ from 'jquery';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
+import { SeleccionFechas } from 'src/app/models/convocatoria-docente/seleccion-fechas';
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',
@@ -10,11 +11,31 @@ import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-
 })
 export class FechasComponent implements OnInit {
    evento:Evento;
+   //los eventos seleccionados
    listaEvento:Evento[]=[];
+   //lista auxiliar nomas
+   listaEventos:Object[]=new Array();
+   //los eventos disponibles para seleccionar
+   listaEventosDisponibles:String[];
+   //objeto que controla los eventos
    seleccionEventos:SeleccionEventos;
   constructor(private apiPHP:PhpServeService) { }
 
   ngOnInit(): void {
+    this.getEventos();
+  }
+  getEventos(){
+    this.apiPHP.getEventos(1).subscribe(
+      resultado=>{
+        for (let i in resultado) {
+          this.listaEventos.push(resultado[i]);
+        }
+        this.seleccionEventos = new SeleccionEventos(this.listaEventos);
+        this.listaEventosDisponibles=this.seleccionEventos.getListaEventosDisponibles();
+        console.log(this.listaEventos);
+        console.log(this.listaEventosDisponibles);
+      }
+    );
   }
   agregarEvento(){
     let nombreNombre = $('#nombreEvento').val();
