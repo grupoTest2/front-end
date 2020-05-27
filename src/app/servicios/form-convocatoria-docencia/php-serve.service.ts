@@ -22,11 +22,14 @@ export class PhpServeService {
   public agregarRequisitos(listaRequisitos){
     return this.http.post(`${this.URL}convocatoriaDocencia/establecerRequisitos.php`, JSON.stringify(listaRequisitos));
   }
-  public getEventos(){
-    return this.http.get(`${this.URL}convocatoriaDocencia/obtenerEventos.php`);
+  public getEventos(idLanzConv){
+    return this.http.get(`${this.URL}convocatoriaDocencia/obtenerEventos.php?idLanzConv=${idLanzConv}`);
   }
 
   public agregarEventos(listaEventos){
     return this.http.post(`${this.URL}convocatoriaDocencia/establecerEventos.php`, JSON.stringify(listaEventos));
+  }
+  public agregarMeritos(listaMeritos){
+    return this.http.post(`${this.URL}convocatoriaDocencia/establecerEventos.php`, JSON.stringify(listaMeritos));
   }
 }

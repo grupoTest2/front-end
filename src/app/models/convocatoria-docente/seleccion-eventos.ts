@@ -1,6 +1,6 @@
 import { Evento } from './evento';
 
-export class SeleccionEvento{
+export class SeleccionEventos{
     private listaEventosSelecciados:Evento[];//seleccionados
     private listaEventos:Object[];//
     private listaEventosDisponibles:String[];//extridsos de la bd

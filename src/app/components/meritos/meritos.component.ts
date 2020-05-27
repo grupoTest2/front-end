@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Merito } from '../../models/convocatoria-docente/merito';
 import { SeleccionMerito } from 'src/app/models/convocatoria-docente/seleccion-meritos';
+import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 
 declare var tata: any;
 declare var $: any;
@@ -30,7 +31,7 @@ export class MeritosComponent implements OnInit {
   porcentajeMerito: number = 0;
   descripcionMerito: String = " ";
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private phpApi:PhpServeService) {
     this.buildForm();
   }
 
@@ -175,6 +176,13 @@ export class MeritosComponent implements OnInit {
     this.formMeritos.reset();
     this.buildForm();
     
+  }
+  agregarMeritosDB(){
+    this.phpApi.agregarMeritos(this.seleccionMerito.getTablaMeritos()).subscribe(
+      datos => {
+        alert(datos['mensaje']);
+      }
+    );
   }
 
   tieneMeritos(merito: Merito): boolean {

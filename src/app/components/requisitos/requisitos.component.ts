@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Requisito } from 'src/app/models/convocatoria-docente/requisito';
 import * as $ from 'jquery';
 import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
+import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 @Component({
   selector: 'app-requisitos',
   templateUrl: './requisitos.component.html',
@@ -11,7 +12,7 @@ export class RequisitosComponent implements OnInit {
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
-  constructor() { }
+  constructor(private apiPHP: PhpServeService) { }
 
   ngOnInit(): void {
 
@@ -27,6 +28,13 @@ export class RequisitosComponent implements OnInit {
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+97)+")     ";
     return caracter;
+  }
+  agregarRequisitosBD(){
+    this.apiPHP.agregarRequisitos(this.seleccionRequisitos.getListaRequisitosSeleccionados()).subscribe(
+      datos => {
+        alert(datos['mensaje']);
+      }
+    );
   }
 
 }

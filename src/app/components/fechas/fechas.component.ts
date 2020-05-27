@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from 'src/app/models/convocatoria-docente/Evento';
 import * as $ from 'jquery';
+import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
+import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',
@@ -9,7 +11,8 @@ import * as $ from 'jquery';
 export class FechasComponent implements OnInit {
    evento:Evento;
    listaEvento:Evento[]=[];
-  constructor() { }
+   seleccionEventos:SeleccionEventos;
+  constructor(private apiPHP:PhpServeService) { }
 
   ngOnInit(): void {
   }
@@ -24,5 +27,12 @@ export class FechasComponent implements OnInit {
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+")     ";
     return caracter;
+  }
+  agregarEventosBD(){
+    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
+      datos => {
+        alert(datos['mensaje']);
+      }
+    );
   }
 }
