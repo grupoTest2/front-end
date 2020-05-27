@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from 'src/app/models/convocatoria-docente/Evento';
 import * as $ from 'jquery';
-
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',

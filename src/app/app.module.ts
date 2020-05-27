@@ -17,6 +17,7 @@ import { DocumentosPresentarComponent } from './components/documentos-presentar/
 import { CalificacionConocimientosComponent } from './components/calificacion-conocimientos/calificacion-conocimientos.component';
 import { FechasComponent } from './components/fechas/fechas.component';
 import { TribunalesComponent } from './components/tribunales/tribunales.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { TribunalesComponent } from './components/tribunales/tribunales.componen
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

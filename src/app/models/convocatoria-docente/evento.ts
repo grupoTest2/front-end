@@ -11,7 +11,7 @@ export class Evento{
         this.fechaIni=fechaIni;
         this.fechaFin=fechaFin;
         this.horaIni=horaIni;
-        this.fechaFin=horaFin;
+        this.horaFin=horaFin;
     }
     public getNombre(){
         return this.nombre;
