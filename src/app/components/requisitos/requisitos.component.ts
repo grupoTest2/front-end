@@ -22,8 +22,8 @@ export class RequisitosComponent implements OnInit {
     console.log("aqui toy");
     let descripcionRequisito = $('#descripcionRequisito').val();
     this.requisito=new Requisito(descripcionRequisito);
-    this.seleccionRequisitos.agregarRequisito(this.requisito);
-    this.listaRequisitos=this.seleccionRequisitos.getListaRequisitosSeleccionados();
+    // this.seleccionRequisitos.agregarRequisito(this.requisito);
+    // this.listaRequisitos=this.seleccionRequisitos.getListaRequisitosSeleccionados();
   }
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+97)+")     ";
@@ -32,7 +32,7 @@ export class RequisitosComponent implements OnInit {
   //funcion para agregar los requisitos a la base de datos, se requiere del id lanzamiento de convocatoria
   agregarRequisitosBD(idLanzConv):boolean{
     let resp:boolean=false;
-    this.seleccionRequisitos.setIdLanzamientoConvocatoria(idLanzConv);
+    // this.seleccionRequisitos.setIdLanzamientoConvocatoria(idLanzConv);
     this.apiPHP.agregarRequisitos(this.seleccionRequisitos.getListaRequisitosSeleccionados()).subscribe(
       datos => {
         if(datos['resultado']=="correcto"){
