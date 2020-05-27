@@ -108,12 +108,15 @@ export class MeritosComponent implements OnInit {
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     this.tablasMeritos.push(merito);
-    this.toastExitoso();
-    $('#modal1').modal('hide'); //cierra el nodal
+    
+    $('#modal1').modal('hide');
+    if(this.formMeritos.valid){
+      this.toastExitoso();
+    }
+    //cierra el nodal
     //resetea valores a vacio
-    (<HTMLInputElement>document.getElementById("tituloM1")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentajeM1")).value = "";
     (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
+    this.formMeritos.reset();
   }
 
   //nivel 2------------------------------------------------------------
@@ -126,8 +129,10 @@ export class MeritosComponent implements OnInit {
     console.log(this.tablasMeritos);
     // this.toastExitoso();
     $('#modal2').modal('hide');
-    (<HTMLInputElement>document.getElementById("titulo2")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentaje2")).value = "";
+    if(this.formMeritos.valid){
+      this.toastExitoso();
+    }
+    this.formMeritos.reset();
   }
 
   // nivel 3 ----------------------------------------------------------
@@ -138,11 +143,12 @@ export class MeritosComponent implements OnInit {
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
 
     this.tablasMeritos[this.indice1].getListaMeritos()[this.indice2].getListaMeritos().push(merito);
-    this.toastExitoso();
     $('#modal3').modal('hide');
-    (<HTMLInputElement>document.getElementById("tituloMerito3")).value = "";
-    (<HTMLInputElement>document.getElementById("porcentaje3")).value = "";
+    if(this.formMeritos.valid){
+      this.toastExitoso();
+    }
     (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
+    this.formMeritos.reset();
   }
 
   tieneMeritos(merito: Merito): boolean {
