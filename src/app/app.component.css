@@ -1,0 +1,23 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+nav {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+footer {
+    width: 100%;
+    align-self: flex-end;
+} */

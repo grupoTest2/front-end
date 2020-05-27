@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { from } from 'rxjs';
     DocumentosPresentarComponent,
     CalificacionConocimientosComponent,
     FechasComponent,
-    TribunalesComponent
+    TribunalesComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
