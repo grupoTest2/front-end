@@ -51,4 +51,7 @@ export class SeleccionMerito {
             }
         }
     }
+    public getSubSubMeritos(i,j){
+        return this.tablaMeritos[i].getListaMeritos()[j].getListaMeritos();
+    }
 }

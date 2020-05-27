@@ -29,11 +29,10 @@ export class RequerimientosComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
     this.buildForm();
-
+    this.getNombreMaterias();
   }
 
   ngOnInit(): void {
-    this.getNombreMaterias();
   }
 
   // formularios con validaciones

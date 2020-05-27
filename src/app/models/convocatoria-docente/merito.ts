@@ -34,7 +34,7 @@ export class Merito {
     }
     return res;
   }
-  private quedaPorcentaje():boolean{
+  public quedaPorcentaje():boolean{
     let sumaPorcentaje:number=0;
     for (let i in this.listaMeritos){
       let objAux:Merito=this.listaMeritos[i];

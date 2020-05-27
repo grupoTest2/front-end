@@ -1,8 +1,8 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label for="requisitos">5.- Calificación de méritos</label>
-        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal1">
-                <i class="fa fa-plus"></i> Añadir
+        <button *ngIf="seleccionMerito.getPorcentajeDisponible()>0" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal1">
+                <i class="fa fa-plus"></i> Añadir {{seleccionMerito.getPorcentajeDisponible()}} %
         </button>
     </div>
     <div id="tablasMeritos">
@@ -30,8 +30,8 @@
                                     <button class="btn btn-outline-danger mr-1" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                    <button class="btn btn-outline-primary" type="submit" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
-                                        <i class="fa fa-plus"></i>
+                                    <button *ngIf="merito1.quedaPorcentaje()" class="btn btn-outline-primary" type="submit" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
+                                        <i class="fa fa-plus">{{merito1.getPorcentajeDisponible()}}%</i> 
                                     </button>
                                 </div>
                             </th>
@@ -52,7 +52,7 @@
                                     </button>
                                 </div>
                             </td>
-                            <td class="text-center">{{merito2.getPorcentaje()}}</td>
+                            <td class="text-center">{{merito2.getPorcentaje()}} %</td>
                             <td class="text-center">
                                 <div class="btn btn-group" role="group">
                                     <button class="btn btn-outline-success mr-1" type="button">
@@ -61,8 +61,8 @@
                                     <button class="btn btn-outline-danger mr-1" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                    <button class="btn btn-outline-info" type="submit" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
-                                        <i class="fa fa-plus" ></i>
+                                    <button *ngIf="merito2.quedaPorcentaje()" class="btn btn-outline-info" type="submit" data-toggle="modal" data-target="#modal3" (click)="setVariosIndices2(indice1, indice2)">
+                                        <i class="fa fa-plus" >{{merito2.getPorcentajeDisponible()}}%</i>
                                     </button>
                                 </div>
                             </td>
