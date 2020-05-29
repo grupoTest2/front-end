@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,6 +26,10 @@ export class RequerimientosComponent implements OnInit {
   listaMateriasDisponibles: String[];
 
   requerimiento: Requerimiento;
+
+
+  /*----- M para envio de datos ------------*/
+  @Output() datosRequerimientos = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
     this.buildForm();
@@ -186,5 +190,14 @@ export class RequerimientosComponent implements OnInit {
   }
   resetForm(){
     this.buildForm();
+  }
+
+
+
+
+
+  /*-------------- metodo para recuperar los datos de este componente*/
+  getDatos(){
+    this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
 }
