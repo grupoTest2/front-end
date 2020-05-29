@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
 import * as $ from 'jquery';
 
@@ -12,7 +12,10 @@ export class DocumentosPresentarComponent implements OnInit {
   documento: DocumentoPresentar;//////////////////
   listaDocumentos: DocumentoPresentar[] = [];/////
   /////////////////////////////////////////////
-  constructor() { }
+
+
+  /*----- M para envio de datos ------------*/
+  @Output() datosDocumentos = new EventEmitter();  constructor() { }
 
   ngOnInit(): void {
   }
@@ -30,4 +33,9 @@ export class DocumentosPresentarComponent implements OnInit {
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+") ";
     return caracter;
   }
+
+    /*-------------- metodo para recuperar los datos de este componente*/
+    getDatos(){
+      this.datosDocumentos.emit(this.listaDocumentos);
+    }
 }

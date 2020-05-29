@@ -6,7 +6,7 @@
         </div>
         <br>
         <div class="form-group">
-            <app-requerimientos #requerimiento (datosRequerimientos)="DatosRequerimientos($event)"></app-requerimientos>
+            <app-requerimientos #requerimiento (datosRequerimientos)="datosRequerimientos($event)"></app-requerimientos>
         </div>
         <br>
         <div class="form-group">
@@ -14,15 +14,15 @@
         </div>
         <br>
         <div class="form-group">
-            <app-documentos-presentar #documentosPresentar (datosDocumentosPresentar)="datosDocumentosPresentar($event)"></app-documentos-presentar>
+            <app-documentos-presentar  #documentosPresentar (datosDocumentos)="datosDocumentosPresentar($event)"></app-documentos-presentar>
         </div>
         <br>
         <div class="form-group">
-            <app-meritos></app-meritos>
+            <app-meritos  #merito (datosMeritos)="datosMeritos($event)"></app-meritos>
         </div>
         <br>
         <div class="form-group">
-            <app-calificacion-conocimientos></app-calificacion-conocimientos>
+            <app-calificacion-conocimientos #calificacionConocimiento (datosCalificacionConocimiento)="datosCalificacionConocimiento($event)"></app-calificacion-conocimientos>
         </div>
         <br>
         <div class="form-group">
@@ -33,7 +33,7 @@
         <hr>
         <div class="form-group">
             <div class="d-flex justify-content-end mt-5">
-                <button class="btn btn-outline-dark" type="button" (click)="requerimiento.getDatos()">
+                <button class="btn btn-outline-dark" type="button" (click)="requerimiento.getDatos(); documentosPresentar.getDatos(); calificacionConocimiento.getDatos(); merito.getDatos()">
                         <i class="fa fa-plus"></i> Guardar 
                 </button>
             </div>

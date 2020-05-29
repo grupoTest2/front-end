@@ -192,10 +192,6 @@ export class RequerimientosComponent implements OnInit {
     this.buildForm();
   }
 
-
-
-
-
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(){
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
