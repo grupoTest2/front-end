@@ -3,7 +3,6 @@ import { Evento } from 'src/app/models/convocatoria-docente/Evento';
 import * as $ from 'jquery';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
-import { SeleccionFechas } from 'src/app/models/convocatoria-docente/seleccion-fechas';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var tata: any;
@@ -116,7 +115,7 @@ export class FechasComponent implements OnInit {
         for (let i in resultado) {
           this.listaEventos.push(resultado[i]);
         }
-        this.seleccionEventos = new SeleccionEventos(this.listaEventos);
+        this.seleccionEventos = new SeleccionEventos();
         this.listaEventosDisponibles = this.seleccionEventos.getListaEventosDisponibles();
         console.log(this.listaEventos);
         console.log(this.listaEventosDisponibles);
