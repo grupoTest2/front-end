@@ -1,8 +1,8 @@
 export class Evento{
     private idLanzConv:number;
     private nombre:String;
-    private fechaIni:String;
-    private fechaFin:String;
+    private fechaIni:Date;
+    private fechaFin:Date;
     private horaIni:String;
     private horaFin:String;
 
@@ -27,6 +27,15 @@ export class Evento{
     }
     public getHoraFin(){
         return this.horaFin;
+    }
+    public getFecha():String{
+        return this.fechaFin.getDay()+"/"+this.fechaFin.getMonth()+"/"+this.fechaFin.getUTCFullYear();
+    }
+    public setFechaIni(nFecha){
+        this.fechaIni=nFecha;
+    }
+    public setFechaFin(nFecha){
+        this.fechaFin=nFecha;
     }
     public setIdLanzConv(nIdLanzConv){
         this.idLanzConv=nIdLanzConv;
