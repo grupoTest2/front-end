@@ -4,10 +4,11 @@ import * as $ from 'jquery';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import * as moment from 'moment';
 declare var tata: any;
 declare var $: any;
 declare function init_plugins();
+moment.locale('es');
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',
@@ -17,10 +18,10 @@ export class FechasComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
-  fecha: Date;
+  f : Date;
   //Formulario
   formEventos: FormGroup
-
+  
   evento: Evento;
   //los eventos seleccionados
   listaEvento: Evento[] = [];
@@ -32,12 +33,11 @@ export class FechasComponent implements OnInit {
   seleccionEventos: SeleccionEventos;
   constructor(private apiPHP: PhpServeService, private formBuilder: FormBuilder) {
     this.buildForm();
+
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 12, 31);
-    this.fecha = new Date();
   }
-
   ngOnInit(): void {
     init_plugins();
     this.getEventos();
@@ -46,7 +46,7 @@ export class FechasComponent implements OnInit {
 
   private buildForm() {
     this.formEventos = this.formBuilder.group({
-      evento: ['', [Validators.required]],
+      evento: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       fecha: ['', [Validators.required]],
     });
 
@@ -120,14 +120,16 @@ export class FechasComponent implements OnInit {
   }
   agregarEvento() {
     let nombreNombre = $('#nombreEvento').val();
-    let fechaInicio = $('#fechaInicio').val();
-    let fechaFin = $('#fechaFin').val();
-    this.evento = new Evento(nombreNombre, fechaInicio, fechaFin);
+    let fecha = $('#fecha').val();
+    let hora = $('#hora').val();
+    this.f= new Date(fecha);
+    console.log("qqqqqqqqq",this.f);
+    this.evento = new Evento(nombreNombre, fecha, hora);
     this.listaEvento.push(this.evento);
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formEventos.reset();
     $('#tablaFechas').modal('hide');
-    console.log(this.listaEvento + "--------------------------------");
+    console.log(this.evento);
   }
   getindice(indice: number) {
     let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
