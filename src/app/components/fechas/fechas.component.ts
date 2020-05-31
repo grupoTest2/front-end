@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var tata: any;
 declare var $: any;
+declare function init_plugins();
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',
@@ -38,7 +39,9 @@ export class FechasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    init_plugins();
     this.getEventos();
+    $('.clockpicker').clockpicker();
   }
 
   private buildForm() {
@@ -97,6 +100,10 @@ export class FechasComponent implements OnInit {
   getFechaInicio(){}
 
   getFechaFin(){}
+
+  hora(){
+    $('.clockpicker').clockpicker();
+  }
   
   getEventos() {
     this.apiPHP.getEventos(1).subscribe(
