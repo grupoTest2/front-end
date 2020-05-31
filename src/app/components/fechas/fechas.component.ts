@@ -45,8 +45,7 @@ export class FechasComponent implements OnInit {
   private buildForm() {
     this.formEventos = this.formBuilder.group({
       evento: ['', [Validators.required]],
-      fechaInicio: ['', [Validators.required]],
-      fechaFin: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
     });
 
     this.formEventos.valueChanges
@@ -75,24 +74,14 @@ export class FechasComponent implements OnInit {
     return this.eventoForm.touched && this.eventoForm.invalid;
   }
 
-  get fechaInicioForm() {
-    return this.formEventos.get('fechaInicio');
+  get fechaForm() {
+    return this.formEventos.get('fecha');
   }
-  get fechaInicioIsValid() {
-    return this.fechaInicioForm.touched && this.fechaInicioForm.valid;
+  get fechaIsValid() {
+    return this.fechaForm.touched && this.fechaForm.valid;
   }
-  get fechaInicioIsInvalid() {
-    return this.fechaInicioForm.touched && this.fechaInicioForm.invalid;
-  }
-
-  get fechaFinForm() {
-    return this.formEventos.get('fechaFin');
-  }
-  get fechaFinIsValid() {
-    return this.fechaFinForm.touched && this.fechaFinForm.valid;
-  }
-  get fechaFinIsInvalid() {
-    return this.fechaFinForm.touched && this.fechaFinForm.invalid;
+  get fechaIsInvalid() {
+    return this.fechaForm.touched && this.fechaForm.invalid;
   }
   formValido(){
     if(this.formEventos.valid){
