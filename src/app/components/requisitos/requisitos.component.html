@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label for="requisitos">2.- Requisitos</label>
-        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tablaRequisitos">
+        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tablaRequisitos" (click)="resetForm()">
                 <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let requisito of listaRequisitos; index as i"> 
+                <tr *ngFor="let requisito of listaRequisitos; index as i">
                     <td scope="row">{{getindice(i)}} {{requisito.getDescripcion()}}</td>
                     <td class="text-right">
                         <div class="btn btn-group" role="group">
@@ -38,20 +38,30 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Agregar nuevo requerimiento</h5>
+                <h5 class="modal-title" id="">Agregar nuevo requisito</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
             <div class="modal-body" id="modalRequisitos">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Detalle Requisito:</label>
-                    <textarea class="form-control" rows="3" id="descripcionRequisito"></textarea>
-                </div>
+                <form [formGroup]="formRequisitos" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Detalle Requisito:</label>
+                        <textarea class="form-control" rows="3" id="descripcionRequisito" [class.is-invalid]="detalleFormIsInvalid" [class.is-valid]="detalleFormIsValid" formControlName="detalle"></textarea>
+                        <div *ngIf="detalleFormIsInvalid">
+                            <small class="text-danger" *ngIf="detalleForm.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="detalleForm.hasError('minlength')">
+                                Texto muy corto  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarRequisito()">Guardar</button>
+                <button type="submit" class="btn btn-primary" (click)="formValido()">Guardar</button>
             </div>
         </div>
     </div>

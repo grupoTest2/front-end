@@ -5,10 +5,10 @@ export class SeleccionEventos{
     private listaEventos:Object[];//
     private listaEventosDisponibles:String[];//extridsos de la bd
 
-    public constructor(listaE:Object[]){
+    public constructor(){
         this.listaEventosSelecciados=new Array();
-        this.listaEventos=listaE;
-        this.actualizarListaEventosDisponibles();
+        //this.listaEventos=listaE;
+        //this.actualizarListaEventosDisponibles();
     }
     public actualizarListaEventosDisponibles(){
         this.listaEventosDisponibles=new Array();
@@ -20,8 +20,25 @@ export class SeleccionEventos{
         }
     }
     public agregarEvento(evento:Evento){
-        this.listaEventosSelecciados.push(evento);
-        this.deshabilitarEvento(evento.getNombre());
+        let res:boolean=false;
+        if(this.esValido(evento)){
+            this.listaEventosSelecciados.push(evento);
+            res=true;
+        }
+
+    }
+    private esValido(evento:Evento):boolean{
+        let res:boolean=false;
+        if(this.listaEventosSelecciados.length==0){
+            res=true;
+        }else{
+            let eventoAux=this.listaEventosSelecciados[this.listaEventosSelecciados.length-1];
+            if(evento.getFechaFin()>=eventoAux.getFechaFin()&&evento.getNombre()!=eventoAux.getNombre()){
+                evento.setFechaIni(eventoAux.getFechaFin());
+                res=true;
+            }
+        }
+        return res;    
     }
     public getListaEventosDisponibles(){
         return this.listaEventosDisponibles;

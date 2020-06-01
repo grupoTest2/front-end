@@ -1,32 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { Requisito } from 'src/app/models/convocatoria-docente/requisito';
-import * as $ from 'jquery';
 import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+declare var tata: any;
+declare var $: any;
+
 @Component({
   selector: 'app-requisitos',
   templateUrl: './requisitos.component.html',
   styleUrls: ['./requisitos.component.css']
 })
 export class RequisitosComponent implements OnInit {
+  //Formulario
+  formRequisitos: FormGroup;
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
-  constructor(private apiPHP: PhpServeService) { }
+  constructor(private apiPHP: PhpServeService, private formBuilder: FormBuilder) {
+    this.buildForm();
+  }
 
   ngOnInit(): void {
 
   }
 
+  private buildForm() {
+    this.formRequisitos = this.formBuilder.group({
+      detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
+    });
+
+    this.formRequisitos.valueChanges
+      .subscribe(value => {
+        console.log(value);
+      });
+  }
+  save(event: Event) {
+    event.preventDefault();
+    if (this.formRequisitos.valid) {
+      const value = this.formRequisitos.value;
+      console.log(value);
+    } else {
+      this.formRequisitos.markAllAsTouched();
+      console.log('marca');
+    }
+  }
+
+  resetForm(){
+    this.buildForm();
+  }
+
+  get detalleForm() {
+    return this.formRequisitos.get('detalle');
+  }
+  get detalleFormIsValid() {
+    return this.detalleForm.touched && this.detalleForm.valid;
+  }
+  get detalleFormIsInvalid() {
+    return this.detalleForm.touched && this.detalleForm.invalid;
+  }
+
   agregarRequisito(){
     console.log("aqui toy");
     let descripcionRequisito = $('#descripcionRequisito').val();
-    this.requisito=new Requisito(descripcionRequisito);
-    // this.seleccionRequisitos.agregarRequisito(this.requisito);
-    // this.listaRequisitos=this.seleccionRequisitos.getListaRequisitosSeleccionados();
+    this.requisito = new Requisito(descripcionRequisito);
+    this.seleccionRequisitos.agregarRequisito(this.requisito);
+    this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
+    tata.success('Agregado.', 'Se agregó con exito.');
+    // this.formRequisitos.reset();
+    $('#tablaRequisitos').modal('hide');
+  }
+  formValido(){
+    if(this.formRequisitos.valid){
+      this.agregarRequisito();
+    }else{
+      this.formRequisitos.markAllAsTouched();
+      tata.error('Error', 'Formulario invalido');
+    }
   }
   getindice(indice:number){
-    let caracter:String=String.fromCharCode(indice+97)+")     ";
+    let caracter: string = String.fromCharCode(indice + 97)+")     ";
     return caracter;
   }
   //funcion para agregar los requisitos a la base de datos, se requiere del id lanzamiento de convocatoria
