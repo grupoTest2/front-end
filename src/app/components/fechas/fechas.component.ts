@@ -93,8 +93,20 @@ export class FechasComponent implements OnInit {
       tata.error('Error', 'Formulario invalido');
     }
   }
+  listaVacia(){
+    
+  }
   resetForm(){
-    this.buildForm();
+    if(this.listaEvento.length == 0){
+      $('#nombreEvento').val("Publicacíon de la convocatoria");
+      this.formEventos.get('evento').setErrors(null);
+      $('#nombreEvento').prop('readonly', true);
+      $('#nombreEvento').css("background-color","#fff");
+    }else{
+      this.buildForm();
+      $('#nombreEvento').prop('readonly', false);
+
+    }
   }
 
   getFechaInicio(){}
@@ -142,4 +154,6 @@ export class FechasComponent implements OnInit {
       }
     );
   }
+
+  
 }

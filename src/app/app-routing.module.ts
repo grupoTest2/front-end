@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './pages/inicio/inicio.component';
-import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
+import { FormConvocatoriaDocenciaComponent } from './pages/form-convocatoria-docencia/form-convocatoria-docencia.component';
 
 
 const routes: Routes = [
