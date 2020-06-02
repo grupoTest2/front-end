@@ -214,7 +214,6 @@ export class RequerimientosComponent implements OnInit {
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
 
-
   enviarLista() {
     this.listaCodigos.emit([1, 2, 3, 4]);
   }
