@@ -15,9 +15,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let evento of listaEvento; index as i">
+                <tr *ngFor="let evento of listaEventosSeleccionados; index as i">
                     <td>{{getindice(i)}} {{evento.getNombre()}} </td>
-                    <td>{{evento.getFechaIni()}} </td>
+                    <td>{{evento.getFecha()}} {{evento.getHoraFin()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">

@@ -5,18 +5,19 @@ import { CalificacionConocimiento } from 'src/app/models/convocatoria-docente/ca
 import {Merito} from 'src/app/models/convocatoria-docente/merito';
 
 @Component({
-  selector: 'app-form-convocatoria-docencia',
-  templateUrl: './form-convocatoria-docencia.component.html',
-  styleUrls: ['./form-convocatoria-docencia.component.css']
+  selector: 'app-form-convocatoria',
+  templateUrl: './form-convocatoria.component.html',
+  styleUrls: ['./form-convocatoria.component.css']
 })
-export class FormConvocatoriaDocenciaComponent implements OnInit {
+export class FormConvocatoriaComponent implements OnInit {
 
-
+  
   constructor() {
-
+ 
   }
 
   ngOnInit(): void {
+    
   }
 
   datosRequerimientos(requerimientos:Requerimiento[]) {

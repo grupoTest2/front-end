@@ -24,23 +24,21 @@ export class FechasComponent implements OnInit {
   
   evento: Evento;
   //los eventos seleccionados
-  listaEvento: Evento[] = [];
+  listaEventosSeleccionados: Evento[] = [];
   //lista auxiliar nomas
   listaEventos: Object[] = new Array();
-  //los eventos disponibles para seleccionar
-  listaEventosDisponibles: String[];
+
   //objeto que controla los eventos
   seleccionEventos: SeleccionEventos;
   constructor(private apiPHP: PhpServeService, private formBuilder: FormBuilder) {
     this.buildForm();
-
+    this.seleccionEventos=new SeleccionEventos();
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 12, 31);
   }
   ngOnInit(): void {
     init_plugins();
-    this.getEventos();
     $('.clockpicker').clockpicker();
   }
 
@@ -93,8 +91,20 @@ export class FechasComponent implements OnInit {
       tata.error('Error', 'Formulario invalido');
     }
   }
+  listaVacia(){
+    
+  }
   resetForm(){
-    this.buildForm();
+    if(this.listaEventosSeleccionados.length == 0){
+      $('#nombreEvento').val("Publicacíon de la convocatoria");
+      this.formEventos.get('evento').setErrors(null);
+      $('#nombreEvento').prop('readonly', true);
+      $('#nombreEvento').css("background-color","#fff");
+    }else{
+      this.buildForm();
+      $('#nombreEvento').prop('readonly', false);
+
+    }
   }
 
   getFechaInicio(){}
@@ -105,31 +115,28 @@ export class FechasComponent implements OnInit {
     $('.clockpicker').clockpicker();
   }
   
-  getEventos() {
-    this.apiPHP.getEventos(1).subscribe(
-      resultado => {
-        for (let i in resultado) {
-          this.listaEventos.push(resultado[i]);
-        }
-        this.seleccionEventos = new SeleccionEventos();
-        this.listaEventosDisponibles = this.seleccionEventos.getListaEventosDisponibles();
-        console.log(this.listaEventos);
-        console.log(this.listaEventosDisponibles);
-      }
-    );
-  }
   agregarEvento() {
     let nombreNombre = $('#nombreEvento').val();
     let fecha = $('#fecha').val();
     let hora = $('#hora').val();
-    this.f= new Date(fecha);
-    console.log("qqqqqqqqq",this.f);
-    this.evento = new Evento(nombreNombre, fecha, hora);
-    this.listaEvento.push(this.evento);
-    tata.success('Agregado.', 'Se agregó con exito.');
+    //creamos el evento
+    this.evento=new Evento(nombreNombre,fecha,hora);
+    console.log("mi eventoo "+this.evento)
+    //agregamos el evento
+    let resp=this.seleccionEventos.agregarEvento(this.evento);
+    if(resp){
+      //la fecha es valida respecto a la anterior
+      tata.success('Agregado.', 'Se agregó con exito.');
+    }else{
+      //fecha incorrecta
+      tata.error('Error', 'debe ser una fecha posterior a la ultima');
+    }
+    this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
+    this.seleccionEventos.convertirEventosBD();
+    console.log(this.listaEventosSeleccionados);
     this.formEventos.reset();
     $('#tablaFechas').modal('hide');
-    console.log(this.evento);
+
   }
   getindice(indice: number) {
     let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
@@ -142,4 +149,6 @@ export class FechasComponent implements OnInit {
       }
     );
   }
+
+  
 }

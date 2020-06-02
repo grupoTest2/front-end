@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { FormConvocatoriaDocenciaComponent } from './components/form-convocatoria-docencia/form-convocatoria-docencia.component';
 import { MeritosComponent } from './components/meritos/meritos.component';
 import { RequerimientosComponent } from './components/requerimientos/requerimientos.component';
 import { RequisitosComponent } from './components/requisitos/requisitos.component';
@@ -22,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     NavBarComponent,
     FooterComponent,
     SidebarComponent,
-    FormConvocatoriaDocenciaComponent,
+    FormConvocatoriaComponent,
     MeritosComponent,
     RequerimientosComponent,
     RequisitosComponent,

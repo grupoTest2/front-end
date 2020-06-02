@@ -25,11 +25,12 @@ export class SeleccionEventos{
             this.listaEventosSelecciados.push(evento);
             res=true;
         }
-
+        return res;
     }
     private esValido(evento:Evento):boolean{
         let res:boolean=false;
         if(this.listaEventosSelecciados.length==0){
+            evento.setFechaIni(evento.getFechaFin());
             res=true;
         }else{
             let eventoAux=this.listaEventosSelecciados[this.listaEventosSelecciados.length-1];
@@ -54,6 +55,11 @@ export class SeleccionEventos{
             }
         }
         this.actualizarListaEventosDisponibles();
+    }
+    public convertirEventosBD(){
+        for(let i in this.listaEventosSelecciados){
+            this.listaEventosSelecciados[i].convertirseString();
+        }
     }
 
 }
