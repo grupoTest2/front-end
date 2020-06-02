@@ -186,6 +186,7 @@ export class MeritosComponent implements OnInit {
     this.formMeritos.reset();
     console.log("nivel 3.......................");
     console.log(this.tablasMeritos);
+
   }
 
   tieneMeritos(merito: Merito): boolean {
@@ -236,5 +237,6 @@ export class MeritosComponent implements OnInit {
   getDatos() {
     this.datosMeritos.emit(this.tablasMeritos);
   }
+
 }
 

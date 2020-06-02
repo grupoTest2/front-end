@@ -32,6 +32,12 @@ export class RequerimientosComponent implements OnInit {
   /*----- M para envio de datos ------------*/
   @Output() datosRequerimientos = new EventEmitter();
   href: string = "";
+
+
+
+
+  @Output() listaCodigos = new EventEmitter();
+
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService, private router: Router) {
     this.buildForm();
     this.getNombreMaterias();
@@ -206,5 +212,10 @@ export class RequerimientosComponent implements OnInit {
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(){
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
+  }
+
+
+  enviarLista() {
+    this.listaCodigos.emit([1, 2, 3, 4]);
   }
 }

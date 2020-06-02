@@ -11,7 +11,7 @@ import {Merito} from 'src/app/models/convocatoria-docente/merito';
 })
 export class FormConvocatoriaComponent implements OnInit {
 
-  
+  listaCodigos:any=[];
   constructor() {
  
   }
@@ -43,5 +43,9 @@ export class FormConvocatoriaComponent implements OnInit {
       console.log("la descripcion del merito es->"+merito.getDescripcion());
     }
     console.log("****************************************");
+  }
+
+  setListaCodigos( listaCodigos){
+    this.listaCodigos=listaCodigos;
   }
 }
