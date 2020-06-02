@@ -6,6 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
 import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
+import { Router } from '@angular/router';
 declare var swal: any;
 declare var tata: any;
 declare var $: any;
@@ -30,13 +31,23 @@ export class RequerimientosComponent implements OnInit {
 
   /*----- M para envio de datos ------------*/
   @Output() datosRequerimientos = new EventEmitter();
-
-  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService) {
+  href: string = "";
+  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService, private router: Router) {
     this.buildForm();
     this.getNombreMaterias();
   }
 
   ngOnInit(): void {
+    this.href = this.router.url;
+        console.log(this.router.url);
+  }
+
+  rutaActual(){
+    if (this.href === '/convLaboratorio'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   // formularios con validaciones

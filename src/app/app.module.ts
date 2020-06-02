@@ -21,7 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { InicioComponent } from './pages/inicio/inicio.component';
-import { FormConvocatoriaDocenciaComponent } from './pages/form-convocatoria-docencia/form-convocatoria-docencia.component';
+import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { FormConvocatoriaDocenciaComponent } from './pages/form-convocatoria-doc
     NavBarComponent,
     FooterComponent,
     SidebarComponent,
-    FormConvocatoriaDocenciaComponent,
+    FormConvocatoriaComponent,
     MeritosComponent,
     RequerimientosComponent,
     RequisitosComponent,

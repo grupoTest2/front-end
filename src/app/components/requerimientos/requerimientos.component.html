@@ -12,6 +12,7 @@
                     <th class="text-center" scope="col">Items</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
                     <th class="text-center" scope="col">Materia</th>
+                    <th *ngIf="rutaActual()" class="text-center" scope="col">Codigo Auxiliatura</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -87,6 +88,21 @@
                         <div *ngIf="materiaFormIsInvalid">
                             <small class="text-danger" *ngIf="materiaForm.hasError('required')">
                                     Seleccione una materia  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="rutaActual()">
+                        <label for="items" class="col-form-label">Codigo: </label>
+                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
+                        <div *ngIf="itemIsInvalid">
+                            <small class="text-danger" *ngIf="item.hasError('required')">
+                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="item.hasError('min')">
+                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                            <small class="text-danger" *ngIf="item.hasError('pattern')">
+                                Ingrese un valor valido  <small class="fal fa-exclamation-triangle"></small>
                             </small>
                         </div>
                     </div>
