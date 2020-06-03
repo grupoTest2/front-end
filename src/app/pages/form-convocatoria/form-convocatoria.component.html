@@ -6,7 +6,7 @@
         </div>
         <br>
         <div class="form-group">
-            <app-requerimientos #requerimiento (datosRequerimientos)="datosRequerimientos($event)"></app-requerimientos>
+            <app-requerimientos #requerimiento (listaCodigos)="setListaCodigos($event)" (datosRequerimientos)="datosRequerimientos($event)"></app-requerimientos>
         </div>
         <br>
         <div class="form-group">
@@ -24,6 +24,7 @@
         <div class="form-group">
             <app-calificacion-conocimientos #calificacionConocimiento (datosCalificacionConocimiento)="datosCalificacionConocimiento($event)"></app-calificacion-conocimientos>
             <app-calificacion-conocimientos-laboratorio></app-calificacion-conocimientos-laboratorio>
+            <app-calificacion-conocimientos listaCodigos="{{listaCodigos}}" #calificacionConocimiento (datosCalificacionConocimiento)="datosCalificacionConocimiento($event)"></app-calificacion-conocimientos>
         </div>
         <br>
         <div class="form-group">

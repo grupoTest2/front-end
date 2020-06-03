@@ -6,10 +6,12 @@ export class Requerimiento {
     private hrsAcademicas: number;
     private nombreMateria: String;
     private idMat: number;
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM:String) {
+    private codigoAuxiliatura:String;
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM:String,codigoAuxiliatura:String="") {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria =nombreM;
+        this.codigoAuxiliatura=codigoAuxiliatura;
     }
     public getCantidadItem(){
         return this.cantidadItem;
@@ -26,4 +28,8 @@ export class Requerimiento {
     public setIdLanzamientoConv(idLanzConv){
         this.idLanzConv=idLanzConv;
     }
+    public getCodigoAuxiliatura(){
+        return this.codigoAuxiliatura;
+    }
+
 }
