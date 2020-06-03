@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import * as $ from 'jquery';
 
 @Component({
@@ -12,12 +14,50 @@ export class DocumentosPresentarComponent implements OnInit {
   documento: DocumentoPresentar;//////////////////
   listaDocumentos: DocumentoPresentar[] = [];/////
   /////////////////////////////////////////////
-
+  formDocumentos: FormGroup;
 
   /*----- M para envio de datos ------------*/
-  @Output() datosDocumentos = new EventEmitter();  constructor() { }
+  @Output() datosDocumentos = new EventEmitter();
+  constructor(private formBuilder: FormBuilder) { 
+    this.buildForm();
+  }
 
   ngOnInit(): void {
+  }
+
+  private buildForm() {
+    this.formDocumentos = this.formBuilder.group({
+      detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
+    });
+
+    this.formDocumentos.valueChanges
+      .subscribe(value => {
+        console.log(value);
+      });
+  }
+  save(event: Event) {
+    event.preventDefault();
+    if (this.formDocumentos.valid) {
+      const value = this.formDocumentos.value;
+      console.log(value);
+    } else {
+      this.formDocumentos.markAllAsTouched();
+      console.log('marca');
+    }
+  }
+
+  resetForm(){
+    this.buildForm();
+  }
+
+  get detalleForm() {
+    return this.formDocumentos.get('detalle');
+  }
+  get detalleFormIsValid() {
+    return this.detalleForm.touched && this.detalleForm.valid;
+  }
+  get detalleFormIsInvalid() {
+    return this.detalleForm.touched && this.detalleForm.invalid;
   }
 
   // metodos para almacenar lo de la interfaz

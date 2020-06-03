@@ -22,8 +22,6 @@ import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
-import { CalificacionConocimientosLaboratorioComponent } from './components/calificacion-conocimientos-laboratorio/calificacion-conocimientos-laboratorio.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,8 +36,7 @@ import { CalificacionConocimientosLaboratorioComponent } from './components/cali
     CalificacionConocimientosComponent,
     FechasComponent,
     TribunalesComponent,
-    InicioComponent,
-    CalificacionConocimientosLaboratorioComponent
+    InicioComponent
   ],
   imports: [
     BrowserModule,
