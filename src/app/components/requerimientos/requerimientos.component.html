@@ -91,21 +91,6 @@
                             </small>
                         </div>
                     </div>
-                    <div class="form-group" *ngIf="rutaActual()">
-                        <label for="items" class="col-form-label">Codigo: </label>
-                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
-                        <div *ngIf="itemIsInvalid">
-                            <small class="text-danger" *ngIf="item.hasError('required')">
-                                Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
-                            </small>
-                            <small class="text-danger" *ngIf="item.hasError('min')">
-                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
-                            </small>
-                            <small class="text-danger" *ngIf="item.hasError('pattern')">
-                                Ingrese un valor valido  <small class="fal fa-exclamation-triangle"></small>
-                            </small>
-                        </div>
-                    </div>
                     <hr>
                     <div class="form-group d-flex justify-content-end mt-4">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>

@@ -20,7 +20,7 @@ export class RequerimientosComponent implements OnInit {
 
   formRequerimientos: FormGroup;
   idDepartamento = 1;
-  seleccionRequerimiento:SeleccionRequerimiento;
+  seleccionRequerimiento: SeleccionRequerimiento;
 
   requerimientosSeleccionados: Requerimiento[] = new Array();
   listaMaterias: Object[] = new Array();
@@ -33,10 +33,11 @@ export class RequerimientosComponent implements OnInit {
   @Output() datosRequerimientos = new EventEmitter();
   href: string = "";
 
-
-
-
+  /* ouput para enviar la lista de los codigos de los diferentes requeriminentos*/
   @Output() listaCodigos = new EventEmitter();
+
+  /* lista de reuqerimientos de laborratorios */
+  listaRequeriminetos: Requerimiento[] = [];
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService, private router: Router) {
     this.buildForm();
@@ -45,13 +46,13 @@ export class RequerimientosComponent implements OnInit {
 
   ngOnInit(): void {
     this.href = this.router.url;
-        console.log(this.router.url);
+    console.log(this.router.url);
   }
 
-  rutaActual(){
-    if (this.href === '/convLaboratorio'){
+  rutaActual() {
+    if (this.href === '/convLaboratorio') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -124,21 +125,21 @@ export class RequerimientosComponent implements OnInit {
     );
   }
   //envia las materias seleccionadas a la base de datos
-  agregarRequerimientosBD(idLanzConv):boolean{
-    let resp:boolean=false;
+  agregarRequerimientosBD(idLanzConv): boolean {
+    let resp: boolean = false;
     this.seleccionRequerimiento.setLanzamientoConv(idLanzConv);
     this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
-        datos => {
-          if(datos['resultado']=='correcto'){
-            //se agrega correctamente a la base de datos
-            resp=true;
-          }else{
-            //no se pudo agregar
-          }
-          alert(datos['mensaje']);
+      datos => {
+        if (datos['resultado'] == 'correcto') {
+          //se agrega correctamente a la base de datos
+          resp = true;
+        } else {
+          //no se pudo agregar
         }
-      );
-      return resp;
+        alert(datos['mensaje']);
+      }
+    );
+    return resp;
   }
 
   alertEliminar() {
@@ -186,35 +187,48 @@ export class RequerimientosComponent implements OnInit {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
-    console.log("00000000", nombreMateria);
-    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-    this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-    console.log(this.requerimiento);
-    this.requerimientosSeleccionados=this.seleccionRequerimiento.getMateriasSeleccionadas();
-    console.log("mis req selecciondos ");
-    console.log(JSON.stringify(this.seleccionRequerimiento.getMateriasSeleccionadas()));
-    this.listaMateriasDisponibles=this.seleccionRequerimiento.getListaMateriasDisponibles();
+    if (!this.rutaActual()) {
+      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
+      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+      //console.log(JSON.stringify(this.seleccionRequerimiento.getMateriasSeleccionadas()));
+      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+    }
+    else {
+      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria, nombreMateria);
+      this.listaRequeriminetos.push(this.requerimiento);
+      this.requerimientosSeleccionados=this.listaRequeriminetos;
+      this.enviarLista();
+      console.log(" se guardaron los datos correctamente !!!!!");
+      
+    }
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
   }
-  formValido(){
-    if(this.formRequerimientos.valid){
+  formValido() {
+    if (this.formRequerimientos.valid) {
       this.guardarRequerimientos();
-    }else{
+    } else {
       tata.error('Error', 'Formulario invalido');
     }
   }
-  resetForm(){
+  resetForm() {
     this.buildForm();
   }
 
   /*-------------- metodo para recuperar los datos de este componente*/
-  getDatos(){
+  getDatos() {
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
 
   enviarLista() {
-    this.listaCodigos.emit([1, 2, 3, 4]);
+    var codigos:String []=[];
+    for(let i=0;i<this.listaRequeriminetos.length;i++){
+      codigos.push(this.listaRequeriminetos[i].getCodigoAuxiliatura());
+    }
+    console.log("el codigo es ...");
+    console.log(codigos);
+    this.listaCodigos.emit(codigos);
   }
 }
