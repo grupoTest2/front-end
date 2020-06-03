@@ -21,7 +21,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   @Output() datosCalificacionConocimiento = new EventEmitter();
   @Input() listaCodigos: any;
 
-  lista:any=this.listaCodigos;
+  lista:any=[];//this.listaCodigos;
 
   constructor(private router: Router) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
@@ -75,6 +75,10 @@ export class CalificacionConocimientosComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  setLista(lista){
+    this.lista=lista;//['a','b','c','d'];
   }
 
 }

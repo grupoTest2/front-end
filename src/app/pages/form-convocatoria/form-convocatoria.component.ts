@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
 import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
-import { CalificacionConocimiento } from 'src/app/models/convocatoria-docente/calificacion-conocimiento';
+import {CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
 import {Merito} from 'src/app/models/convocatoria-docente/merito';
 
 @Component({
@@ -10,6 +10,7 @@ import {Merito} from 'src/app/models/convocatoria-docente/merito';
   styleUrls: ['./form-convocatoria.component.css']
 })
 export class FormConvocatoriaComponent implements OnInit {
+  @ViewChild('calificacionConocimiento') calificacionConocimiento: CalificacionConocimientosComponent;  
 
   listaCodigos:any=[];
   constructor() {
@@ -32,7 +33,7 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     console.log("****************************************");
   }
-  datosCalificacionConocimiento(calificacionDocumentos:CalificacionConocimiento[]){
+  datosCalificacionConocimiento(calificacionDocumentos:any[]){
     for (let calificacionDoc of calificacionDocumentos) {
       console.log("detalle de la calificacion de conocimiento es ->"+calificacionDoc.getDescripcion());
     }
@@ -46,6 +47,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   setListaCodigos( listaCodigos){
+    this.calificacionConocimiento.setLista( listaCodigos);
     this.listaCodigos=listaCodigos;
   }
 }

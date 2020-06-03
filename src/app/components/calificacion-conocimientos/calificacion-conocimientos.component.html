@@ -37,7 +37,7 @@
         <thead class="thead-dark">
           <tr class="row">
             <th class="text-center col" scope="col">Tematica</th>
-            <th class="text-center col" scope="col">{{listaCodigos}})</th>
+            <th *ngFor="let calificacion of lista; index as i" class="text-center col" scope="col">{{calificacion}})</th>
             <th class="text-center col" scope="col">Acciones </th>
           </tr>
         </thead>
