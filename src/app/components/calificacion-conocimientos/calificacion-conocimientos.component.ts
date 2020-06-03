@@ -19,9 +19,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   href: string = "";
   /*----- M para envio de datos ------------*/
   @Output() datosCalificacionConocimiento = new EventEmitter();
-  @Input() listaCodigos: any;
-
-  lista:any=[];//this.listaCodigos;
+  lista:any=[];
 
   constructor(private router: Router) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
@@ -30,11 +28,6 @@ export class CalificacionConocimientosComponent implements OnInit {
   ngOnInit(): void {
     this.href = this.router.url;
     console.log(this.listaCalificacion + "--------------------------------");
-    console.log("---------------------------------los codigos recuperados-------------------------");
-    console.log(this.listaCodigos);
-    if(this.lista == null){
-      console.log("vacio");
-    }
   }
 
   agregarCalificacion() {
@@ -78,7 +71,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   setLista(lista){
-    this.lista=lista;//['a','b','c','d'];
+    this.lista=lista;
   }
 
 }
