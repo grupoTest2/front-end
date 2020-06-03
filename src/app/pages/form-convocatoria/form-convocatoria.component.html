@@ -14,15 +14,16 @@
         </div>
         <br>
         <div class="form-group">
-            <app-documentos-presentar  #documentosPresentar (datosDocumentos)="datosDocumentosPresentar($event)"></app-documentos-presentar>
+            <app-documentos-presentar #documentosPresentar (datosDocumentos)="datosDocumentosPresentar($event)"></app-documentos-presentar>
         </div>
         <br>
         <div class="form-group">
-            <app-meritos  #merito (datosMeritos)="datosMeritos($event)"></app-meritos>
+            <app-meritos #merito (datosMeritos)="datosMeritos($event)"></app-meritos>
         </div>
         <br>
         <div class="form-group">
             <app-calificacion-conocimientos #calificacionConocimiento (datosCalificacionConocimiento)="datosCalificacionConocimiento($event)"></app-calificacion-conocimientos>
+            <app-calificacion-conocimientos-laboratorio></app-calificacion-conocimientos-laboratorio>
         </div>
         <br>
         <div class="form-group">

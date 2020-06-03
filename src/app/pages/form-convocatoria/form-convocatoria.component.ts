@@ -17,7 +17,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    localStorage.setItem('id', 'convo1');
   }
 
   datosRequerimientos(requerimientos:Requerimiento[]) {
