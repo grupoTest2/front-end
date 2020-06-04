@@ -74,4 +74,10 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.lista=lista;
   }
 
+
+  /* agregando la calificacioin de auxiliatura laboratorio*/
+  agregarCalificacionAuxL(){
+
+  }
+
 }
