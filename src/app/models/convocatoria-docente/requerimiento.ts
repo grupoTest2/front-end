@@ -1,35 +1,44 @@
 //import { Materia } from './materia';
+import { Tematica } from './tematica';
 
 export class Requerimiento {
-    private idLanzConv:number;
+    private idLanzConv: number;
     private cantidadItem: number;
     private hrsAcademicas: number;
-    private nombreMateria: String;
+    private nombreMateria: string;
     private idMat: number;
-    private codigoAuxiliatura:String;
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM:String,codigoAuxiliatura:String="") {
+    private codigoAuxiliatura: string;
+    private listaCalificaciones: Tematica[];
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string, codigoAuxiliatura: string = " ", listaCalificaciones: Tematica[] = []) {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
-        this.nombreMateria =nombreM;
-        this.codigoAuxiliatura=codigoAuxiliatura;
+        this.nombreMateria = nombreM;
+        this.codigoAuxiliatura = nombreM;
+        this.listaCalificaciones = listaCalificaciones;
     }
-    public getCantidadItem(){
+    public getCantidadItem() {
         return this.cantidadItem;
     }
-    public getHrsAcademicas(){
+    public getHrsAcademicas() {
         return this.hrsAcademicas;
     }
-    public getnombreMateria(){
+    public getnombreMateria() {
         return this.nombreMateria;
     }
-    public setIdMat(id:number){
-        this.idMat=id;
+    public setIdMat(id: number) {
+        this.idMat = id;
     }
-    public setIdLanzamientoConv(idLanzConv){
-        this.idLanzConv=idLanzConv;
+    public setIdLanzamientoConv(idLanzConv) {
+        this.idLanzConv = idLanzConv;
     }
-    public getCodigoAuxiliatura(){
+    public getCodigoAuxiliatura() {
         return this.codigoAuxiliatura;
+    }
+    public getListaCalificaciones(): Tematica[] {
+        return this.listaCalificaciones;
+    }
+    public setListaCalificaciones(value: Tematica[]) {
+        this.listaCalificaciones = value;
     }
 
 }

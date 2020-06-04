@@ -48,6 +48,6 @@ export class FormConvocatoriaComponent implements OnInit {
 
   setListaCodigos( listaCodigos){
     this.calificacionConocimiento.setLista( listaCodigos);
-    this.listaCodigos=listaCodigos;
+    this.listaCodigos = listaCodigos;
   }
 }

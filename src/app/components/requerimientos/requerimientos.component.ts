@@ -231,6 +231,6 @@ export class RequerimientosComponent implements OnInit {
     }
     console.log("el codigo es ...");
     console.log(codigos);
-    this.listaCodigos.emit(codigos);
+    this.listaCodigos.emit(this.listaRequeriminetos);
   }
 }

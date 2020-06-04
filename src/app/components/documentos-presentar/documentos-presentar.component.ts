@@ -2,8 +2,8 @@ import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import * as $ from 'jquery';
-
+declare var tata: any;
+declare var $: any;
 @Component({
   selector: 'app-documentos-presentar',
   templateUrl: './documentos-presentar.component.html',
@@ -50,6 +50,15 @@ export class DocumentosPresentarComponent implements OnInit {
     this.buildForm();
   }
 
+  formValido(){
+    if(this.formDocumentos.valid){
+      this.addDocumento();
+    }else{
+      this.formDocumentos.markAllAsTouched();
+      tata.error('Error', 'Formulario invalido');
+    }
+  }
+
   get detalleForm() {
     return this.formDocumentos.get('detalle');
   }
@@ -67,7 +76,9 @@ export class DocumentosPresentarComponent implements OnInit {
     this.documento = new DocumentoPresentar(descripcionDocumento);
     this.listaDocumentos.push(this.documento);
     console.log("------------------------");
-    console.log(this.listaDocumentos)
+    console.log(this.listaDocumentos);
+    tata.success('Agregado.', 'Se agregó con exito.');
+    $('#tablaDocumentos').modal('hide');
   }
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+") ";
