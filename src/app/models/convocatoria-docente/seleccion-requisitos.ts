@@ -1,4 +1,4 @@
-import { Requisito } from './requisito';
+import { Requisito } from '../clases/crear-convocatoria/requisito';
 
 export class SeleccionRequisito {
     private listaRequisitosSeleccionados:Requisito[];

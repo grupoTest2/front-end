@@ -1,4 +1,4 @@
-import { Evento } from './evento';
+import { Evento } from '../clases/crear-convocatoria/evento';
 
 export class SeleccionEventos{
     private listaEventosSelecciados:Evento[];//seleccionados

@@ -1,4 +1,4 @@
-import { Requerimiento } from './requerimiento';
+import { Requerimiento } from '../clases/crear-convocatoria/requerimiento';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 
 export class SeleccionRequerimiento{

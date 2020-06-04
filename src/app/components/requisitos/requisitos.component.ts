@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Requisito } from 'src/app/models/convocatoria-docente/requisito';
+import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
 import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

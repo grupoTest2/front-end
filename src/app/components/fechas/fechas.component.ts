@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Evento } from 'src/app/models/convocatoria-docente/Evento';
+import { Evento } from 'src/app/models/clases/crear-convocatoria/evento';
 import * as $ from 'jquery';
 import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';

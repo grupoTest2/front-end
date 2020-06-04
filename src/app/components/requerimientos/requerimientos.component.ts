@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
-import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { Router } from '@angular/router';
 declare var swal: any;
 declare var tata: any;

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
 import {CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
-import {Merito} from 'src/app/models/convocatoria-docente/merito';
+import {Merito} from 'src/app/models/clases/crear-convocatoria/merito';
 
 @Component({
   selector: 'app-form-convocatoria',
