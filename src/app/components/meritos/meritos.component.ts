@@ -64,6 +64,10 @@ export class MeritosComponent implements OnInit {
     }
   }
 
+  resetForm() {
+    this.buildForm();
+  }
+
   get titulo() {
     return this.formMeritos.get('titulo');
   }

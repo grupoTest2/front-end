@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 // import * as $ from 'jquery';
 import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
 import { Tematica } from '../../models/convocatoria-docente/tematica';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 declare var $: any;
 
@@ -17,6 +19,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   calificacion: CalificacionConocimiento;
   listaCalificacion: CalificacionConocimiento[] = [];
   seleccionCalificacionCono: SeleccionCalificacion;
+  formCalificacion: FormGroup;
 
 
   listaTematicas: any[] = [];
@@ -25,13 +28,57 @@ export class CalificacionConocimientosComponent implements OnInit {
   @Output() datosCalificacionConocimiento = new EventEmitter();
   lista: any = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private formBuilder: FormBuilder) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
+    this.buildForm();
   }
 
   ngOnInit(): void {
     this.href = this.router.url;
     console.log(this.listaCalificacion + "--------------------------------");
+  }
+
+  private buildForm() {
+    this.formCalificacion = this.formBuilder.group({
+      detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      nota: ['', Validators.compose([Validators.min(1), Validators.pattern(/^\d*$/)])]
+    });
+
+    this.formCalificacion.valueChanges
+      .subscribe(value => {
+        console.log(value);
+      }); 
+  }
+
+  save(event: Event) {
+    event.preventDefault();
+    if (this.formCalificacion.valid) {
+      const value = this.formCalificacion.value;
+      console.log(value);
+    } else {
+      this.formCalificacion.markAllAsTouched();
+      console.log("marca");
+    }
+  }
+
+  get detalle() {
+    return this.formCalificacion.get('detalle');
+  }
+  get detalleIsValid() {
+    return this.detalle.touched && this.detalle.valid;
+  }
+  get detalleIsInvalid() {
+    return this.detalle.touched && this.detalle.invalid;
+  }
+
+  get nota() {
+    return this.formCalificacion.get('nota');
+  }
+  get notaIsValid() {
+    return this.nota.touched && this.nota.valid;
+  }
+  get notaIsInvalid() {
+    return this.nota.touched && this.nota.invalid;
   }
 
   agregarCalificacion() {
@@ -94,7 +141,6 @@ export class CalificacionConocimientosComponent implements OnInit {
   agregarCalificacionAuxL() {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
-    // let notas: number;
     var tematica: Tematica;
     for (let i = 0; i < this.lista.length; i++) {
       var id = this.lista[i].getCodigoAuxiliatura();
@@ -102,10 +148,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       console.log(id, notas);
       tematica = new Tematica(nombreTematica, notas);
       this.lista[i].getListaCalificaciones().push(tematica);
-      
     }
-    console.log("tematicas", this.listaTematicas);
-    console.log("aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", this.lista);
   }
 
 }

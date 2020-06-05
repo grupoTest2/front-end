@@ -4,7 +4,7 @@
         <button *ngIf="!rutaActual()" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modalConocimientoAuxD">
       <i class="fa fa-plus"></i> Añadir
     </button>
-        <button *ngIf="rutaActual()" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modalConocimientoAuxL">
+        <button *ngIf="rutaActual()" [disabled]="lista.length == 0" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modalConocimientoAuxL">
       <i class="fa fa-plus"></i> Añadir
     </button>
     </div>
@@ -74,16 +74,34 @@
           </button>
                 </div>
                 <div class="modal-body" id="modalMeritos">
-                    <div class="form-group">
+                    <form [formGroup]="formCalificacion" (ngSubmit)="save($event)" novalidate autocomplete="off">
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Nombre de la tematica:</label>
-                            <input type="text" min=1 class="form-control" id="nombreTematica">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Nombre de la tematica:</label>
+                                <input [class.is-invalid]="detalleIsInvalid" [class.is-valid]="detalleIsValid" formControlName="detalle" type="text" min=1 class="form-control" id="nombreTematica">
+                                <div *ngIf="detalleIsInvalid">
+                                    <small class="text-danger" *ngIf="detalle.hasError('required')">
+                                                    Llene el campo por favor <small class="fal fa-exclamation-triangle"></small>
+                                    </small>
+                                    <small class="text-danger" *ngIf="detalle.hasError('minlength')">
+                                                    Texto demasiado corto  <small class="fal fa-exclamation-triangle"></small>
+                                    </small>
+                                </div>
+                            </div>
+                            <div *ngFor="let codigoAuxiliatura of lista; index as i" class="form-group">
+                                <label for="recipient-name" class="col-form-label">{{codigoAuxiliatura.getCodigoAuxiliatura()}}</label>
+                                <input type="number" min=1 class="form-control" [class.is-invalid]="notaIsInvalid" [class.is-valid]="notaIsValid" formControlName="nota" type="number" id="{{codigoAuxiliatura.getCodigoAuxiliatura()}}">
+                                <div *ngIf="notaIsInvalid">
+                                    <small class="text-danger" *ngIf="nota.hasError('pattern')">
+                                                Caracteres invalidos <small class="fal fa-exclamation-triangle"></small>
+                                    </small>
+                                    <small class="text-danger" *ngIf="nota.hasError('min')">
+                                                Dato invalido  <small class="fal fa-exclamation-triangle"></small>
+                                    </small>
+                                </div>
+                            </div>
                         </div>
-                        <div *ngFor="let codigoAuxiliatura of lista; index as i" class="form-group">
-                            <label for="recipient-name" class="col-form-label">{{codigoAuxiliatura.getCodigoAuxiliatura()}}</label>
-                            <input type="number" min=1 class="form-control" id="{{codigoAuxiliatura.getCodigoAuxiliatura()}}">
-                        </div>
-                    </div>
+                    </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal" (click)="agregarCalificacionAuxL()">Guardar</button>
@@ -103,14 +121,16 @@
           </button>
                     </div>
                     <div class="modal-body" id="modalMeritos">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Detalle calificacion:</label>
-                            <textarea type="text" class="form-control" rows="3" id="descripcionCalificacion"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Porcentaje:</label>
-                            <input type="number" min=1 class="form-control" id="porcentajeCalificacion">
-                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Detalle calificacion:</label>
+                                <textarea type="text" class="form-control" rows="3" id="descripcionCalificacion"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Porcentaje:</label>
+                                <input type="number" min=1 class="form-control" id="porcentajeCalificacion">
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
