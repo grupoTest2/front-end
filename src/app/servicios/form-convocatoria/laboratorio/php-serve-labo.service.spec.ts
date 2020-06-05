@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PhpServeService } from './php-serve.service';
+import { PhpServeLabo } from './php-serve-labo.service';
 
-describe('PhpServeService', () => {
-  let service: PhpServeService;
+describe('PhpServeLaboService', () => {
+  let service: PhpServeLabo;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PhpServeService);
+    service = TestBed.inject(PhpServeLabo);
   });
 
   it('should be created', () => {

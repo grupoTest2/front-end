@@ -1,4 +1,4 @@
-import { Merito } from './merito';
+import { Merito } from '../clases/crear-convocatoria/merito';
 
 export class SeleccionMerito {
     private tablaMeritos:Merito[];

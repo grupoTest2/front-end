@@ -6,7 +6,8 @@ import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/selec
 import { Tematica } from '../../models/convocatoria-docente/tematica';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-
+import { Tematica } from '../../models/clases/crear-convocatoria/tematica';
+ 
 declare var $: any;
 
 @Component({
@@ -19,7 +20,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   calificacion: CalificacionConocimiento;
   listaCalificacion: CalificacionConocimiento[] = [];
   seleccionCalificacionCono: SeleccionCalificacion;
-  formCalificacion: FormGroup;
+  formCalificacion: FormGroup;  
 
 
   listaTematicas: any[] = [];

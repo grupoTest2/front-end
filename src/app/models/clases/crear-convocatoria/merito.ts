@@ -1,5 +1,5 @@
 export class Merito {
-  private idLanzConv:number;
+  private idConv:number;
   private titulo:string;
   private descripcion:string;
   private porcentaje:number;
@@ -24,7 +24,7 @@ export class Merito {
     return this.listaMeritos;
   }
   public setLanzConv(idLanzConv){
-    this.idLanzConv=idLanzConv;
+    this.idConv=idLanzConv;
   }
   public agregarMerito(merito:Merito):boolean{
     let res:boolean=false;

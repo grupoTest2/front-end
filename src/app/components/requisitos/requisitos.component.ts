@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Requisito } from 'src/app/models/convocatoria-docente/requisito';
+import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
 import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
-import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var tata: any;
@@ -18,7 +18,7 @@ export class RequisitosComponent implements OnInit {
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
-  constructor(private apiPHP: PhpServeService, private formBuilder: FormBuilder) {
+  constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
   }
 

@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { PhpServeService } from 'src/app/servicios/form-convocatoria-docencia/php-serve.service';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
-import { Requerimiento } from 'src/app/models/convocatoria-docente/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { Router } from '@angular/router';
 declare var swal: any;
 declare var tata: any;
@@ -39,7 +39,7 @@ export class RequerimientosComponent implements OnInit {
   /* lista de reuqerimientos de laborratorios */
   listaRequeriminetos: Requerimiento[] = [];
 
-  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.buildForm();
     this.getNombreMaterias();
   }
@@ -112,7 +112,7 @@ export class RequerimientosComponent implements OnInit {
   }
   //obtiene las materias desde la base de datos a traves de php
   getNombreMaterias() {
-    this.apiPHP.getNombreMaterias(this.idDepartamento).subscribe(
+    this.apiPHP.getItems(this.idDepartamento).subscribe(
       result => {
         for (let i in result) {
           this.listaMaterias.push(result[i]);

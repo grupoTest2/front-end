@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Merito } from '../../models/convocatoria-docente/merito';
+import { Merito } from '../../models/clases/crear-convocatoria/merito';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SeleccionMerito } from 'src/app/models/convocatoria-docente/seleccion-meritos';
 

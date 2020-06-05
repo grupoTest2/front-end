@@ -1,5 +1,5 @@
 export class Requisito {
-    private idLanzConv:number;
+    private idConv:number;
     private descripcion:String;
     public constructor(descripcion){
         this.descripcion=descripcion;
@@ -8,9 +8,9 @@ export class Requisito {
         return this.descripcion;
     }
     public getIdLanzConv(){
-        return this.idLanzConv;
+        return this.idConv;
     }
     public setIdLanzConv(idLanzConv){
-        this.idLanzConv=idLanzConv;
+        this.idConv=idLanzConv;
     }
 }
