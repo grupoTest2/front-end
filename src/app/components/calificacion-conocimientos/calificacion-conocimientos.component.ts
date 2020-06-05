@@ -3,7 +3,7 @@ import { CalificacionConocimiento } from 'src/app/models/convocatoria-docente/ca
 import { Router } from '@angular/router';
 // import * as $ from 'jquery';
 import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
-import { Tematica } from '../../models/convocatoria-docente/tematica';
+// import { Tematica } from '../../models/convocatoria-docente/tematica';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Tematica } from '../../models/clases/crear-convocatoria/tematica';
