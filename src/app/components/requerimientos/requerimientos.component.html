@@ -9,7 +9,7 @@
         <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
             <thead class="thead-dark">
                 <tr>
-                    <th class="text-center" scope="col">Items</th>
+                    <th class="text-center" scope="col">Cantidad De Items</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
                     <th class="text-center" scope="col">Materia</th>
                     <th *ngIf="rutaActual()" class="text-center" scope="col">Codigo Auxiliatura</th>
@@ -52,7 +52,7 @@
             <div class="modal-body" id="modalRequerimientos">
                 <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
-                        <label for="items" class="col-form-label">Items: </label>
+                        <label for="items" class="col-form-label">Cantidad De Items: </label>
                         <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
                         <div *ngIf="itemIsInvalid">
                             <small class="text-danger" *ngIf="item.hasError('required')">
