@@ -2,7 +2,7 @@
 import { Tematica } from './tematica';
 
 export class Requerimiento {
-    private idLanzConv: number;
+    private idConv: number;
     private cantidadItem: number;
     private hrsAcademicas: number;
     private nombreMateria: string;
@@ -29,7 +29,7 @@ export class Requerimiento {
         this.idMat = id;
     }
     public setIdLanzamientoConv(idLanzConv) {
-        this.idLanzConv = idLanzConv;
+        this.idConv = idLanzConv;
     }
     public getCodigoAuxiliatura() {
         return this.codigoAuxiliatura;
