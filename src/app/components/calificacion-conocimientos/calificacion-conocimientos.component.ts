@@ -132,7 +132,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     return false;
   }
 
-  setLista(lista) {
+  /*setLista(lista) {
     this.lista = lista;
     console.log("jhonnnnnnnnnnnnnnnn", lista);
     for (let i = 0; i < this.lista.length; i++) {
@@ -145,11 +145,11 @@ export class CalificacionConocimientosComponent implements OnInit {
         this.lista[i].setListaCalificaciones(lista);
       }
     }
-  }
+  }*/
 
 
   /* agregando la calificacioin de auxiliatura laboratorio*/
-  agregarCalificacionAuxL() {
+ /* agregarCalificacionAuxL() {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
     var tematica: Tematica;
@@ -160,13 +160,8 @@ export class CalificacionConocimientosComponent implements OnInit {
       tematica = new Tematica(nombreTematica, notas);
       this.lista[i].getListaCalificaciones().push(tematica);
     }
-  }
-
-  /*agregarCalificacionAuxLabo(listaCalificacion){
-    this.listaConocimientosAxLabo=listaCalificacion;
-    console.log(";a lista enviada por los meritos----------------->"+ this.listaConocimientosAxLabo);
   }*/
-
+  
 
   setLista2(lista) {
     this.listaConocimientosAxLabo = lista;

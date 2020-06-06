@@ -45,13 +45,6 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     console.log("****************************************");
   }
-
-  /*setListaCodigos( listaCodigos){
-    //this.calificacionConocimiento.setLista( listaCodigos);
-    //this.listaCodigos = listaCodigos;
-  }*/
-
-
   setListaCodigos2( listaCodigos){
     this.calificacionConocimiento.setLista2( listaCodigos);
     this.listaCodigos = listaCodigos;

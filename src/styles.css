@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@media(max-width: 790px){
+    Html{
+        Font-size:13px;
+    }
+}
+@media(max-width: 580px){
+    Html{
+        Font-size:10px;
+    }
+}

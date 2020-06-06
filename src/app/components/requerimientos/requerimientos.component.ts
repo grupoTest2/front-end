@@ -36,17 +36,13 @@ export class RequerimientosComponent implements OnInit {
   @Output() datosRequerimientos = new EventEmitter();
   href: string = "";
 
-  /* ouput para enviar la lista de los codigos de los diferentes requeriminentos*/
-  //@Output() listaCodigos = new EventEmitter();
-
   /* lista de reuqerimientos de laborratorios */
   listaRequeriminetos: Requerimiento[] = [];
 
 
-
   //lista para calificaion
-  calificacion:CalifiaccionConocimientoAuxLabo;
-  listaCalificacion:CalifiaccionConocimientoAuxLabo[]=[];
+  calificacion: CalifiaccionConocimientoAuxLabo;
+  listaCalificacion: CalifiaccionConocimientoAuxLabo[] = [];
   @Output() listaCodigos2 = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
@@ -207,18 +203,11 @@ export class RequerimientosComponent implements OnInit {
     else {
       this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
       this.listaRequeriminetos.push(this.requerimiento);
-      this.requerimientosSeleccionados=this.listaRequeriminetos;
-      //this.enviarLista();
-      //console.log(" se guardaron los datos correctamente !!!!!");
-      //this.enviarLista();
-
-
-
-
+      this.requerimientosSeleccionados = this.listaRequeriminetos;
       //modificando la lista de conociminetos//
-      this.calificacion= new CalifiaccionConocimientoAuxLabo(nombreMateria);
+      this.calificacion = new CalifiaccionConocimientoAuxLabo(nombreMateria);
       this.listaCalificacion.push(this.calificacion);
-      this.enviarLista2();      
+      this.enviarLista2();
     }
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
@@ -241,16 +230,6 @@ export class RequerimientosComponent implements OnInit {
   getDatos() {
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
-
-  /*enviarLista() {
-    var codigos:String []=[];
-    for(let i=0;i<this.listaRequeriminetos.length;i++){
-      codigos.push(this.listaRequeriminetos[i].getCodigoAuxiliatura());
-    }
-    console.log("el codigo es ...");
-    console.log(codigos);
-    this.listaCodigos.emit(this.listaRequeriminetos);
-  }*/
 
   enviarLista2() {
     this.listaCodigos2.emit(this.listaCalificacion);
