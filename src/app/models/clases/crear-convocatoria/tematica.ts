@@ -2,7 +2,7 @@ export class Tematica {
 
     private nombre: string;
     private nota: number;
-    public constructor(nombre: string, nota: number) {
+    public constructor(nombre: string, nota: number=0) {
         this.nombre = nombre;
         this.nota = nota;
     }

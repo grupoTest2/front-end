@@ -1,12 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
 import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { Router } from '@angular/router';
+
+import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
+
+
 declare var swal: any;
 declare var tata: any;
 declare var $: any;
@@ -34,10 +37,17 @@ export class RequerimientosComponent implements OnInit {
   href: string = "";
 
   /* ouput para enviar la lista de los codigos de los diferentes requeriminentos*/
-  @Output() listaCodigos = new EventEmitter();
+  //@Output() listaCodigos = new EventEmitter();
 
   /* lista de reuqerimientos de laborratorios */
   listaRequeriminetos: Requerimiento[] = [];
+
+
+
+  //lista para calificaion
+  calificacion:CalifiaccionConocimientoAuxLabo;
+  listaCalificacion:CalifiaccionConocimientoAuxLabo[]=[];
+  @Output() listaCodigos2 = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.buildForm();
@@ -195,12 +205,20 @@ export class RequerimientosComponent implements OnInit {
       this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
     }
     else {
-      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria, nombreMateria);
+      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
       this.listaRequeriminetos.push(this.requerimiento);
       this.requerimientosSeleccionados=this.listaRequeriminetos;
-      this.enviarLista();
-      console.log(" se guardaron los datos correctamente !!!!!");
-      
+      //this.enviarLista();
+      //console.log(" se guardaron los datos correctamente !!!!!");
+      //this.enviarLista();
+
+
+
+
+      //modificando la lista de conociminetos//
+      this.calificacion= new CalifiaccionConocimientoAuxLabo(nombreMateria);
+      this.listaCalificacion.push(this.calificacion);
+      this.enviarLista2();      
     }
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
@@ -224,7 +242,7 @@ export class RequerimientosComponent implements OnInit {
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
 
-  enviarLista() {
+  /*enviarLista() {
     var codigos:String []=[];
     for(let i=0;i<this.listaRequeriminetos.length;i++){
       codigos.push(this.listaRequeriminetos[i].getCodigoAuxiliatura());
@@ -232,5 +250,10 @@ export class RequerimientosComponent implements OnInit {
     console.log("el codigo es ...");
     console.log(codigos);
     this.listaCodigos.emit(this.listaRequeriminetos);
+  }*/
+
+  enviarLista2() {
+    this.listaCodigos2.emit(this.listaCalificacion);
   }
+
 }

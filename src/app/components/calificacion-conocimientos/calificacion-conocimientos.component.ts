@@ -2,12 +2,17 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria-docente/calificacion-conocimiento';
 import { Router } from '@angular/router';
 // import * as $ from 'jquery';
-import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
 // import { Tematica } from '../../models/convocatoria-docente/tematica';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Tematica } from '../../models/clases/crear-convocatoria/tematica';
- 
+
+
+import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
+
+import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
+
+
 declare var $: any;
 
 @Component({
@@ -20,7 +25,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   calificacion: CalificacionConocimiento;
   listaCalificacion: CalificacionConocimiento[] = [];
   seleccionCalificacionCono: SeleccionCalificacion;
-  formCalificacion: FormGroup;  
+  formCalificacion: FormGroup;
 
 
   listaTematicas: any[] = [];
@@ -28,6 +33,11 @@ export class CalificacionConocimientosComponent implements OnInit {
   /*----- M para envio de datos ------------*/
   @Output() datosCalificacionConocimiento = new EventEmitter();
   lista: any = [];
+
+
+  //lista de conocimientos de laboratorio
+  listaConocimientosAxLabo: CalifiaccionConocimientoAuxLabo[] = [];
+  listaTematicas2: any[] = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
@@ -48,7 +58,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.formCalificacion.valueChanges
       .subscribe(value => {
         console.log(value);
-      }); 
+      });
   }
 
   save(event: Event) {
@@ -126,7 +136,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.lista = lista;
     console.log("jhonnnnnnnnnnnnnnnn", lista);
     for (let i = 0; i < this.lista.length; i++) {
-      if (this.lista[i].getListaCalificaciones().length == 0){
+      if (this.lista[i].getListaCalificaciones().length == 0) {
         let lista: Tematica[] = [];
         for (let j = 0; j < this.listaTematicas.length; j++) {
           let tema: Tematica = new Tematica(this.listaTematicas[j], 0);
@@ -152,4 +162,38 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
+  /*agregarCalificacionAuxLabo(listaCalificacion){
+    this.listaConocimientosAxLabo=listaCalificacion;
+    console.log(";a lista enviada por los meritos----------------->"+ this.listaConocimientosAxLabo);
+  }*/
+
+
+  setLista2(lista) {
+    this.listaConocimientosAxLabo = lista;
+    console.log("la lista de conocimientos recividos son:---------------->");
+    console.log(this.listaConocimientosAxLabo);;
+    for (let i = 0; i < this.listaConocimientosAxLabo.length; i++) {
+      if (this.listaConocimientosAxLabo[i].getListaTematicas().length == 0) {
+        let lista: Tematica[] = [];
+        for (let j = 0; j < this.listaTematicas2.length; j++) {
+          let tema: Tematica = new Tematica(this.listaTematicas[j], 0);
+          lista.push(tema);
+        }
+        this.listaConocimientosAxLabo[i].setListaTematicas(lista);
+      }
+    }
+  }
+  agregarCalificacionAuxL2() {
+    var nombreTematica = $('#nombreTematica').val();
+    this.listaTematicas2.push(nombreTematica);
+    var tematica: Tematica;
+    for (let i = 0; i < this.listaConocimientosAxLabo.length; i++) {
+      var id: any = this.listaConocimientosAxLabo[i].getCodigoAxiliarura();
+      let notas = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+      console.log("las notas que se deberian cargar son:");
+      console.log(id, notas);
+      tematica = new Tematica(nombreTematica, notas);
+      this.listaConocimientosAxLabo[i].getListaTematicas().push(tematica);
+    }
+  }
 }
