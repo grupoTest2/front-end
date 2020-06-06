@@ -134,7 +134,6 @@ export class MeritosComponent implements OnInit {
       this.toastError()
     }
 
-    //cierra el nodal
     //resetea valores a vacio
     (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
     this.formMeritos.reset();
@@ -230,12 +229,6 @@ export class MeritosComponent implements OnInit {
     this.indice1 = j;
     this.indice2 = k;
   }
-  /*
-  setVariosIndices3(j:number, k: number, l:number) {
-    this.indice1 = j;
-    this.indice2 = k;
-    this.indice3 = l;
-  }*/
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos() {

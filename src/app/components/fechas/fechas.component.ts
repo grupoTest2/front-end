@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from 'src/app/models/clases/crear-convocatoria/evento';
-import * as $ from 'jquery';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as $ from 'jquery';
 import * as moment from 'moment';
 declare var tata: any;
 declare var $: any;
@@ -149,6 +149,4 @@ export class FechasComponent implements OnInit {
       }
     );
   }
-
-  
 }

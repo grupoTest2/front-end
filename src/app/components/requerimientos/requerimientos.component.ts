@@ -1,14 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
-import * as $ from 'jquery';
+import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria-docente/seleccion-requerimientos';
 import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { Router } from '@angular/router';
-
-import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
-
+import { debounceTime } from 'rxjs/operators';
+import * as $ from 'jquery';
 
 declare var swal: any;
 declare var tata: any;

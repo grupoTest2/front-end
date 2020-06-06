@@ -8,13 +8,11 @@ export class Requerimiento {
     private nombreMateria: string;
     private idMat: number;
     private codigoAuxiliatura: string;
-    private listaCalificaciones: Tematica[];
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string, codigoAuxiliatura: string = " ", listaCalificaciones: Tematica[] = []) {
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string) {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria = nombreM;
         this.codigoAuxiliatura = nombreM;
-        this.listaCalificaciones = listaCalificaciones;
     }
     public getCantidadItem() {
         return this.cantidadItem;
@@ -34,11 +32,4 @@ export class Requerimiento {
     public getCodigoAuxiliatura() {
         return this.codigoAuxiliatura;
     }
-    public getListaCalificaciones(): Tematica[] {
-        return this.listaCalificaciones;
-    }
-    public setListaCalificaciones(value: Tematica[]) {
-        this.listaCalificaciones = value;
-    }
-
 }

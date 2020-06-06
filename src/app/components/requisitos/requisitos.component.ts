@@ -71,6 +71,7 @@ export class RequisitosComponent implements OnInit {
     // this.formRequisitos.reset();
     $('#tablaRequisitos').modal('hide');
   }
+  
   formValido(){
     if(this.formRequisitos.valid){
       this.agregarRequisito();
@@ -79,10 +80,12 @@ export class RequisitosComponent implements OnInit {
       tata.error('Error', 'Formulario invalido');
     }
   }
+
   getindice(indice:number){
     let caracter: string = String.fromCharCode(indice + 97)+")     ";
     return caracter;
   }
+
   //funcion para agregar los requisitos a la base de datos, se requiere del id lanzamiento de convocatoria
   agregarRequisitosBD(idLanzConv):boolean{
     let resp:boolean=false;
