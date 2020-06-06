@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tematica of listaTematicas2; index as i">
+        <tr *ngFor="let tematica of listaTematicas; index as i">
           <td scope="row">{{tematica}}</td>
           <td class="text-center" *ngFor="let calificacion of listaConocimientosAxLabo; index as j">
             {{calificacion.getListaTematicas()[i].getNota()}}</td>
@@ -139,7 +139,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary" id="guardar" data-dismiss="modal"
-            (click)="agregarCalificacionAuxL2()">Guardar</button>
+            (click)="agregarCalificacionAuxL()">Guardar</button>
         </div>
       </div>
     </div>

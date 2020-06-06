@@ -25,28 +25,22 @@ export class FormConvocatoriaComponent implements OnInit {
     for (let requerimiento of requerimientos) {
       console.log("nombres de las materias de reuqrimiento ->"+requerimiento.getnombreMateria());
     }
-    console.log("****************************************");
   }
   datosDocumentosPresentar(documentosPresentar:DocumentoPresentar[]){
     for (let documento of documentosPresentar) {
       console.log("detalle de los documentos presentar ->"+documento.getDescripcion());
     }
-    console.log("****************************************");
   }
-  datosCalificacionConocimiento(calificacionDocumentos:any[]){
-    for (let calificacionDoc of calificacionDocumentos) {
-      console.log("detalle de la calificacion de conocimiento es ->"+calificacionDoc.getDescripcion());
-    }
-    console.log("****************************************");
-  }
+
   datosMeritos(meritos:Merito[]){
     for (let merito of meritos) {
       console.log("la descripcion del merito es->"+merito.getDescripcion());
     }
-    console.log("****************************************");
   }
-  setListaCodigos2( listaCodigos){
-    this.calificacionConocimiento.setLista2( listaCodigos);
+
+  //modificando la lsta de codigos de la componente calificaciones
+  setListaCodigos( listaCodigos){
+    this.calificacionConocimiento.setLista( listaCodigos);
     this.listaCodigos = listaCodigos;
   }
 }

@@ -41,7 +41,7 @@ export class RequerimientosComponent implements OnInit {
   //lista para calificaion
   calificacion: CalifiaccionConocimientoAuxLabo;
   listaCalificacion: CalifiaccionConocimientoAuxLabo[] = [];
-  @Output() listaCodigos2 = new EventEmitter();
+  @Output() listaCodigos = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.buildForm();
@@ -205,7 +205,7 @@ export class RequerimientosComponent implements OnInit {
       //modificando la lista de conociminetos//
       this.calificacion = new CalifiaccionConocimientoAuxLabo(nombreMateria);
       this.listaCalificacion.push(this.calificacion);
-      this.enviarLista2();
+      this.enviarLista();
     }
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
@@ -229,8 +229,8 @@ export class RequerimientosComponent implements OnInit {
     this.datosRequerimientos.emit(this.requerimientosSeleccionados);
   }
 
-  enviarLista2() {
-    this.listaCodigos2.emit(this.listaCalificacion);
+  enviarLista() {
+    this.listaCodigos.emit(this.listaCalificacion);
   }
 
 }
