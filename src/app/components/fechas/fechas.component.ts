@@ -136,7 +136,8 @@ export class FechasComponent implements OnInit {
     console.log(this.listaEventosSeleccionados);
     this.formEventos.reset();
     $('#tablaFechas').modal('hide');
-
+    console.log("prueba de sabooo");
+    console.log(JSON.stringify(this.listaEventosSeleccionados));
   }
   getindice(indice: number) {
     let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";

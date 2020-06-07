@@ -18,19 +18,19 @@ export class SeleccionRequerimiento{
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
         if (!mat.seleccionado) {
-          this.listaMateriasDisponibles.push(mat.nombreMat);
+          this.listaMateriasDisponibles.push(mat.nombreItem);
   
         }
       }
       //console.log(this.listaMateriasDisponibles);
     }
     //devuelve el id de la materia que se esta buscando
-    private getIdMateria(nombMat) {
+    private getIdMateria(nombItem) {
       let res = -1;
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
-        if (mat.nombreMat == nombMat) {
-          res = mat.idMat;
+        if (mat.nombreItem == nombItem) {
+          res = mat.idItem;
           break;
         }
       }
@@ -42,7 +42,9 @@ export class SeleccionRequerimiento{
         if (idMateria != -1) {
           req.setIdMat(idMateria);
           this.deshabilitarSeleccion(req.getnombreMateria());
+          this.establecerCodigoAux(req,idMateria);
           this.materiasSeleccionadas.push(req);
+
           //console.log(JSON.stringify(this.materiasSeleccionadas));
         }
       
@@ -51,7 +53,7 @@ export class SeleccionRequerimiento{
     public deshabilitarSeleccion(nombreMatForm) {
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
-        if (mat.nombreMat == nombreMatForm) {
+        if (mat.nombreItem == nombreMatForm) {
           mat.seleccionado = true;
         }
       }
@@ -66,12 +68,6 @@ export class SeleccionRequerimiento{
       return this.materiasSeleccionadas.length > 0;
     }
 
-    public setLanzamientoConv(idLanzConv){
-      for(let i in this.materiasSeleccionadas){
-        this.materiasSeleccionadas[i].setIdLanzamientoConv(idLanzConv);
-      }
-    }
-  
     public getListaMateriasDisponibles() {
       return this.listaMateriasDisponibles;
     }
@@ -79,6 +75,13 @@ export class SeleccionRequerimiento{
     public getMateriasSeleccionadas() {
       return this.materiasSeleccionadas;
     }
-   
-  
+    
+    private establecerCodigoAux(req:Requerimiento,idItem:number){
+      for (let i in this.listaMaterias) {
+        let mat: any = this.listaMaterias[i];
+        if (mat.idItem == idItem) {
+          req.setCodigoAuxiliatura(mat.codigoItem);
+        }
+      }
+    }
 }

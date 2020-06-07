@@ -2,17 +2,16 @@
 import { Tematica } from './tematica';
 
 export class Requerimiento {
-    private idConv: number;
+    private idConv: number=1;
     private cantidadItem: number;
     private hrsAcademicas: number;
-    private nombreMateria: string;
-    private idMat: number;
-    private codigoAuxiliatura: string;
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string) {
+    private nombreMateria: String;
+    private idItem: number;
+    private codigoAuxiliatura: String;
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: String) {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria = nombreM;
-        this.codigoAuxiliatura = nombreM;
     }
     public getCantidadItem() {
         return this.cantidadItem;
@@ -23,13 +22,14 @@ export class Requerimiento {
     public getnombreMateria() {
         return this.nombreMateria;
     }
-    public setIdMat(id: number) {
-        this.idMat = id;
-    }
-    public setIdLanzamientoConv(idLanzConv) {
-        this.idConv = idLanzConv;
-    }
     public getCodigoAuxiliatura() {
         return this.codigoAuxiliatura;
+    }
+    
+    public setIdMat(id: number) {
+        this.idItem = id;
+    }
+    public setCodigoAuxiliatura(codigo:String){
+        this.codigoAuxiliatura=codigo;
     }
 }

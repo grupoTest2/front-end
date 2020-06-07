@@ -1,5 +1,5 @@
 export class Requisito {
-    private idConv:number;
+    private idConv:number=1;
     private descripcion:String;
     public constructor(descripcion){
         this.descripcion=descripcion;

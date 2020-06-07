@@ -1,5 +1,5 @@
 export class Evento{
-    private idConv:number;
+    private idConv:number=1;
     private nombre:String;
     private fechaIni:Date;
     private fechaFin:Date;
@@ -46,7 +46,7 @@ export class Evento{
         let aux=fechaF.split("/",3);
         this.fechaFinString=aux[2]+"-"+aux[1]+"-"+aux[0];
         aux=fechaI.split("/",3);
-        this.fechaFinString=aux[2]+"-"+aux[1]+"-"+aux[0];
+        this.fechaIniString=aux[2]+"-"+aux[1]+"-"+aux[0];
     }
     public setIdLanzConv(nIdLanzConv){
         this.idConv=nIdLanzConv;

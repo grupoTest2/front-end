@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
-import { DocumentoPresentar } from 'src/app/models/convocatoria-docente/documento-presentar';
+import { DocumentoPresentar } from 'src/app/models/clases/crear-convocatoria/documento-presentar';
 import {CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
 import {Merito} from 'src/app/models/clases/crear-convocatoria/merito';
 

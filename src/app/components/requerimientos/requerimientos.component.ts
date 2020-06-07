@@ -20,11 +20,11 @@ declare var $: any;
 export class RequerimientosComponent implements OnInit {
 
   formRequerimientos: FormGroup;
-  idDepartamento = 1;
+
   seleccionRequerimiento: SeleccionRequerimiento;
 
   requerimientosSeleccionados: Requerimiento[] = new Array();
-  listaMaterias: Object[] = new Array();
+ 
   listaMateriasDisponibles: String[];
 
   requerimiento: Requerimiento;
@@ -45,7 +45,7 @@ export class RequerimientosComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.buildForm();
-    this.getNombreMaterias();
+    this.getNombreItems();
   }
 
   ngOnInit(): void {
@@ -113,37 +113,6 @@ export class RequerimientosComponent implements OnInit {
   }
   get itemIsInvalid() {
     return this.item.touched && this.item.invalid;
-  }
-  //obtiene las materias desde la base de datos a traves de php
-  getNombreMaterias() {
-    this.apiPHP.getItems(this.idDepartamento).subscribe(
-      result => {
-        for (let i in result) {
-          this.listaMaterias.push(result[i]);
-        }
-        this.seleccionRequerimiento = new SeleccionRequerimiento(this.listaMaterias);
-        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-        //console.log(this.listaMateriasDisponibles);
-        //let objAux = JSON.parse(JSON.stringify(this.materia));
-      }
-    );
-  }
-  //envia las materias seleccionadas a la base de datos
-  agregarRequerimientosBD(idLanzConv): boolean {
-    let resp: boolean = false;
-    this.seleccionRequerimiento.setLanzamientoConv(idLanzConv);
-    this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
-      datos => {
-        if (datos['resultado'] == 'correcto') {
-          //se agrega correctamente a la base de datos
-          resp = true;
-        } else {
-          //no se pudo agregar
-        }
-        alert(datos['mensaje']);
-      }
-    );
-    return resp;
   }
 
   alertEliminar() {
@@ -231,6 +200,41 @@ export class RequerimientosComponent implements OnInit {
 
   enviarLista() {
     this.listaCodigos.emit(this.listaCalificacion);
+  }
+
+/*-------------interaccion con la base de datos---------------------*/  
+  //obtiene las materias desde la base de datos a traves de php
+  getNombreItems() {
+
+    let idTipoConvocatoria=2; //usar 1 para docencia y 2 para labo
+    let listaItems: Object[] = new Array();
+    this.apiPHP.getItems(idTipoConvocatoria).subscribe(
+      result => {
+        for (let i in result) {
+          listaItems.push(result[i]);
+        }
+        this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
+        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        //console.log(this.listaMateriasDisponibles);
+        //let objAux = JSON.parse(JSON.stringify(this.materia));
+      }
+    );
+  }
+  //envia las materias seleccionadas a la base de datos
+  agregarRequerimientosBD(): boolean {
+    let resp: boolean = false;
+    this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
+      datos => {
+        if (datos['resultado'] == 'correcto') {
+          //se agrega correctamente a la base de datos
+          resp = true;
+        } else {
+          //no se pudo agregar
+        }
+        alert(datos['mensaje']);
+      }
+    );
+    return resp;
   }
 
 }
