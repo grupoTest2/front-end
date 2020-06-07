@@ -43,6 +43,10 @@ export class RequerimientosComponent implements OnInit {
   listaCalificacion: CalifiaccionConocimientoAuxLabo[] = [];
   @Output() listaCodigos = new EventEmitter();
 
+  @Output() listaRequerimientos = new EventEmitter();
+
+
+
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.buildForm();
     this.getNombreItems();
@@ -200,6 +204,7 @@ export class RequerimientosComponent implements OnInit {
 
   enviarLista() {
     this.listaCodigos.emit(this.listaCalificacion);
+    this.listaRequerimientos.emit( this.requerimientosSeleccionados);
   }
 
 /*-------------interaccion con la base de datos---------------------*/  

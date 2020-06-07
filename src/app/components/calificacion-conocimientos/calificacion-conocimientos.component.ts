@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tematica } from '../../models/clases/crear-convocatoria/tematica';
 import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
 import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
+import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 
 // import * as $ from 'jquery';
 
@@ -29,7 +30,10 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   //lista de calificaciom conocimientos de laboratorio
   listaConocimientosAxLabo: CalifiaccionConocimientoAuxLabo[] = [];
-  listaTematicas: any[] = [];
+  listaTematicas: String[] = [];
+
+  //agregando a la lista tematicas los codigos de los items requerimineto
+  listaItems:Requerimiento[]=[];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
@@ -90,7 +94,6 @@ export class CalificacionConocimientosComponent implements OnInit {
   //resiviendo la lista de la componente formilario
   setLista(lista) {
     this.listaConocimientosAxLabo = lista;
-
     for (let i = 0; i < this.listaConocimientosAxLabo.length; i++) {
       if (this.listaConocimientosAxLabo[i].getListaTematicas().length == 0) {
         let lista: Tematica[] = [];
@@ -101,6 +104,7 @@ export class CalificacionConocimientosComponent implements OnInit {
         this.listaConocimientosAxLabo[i].setListaTematicas(lista);
       }
     }
+
   }
 
   agregarCalificacionAuxL() {
@@ -115,6 +119,34 @@ export class CalificacionConocimientosComponent implements OnInit {
       tematica = new Tematica(nombreTematica, notas);
       this.listaConocimientosAxLabo[i].getListaTematicas().push(tematica);
     }
+  }
+
+
+
+
+
+
+  //nuevsa pruebas 
+  setListaRequerimiento(listaRequeriminetos){
+    this.listaItems=listaRequeriminetos;
+    for (let i = 0; i < this.listaItems.length; i++) {
+      if (this.listaItems[i].getListaTematica().length == 0) {
+        for (let j = 0; j < this.listaTematicas.length; j++) {
+          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j] ,0))
+        }
+      }
+    }
+  }
+  agregarTematica() {
+    var nombreTematica = $('#nombreTematica').val();
+    this.listaTematicas.push(nombreTematica);
+    for (let i = 0; i < this.listaItems.length; i++) {
+      let id:any=this.listaItems[i].getnombreMateria();
+      let nota=parseInt((<HTMLInputElement>document.getElementById(id)).value);
+      let tematica:Tematica = new Tematica(nombreTematica, nota);
+      this.listaItems[i].getListaTematica().push(tematica);
+    }
+    console.log("la lista de las tematicas con su valor",this.listaItems);
   }
 
   

@@ -1,6 +1,5 @@
 //import { Materia } from './materia';
 import { Tematica } from './tematica';
-
 export class Requerimiento {
     private idConv: number=1;
     private cantidadItem: number;
@@ -8,10 +7,17 @@ export class Requerimiento {
     private nombreMateria: String;
     private idItem: number;
     private codigoAuxiliatura: String;
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: String) {
+
+
+
+    private listaTematicas:Tematica[];
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: String, listaTematicas:Tematica[]=[]) {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria = nombreM;
+
+
+        this.listaTematicas=listaTematicas;
     }
     public getCantidadItem() {
         return this.cantidadItem;
@@ -31,5 +37,15 @@ export class Requerimiento {
     }
     public setCodigoAuxiliatura(codigo:String){
         this.codigoAuxiliatura=codigo;
+    }
+
+
+
+
+    public setListaTematica(lista:Tematica[]) {
+        this.listaTematicas=lista;
+    }
+    public getListaTematica(){
+        return this.listaTematicas;
     }
 }
