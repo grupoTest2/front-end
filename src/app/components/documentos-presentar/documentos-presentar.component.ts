@@ -4,16 +4,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var tata: any;
 declare var $: any;
+
 @Component({
   selector: 'app-documentos-presentar',
   templateUrl: './documentos-presentar.component.html',
   styleUrls: ['./documentos-presentar.component.css']
 })
 export class DocumentosPresentarComponent implements OnInit {
-  //objeto para generar que recoorra el ngFor
-  documento: DocumentoPresentar;//////////////////
-  listaDocumentos: DocumentoPresentar[] = [];/////
-  /////////////////////////////////////////////
+
+  documento: DocumentoPresentar;
+  listaDocumentos: DocumentoPresentar[] = [];
   formDocumentos: FormGroup;
 
   /*----- M para envio de datos ------------*/

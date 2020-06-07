@@ -1,15 +1,69 @@
 <!-- <app-navbar></app-navbar> -->
 <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Crear Convocatoria</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Docencia</h6>
-        <p class="card-text">Configurar nueva convocatoria de docencia.</p>
-        <a routerLink="/convDocencia" class="btn btn-primary">Crear</a>
+  <div class="card-body">
+    <h5 class="card-title">Crear Convocatoria</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Docencia</h6>
+    <p class="card-text">Configurar nueva convocatoria de docencia.</p>
+    <a routerLink="/convDocencia" class="btn btn-primary">Crear</a>
+  </div>
+  <br>
+  <div class="card-body">
+    <h5 class="card-title">Crear Convocatoria</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Laboratorio</h6>
+    <p class="card-text">Configurar nueva convocatoria de laboratorio.</p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="crear">Crear</button>
+</div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Creacion De Convocatoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="nombreConvocatoria" class="col-form-label">Nonmbre De La Covocatoria:</label>
+            <textarea class="form-control" id="nombreConvocatoria"style="height:7rem;" >CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO</textarea>
+          
+          </div>
+          <div class="form-group">
+            <label for="seleccionGestion" class="col-form-label">Gestion: </label>
+            <select class="custom-select" id="seleccionGestion">
+              <option >1-2020</option>
+              <option >2-2020</option>
+              <option >1-2021</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fechaInicio" class="col-form-label">Fecha Inicio:</label>
+            <input type="date" class="form-control" id="fechaInicio">
+          </div>
+          <div class="form-group">
+            <label for="fechaFin" class="col-form-label">Fecha Inicio:</label>
+            <input type="date" class="form-control" id="fechaFin">
+          </div>
+          <div class="form-group">
+            <label for="tipoConvocatoria" class="col-form-label">Tipo De Convocatoria: </label>
+            <select class="custom-select" id="tipoConvocatoria">
+              <option ></option>
+              <option >Auxiliatura Docencia</option>
+              <option >Auxiliatura Laboratorio</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  data-dismiss="modal" routerLink="/convLaboratorio" class="btn btn-primary">Configurar</button>
+      </div>
     </div>
-    <div class="card-body">
-        <h5 class="card-title">Crear Convocatoria</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Laboratorio</h6>
-        <p class="card-text">Configurar nueva convocatoria de laboratorio.</p>
-        <a routerLink="/convLaboratorio" class="btn btn-primary">Crear</a>
-    </div>
+  </div>
 </div>
