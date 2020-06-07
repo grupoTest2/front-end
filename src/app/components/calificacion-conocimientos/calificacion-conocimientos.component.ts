@@ -90,42 +90,6 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-
-  //resiviendo la lista de la componente formilario
-  setLista(lista) {
-    this.listaConocimientosAxLabo = lista;
-    for (let i = 0; i < this.listaConocimientosAxLabo.length; i++) {
-      if (this.listaConocimientosAxLabo[i].getListaTematicas().length == 0) {
-        let lista: Tematica[] = [];
-        for (let j = 0; j < this.listaTematicas.length; j++) {
-          let tema: Tematica = new Tematica(this.listaTematicas[j], 0);
-          lista.push(tema);
-        }
-        this.listaConocimientosAxLabo[i].setListaTematicas(lista);
-      }
-    }
-
-  }
-
-  agregarCalificacionAuxL() {
-    var nombreTematica = $('#nombreTematica').val();
-    this.listaTematicas.push(nombreTematica);
-    var tematica: Tematica;
-    for (let i = 0; i < this.listaConocimientosAxLabo.length; i++) {
-      var id: any = this.listaConocimientosAxLabo[i].getCodigoAxiliarura();
-      let notas = parseInt((<HTMLInputElement>document.getElementById(id)).value);
-      console.log("las notas que se deberian cargar son:");
-      console.log(id, notas);
-      tematica = new Tematica(nombreTematica, notas);
-      this.listaConocimientosAxLabo[i].getListaTematicas().push(tematica);
-    }
-  }
-
-
-
-
-
-
   //nuevsa pruebas 
   setListaRequerimiento(listaRequeriminetos){
     this.listaItems=listaRequeriminetos;

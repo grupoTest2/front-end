@@ -38,11 +38,7 @@ export class RequerimientosComponent implements OnInit {
   listaRequeriminetos: Requerimiento[] = [];
 
 
-  //lista para calificaion
-  calificacion: CalifiaccionConocimientoAuxLabo;
-  listaCalificacion: CalifiaccionConocimientoAuxLabo[] = [];
-  @Output() listaCodigos = new EventEmitter();
-
+  //variable para enviar la lista de requerimientos
   @Output() listaRequerimientos = new EventEmitter();
 
 
@@ -175,9 +171,7 @@ export class RequerimientosComponent implements OnInit {
       this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
       this.listaRequeriminetos.push(this.requerimiento);
       this.requerimientosSeleccionados = this.listaRequeriminetos;
-      //modificando la lista de conociminetos//
-      this.calificacion = new CalifiaccionConocimientoAuxLabo(nombreMateria);
-      this.listaCalificacion.push(this.calificacion);
+      //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
       this.enviarLista();
     }
     tata.success('Agregado.', 'Se agregó con exito.');
@@ -203,8 +197,7 @@ export class RequerimientosComponent implements OnInit {
   }
 
   enviarLista() {
-    this.listaCodigos.emit(this.listaCalificacion);
-    this.listaRequerimientos.emit( this.requerimientosSeleccionados);
+        this.listaRequerimientos.emit( this.requerimientosSeleccionados);
   }
 
 /*-------------interaccion con la base de datos---------------------*/  
