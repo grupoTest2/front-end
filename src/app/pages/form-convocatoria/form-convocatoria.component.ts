@@ -23,8 +23,6 @@ export class FormConvocatoriaComponent implements OnInit {
   listaDatosMerito: Merito[] = [];
   listaDatosEventos: Evento[] = [];
 
-
-  listaCodigos: any = [];
   //lista de los requerimientos
   listaRequerimientos: any = [];
 
@@ -53,19 +51,21 @@ export class FormConvocatoriaComponent implements OnInit {
 
   datosMeritos(listaMeritos: Merito[]) {
     this.listaDatosMerito = listaMeritos;
-    for (let merito of this.listaDatosMerito) {
-      console.log("la descripcion del merito es->" + merito.getTitulo());
-    }
-
     console.log("los datos de meritos son:");
     console.log(JSON.stringify(this.listaDatosMerito));
 
   }
-  
+
   datosListaEvent(listaEventos: Evento[]) {
     this.listaDatosEventos = listaEventos;
     console.log("la descripcion del evento es->" + this.listaDatosEventos);
   }
+
+
+  recuperarLosDatosDeLosComponentes(){
+    
+  }
+
 
 
 
