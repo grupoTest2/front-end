@@ -105,11 +105,13 @@ export class CalificacionConocimientosComponent implements OnInit {
   agregarTematica() {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
+    var aux = 0;
     for (let i = 0; i < this.listaItems.length; i++) {
       let id:any=this.listaItems[i].getnombreMateria();
       let nota=parseInt((<HTMLInputElement>document.getElementById(id)).value);
       if((<HTMLInputElement>document.getElementById(id)).value === ""){
         nota = 0;
+        aux++;
       }
       let tematica:Tematica = new Tematica(nombreTematica, nota);
       this.listaItems[i].getListaTematica().push(tematica);
@@ -118,6 +120,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     tata.success('Agregado.', 'Se agregó la tematica con exito.');
     this.formCalificacion.reset();
     $('#modalConocimientoAuxL2').modal('hide');
+    console.log("notaaaaaaaaasssss", aux);
   }
 
   
@@ -138,9 +141,24 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.buildForm();
   }
 
+  validarNota(){
+    var aux = 0;
+    for (let i = 0; i < this.listaItems.length; i++) {
+      let id:any=this.listaItems[i].getnombreMateria();
+      if((<HTMLInputElement>document.getElementById(id)).value === ""){
+        aux++;
+      }
+    }
+    if(aux == this.listaItems.length){
+      tata.error('Error', 'La tematica debe tener minimo una nota asignada');
+    }else{
+      this.agregarTematica();
+    }
+  }
+
   formValido(){
     if(this.formCalificacion.valid){
-      this.agregarTematica();
+      this.validarNota();
     }else{
       this.formCalificacion.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');

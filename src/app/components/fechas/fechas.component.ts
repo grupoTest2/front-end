@@ -38,8 +38,8 @@ export class FechasComponent implements OnInit {
     this.buildForm();
     this.seleccionEventos=new SeleccionEventos();
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date();
-    this.maxDate = new Date(currentYear + 1, 12, 31);
+    this.minDate = new Date(currentYear - 5, 12, 31);
+    this.maxDate = new Date(currentYear + 5, 12, 31);
   }
   ngOnInit(): void {
     init_plugins();
@@ -95,8 +95,6 @@ export class FechasComponent implements OnInit {
       tata.error('Error', 'Formulario invalido');
     }
   }
-  listaVacia(){
-  }
 
    /*-------------- metodo para recuperar los datos de este componente*/
    getDatos() {
@@ -118,10 +116,13 @@ export class FechasComponent implements OnInit {
       this.formEventos.get('evento').setErrors(null);
       $('#nombreEvento').prop('readonly', true);
       $('#nombreEvento').css("background-color","#fff");
+      this.formEventos.markAsUntouched();
+      $('#hora').val("");
     }else{
       this.buildForm();
       $('#nombreEvento').prop('readonly', false);
-
+      this.formEventos.reset();
+      $('#hora').val("");
     }
   }
 
@@ -145,15 +146,18 @@ export class FechasComponent implements OnInit {
     if(resp){
       //la fecha es valida respecto a la anterior
       tata.success('Agregado.', 'Se agregó con exito.');
+    $('#tablaFechas').modal('hide');
+    this.formEventos.reset();
+    $('#hora').val("");
+
     }else{
       //fecha incorrecta
       tata.error('Error', 'debe ser una fecha posterior a la ultima');
+      $('#hora').val("");
     }
     this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
     this.seleccionEventos.convertirEventosBD();
     console.log(this.listaEventosSeleccionados);
-    this.formEventos.reset();
-    $('#tablaFechas').modal('hide');
     console.log("prueba de sabooo");
     console.log(JSON.stringify(this.listaEventosSeleccionados));
   }
