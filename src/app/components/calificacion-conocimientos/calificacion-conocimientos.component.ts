@@ -9,6 +9,7 @@ import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerim
 
 // import * as $ from 'jquery';
 
+declare var tata: any;
 declare var $: any;
 
 @Component({
@@ -107,17 +108,23 @@ export class CalificacionConocimientosComponent implements OnInit {
     for (let i = 0; i < this.listaItems.length; i++) {
       let id:any=this.listaItems[i].getnombreMateria();
       let nota=parseInt((<HTMLInputElement>document.getElementById(id)).value);
+      if((<HTMLInputElement>document.getElementById(id)).value === ""){
+        nota = 0;
+      }
       let tematica:Tematica = new Tematica(nombreTematica, nota);
       this.listaItems[i].getListaTematica().push(tematica);
     }
     console.log("la lista de las tematicas con su valor",this.listaItems);
+    tata.success('Agregado.', 'Se agregó la tematica con exito.');
+    this.formCalificacion.reset();
+    $('#modalConocimientoAuxL2').modal('hide');
   }
 
   
   //validaciones -------------------------------------------------------------------------------
   private buildForm() {
     this.formCalificacion = this.formBuilder.group({
-      detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      detalle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(/[a-zA-Z]/)])],
       nota: ['', Validators.compose([Validators.min(1), Validators.pattern(/^\d*$/)])]
     });
 
@@ -125,6 +132,19 @@ export class CalificacionConocimientosComponent implements OnInit {
       .subscribe(value => {
         console.log(value);
       });
+  }
+
+  resetForm() {
+    this.buildForm();
+  }
+
+  formValido(){
+    if(this.formCalificacion.valid){
+      this.agregarTematica();
+    }else{
+      this.formCalificacion.markAllAsTouched();
+      tata.error('Error', 'Formulario invalido');
+    }
   }
 
   get detalle() {
