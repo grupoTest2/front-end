@@ -23,7 +23,7 @@ export class RequerimientosComponent implements OnInit {
 
   seleccionRequerimiento: SeleccionRequerimiento;
 
-  requerimientosSeleccionados: Requerimiento[] = new Array();
+  requerimientosSeleccionados: Requerimiento[] =[];
  
   listaMateriasDisponibles: String[];
 

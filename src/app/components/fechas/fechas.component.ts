@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { Evento } from 'src/app/models/clases/crear-convocatoria/evento';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
@@ -30,6 +30,10 @@ export class FechasComponent implements OnInit {
 
   //objeto que controla los eventos
   seleccionEventos: SeleccionEventos;
+
+//variable para enviar los datpsa al formulario
+  @Output() listaEvent = new EventEmitter();
+
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
     this.seleccionEventos=new SeleccionEventos();
@@ -92,8 +96,13 @@ export class FechasComponent implements OnInit {
     }
   }
   listaVacia(){
-    
   }
+
+   /*-------------- metodo para recuperar los datos de este componente*/
+   getDatos() {
+    this.listaEvent.emit(this.listaEventosSeleccionados);
+  }
+
   resetForm(){
     if(this.listaEventosSeleccionados.length == 0){
       $('#nombreEvento').val("Publicacíon de la convocatoria");
