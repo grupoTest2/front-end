@@ -7,7 +7,7 @@ export class Requerimiento {
     private nombreMateria: String;
     private idItem: number;
     private codigoAuxiliatura: String;
-
+    
 
 
     private listaTematicas:Tematica[];
