@@ -169,8 +169,8 @@ export class RequerimientosComponent implements OnInit {
     }
     else {
       this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-      this.listaRequeriminetos.push(this.requerimiento);
-      this.requerimientosSeleccionados = this.listaRequeriminetos;
+      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
+      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
       //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
       this.enviarLista();
     }
@@ -179,6 +179,7 @@ export class RequerimientosComponent implements OnInit {
     $('#tablaRequerimientos').modal('hide');
     localStorage.setItem('id', nombreMateria);
     sessionStorage.setItem('id22222', nombreMateria);
+    console.log(this.requerimientosSeleccionados,"aquiiiiiiiiiiiiiiiiiiiiiiiiiiii");
   }
   formValido() {
     if (this.formRequerimientos.valid) {
