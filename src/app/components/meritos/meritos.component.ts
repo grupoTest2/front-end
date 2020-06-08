@@ -188,7 +188,7 @@ export class MeritosComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
     this.formMeritos.reset();
     console.log("nivel 3.......................");
-    console.log(this.tablasMeritos);
+    console.log(JSON.stringify(this.tablasMeritos));
 
   }
 

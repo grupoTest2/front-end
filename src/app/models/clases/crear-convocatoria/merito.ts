@@ -1,5 +1,5 @@
 export class Merito {
-  private idConv:number;
+  private idConv:number=1;
   private titulo:string;
   private descripcion:string;
   private porcentaje:number;
