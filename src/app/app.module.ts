@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
-import { InicioComponent } from './pages/inicio/inicio.component';
+import { crearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convoc
     CalificacionConocimientosComponent,
     FechasComponent,
     TribunalesComponent,
-    InicioComponent
+    crearConvocatoriaComponent
   ],
   imports: [
     BrowserModule,

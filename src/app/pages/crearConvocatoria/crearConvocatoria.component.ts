@@ -5,11 +5,11 @@ declare var tata: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  selector: 'app-crear-onvocatoria',
+  templateUrl: './crearConvocatoria.component.html',
+  styleUrls: ['./crearConvocatoria.component.css']
 })
-export class InicioComponent implements OnInit {
+export class crearConvocatoriaComponent implements OnInit {
 
   //formulario validaciones
   formCrearConv: FormGroup;
