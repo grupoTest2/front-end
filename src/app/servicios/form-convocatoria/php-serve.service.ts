@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Convocatoria } from 'src/app/models/clases/crear-convocatoria/convocatoria';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,22 @@ export class PhpServeConvocatoria {
   constructor(private http: HttpClient) { }
 
 //recuperan informacion de la base de datos
-  public getItems(idDep:number){
-  return this.http.get(`${this.URL}obtenerItems.php?idDep=${idDep}`);
+  public getItems(idTipoConv:number){
+  return this.http.get(`${this.URL}obtenerItems.php?idTipoConv=${idTipoConv}`);
   }
   public getRequisitos(){
   return this.http.get(`${this.URL}obtenerRequisitos.php`);
   }
   public getEventos(idLanzConv){
-    return this.http.get(`${this.URL}convocatoriaDocencia/obtenerEventos.php?idLanzConv=${idLanzConv}`);
+    return this.http.get(`${this.URL}obtenerEventos.php?idLanzConv=${idLanzConv}`);
   }
-
+  public getTipoConvocatoria(idDep){
+    return this.http.get(`${this.URL}obtenerTiposConvocatoria.php?idDep=${idDep}`);
+  }
 //agregar a la base de datos
+  public crearConvocatoria(conv:Convocatoria){
+    return this.http.post(`${this.URL}crearConvocatoria.php`, JSON.stringify(conv));
+  }
   public agregarRequerimientos(listaItems){
     return this.http.post(`${this.URL}establecerItems.php`, JSON.stringify(listaItems));
   }
