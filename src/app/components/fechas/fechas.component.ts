@@ -103,6 +103,15 @@ export class FechasComponent implements OnInit {
     this.listaEvent.emit(this.listaEventosSeleccionados);
   }
 
+  getListaPrueba(){
+    return ["hola1", "hola2", "hola3"];
+  }
+
+
+
+
+
+
   resetForm(){
     if(this.listaEventosSeleccionados.length == 0){
       $('#nombreEvento').val("Publicacíon de la convocatoria");
