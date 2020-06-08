@@ -21,7 +21,7 @@
                     <td class="text-center">{{requerimiento.getCantidadItem()}}</td>
                     <td class="text-center">{{requerimiento.getHrsAcademicas()}}</td>
                     <td class="text-center">{{requerimiento.getnombreMateria()}}</td>
-                    <td *ngIf="rutaActual()" class="text-center"></td>
+                    <td *ngIf="rutaActual()" class="text-center">{{requerimiento.getCodigoAuxiliatura()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">

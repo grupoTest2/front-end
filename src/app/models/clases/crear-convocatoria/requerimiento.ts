@@ -11,13 +11,12 @@ export class Requerimiento {
 
 
     private listaTematicas:Tematica[];
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: String, listaTematicas:Tematica[]=[]) {
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: String, listaTematicas:Tematica[]=[], codigo: string = "soy codigo") {
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria = nombreM;
-
-
         this.listaTematicas=listaTematicas;
+        this.codigoAuxiliatura = codigo;
     }
     public getCantidadItem() {
         return this.cantidadItem;
