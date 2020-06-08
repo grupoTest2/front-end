@@ -234,5 +234,4 @@ export class RequerimientosComponent implements OnInit {
     );
     return resp;
   }
-
 }
