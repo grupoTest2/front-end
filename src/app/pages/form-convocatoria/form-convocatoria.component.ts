@@ -86,12 +86,6 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
   //modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerientos) {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
