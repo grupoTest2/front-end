@@ -8,4 +8,7 @@ export class TipoConvocatoria{
     public getNombre(){
         return this.nombre;
     }
+    public getId(){
+        return this.idTipoConv;
+    }
 }

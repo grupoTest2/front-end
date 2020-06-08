@@ -11,17 +11,17 @@
                 <tr>
                     <th class="text-center" scope="col">Cantidad De Items</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
-                    <th class="text-center" scope="col">Materia</th>
+                    <th class="text-center" scope="col">Nombre Item</th>
                     <th *ngIf="rutaActual()" class="text-center" scope="col">Codigo Auxiliatura</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let requerimiento of requerimientosSeleccionados; index as i">
-                    <td class="text-center">{{requerimiento.getCantidadItem()}}</td>
-                    <td class="text-center">{{requerimiento.getHrsAcademicas()}}</td>
-                    <td class="text-center">{{requerimiento.getnombreMateria()}}</td>
-                    <td *ngIf="rutaActual()" class="text-center">{{requerimiento.getCodigoAuxiliatura()}}</td>
+                    <td>{{requerimiento.getCantidadItem()}}</td>
+                    <td>{{requerimiento.getHrsAcademicas()}}</td>
+                    <td>{{requerimiento.getnombreMateria()}}</td>
+                    <td *ngIf="rutaActual()">{{requerimiento.getCodigoAuxiliatura()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Materia: </label>
+                        <label for="recipient-name" class="col-form-label">Nombre item: </label>
                         <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
                                 <option *ngFor="let mat of listaMateriasDisponibles; let i = index" [value]="mat" >{{mat}}</option>
                             </select>
