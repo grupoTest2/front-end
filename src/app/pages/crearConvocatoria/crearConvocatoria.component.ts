@@ -5,7 +5,7 @@ declare var tata: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-crear-onvocatoria',
+  selector: 'app-crear-convocatoria',
   templateUrl: './crearConvocatoria.component.html',
   styleUrls: ['./crearConvocatoria.component.css']
 })
