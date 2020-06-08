@@ -34,8 +34,7 @@
                 <div class="form-group">
                     <label for="tipoConvocatoria" class="col-form-label">Tipo De Convocatoria: </label>
                     <select class="custom-select" id="tipoConvocatoria" [class.is-invalid]="tipoFormIsInvalid" [class.is-valid]="tipoFormIsValid" formControlName="tipo">
-                      <option value="Auxiliatura de Docencia">Auxiliatura de Docencia</option>
-                      <option value="Auxiliatura de Laboratorio">Auxiliatura de Laboratorio</option>
+                      <option *ngFor="let tipo of listaTiposConvocatoria" [value]="tipo">{{tipo}}</option>
                     </select>
                     <div *ngIf="tipoFormIsInvalid">
                         <small class="text-danger" *ngIf="tipoForm.hasError('required')">

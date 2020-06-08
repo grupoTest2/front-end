@@ -13,7 +13,7 @@ export class InicioComponent implements OnInit {
 
   //formulario validaciones
   formCrearConv: FormGroup;
-
+  listaTiposConvocatoria: string[] = ["Aux docencia", "Aux Laboratorio"];
 
   constructor(private formBuilder: FormBuilder) {
     this.buildForm();
