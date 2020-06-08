@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
 import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
@@ -18,6 +18,11 @@ export class RequisitosComponent implements OnInit {
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
+
+
+  //varaible de tipo evento para enviar los datos al fromaulario
+  @Output() datosRequisitos = new EventEmitter();
+
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
   }
@@ -59,6 +64,16 @@ export class RequisitosComponent implements OnInit {
   }
   get detalleFormIsInvalid() {
     return this.detalleForm.touched && this.detalleForm.invalid;
+  }
+
+
+
+
+
+  
+  //enviando los datos al com[ponente formulario
+  getDatos(){
+    this.datosRequisitos.emit(this.listaRequisitos);
   }
 
   agregarRequisito(){

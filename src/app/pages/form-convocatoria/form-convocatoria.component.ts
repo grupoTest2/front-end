@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
+import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
 import { DocumentoPresentar } from 'src/app/models/clases/crear-convocatoria/documento-presentar';
-import {CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
-import {Merito} from 'src/app/models/clases/crear-convocatoria/merito';
+import { Evento } from 'src/app/models/clases/crear-convocatoria/evento';
+
+import { CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
+import { Merito } from 'src/app/models/clases/crear-convocatoria/merito';
 
 @Component({
   selector: 'app-form-convocatoria',
@@ -10,44 +13,69 @@ import {Merito} from 'src/app/models/clases/crear-convocatoria/merito';
   styleUrls: ['./form-convocatoria.component.css']
 })
 export class FormConvocatoriaComponent implements OnInit {
-  @ViewChild('calificacionConocimiento') calificacionConocimiento: CalificacionConocimientosComponent;  
-
-  listaCodigos:any=[];
+  @ViewChild('calificacionConocimiento') calificacionConocimiento: CalificacionConocimientosComponent;
 
 
+  //lista de los datos de los diferentes componentes
+  listaDatosRequerimientos: Requerimiento[] = [];
+  listaDatosRequisitos: Requisito[] = [];
+  listaDatosDocumentosPresentar: DocumentoPresentar[] = [];
+  listaDatosMerito: Merito[] = [];
+  listaDatosEventos: Evento[] = [];
 
+
+  listaCodigos: any = [];
   //lista de los requerimientos
-  listaRequerimientos:any=[];
+  listaRequerimientos: any = [];
 
   constructor() {
- 
+
   }
 
   ngOnInit(): void {
     localStorage.setItem('id', 'convo1');
   }
 
-  datosRequerimientos(requerimientos:Requerimiento[]) {
-    for (let requerimiento of requerimientos) {
-      console.log("nombres de las materias de reuqrimiento ->"+requerimiento.getnombreMateria());
-    }
-  }
-  datosDocumentosPresentar(documentosPresentar:DocumentoPresentar[]){
-    for (let documento of documentosPresentar) {
-      console.log("detalle de los documentos presentar ->"+documento.getDescripcion());
-    }
+  datosRequerimientos(requerimientos: Requerimiento[]) {
+    this.listaRequerimientos = requerimientos;
+    console.log("los requerimientos ->" + this.listaRequerimientos);
   }
 
-  datosMeritos(meritos:Merito[]){
-    for (let merito of meritos) {
-      console.log("la descripcion del merito es->"+merito.getDescripcion());
-    }
+  datosRequisitos(listaRequisitos: Requisito[]) {
+    this.listaDatosRequisitos = listaRequisitos;
+    console.log("los requisitos ->" + this.listaDatosRequisitos);
   }
+
+  datosDocumentosPresentar(documentosPresentar: DocumentoPresentar[]) {
+    this.listaDatosDocumentosPresentar = documentosPresentar;
+    console.log("los dicumentos a presentar->  " + this.listaDatosDocumentosPresentar);
+  }
+
+  datosMeritos(listaMeritos: Merito[]) {
+    this.listaDatosMerito = listaMeritos;
+    for (let merito of this.listaDatosMerito) {
+      console.log("la descripcion del merito es->" + merito.getTitulo());
+    }
+
+    console.log("los datos de meritos son:");
+    console.log(JSON.stringify(this.listaDatosMerito));
+
+  }
+  
+  datosListaEvent(listaEventos: Evento[]) {
+    this.listaDatosEventos = listaEventos;
+    console.log("la descripcion del evento es->" + this.listaDatosEventos);
+  }
+
+
+
+
+
+
 
   //modificando la lsta de codigos de la componente calificaciones
-  setListaRequerimientos( listaRequerientos){
+  setListaRequerimientos(listaRequerientos) {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
     this.listaRequerimientos = listaRequerientos;
-
   }
 }
