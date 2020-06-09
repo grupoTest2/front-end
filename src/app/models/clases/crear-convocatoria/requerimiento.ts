@@ -47,9 +47,10 @@ export class Requerimiento {
     public getListaTematica(){
         return this.listaTematicas;
     }
+
     public agregarTematica(tematica:Tematica){
         let res=false;
-        if(this.getNotaDisponible()>tematica.getNota()){
+        if(this.getNotaDisponible()>=tematica.getNota()){
             this.listaTematicas.push(tematica);
             res=true;
         }

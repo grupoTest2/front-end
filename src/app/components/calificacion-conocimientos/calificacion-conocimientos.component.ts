@@ -34,7 +34,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   listaTematicas: String[] = [];
 
   //agregando a la lista tematicas los codigos de los items requerimineto
-  listaItems:Requerimiento[]=[];
+  listaItems: Requerimiento[] = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
     this.seleccionCalificacionCono = new SeleccionCalificacion();
@@ -89,29 +89,29 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   //nuevsa pruebas 
-  setListaRequerimiento(listaRequeriminetos){
-    this.listaItems=listaRequeriminetos;
+  setListaRequerimiento(listaRequeriminetos) {
+    this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
         for (let j = 0; j < this.listaTematicas.length; j++) {
-          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j] , 0));
+          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
         }
       }
     }
   }
-  
+
   agregarTematica() {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
     var aux = 0;
     for (let i = 0; i < this.listaItems.length; i++) {
-      let id:any=this.listaItems[i].getnombreMateria();
-      let nota=parseInt((<HTMLInputElement>document.getElementById(id)).value);
-      if((<HTMLInputElement>document.getElementById(id)).value === ""){
+      let id: any = this.listaItems[i].getnombreMateria();
+      let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+      if ((<HTMLInputElement>document.getElementById(id)).value === "") {
         nota = 0;
         aux++;
       }
-      let tematica:Tematica = new Tematica(nombreTematica, nota);
+      let tematica: Tematica = new Tematica(nombreTematica, nota);
       // this.listaItems[i].getListaTematica().push(tematica);
       this.listaItems[i].agregarTematica(tematica);
     }
@@ -120,7 +120,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     $('#modalConocimientoAuxL2').modal('hide');
   }
 
-  
+
   //validaciones -------------------------------------------------------------------------------
   private buildForm() {
     this.formCalificacion = this.formBuilder.group({
@@ -133,25 +133,25 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.buildForm();
   }
 
-  validarNota(){
+  validarNota() {
     var aux = 0;
     for (let i = 0; i < this.listaItems.length; i++) {
-      let id:any=this.listaItems[i].getnombreMateria();
-      if((<HTMLInputElement>document.getElementById(id)).value === ""){
+      let id: any = this.listaItems[i].getnombreMateria();
+      if ((<HTMLInputElement>document.getElementById(id)).value === "") {
         aux++;
       }
     }
-    if(aux == this.listaItems.length){
+    if (aux == this.listaItems.length) {
       tata.error('Error', 'La tematica debe tener minimo una nota asignada');
-    }else{
+    } else {
       this.agregarTematica();
     }
   }
 
-  formValido(){
-    if(this.formCalificacion.valid){
+  formValido() {
+    if (this.formCalificacion.valid) {
       this.validarNota();
-    }else{
+    } else {
       this.formCalificacion.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');
     }
