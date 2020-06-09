@@ -8,7 +8,7 @@
             <form [formGroup]="formCrearConv" (ngSubmit)="save($event)" novalidate autocomplete="off">
                 <div class="form-group">
                     <label for="nombreConvocatoria" class="col-form-label">Nombre De La Covocatoria:</label>
-                    <textarea class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo">CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO</textarea>
+                    <textarea class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo"></textarea>
                     <div *ngIf="tituloFormIsInvalid">
                         <small class="text-danger" *ngIf="tituloForm.hasError('required')">
                         Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>

@@ -7,6 +7,7 @@ import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerim
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import * as $ from 'jquery';
+import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 
 declare var swal: any;
 declare var tata: any;
@@ -42,7 +43,10 @@ export class RequerimientosComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria, private router: Router) {
+  constructor(private formBuilder: FormBuilder,
+              private apiPHP: PhpServeConvocatoria,
+              private router: Router,
+              private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
     this.getNombreItems();
   }
@@ -196,7 +200,7 @@ export class RequerimientosComponent implements OnInit {
   //obtiene las materias desde la base de datos a traves de php
   getNombreItems() {
 
-    let idTipoConvocatoria=2; //usar 1 para docencia y 2 para labo
+    let idTipoConvocatoria = parseInt(this.datosConvocatoria.idTipoConvocatoria); //usar 1 para docencia y 2 para labo
     let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
       result => {

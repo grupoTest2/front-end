@@ -91,6 +91,7 @@ export class crearConvocatoriaComponent implements OnInit {
   establecerDatos(){
     this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
     this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
+    this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
   }
   /*---------------------------------interaccion con la BD-------------------------------*/
   getTipoConvocatoriaBD(){

@@ -94,7 +94,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
         for (let j = 0; j < this.listaTematicas.length; j++) {
-          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j] ,0))
+          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j] , 0));
         }
       }
     }
@@ -112,7 +112,8 @@ export class CalificacionConocimientosComponent implements OnInit {
         aux++;
       }
       let tematica:Tematica = new Tematica(nombreTematica, nota);
-      this.listaItems[i].getListaTematica().push(tematica);
+      // this.listaItems[i].getListaTematica().push(tematica);
+      this.listaItems[i].agregarTematica(tematica);
     }
     tata.success('Agregado.', 'Se agregó la tematica con exito.');
     this.formCalificacion.reset();
