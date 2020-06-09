@@ -93,6 +93,6 @@ export class DocumentosPresentarComponent implements OnInit {
 
     /*-------------- metodo para recuperar los datos de este componente*/
     getDatos(){
-      this.datosDocumentos.emit(this.listaDocumentos);
+      return this.listaDocumentos;
     }
 }

@@ -98,7 +98,8 @@ export class FechasComponent implements OnInit {
 
    /*-------------- metodo para recuperar los datos de este componente*/
    getDatos() {
-    this.listaEvent.emit(this.listaEventosSeleccionados);
+
+    return this.listaEventosSeleccionados;
   }
 
   getListaPrueba(){

@@ -232,7 +232,7 @@ export class MeritosComponent implements OnInit {
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos() {
-    this.datosMeritos.emit(this.tablasMeritos);
+    return this.tablasMeritos;
   }
 
 }

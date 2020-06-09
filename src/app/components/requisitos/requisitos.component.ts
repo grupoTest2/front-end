@@ -73,7 +73,7 @@ export class RequisitosComponent implements OnInit {
   
   //enviando los datos al com[ponente formulario
   getDatos(){
-    this.datosRequisitos.emit(this.listaRequisitos);
+    return this.listaRequisitos;
   }
 
   agregarRequisito(){
