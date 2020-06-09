@@ -31,20 +31,13 @@ export class RequisitosComponent implements OnInit {
     this.formRequisitos = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
     });
-
-    this.formRequisitos.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
   save(event: Event) {
     event.preventDefault();
     if (this.formRequisitos.valid) {
       const value = this.formRequisitos.value;
-      console.log(value);
     } else {
       this.formRequisitos.markAllAsTouched();
-      console.log('marca');
     }
   }
 
@@ -73,7 +66,6 @@ export class RequisitosComponent implements OnInit {
   }
 
   agregarRequisito(){
-    console.log("aqui toy");
     let descripcionRequisito = $('#descripcionRequisito').val();
     this.requisito = new Requisito(descripcionRequisito);
     this.seleccionRequisitos.agregarRequisito(this.requisito);

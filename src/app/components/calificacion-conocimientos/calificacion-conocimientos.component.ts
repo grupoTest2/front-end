@@ -43,17 +43,14 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   ngOnInit(): void {
     this.href = this.router.url;
-    console.log(this.listaCalificacion + "--------------------------------");
   }
 
   save(event: Event) {
     event.preventDefault();
     if (this.formCalificacion.valid) {
       const value = this.formCalificacion.value;
-      console.log(value);
     } else {
       this.formCalificacion.markAllAsTouched();
-      console.log("marca");
     }
   }
 
@@ -117,11 +114,9 @@ export class CalificacionConocimientosComponent implements OnInit {
       let tematica:Tematica = new Tematica(nombreTematica, nota);
       this.listaItems[i].getListaTematica().push(tematica);
     }
-    console.log("la lista de las tematicas con su valor",this.listaItems);
     tata.success('Agregado.', 'Se agregó la tematica con exito.');
     this.formCalificacion.reset();
     $('#modalConocimientoAuxL2').modal('hide');
-    console.log("notaaaaaaaaasssss", aux);
   }
 
   
@@ -131,11 +126,6 @@ export class CalificacionConocimientosComponent implements OnInit {
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(/[a-zA-Z]/)])],
       nota: ['', Validators.compose([Validators.min(1), Validators.pattern(/^\d*$/)])]
     });
-
-    this.formCalificacion.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
 
   resetForm() {

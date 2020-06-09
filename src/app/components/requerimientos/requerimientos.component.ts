@@ -49,7 +49,6 @@ export class RequerimientosComponent implements OnInit {
 
   ngOnInit(): void {
     this.href = this.router.url;
-    console.log(this.router.url);
   }
 
   rutaActual() {
@@ -70,17 +69,14 @@ export class RequerimientosComponent implements OnInit {
 
     this.formRequerimientos.valueChanges
       .subscribe(value => {
-        console.log(value);
       });
   }
   save(event: Event) {
     event.preventDefault();
     if (this.formRequerimientos.valid) {
       const value = this.formRequerimientos.value;
-      console.log(value);
     } else {
       this.formRequerimientos.markAllAsTouched();
-      console.log("marca");
     }
   }
 
@@ -163,7 +159,6 @@ export class RequerimientosComponent implements OnInit {
       this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
       this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
       this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-      //console.log(JSON.stringify(this.seleccionRequerimiento.getMateriasSeleccionadas()));
       this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
     }
     else {
@@ -176,9 +171,6 @@ export class RequerimientosComponent implements OnInit {
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
-    localStorage.setItem('id', nombreMateria);
-    sessionStorage.setItem('id22222', nombreMateria);
-    console.log(this.requerimientosSeleccionados,"aquiiiiiiiiiiiiiiiiiiiiiiiiiiii");
   }
   formValido() {
     if (this.formRequerimientos.valid) {
@@ -213,8 +205,6 @@ export class RequerimientosComponent implements OnInit {
         }
         this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
         this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-        //console.log(this.listaMateriasDisponibles);
-        //let objAux = JSON.parse(JSON.stringify(this.materia));
       }
     );
   }

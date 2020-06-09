@@ -30,20 +30,13 @@ export class DocumentosPresentarComponent implements OnInit {
     this.formDocumentos = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
     });
-
-    this.formDocumentos.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
   save(event: Event) {
     event.preventDefault();
     if (this.formDocumentos.valid) {
       const value = this.formDocumentos.value;
-      console.log(value);
     } else {
       this.formDocumentos.markAllAsTouched();
-      console.log('marca');
     }
   }
 
@@ -77,13 +70,8 @@ export class DocumentosPresentarComponent implements OnInit {
     this.documento = new DocumentoPresentar(descripcionDocumento);
     this.seleccionDocumento.agregarDocumento(this.documento);
     this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
-    //this.listaDocumentos.push(this.documento);
-    console.log("------------------------");
-    console.log(this.listaDocumentos);
     tata.success('Agregado.', 'Se agregó con exito.');
     $('#tablaDocumentos').modal('hide');
-    console.log("prueba de saboo");
-    console.log(JSON.stringify(this.listaDocumentos));
   }
   getindice(indice:number){
     let caracter:String=String.fromCharCode(indice+65).toLocaleLowerCase()+") ";

@@ -48,20 +48,13 @@ export class FechasComponent implements OnInit {
       evento: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       fecha: ['', [Validators.required]],
     });
-
-    this.formEventos.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
   save(event: Event) {
     event.preventDefault();
     if (this.formEventos.valid) {
       const value = this.formEventos.value;
-      console.log(value);
     } else {
       this.formEventos.markAllAsTouched();
-      console.log('marca');
     }
   }
 
@@ -138,7 +131,6 @@ export class FechasComponent implements OnInit {
     let hora = $('#hora').val();
     //creamos el evento
     this.evento=new Evento(nombreNombre,fecha,hora);
-    console.log("mi eventoo "+this.evento)
     //agregamos el evento
     let resp=this.seleccionEventos.agregarEvento(this.evento);
     if(resp){
@@ -155,9 +147,6 @@ export class FechasComponent implements OnInit {
     }
     this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
     this.seleccionEventos.convertirEventosBD();
-    console.log(this.listaEventosSeleccionados);
-    console.log("prueba de sabooo");
-    console.log(JSON.stringify(this.listaEventosSeleccionados));
   }
   getindice(indice: number) {
     let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";

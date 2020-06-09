@@ -42,21 +42,14 @@ export class MeritosComponent implements OnInit {
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       porcentaje: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])]
     });
-
-    this.formMeritos.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
 
   save(event: Event) {
     event.preventDefault();
     if (this.formMeritos.valid) {
       const value = this.formMeritos.value;
-      console.log(value);
     } else {
       this.formMeritos.markAllAsTouched();
-      console.log("marca");
     }
   }
 
@@ -133,8 +126,6 @@ export class MeritosComponent implements OnInit {
     //resetea valores a vacio
     (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
     this.formMeritos.reset();
-    console.log("nivel 1.......................");
-    console.log(this.tablasMeritos);
   }
 
   //nivel 2------------------------------------------------------------
@@ -158,8 +149,6 @@ export class MeritosComponent implements OnInit {
     }
 
     this.formMeritos.reset();
-    console.log("nivel 2.......................");
-    console.log(this.tablasMeritos);
   }
 
   // nivel 3 ----------------------------------------------------------
@@ -183,8 +172,6 @@ export class MeritosComponent implements OnInit {
 
     (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
     this.formMeritos.reset();
-    console.log("nivel 3.......................");
-    console.log(JSON.stringify(this.tablasMeritos));
 
   }
 

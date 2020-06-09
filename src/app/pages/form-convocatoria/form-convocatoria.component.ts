@@ -50,7 +50,6 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.setItem('id', 'convo1');
   }
 
   //metodo que recu[era todos los datos]

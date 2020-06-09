@@ -19,9 +19,6 @@ export class crearConvocatoriaComponent implements OnInit {
 
   //formulario validaciones
   formCrearConv: FormGroup;
-  //tipo1: TipoConvocatoria = new TipoConvocatoria(1, 'docencia');
-  //tipo2: TipoConvocatoria = new TipoConvocatoria(2, 'laboratorio');
-  //listaTiposConvocatoria: TipoConvocatoria[] = [this.tipo1, this.tipo2];
   listaTiposConvocatoria: TipoConvocatoria[] = [];
   constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria, private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
@@ -39,20 +36,13 @@ export class crearConvocatoriaComponent implements OnInit {
       gestion: ['', [Validators.required]],
       tipo: ['', [Validators.required]]
     });
-
-    this.formCrearConv.valueChanges
-      .subscribe(value => {
-        console.log(value);
-      });
   }
   save(event: Event) {
     event.preventDefault();
     if (this.formCrearConv.valid) {
       const value = this.formCrearConv.value;
-      console.log(value);
     } else {
       this.formCrearConv.markAllAsTouched();
-      console.log('marca');
     }
   }
 
@@ -111,11 +101,9 @@ export class crearConvocatoriaComponent implements OnInit {
         for (let i in result) {
           listaTipos.push(result[i]);
         }
-        //console.log(listaTipos);
         let tipo: TipoConvocatoria;
         for(let i in listaTipos){
           tipo= new TipoConvocatoria(listaTipos[i].idTipoConv,listaTipos[i].nombre);
-          //console.log(tipo);
           this.listaTiposConvocatoria.push(tipo);
         }
       }
