@@ -95,6 +95,7 @@ export class crearConvocatoriaComponent implements OnInit {
   ruta(){
     let id = $('#tipoConvocatoria').val();
     this.router.navigate(['crearConvocatoria/tipo', id]);
+    this.establecerDatos();
   }
 
   establecerDatos(){

@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DatosConvocatoriaService {
 
-  tituloConvocatoria: string = 'Sin nombre';
-  gestionConvocatoria: string = 'Gestion';
+  tituloConvocatoria: string = 'Nombre gestion';
+  gestionConvocatoria: string = 'Año';
 
   constructor() { }
 }
