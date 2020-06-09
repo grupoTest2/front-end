@@ -27,10 +27,6 @@ export class MeritosComponent implements OnInit {
   porcentajeMerito: number = 0;
   descripcionMerito: String = " ";
 
-
-  /*----- M para envio de datos ------------*/
-  @Output() datosMeritos = new EventEmitter();
-
   constructor(private formBuilder: FormBuilder) {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();

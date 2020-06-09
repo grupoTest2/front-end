@@ -31,9 +31,6 @@ export class FechasComponent implements OnInit {
   //objeto que controla los eventos
   seleccionEventos: SeleccionEventos;
 
-//variable para enviar los datpsa al formulario
-  @Output() listaEvent = new EventEmitter();
-
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
     this.seleccionEventos=new SeleccionEventos();

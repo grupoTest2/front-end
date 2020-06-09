@@ -31,7 +31,6 @@ export class RequerimientosComponent implements OnInit {
 
 
   /*----- M para envio de datos ------------*/
-  @Output() datosRequerimientos = new EventEmitter();
   href: string = "";
 
   /* lista de reuqerimientos de laborratorios */

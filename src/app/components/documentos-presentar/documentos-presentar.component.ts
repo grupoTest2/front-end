@@ -17,8 +17,7 @@ export class DocumentosPresentarComponent implements OnInit {
   listaDocumentos: DocumentoPresentar[] = [];
   formDocumentos: FormGroup;
   seleccionDocumento:SeleccionDocumentos;
-  /*----- M para envio de datos ------------*/
-  @Output() datosDocumentos = new EventEmitter();
+
   constructor(private formBuilder: FormBuilder) { 
     this.buildForm();
     this.seleccionDocumento=new SeleccionDocumentos();

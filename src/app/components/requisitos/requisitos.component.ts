@@ -19,10 +19,6 @@ export class RequisitosComponent implements OnInit {
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
 
-
-  //varaible de tipo evento para enviar los datos al fromaulario
-  @Output() datosRequisitos = new EventEmitter();
-
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
   }
