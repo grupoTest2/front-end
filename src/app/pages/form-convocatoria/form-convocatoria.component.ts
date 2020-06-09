@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
 import { DocumentoPresentar } from 'src/app/models/clases/crear-convocatoria/documento-presentar';
@@ -13,6 +13,7 @@ import { FechasComponent } from 'src/app/components//fechas/fechas.component';
 import { CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
 
 import { Merito } from 'src/app/models/clases/crear-convocatoria/merito';
+import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 
 @Component({
   selector: 'app-form-convocatoria',
@@ -29,6 +30,10 @@ export class FormConvocatoriaComponent implements OnInit {
 
   @ViewChild('calificacionConocimiento') calificacionConocimiento: CalificacionConocimientosComponent;
 
+  @Input() titulo: string = '';
+  @Input() gestion: string = '';
+
+
   //lista de los datos de los diferentes componentes
   listaDatosRequerimientos: Requerimiento[] = [];
   listaDatosRequisitos: Requisito[] = [];
@@ -40,7 +45,7 @@ export class FormConvocatoriaComponent implements OnInit {
   //lista de los requerimientos
   listaRequerimientos: any = [];
 
-  constructor() {
+  constructor(public datosConvocatoria: DatosConvocatoriaService) {
 
   }
 

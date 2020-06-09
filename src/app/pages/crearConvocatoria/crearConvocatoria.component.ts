@@ -4,6 +4,7 @@ import { TipoConvocatoria } from '../../models/clases/crear-convocatoria/tipo-co
 import { Router } from '@angular/router';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { Convocatoria } from 'src/app/models/clases/crear-convocatoria/convocatoria';
+import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 
 
 declare var tata: any;
@@ -21,8 +22,8 @@ export class crearConvocatoriaComponent implements OnInit {
   //tipo1: TipoConvocatoria = new TipoConvocatoria(1, 'docencia');
   //tipo2: TipoConvocatoria = new TipoConvocatoria(2, 'laboratorio');
   //listaTiposConvocatoria: TipoConvocatoria[] = [this.tipo1, this.tipo2];
-  listaTiposConvocatoria: TipoConvocatoria[]=[];
-  constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria,private router: Router) {
+  listaTiposConvocatoria: TipoConvocatoria[] = [];
+  constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria, private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
     this.getTipoConvocatoriaBD();
   }
@@ -92,8 +93,13 @@ export class crearConvocatoriaComponent implements OnInit {
 
   //  Rutas -------------------------------------------------------------------------------------
   ruta(){
-    var id = $('#tipoConvocatoria').val();
+    let id = $('#tipoConvocatoria').val();
     this.router.navigate(['crearConvocatoria/tipo', id]);
+  }
+
+  establecerDatos(){
+    this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
+    this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
   }
   /*---------------------------------interaccion con la BD-------------------------------*/
   getTipoConvocatoriaBD(){

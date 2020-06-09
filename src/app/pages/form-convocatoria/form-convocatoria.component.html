@@ -1,33 +1,33 @@
 <div class="container mt-5 mb-5">
     <form>
         <div class="form-group">
-           <!--<label for="titulo">Título</label>-->
+            <!--<label for="titulo">Título</label>-->
             <!--<input type="text" class="form-control" id="titulo" aria-describedby="emailHelp">-->
-            <p class="text-center">CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO <br>==========<br> GESTIÓN 2020 </p>
+            <p class="text-center"> {{datosConvocatoria.tituloConvocatoria | uppercase}} <br>==========<br> GESTIÓN {{datosConvocatoria.gestionConvocatoria}} </p>
         </div>
         <br>
         <div class="form-group">
-            <app-requerimientos #requerimiento (listaRequerimientos)="setListaRequerimientos($event)" ></app-requerimientos>
+            <app-requerimientos #requerimiento (listaRequerimientos)="setListaRequerimientos($event)"></app-requerimientos>
         </div>
         <br>
         <div class="form-group">
-            <app-requisitos #requisitos ></app-requisitos>
+            <app-requisitos #requisitos></app-requisitos>
         </div>
         <br>
         <div class="form-group">
-            <app-documentos-presentar #documentosPresentar ></app-documentos-presentar>
+            <app-documentos-presentar #documentosPresentar></app-documentos-presentar>
         </div>
         <br>
         <div class="form-group">
-            <app-meritos #merito ></app-meritos>
+            <app-meritos #merito></app-meritos>
         </div>
         <br>
         <div class="form-group">
-            <app-calificacion-conocimientos #calificacionConocimiento ></app-calificacion-conocimientos>
+            <app-calificacion-conocimientos #calificacionConocimiento></app-calificacion-conocimientos>
         </div>
         <br>
         <div class="form-group">
-            <app-fechas #eventos ></app-fechas>
+            <app-fechas #eventos></app-fechas>
         </div>
         <br>
         <br>
