@@ -79,7 +79,7 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos() {
-    this.datosCalificacionConocimiento.emit(this.listaCalificacion);
+    return this.listaItems;
   }
 
 
@@ -102,6 +102,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     }
   }
+  
   agregarTematica() {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
