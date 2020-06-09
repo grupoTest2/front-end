@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TipoConvocatoria } from '../../models/clases/crear-convocatoria/tipo-convocatoria';
+import { Router } from '@angular/router';
+
 
 declare var tata: any;
 declare var $: any;
@@ -13,15 +16,19 @@ export class crearConvocatoriaComponent implements OnInit {
 
   //formulario validaciones
   formCrearConv: FormGroup;
-  listaTiposConvocatoria: string[] = ["Aux docencia", "Aux Laboratorio"];
+  tipo1: TipoConvocatoria = new TipoConvocatoria(1, 'docencia');
+  tipo2: TipoConvocatoria = new TipoConvocatoria(2, 'laboratorio');
+  listaTiposConvocatoria: TipoConvocatoria[] = [this.tipo1, this.tipo2];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.buildForm();
   }
 
   ngOnInit(): void {
   }
 
+
+  // Validaciones -------------------------------------------------------------------------
   private buildForm() {
     this.formCrearConv = this.formBuilder.group({
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -78,5 +85,11 @@ export class crearConvocatoriaComponent implements OnInit {
   get tipoFormIsInvalid() {
     return this.tipoForm.touched && this.tipoForm.invalid;
   }
+   // Fin validaciones -------------------------------------------------------------------------
 
+  //  Rutas -------------------------------------------------------------------------------------
+  ruta(){
+    var id = $('#tipoConvocatoria').val();
+    this.router.navigate(['crearConvocatoria/tipo', id]);
+  }
 }

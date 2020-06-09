@@ -6,8 +6,7 @@ import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convoc
 
 const routes: Routes = [
   { path: 'crearConvocatoria', component: crearConvocatoriaComponent },
-  { path: 'convDocencia', component: FormConvocatoriaComponent },
-  { path: 'convLaboratorio', component: FormConvocatoriaComponent },
+  { path: 'crearConvocatoria/tipo/:id', component: FormConvocatoriaComponent },
   { path: '', pathMatch: 'full', redirectTo: 'crearConvocatoria' },
   { path: '**', pathMatch: 'full', redirectTo: 'crearConvocatoria' }
 ];

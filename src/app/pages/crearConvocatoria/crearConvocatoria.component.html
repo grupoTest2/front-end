@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="tipoConvocatoria" class="col-form-label">Tipo De Convocatoria: </label>
                     <select class="custom-select" id="tipoConvocatoria" [class.is-invalid]="tipoFormIsInvalid" [class.is-valid]="tipoFormIsValid" formControlName="tipo">
-                      <option *ngFor="let tipo of listaTiposConvocatoria" [value]="tipo">{{tipo}}</option>
+                      <option id="tipoConvocatoria" *ngFor="let tipo of listaTiposConvocatoria; let i = index" [value]="tipo.getId()">{{tipo.getNombre()}}</option>
                     </select>
                     <div *ngIf="tipoFormIsInvalid">
                         <small class="text-danger" *ngIf="tipoForm.hasError('required')">
@@ -47,7 +47,7 @@
         <div class="card-footer text-muted">
             <div class="form-group">
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid">
+                    <button class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid" (click)="ruta()">
                           <i class="fa fa-plus"> </i>  Crear 
                   </button>
                 </div>

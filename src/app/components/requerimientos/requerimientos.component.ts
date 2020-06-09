@@ -53,7 +53,7 @@ export class RequerimientosComponent implements OnInit {
   }
 
   rutaActual() {
-    if (this.href === '/convLaboratorio') {
+    if (this.href === '/crearConvocatoria/tipo/2') {
       return true;
     } else {
       return false;
