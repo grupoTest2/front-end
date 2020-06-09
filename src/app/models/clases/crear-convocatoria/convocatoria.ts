@@ -21,4 +21,26 @@ export class Convocatoria{
     public getIdTipoConv(){
         return this.idTipoConv;
     }
+
+    public getIdConv(){
+        return this.idConv;
+    }
+
+    public setIdConv(idConv){
+        this.idConv=idConv;
+    }
+
+    public setTitulo(titulo){
+        this.titulo=titulo;
+    }
+    
+    public setGestion(gestion){
+        this.gestion=gestion;
+    }
+
+    
+    public setTipoConv(idTipoConv){
+        this.idTipoConv=idTipoConv;
+    }
+
 }
