@@ -176,7 +176,6 @@ export class CalificacionConocimientosComponent implements OnInit {
           let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
           if (nota > this.listaItems[i].getNotaDisponible()) {
             aux++;
-            console.log("error al insertar debudo a que exede la nota disponible" + this.listaItems[i].getnombreMateria());
             (<HTMLInputElement>document.getElementById(id)).classList.add("is-invalid");
             codigo = this.listaItems[i].getCodigoAuxiliatura();
             bandera = true;
@@ -190,7 +189,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
     if (aux == contador || bandera) {
       if(bandera){
-        tata.error('Error', 'La nota excede a la disponible en: ' + codigo);
+        tata.error('Error', 'La nota excede el porcentaje disponible en: ' + codigo);
       }else{
         tata.error('Error', 'La tematica debe tener minimo una nota asignada');
       }
