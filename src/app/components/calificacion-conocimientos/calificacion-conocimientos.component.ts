@@ -136,7 +136,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   private buildForm() {
     this.formCalificacion = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(/[a-zA-Z]/)])],
-      nota: ['', Validators.compose([Validators.min(1), Validators.pattern(/^\d*$/)])]
+      nota: ['', Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern(/^\d*$/)])]
     });
   }
 

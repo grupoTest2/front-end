@@ -8,5 +8,7 @@ export class DatosConvocatoriaService {
   tituloConvocatoria: string = 'Nombre gestion';
   gestionConvocatoria: string = 'Año';
   idTipoConvocatoria: string = '';
-  constructor() { }
+  constructor() {
+
+  }
 }
