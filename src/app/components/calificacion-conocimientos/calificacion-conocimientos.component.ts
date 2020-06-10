@@ -132,6 +132,17 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
 
+  hayDatos() {
+   var bandera=false;
+    for (let i = 0; i < this.listaItems.length; i++) {
+            if (this.listaItems[i].getNotaDisponible() > 0) {
+            bandera=true;
+            }
+    }
+    return bandera;
+  }
+
+
   //validaciones -------------------------------------------------------------------------------
   private buildForm() {
     this.formCalificacion = this.formBuilder.group({
