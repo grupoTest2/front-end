@@ -126,7 +126,7 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
       }
     }
-     tata.success('Agregado.', 'Se agregó la tematica con exito.');
+    tata.success('Agregado.', 'Se agregó la tematica con exito.');
     this.formCalificacion.reset();
     $('#modalConocimientoAuxL2').modal('hide');
   }
@@ -146,17 +146,20 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   validarNota() {
     var aux = 0;
-    var contador=0;
+    var contador = 0;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getNotaDisponible() > 0) {
         let id: any = this.listaItems[i].getnombreMateria();
         if ((<HTMLInputElement>document.getElementById(id)).value === "") {
           aux++;
         }
+        if (parseInt((<HTMLInputElement>document.getElementById(id)).value) >= this.listaItems[i].getNotaDisponible()) {
+          alert("nota indicada superior a la esperada de la auxiliatura !!" + this.listaItems[i].getnombreMateria());
+        }
         contador++;
       }
     }
-    if (aux ==contador) {
+    if (aux == contador) {
       tata.error('Error', 'La tematica debe tener minimo una nota asignada');
     } else {
       this.agregarTematica();
