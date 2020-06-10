@@ -48,6 +48,7 @@ export class FormConvocatoriaComponent implements OnInit {
   tituloConvocatoria: string = "";
   gestionConvocatoria: string = "";
   idTipo: string = "";
+  bandera:boolean;
   constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria) {
     this.tituloConvocatoria = localStorage.getItem("tituloConvocatoria");
     this.gestionConvocatoria = localStorage.getItem("gestionConvocatoria");
@@ -61,35 +62,35 @@ export class FormConvocatoriaComponent implements OnInit {
   //metodo que recu[era todos los datos]
   recuperarLosDatosDeLosComponentes() {
     this.listaRequerimientos = this.requerimiento.getDatos();
-    console.log(this.listaRequerimientos);
+    //console.log(this.listaRequerimientos);
     this.listaDatosRequisitos = this.requisitos.getDatos();
-    console.log(this.listaDatosRequisitos);
+    //console.log(this.listaDatosRequisitos);
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
-    console.log(this.listaDatosDocumentosPresentar);
+    //console.log(this.listaDatosDocumentosPresentar);
     this.listaDatosMerito = this.merito.getDatos();
-    console.log("los datos de meritos son:");
-    console.log(JSON.stringify(this.listaDatosMerito));
+    //console.log("los datos de meritos son:");
+    //console.log(JSON.stringify(this.listaDatosMerito));
     this.listaMeritoConCalificaciones=this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
-    console.log(this.listaDatosEventos);
+    //console.log(this.listaDatosEventos);
 
   }
   guardarBD(){
     this.recuperarLosDatosDeLosComponentes();
-    let bandera=true;
-    if(bandera){
-      bandera=this.agregarRequerimientos();
-      if(bandera){
-        bandera=this.agregarRequisitos();
-        if(bandera){
-          bandera=this.agregarDocumentosPresentar();
-          if(bandera){
-            bandera=this.agregarCalificaciones();
-            if(bandera){
-              bandera=this.agregarMeritos();
-              if(bandera){
-                bandera=this.agregarEventos();
-                if(bandera){
+    this.bandera=true;
+    if(this.bandera){
+      this.agregarRequerimientos();
+      if(this.bandera){
+        this.bandera=this.agregarRequisitos();
+        if(this.bandera){
+          this.bandera=this.agregarDocumentosPresentar();
+          if(this.bandera){
+            this.bandera=this.agregarCalificaciones();
+            if(this.bandera){
+              this.bandera=this.agregarMeritos();
+              if(this.bandera){
+                this.bandera=this.agregarEventos();
+                if(this.bandera){
                   console.log("todo posi");
                 }else{
                   console.log("error en los eventos");
@@ -113,15 +114,13 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   agregarRequerimientos(){
-    let res=false;
     this.apiPHP.agregarRequerimientos(this.listaDatosRequerimientos).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          this.bandera=true;
         }
       }
     );
-    return res;
   }
   agregarRequisitos(){
     let res=false;

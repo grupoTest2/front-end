@@ -98,11 +98,11 @@ export class crearConvocatoriaComponent implements OnInit {
     convocatoria=new Convocatoria(this.datosConvocatoria.idTipoConvocatoria,
                                   this.datosConvocatoria.tituloConvocatoria,
                                   this.datosConvocatoria.gestionConvocatoria);
-    if(this.crearConvocatoriaBD(convocatoria)){
-      localStorage.setItem("tituloConvocatoria",this.datosConvocatoria.tituloConvocatoria);
-      localStorage.setItem("gestionConvocatoria",this.datosConvocatoria.gestionConvocatoria);
-      localStorage.setItem("idTipo", this.datosConvocatoria.idTipoConvocatoria);
-    }
+    this.crearConvocatoriaBD(convocatoria);
+    localStorage.setItem("tituloConvocatoria",this.datosConvocatoria.tituloConvocatoria);
+    localStorage.setItem("gestionConvocatoria",this.datosConvocatoria.gestionConvocatoria);
+    localStorage.setItem("idTipo", this.datosConvocatoria.idTipoConvocatoria);
+    
   }
   /*---------------------------------interaccion con la BD-------------------------------*/
   getTipoConvocatoriaBD(){
@@ -124,21 +124,18 @@ export class crearConvocatoriaComponent implements OnInit {
   }
 
   crearConvocatoriaBD(objAux:Convocatoria){
-    let res:boolean=false;
-    this.apiPHP.crearConvocatoria(objAux).subscribe(
+     this.apiPHP.crearConvocatoria(objAux).subscribe(
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
           //se crea correctamente la convocatoria
           if(respuesta['mensaje']!=-1){
             localStorage.setItem("idConv",respuesta['mensaje']);
             //objAux.setIdConv(respuesta['mensaje']);
-            res=true;
           }
         } else {
           //no se pudo agregar
         }
       }
     );
-    return res;
   }
 }
