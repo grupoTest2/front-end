@@ -169,6 +169,7 @@ export class RequerimientosComponent implements OnInit {
       this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
       this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
       this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
       //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
     }
     this.enviarLista();
