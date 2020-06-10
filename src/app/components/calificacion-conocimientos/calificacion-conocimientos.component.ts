@@ -147,20 +147,26 @@ export class CalificacionConocimientosComponent implements OnInit {
   validarNota() {
     var aux = 0;
     var contador = 0;
+    var bandera = false;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getNotaDisponible() > 0) {
         let id: any = this.listaItems[i].getnombreMateria();
         if ((<HTMLInputElement>document.getElementById(id)).value === "") {
           aux++;
         }
-        if (parseInt((<HTMLInputElement>document.getElementById(id)).value) >= this.listaItems[i].getNotaDisponible()) {
-          alert("nota indicada superior a la esperada de la auxiliatura !!" + this.listaItems[i].getnombreMateria());
-          aux++;
+        else {
+          let id: any = this.listaItems[i].getnombreMateria();
+          let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+          if (nota > this.listaItems[i].getNotaDisponible()) {
+            aux++;
+            console.log("error al insertar debudo a que exede la nota disponible" + this.listaItems[i].getnombreMateria());
+            bandera = true;
+          }
         }
         contador++;
       }
     }
-    if (aux == contador) {
+    if (aux == contador || bandera) {
       tata.error('Error', 'La tematica debe tener minimo una nota asignada');
     } else {
       this.agregarTematica();
