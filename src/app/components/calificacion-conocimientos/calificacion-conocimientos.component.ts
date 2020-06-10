@@ -155,6 +155,7 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
         if (parseInt((<HTMLInputElement>document.getElementById(id)).value) >= this.listaItems[i].getNotaDisponible()) {
           alert("nota indicada superior a la esperada de la auxiliatura !!" + this.listaItems[i].getnombreMateria());
+          aux++;
         }
         contador++;
       }
