@@ -64,3 +64,4 @@ export class Requerimiento {
         return 100-suma;
     }
 }
+

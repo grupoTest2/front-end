@@ -105,19 +105,36 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.listaTematicas.push(nombreTematica);
     var aux = 0;
     for (let i = 0; i < this.listaItems.length; i++) {
-      let id: any = this.listaItems[i].getnombreMateria();
-      let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
-      if ((<HTMLInputElement>document.getElementById(id)).value === "") {
-        nota = 0;
-        aux++;
+
+      if (this.listaItems[i].getNotaDisponible() > 0) {
+        let id: any = this.listaItems[i].getnombreMateria();
+        let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+        if ((<HTMLInputElement>document.getElementById(id)).value === "") {
+          nota = 0;
+          aux++;
+        }
+        let tematica: Tematica = new Tematica(nombreTematica, nota);
+        // this.listaItems[i].getListaTematica().push(tematica);
+        this.listaItems[i].agregarTematica(tematica);
+        console.log("------------------- 4444444444444444--------------------------------------------------");
+        console.log("--------------------4444444444444444-------------------------------------------------");
+        
       }
-      let tematica: Tematica = new Tematica(nombreTematica, nota);
-      // this.listaItems[i].getListaTematica().push(tematica);
-      this.listaItems[i].agregarTematica(tematica);
+      else {
+
+        console.log("---------------------------------------------------------------------");
+        console.log("---------------------------------------------------------------------");
+        
+        for (let j = 0; j < this.listaTematicas.length; j++) {
+          if (this.listaItems[i].getListaTematica().length <=j)
+            this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
+        }
+
+      }
     }
-    tata.success('Agregado.', 'Se agregó la tematica con exito.');
-    this.formCalificacion.reset();
-    $('#modalConocimientoAuxL2').modal('hide');
+   // tata.success('Agregado.', 'Se agregó la tematica con exito.');
+    //this.formCalificacion.reset();
+    //$('#modalConocimientoAuxL2').modal('hide');
   }
 
 
