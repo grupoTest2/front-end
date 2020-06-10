@@ -112,12 +112,23 @@ export class FormConvocatoriaComponent implements OnInit {
       }
     }
   }
-
+  agregarBD2(){
+    this.recuperarLosDatosDeLosComponentes();
+    this.agregarRequerimientos();
+    this.agregarRequisitos();
+    //this.agregarDocumentosPresentar();
+    //this.agregarCalificaciones();
+    //this.agregarMeritos();
+    //this.agregarEventos();
+  }
   agregarRequerimientos(){
-    this.apiPHP.agregarRequerimientos(this.listaDatosRequerimientos).subscribe(
+    console.log(this.listaRequerimientos);
+    this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          this.bandera=true;
+          //alert("todo bien con los requerimientos");
+        }else{
+          //alert("error en los requerimientos");
         }
       }
     );
@@ -127,7 +138,9 @@ export class FormConvocatoriaComponent implements OnInit {
     this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          console.log("todo bien con los requisitos");
+        }else{
+          console.log("todo bien con los requisitos");
         }
       }
     );
@@ -138,7 +151,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          console.log("todo bien con los documentos");
         }
       }
     );
@@ -149,7 +162,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.apiPHP.agregarConocimientos(this.listaMeritoConCalificaciones).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          console.log("todo bien con los calificaciones");
         }
       }
     );
@@ -160,7 +173,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          console.log("todo bien con los meritos");
         }
       }
     );
@@ -171,7 +184,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
-          res=true;
+          console.log("todo bien con los eventos");
         }
       }
     );
