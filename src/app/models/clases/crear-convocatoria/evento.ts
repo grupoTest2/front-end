@@ -1,5 +1,5 @@
 export class Evento{
-    private idConv:number=1;
+    private idConv:number= parseInt(localStorage.getItem("idConv"));
     private nombre:String;
     private fechaIni:Date;
     private fechaFin:Date;

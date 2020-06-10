@@ -1,5 +1,5 @@
 export class Merito {
-  private idConv:number=1;
+  private idConv:number= parseInt(localStorage.getItem("idConv"));
   private titulo:string;
   private descripcion:string;
   private porcentaje:number;

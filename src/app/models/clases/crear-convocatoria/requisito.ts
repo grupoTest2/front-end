@@ -1,5 +1,5 @@
 export class Requisito {
-    private idConv:number=1;
+    private idConv:number= parseInt(localStorage.getItem("idConv"));
     private descripcion:String;
     public constructor(descripcion){
         this.descripcion=descripcion;

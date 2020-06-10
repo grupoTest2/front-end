@@ -89,12 +89,20 @@ export class crearConvocatoriaComponent implements OnInit {
   }
 
   establecerDatos(){
+    let convocatoria:Convocatoria;
     this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
     this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
     this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
-    localStorage.setItem("tituloConvocatoria",this.datosConvocatoria.tituloConvocatoria);
-    localStorage.setItem("gestionConvocatoria",this.datosConvocatoria.gestionConvocatoria);
-    localStorage.setItem("idTipo", this.datosConvocatoria.idTipoConvocatoria);
+    console.log("el tipo de convocatoriaaaaaaa");
+    console.log(this.datosConvocatoria.idTipoConvocatoria);
+    convocatoria=new Convocatoria(this.datosConvocatoria.idTipoConvocatoria,
+                                  this.datosConvocatoria.tituloConvocatoria,
+                                  this.datosConvocatoria.gestionConvocatoria);
+    if(this.crearConvocatoriaBD(convocatoria)){
+      localStorage.setItem("tituloConvocatoria",this.datosConvocatoria.tituloConvocatoria);
+      localStorage.setItem("gestionConvocatoria",this.datosConvocatoria.gestionConvocatoria);
+      localStorage.setItem("idTipo", this.datosConvocatoria.idTipoConvocatoria);
+    }
   }
   /*---------------------------------interaccion con la BD-------------------------------*/
   getTipoConvocatoriaBD(){
@@ -115,15 +123,15 @@ export class crearConvocatoriaComponent implements OnInit {
     
   }
 
-  crearConvocatoriaBD(){
+  crearConvocatoriaBD(objAux:Convocatoria){
     let res:boolean=false;
-    let objAux:Convocatoria;
     this.apiPHP.crearConvocatoria(objAux).subscribe(
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
           //se crea correctamente la convocatoria
           if(respuesta['mensaje']!=-1){
-            objAux.setIdConv(respuesta['mensaje']);
+            localStorage.setItem("idConv",respuesta['mensaje']);
+            //objAux.setIdConv(respuesta['mensaje']);
             res=true;
           }
         } else {

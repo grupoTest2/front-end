@@ -199,8 +199,9 @@ export class RequerimientosComponent implements OnInit {
 /*-------------interaccion con la base de datos---------------------*/  
   //obtiene las materias desde la base de datos a traves de php
   getNombreItems() {
-
-    let idTipoConvocatoria = parseInt(this.datosConvocatoria.idTipoConvocatoria); //usar 1 para docencia y 2 para labo
+    console.log("al obtener items");
+    console.log(parseInt(localStorage.getItem("idTipo")));
+    let idTipoConvocatoria:number =parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
     let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
       result => {

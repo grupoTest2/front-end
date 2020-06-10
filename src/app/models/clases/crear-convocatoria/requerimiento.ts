@@ -1,7 +1,7 @@
 //import { Materia } from './materia';
 import { Tematica } from './tematica';
 export class Requerimiento {
-    private idConv: number=1;
+    private idConv: number= parseInt(localStorage.getItem("idConv"))
     private cantidadItem: number;
     private hrsAcademicas: number;
     private nombreMateria: String;
