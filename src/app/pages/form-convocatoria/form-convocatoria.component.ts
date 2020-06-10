@@ -14,6 +14,7 @@ import { CalificacionConocimientosComponent } from 'src/app/components/calificac
 
 import { Merito } from 'src/app/models/clases/crear-convocatoria/merito';
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 @Component({
   selector: 'app-form-convocatoria',
@@ -47,41 +48,136 @@ export class FormConvocatoriaComponent implements OnInit {
   tituloConvocatoria: string = "";
   gestionConvocatoria: string = "";
   idTipo: string = "";
-  constructor(private datosConvocatoria: DatosConvocatoriaService) {
+  constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria) {
     this.tituloConvocatoria = localStorage.getItem("tituloConvocatoria");
     this.gestionConvocatoria = localStorage.getItem("gestionConvocatoria");
     this.idTipo = localStorage.getItem("idTipo");
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-  }
 
+  }
   ngOnInit(): void {
   }
 
   //metodo que recu[era todos los datos]
   recuperarLosDatosDeLosComponentes() {
-    console.log("-------------------------------------------------------------------------------------------");
-
-    console.log("-------------------------------------------------------------------------------------------");
-
-    console.log("-------------------------------------------------------------------------------------------");
-
-    console.log("-------------------------------------------------------------------------------------------");
     this.listaRequerimientos = this.requerimiento.getDatos();
-    console.log("los requerimientos ->" + this.listaRequerimientos[0].getCodigoAuxiliatura());
+    console.log(this.listaRequerimientos);
     this.listaDatosRequisitos = this.requisitos.getDatos();
-    console.log("los requisitos ->" + this.listaDatosRequisitos[0].getDescripcion());
+    console.log(this.listaDatosRequisitos);
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
-    console.log("los dicumentos a presentar->  " + this.listaDatosDocumentosPresentar[0].getDescripcion());
+    console.log(this.listaDatosDocumentosPresentar);
     this.listaDatosMerito = this.merito.getDatos();
     console.log("los datos de meritos son:");
     console.log(JSON.stringify(this.listaDatosMerito));
     this.listaMeritoConCalificaciones=this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
-    console.log("la descripcion del evento es->" + this.listaDatosEventos[0].getNombre());
+    console.log(this.listaDatosEventos);
 
   }
+  guardarBD(){
+    this.recuperarLosDatosDeLosComponentes();
+    let bandera=true;
+    if(bandera){
+      bandera=this.agregarRequerimientos();
+      if(bandera){
+        bandera=this.agregarRequisitos();
+        if(bandera){
+          bandera=this.agregarDocumentosPresentar();
+          if(bandera){
+            bandera=this.agregarCalificaciones();
+            if(bandera){
+              bandera=this.agregarMeritos();
+              if(bandera){
+                bandera=this.agregarEventos();
+                if(bandera){
+                  console.log("todo posi");
+                }else{
+                  console.log("error en los eventos");
+                }
+              }else{
+                console.log("error en los meritos");
+              }
+            }else{
+              console.log("error en las calificaciones");
+            }
+          }else{
+            console.log("error en documentos a presentar");
+          }
+        }else{
+          console.log("error en requisitos");
+        }
+      }else{
+        console.log("error en requerimientos")
+      }
+    }
+  }
 
-
+  agregarRequerimientos(){
+    let res=false;
+    this.apiPHP.agregarRequerimientos(this.listaDatosRequerimientos).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
+  agregarRequisitos(){
+    let res=false;
+    this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
+  agregarDocumentosPresentar(){
+    let res=false;
+    this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
+  agregarCalificaciones(){
+    let res=false;
+    this.apiPHP.agregarConocimientos(this.listaMeritoConCalificaciones).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
+  agregarMeritos(){
+    let res=false;
+    this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
+  agregarEventos(){
+    let res=false;
+    this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
+      respuesta=>{
+        if(respuesta['resultado']=='correcto'){
+          res=true;
+        }
+      }
+    );
+    return res;
+  }
   //modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerientos) {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);

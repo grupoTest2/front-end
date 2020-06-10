@@ -170,8 +170,8 @@ export class RequerimientosComponent implements OnInit {
       this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
       this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
       //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
-      this.enviarLista();
     }
+    this.enviarLista();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
@@ -212,20 +212,5 @@ export class RequerimientosComponent implements OnInit {
       }
     );
   }
-  //envia las materias seleccionadas a la base de datos
-  agregarRequerimientosBD(): boolean {
-    let resp: boolean = false;
-    this.apiPHP.agregarRequerimientos(this.seleccionRequerimiento.getMateriasSeleccionadas()).subscribe(
-      datos => {
-        if (datos['resultado'] == 'correcto') {
-          //se agrega correctamente a la base de datos
-          resp = true;
-        } else {
-          //no se pudo agregar
-        }
-        alert(datos['mensaje']);
-      }
-    );
-    return resp;
-  }
+  
 }
