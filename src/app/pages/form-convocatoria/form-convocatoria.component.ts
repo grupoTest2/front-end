@@ -40,7 +40,7 @@ export class FormConvocatoriaComponent implements OnInit {
   listaDatosRequisitos: Requisito[] = [];
   listaDatosDocumentosPresentar: DocumentoPresentar[] = [];
   listaDatosMerito: Merito[] = [];
-  listaMeritoConCalificaciones: Requerimiento[] = [];
+  listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
 
   //lista de los requerimientos
@@ -70,60 +70,25 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosMerito = this.merito.getDatos();
     //console.log("los datos de meritos son:");
     //console.log(JSON.stringify(this.listaDatosMerito));
-    this.listaMeritoConCalificaciones=this.calificacionConocimiento.getDatos();
+    this.listaItemsConCalificaciones=this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
     //console.log(this.listaDatosEventos);
 
   }
-  guardarBD(){
-    this.recuperarLosDatosDeLosComponentes();
-    this.bandera=true;
-    if(this.bandera){
-      this.agregarRequerimientos();
-      if(this.bandera){
-        this.bandera=this.agregarRequisitos();
-        if(this.bandera){
-          this.bandera=this.agregarDocumentosPresentar();
-          if(this.bandera){
-            this.bandera=this.agregarCalificaciones();
-            if(this.bandera){
-              this.bandera=this.agregarMeritos();
-              if(this.bandera){
-                this.bandera=this.agregarEventos();
-                if(this.bandera){
-                  console.log("todo posi");
-                }else{
-                  console.log("error en los eventos");
-                }
-              }else{
-                console.log("error en los meritos");
-              }
-            }else{
-              console.log("error en las calificaciones");
-            }
-          }else{
-            console.log("error en documentos a presentar");
-          }
-        }else{
-          console.log("error en requisitos");
-        }
-      }else{
-        console.log("error en requerimientos")
-      }
-    }
-  }
-  agregarBD2(){
+  
+  agregarBD(){
     this.recuperarLosDatosDeLosComponentes();
     this.agregarRequerimientos();
     this.agregarRequisitos();
-    //this.agregarDocumentosPresentar();
-    //this.agregarCalificaciones();
-    //this.agregarMeritos();
-    //this.agregarEventos();
+    this.agregarDocumentosPresentar();
+    this.agregarCalificaciones();
+    this.agregarMeritos();
+    this.agregarEventos();
   }
   agregarRequerimientos(){
-    console.log(this.listaRequerimientos);
-    this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
+    if(this.listaRequerimientos.length!=0){
+      console.log(this.listaRequerimientos);
+      this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
       respuesta=>{
         if(respuesta['resultado']=='correcto'){
           //alert("todo bien con los requerimientos");
@@ -132,63 +97,87 @@ export class FormConvocatoriaComponent implements OnInit {
         }
       }
     );
+    }else{
+      //lista vacia
+    }
+    
   }
   agregarRequisitos(){
-    let res=false;
-    this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
-      respuesta=>{
-        if(respuesta['resultado']=='correcto'){
-          console.log("todo bien con los requisitos");
-        }else{
-          console.log("todo bien con los requisitos");
+    if(this.listaDatosRequisitos.length!=0){
+      this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
+        respuesta=>{
+          if(respuesta['resultado']=='correcto'){
+            console.log("todo bien con los requisitos");
+          }else{
+            console.log("error en lo requisitos");
+          }
         }
-      }
-    );
-    return res;
+      );
+    }else{
+      //lista vacia
+    }
+    
   }
   agregarDocumentosPresentar(){
-    let res=false;
-    this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
-      respuesta=>{
-        if(respuesta['resultado']=='correcto'){
-          console.log("todo bien con los documentos");
+    if(this.listaDatosDocumentosPresentar.length!=0){
+      this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
+        respuesta=>{
+          if(respuesta['resultado']=='correcto'){
+            console.log("todo bien con los documentos");
+          }else{
+            console.log("error con los documentos");
+          }
         }
-      }
-    );
-    return res;
+      );
+    }else{
+      //lista vacia
+    }
   }
   agregarCalificaciones(){
-    let res=false;
-    this.apiPHP.agregarConocimientos(this.listaMeritoConCalificaciones).subscribe(
-      respuesta=>{
-        if(respuesta['resultado']=='correcto'){
-          console.log("todo bien con los calificaciones");
+    if(this.listaItemsConCalificaciones.length!=0){
+      this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
+        respuesta=>{
+          if(respuesta['resultado']=='correcto'){
+            console.log("todo bien con los calificaciones");
+          }else{
+            console.log("error con las calificaciones");
+          }
         }
-      }
-    );
-    return res;
+      );
+    }else{
+      //lista vacia
+    }
+    
   }
   agregarMeritos(){
-    let res=false;
-    this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
-      respuesta=>{
-        if(respuesta['resultado']=='correcto'){
-          console.log("todo bien con los meritos");
+    if(this.listaDatosMerito.length!=0){
+      this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
+        respuesta=>{
+          if(respuesta['resultado']=='correcto'){
+            console.log("todo bien con los meritos");
+          }else{
+            console.log("error con los meritos");
+          }
         }
-      }
-    );
-    return res;
+      );
+    }else{
+      //vacio
+    }
   }
   agregarEventos(){
-    let res=false;
-    this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
-      respuesta=>{
-        if(respuesta['resultado']=='correcto'){
-          console.log("todo bien con los eventos");
+    if(this.listaDatosEventos.length!=0){
+      this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
+        respuesta=>{
+          if(respuesta['resultado']=='correcto'){
+            console.log("todo bien con los eventos");
+          }else{
+            console.log("error con los eventos");
+          }
         }
-      }
-    );
-    return res;
+      );
+    }else{
+     //lista vacia 
+    }
   }
   //modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerientos) {
