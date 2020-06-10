@@ -134,7 +134,7 @@
             </div>
             <div *ngFor="let codigo of listaItems; index as i" class="form-group">
               <label *ngIf="codigo.getNotaDisponible() > 0" for="recipient-name"
-                class="col-form-label">{{codigo.getCodigoAuxiliatura()}} <small class="text-danger">(*)</small> </label>
+                class="col-form-label">{{codigo.getCodigoAuxiliatura()}}  disponible nota de: {{codigo.getNotaDisponible()}}%<small class="text-danger">(*)</small> </label>
               <input *ngIf="codigo.getNotaDisponible() > 0" type="text" class="form-control" id="{{codigo.getnombreMateria()}}"
                 [class.is-invalid]="notaIsInvalid" formControlName="nota">
               <div *ngIf="notaIsInvalid">
