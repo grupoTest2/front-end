@@ -115,24 +115,19 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
         let tematica: Tematica = new Tematica(nombreTematica, nota);
         // this.listaItems[i].getListaTematica().push(tematica);
-        this.listaItems[i].agregarTematica(tematica);
-        console.log("------------------- 4444444444444444--------------------------------------------------");
-        console.log("--------------------4444444444444444-------------------------------------------------");
-        
+        if (!this.listaItems[i].agregarTematica(tematica)) {
+
+        }
       }
       else {
-
-        console.log("---------------------------------------------------------------------");
-        console.log("---------------------------------------------------------------------");
-        
         for (let j = 0; j < this.listaTematicas.length; j++) {
-          if (this.listaItems[i].getListaTematica().length <=j)
+          if (this.listaItems[i].getListaTematica().length <= j)
             this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
         }
 
       }
     }
-   // tata.success('Agregado.', 'Se agregó la tematica con exito.');
+    // tata.success('Agregado.', 'Se agregó la tematica con exito.');
     //this.formCalificacion.reset();
     //$('#modalConocimientoAuxL2').modal('hide');
   }
