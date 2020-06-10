@@ -47,7 +47,7 @@
                 <form [formGroup]="formRequisitos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Detalle Requisito:</label>
-                        <textarea class="form-control" rows="3" id="descripcionRequisito" [class.is-invalid]="detalleFormIsInvalid" [class.is-valid]="detalleFormIsValid" formControlName="detalle"></textarea>
+                        <textarea placeholder="Detalle del requisito" class="form-control" rows="3" id="descripcionRequisito" [class.is-invalid]="detalleFormIsInvalid" [class.is-valid]="detalleFormIsValid" formControlName="detalle"></textarea>
                         <div *ngIf="detalleFormIsInvalid">
                             <small class="text-danger" *ngIf="detalleForm.hasError('required')">
                                 Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>

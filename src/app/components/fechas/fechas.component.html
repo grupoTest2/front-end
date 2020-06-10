@@ -39,7 +39,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Agregar nuevo evento</h5>
+                <h5 class="modal-title" id="">Agregar nueva fecha</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -48,7 +48,7 @@
                 <form [formGroup]="formEventos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Evento </label>
-                        <textarea class="form-control" rows="3" id="nombreEvento" [class.is-invalid]="eventoFormIsInvalid" [class.is-valid]="eventoFormIsValid" formControlName="evento">
+                        <textarea placeholder="Detalle del evento" class="form-control" rows="3" id="nombreEvento" [class.is-invalid]="eventoFormIsInvalid" [class.is-valid]="eventoFormIsValid" formControlName="evento">
                         </textarea>
                         <div *ngIf="eventoFormIsInvalid">
                             <small class="text-danger" *ngIf="eventoForm.hasError('required')">
