@@ -170,8 +170,8 @@ export class RequerimientosComponent implements OnInit {
       this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
       this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
       //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
-      this.enviarLista();
     }
+    this.enviarLista();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
