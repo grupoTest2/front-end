@@ -53,7 +53,7 @@
                 <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="items" class="col-form-label">Cantidad De Items: </label>
-                        <input type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
+                        <input placeholder="Cant. de items" type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
                         <div *ngIf="itemIsInvalid">
                             <small class="text-danger" *ngIf="item.hasError('required')">
                                 Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Hrs/Mes: </label>
-                        <input type="number" class="form-control" [class.is-invalid]="horasMesIsInvalid" [class.is-valid]="horasMesIsValid" id="horasMesRequerimiento" name="cant" formControlName="horasMes">
+                        <input placeholder="Hrs/Mes." type="number" class="form-control" [class.is-invalid]="horasMesIsInvalid" [class.is-valid]="horasMesIsValid" id="horasMesRequerimiento" name="cant" formControlName="horasMes">
                         <div *ngIf="horasMesIsInvalid">
                             <small class="text-danger" *ngIf="horasMes.hasError('required')">
                                 Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre item: </label>
-                        <select class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
+                        <select aria-placeholder="Seleccione" class="custom-select" [class.is-invalid]="materiaFormIsInvalid" [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
                                 <option *ngFor="let mat of listaMateriasDisponibles; let i = index" [value]="mat" >{{mat}}</option>
                             </select>
                         <div *ngIf="materiaFormIsInvalid">
