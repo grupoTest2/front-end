@@ -105,9 +105,11 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.listaTematicas.push(nombreTematica);
     var aux = 0;
     var contador = 0;
+    var idInput = "";
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getNotaDisponible() > 0) {
         let id: any = this.listaItems[i].getnombreMateria();
+        idInput = id;
         let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
         if ((<HTMLInputElement>document.getElementById(id)).value === "") {
           nota = 0;
@@ -126,9 +128,10 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
       }
     }
+    (<HTMLInputElement>document.getElementById(idInput)).classList.remove("is-invalid");
     tata.success('Agregado.', 'Se agregó la tematica con exito.');
     this.formCalificacion.reset();
-    $('#modalConocimientoAuxL2').modal('hide');
+    $('#modalConocimientoAux').modal('hide');
   }
 
 
@@ -152,6 +155,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   resetForm() {
+    $("input").removeClass("is-invalid");
     this.buildForm();
   }
 
@@ -159,9 +163,11 @@ export class CalificacionConocimientosComponent implements OnInit {
     var aux = 0;
     var contador = 0;
     var bandera = false;
+    var codigo: String = "";
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getNotaDisponible() > 0) {
         let id: any = this.listaItems[i].getnombreMateria();
+        
         if ((<HTMLInputElement>document.getElementById(id)).value === "") {
           aux++;
         }
@@ -171,14 +177,23 @@ export class CalificacionConocimientosComponent implements OnInit {
           if (nota > this.listaItems[i].getNotaDisponible()) {
             aux++;
             console.log("error al insertar debudo a que exede la nota disponible" + this.listaItems[i].getnombreMateria());
+            (<HTMLInputElement>document.getElementById(id)).classList.add("is-invalid");
+            codigo = this.listaItems[i].getCodigoAuxiliatura();
             bandera = true;
+          }else{
+            (<HTMLInputElement>document.getElementById(id)).classList.remove("is-invalid");
+
           }
         }
         contador++;
       }
     }
     if (aux == contador || bandera) {
-      tata.error('Error', 'La tematica debe tener minimo una nota asignada');
+      if(bandera){
+        tata.error('Error', 'La nota excede a la disponible en: ' + codigo);
+      }else{
+        tata.error('Error', 'La tematica debe tener minimo una nota asignada');
+      }
     } else {
       this.agregarTematica();
     }

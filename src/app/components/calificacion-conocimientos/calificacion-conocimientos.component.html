@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nombre de la tematica:</label>
-                            <input [class.is-invalid]="detalleIsInvalid" [class.is-valid]="detalleIsValid" formControlName="detalle" type="text" min=1 class="form-control" id="nombreTematica">
+                            <input [class.is-invalid]="detalleIsInvalid" [class.is-valid]="detalleIsValid" formControlName="detalle" type="text" min="0" max="100" class="form-control" id="nombreTematica">
                             <div *ngIf="detalleIsInvalid">
                                 <small class="text-danger" *ngIf="detalle.hasError('required')">
                   Llene el campo por favor <small class="fal fa-exclamation-triangle"></small>
