@@ -1,14 +1,17 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { CalificacionConocimiento } from 'src/app/models/convocatoria-docente/calificacion-conocimiento';
+
+// rutas
 import { Router } from '@angular/router';
+
+// formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Tematica } from '../../models/clases/crear-convocatoria/tematica';
-import { SeleccionCalificacion } from 'src/app/models/convocatoria-docente/seleccion-calificacion-conocimientos';
-import { CalifiaccionConocimientoAuxLabo } from 'src/app/models/convocatoria-laboratorio/califiaccionConocimiento';
-import { Requerimiento } from 'src/app/models/clases/crear-convocatoria/requerimiento';
 
-// import * as $ from 'jquery';
+// model
+import { Tematica } from '../../models/clases/convocatoria/tematica';
+import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
+import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
 
+// jquery y toast
 declare var tata: any;
 declare var $: any;
 
@@ -21,52 +24,28 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   calificacion: CalificacionConocimiento;
   listaCalificacion: CalificacionConocimiento[] = [];
-  seleccionCalificacionCono: SeleccionCalificacion;
+
+  // formalario validaciones
   formCalificacion: FormGroup;
 
-  href: string = "";
+  href: string = '';
 
   /*----- evento para envio de datos ------------*/
   @Output() datosCalificacionConocimiento = new EventEmitter();
 
-  //lista de calificaciom conocimientos de laboratorio
-  listaConocimientosAxLabo: CalifiaccionConocimientoAuxLabo[] = [];
-  listaTematicas: String[] = [];
+  // lista de calificaciom conocimientos de laboratorio
+  listaConocimientosAxLabo: CalificacionConocimiento[] = [];
+  listaTematicas: string[] = [];
 
-  //agregando a la lista tematicas los codigos de los items requerimineto
+  // agregando a la lista tematicas los codigos de los items requerimineto
   listaItems: Requerimiento[] = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
-    this.seleccionCalificacionCono = new SeleccionCalificacion();
     this.buildForm();
   }
 
   ngOnInit(): void {
     this.href = this.router.url;
-  }
-
-  save(event: Event) {
-    event.preventDefault();
-    if (this.formCalificacion.valid) {
-      const value = this.formCalificacion.value;
-    } else {
-      this.formCalificacion.markAllAsTouched();
-    }
-  }
-
-  agregarCalificacion() {
-    let descripcionCalificacion = $('#descripcionCalificacion').val();
-    let porcentaje = $('#porcentajeCalificacion').val();
-    this.calificacion = new CalificacionConocimiento(descripcionCalificacion, porcentaje);
-    let resp = this.seleccionCalificacionCono.agregarCalificacionConocimiento(this.calificacion);
-    if (resp) {
-      //se agrego correctamente la calificacion
-    } else {
-      //el porcentaje de la calificacion excede el porcenaje disponible
-    }
-    this.listaCalificacion = this.seleccionCalificacionCono.getListaCalifConocimientosSeleccionada();
-    //this.listaCalificacion.push(this.calificacion);
-
   }
 
   getindice(indice: number) {
@@ -88,7 +67,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  //nuevsa pruebas 
+
   setListaRequerimiento(listaRequeriminetos) {
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
@@ -116,10 +95,6 @@ export class CalificacionConocimientosComponent implements OnInit {
           aux++;
         }
         let tematica: Tematica = new Tematica(nombreTematica, nota);
-        // this.listaItems[i].getListaTematica().push(tematica);
-        if (!this.listaItems[i].agregarTematica(tematica)) {
-
-        }
       }
       else {
         for (let j = 0; j < this.listaTematicas.length; j++) {
@@ -135,7 +110,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
 
-  hayDatos() {
+  hayDatos(): boolean {
    var bandera=false;
     for (let i = 0; i < this.listaItems.length; i++) {
             if (this.listaItems[i].getNotaDisponible() > 0) {
@@ -145,17 +120,25 @@ export class CalificacionConocimientosComponent implements OnInit {
     return bandera;
   }
 
-
-  //validaciones -------------------------------------------------------------------------------
-  private buildForm() {
+  // validaciones -------------------------------------------------------------------------------
+  private buildForm(): void {
     this.formCalificacion = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(/[a-zA-Z]/)])],
       nota: ['', Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern(/^\d*$/)])]
     });
   }
 
+  save(event: Event) {
+    event.preventDefault();
+    if (this.formCalificacion.valid) {
+      const value = this.formCalificacion.value;
+    } else {
+      this.formCalificacion.markAllAsTouched();
+    }
+  }
+
   resetForm() {
-    $("input").removeClass("is-invalid");
+    $('input').removeClass('is-invalid');
     this.buildForm();
   }
 
@@ -163,12 +146,11 @@ export class CalificacionConocimientosComponent implements OnInit {
     var aux = 0;
     var contador = 0;
     var bandera = false;
-    var codigo: String = "";
+    var codigo: string = '';
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getNotaDisponible() > 0) {
         let id: any = this.listaItems[i].getnombreMateria();
-        
-        if ((<HTMLInputElement>document.getElementById(id)).value === "") {
+        if ((<HTMLInputElement>document.getElementById(id)).value === '') {
           aux++;
         }
         else {
@@ -176,18 +158,17 @@ export class CalificacionConocimientosComponent implements OnInit {
           let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
           if (nota > this.listaItems[i].getNotaDisponible()) {
             aux++;
-            (<HTMLInputElement>document.getElementById(id)).classList.add("is-invalid");
+            (<HTMLInputElement>document.getElementById(id)).classList.add('is-invalid');
             codigo = this.listaItems[i].getCodigoAuxiliatura();
             bandera = true;
           }else{
-            (<HTMLInputElement>document.getElementById(id)).classList.remove("is-invalid");
-
+            (<HTMLInputElement>document.getElementById(id)).classList.remove('is-invalid');
           }
         }
         contador++;
       }
     }
-    if (aux == contador || bandera) {
+    if (aux === contador || bandera) {
       if(bandera){
         tata.error('Error', 'La nota excede el porcentaje disponible en: ' + codigo);
       }else{
@@ -226,4 +207,5 @@ export class CalificacionConocimientosComponent implements OnInit {
   get notaIsInvalid() {
     return this.nota.touched && this.nota.invalid;
   }
+// fin validaciones
 }

@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+
+// form y validaciones
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TipoConvocatoria } from '../../models/clases/crear-convocatoria/tipo-convocatoria';
+
+// rutas
 import { Router } from '@angular/router';
+
+// models
+import { TipoConvocatoria } from '../../models/clases/convocatoria/tipo-convocatoria';
+import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
+
+// servicios
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-import { Convocatoria } from 'src/app/models/clases/crear-convocatoria/convocatoria';
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 
-
+// Jquery y toast
 declare var tata: any;
 declare var $: any;
 
@@ -15,19 +23,21 @@ declare var $: any;
   templateUrl: './crearConvocatoria.component.html',
   styleUrls: ['./crearConvocatoria.component.css']
 })
-export class crearConvocatoriaComponent implements OnInit {
+export class CrearConvocatoriaComponent implements OnInit {
 
-  //formulario validaciones
+// Formulario validaciones
   formCrearConv: FormGroup;
+
   listaTiposConvocatoria: TipoConvocatoria[] = [];
-  constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria, private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
+
+  constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria,
+              private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
     this.getTipoConvocatoriaBD();
   }
 
   ngOnInit(): void {
   }
-
 
   // Validaciones -------------------------------------------------------------------------
   private buildForm() {
@@ -89,28 +99,26 @@ export class crearConvocatoriaComponent implements OnInit {
   }
 
   establecerDatos(){
-    let convocatoria:Convocatoria;
+    let convocatoria: Convocatoria;
     this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
     this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
     this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
-    console.log("el tipo de convocatoriaaaaaaa");
     console.log(this.datosConvocatoria.idTipoConvocatoria);
-    convocatoria=new Convocatoria(this.datosConvocatoria.idTipoConvocatoria,
+    convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
                                   this.datosConvocatoria.tituloConvocatoria,
                                   this.datosConvocatoria.gestionConvocatoria);
     this.crearConvocatoriaBD(convocatoria);
-    localStorage.setItem("tituloConvocatoria",this.datosConvocatoria.tituloConvocatoria);
-    localStorage.setItem("gestionConvocatoria",this.datosConvocatoria.gestionConvocatoria);
-    localStorage.setItem("idTipo", this.datosConvocatoria.idTipoConvocatoria);
-    
+    localStorage.setItem('tituloConvocatoria', this.datosConvocatoria.tituloConvocatoria);
+    localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
+    localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
   }
   /*---------------------------------interaccion con la BD-------------------------------*/
   getTipoConvocatoriaBD(){
-    let idDep=1;
-    let listaTipos:any[]=new Array();
+    let idDep = 1;
+    let listaTipos: any[] = new Array();
     this.apiPHP.getTipoConvocatoria(idDep).subscribe(
       result => {
-        for (let i in result) {
+        for (let i in result){
           listaTipos.push(result[i]);
         }
         let tipo: TipoConvocatoria;
@@ -128,9 +136,8 @@ export class crearConvocatoriaComponent implements OnInit {
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
           //se crea correctamente la convocatoria
-          if(respuesta['mensaje']!=-1){
-            localStorage.setItem("idConv",respuesta['mensaje']);
-            //objAux.setIdConv(respuesta['mensaje']);
+          if(respuesta['mensaje'] !== -1){
+            localStorage.setItem("idConv", respuesta['mensaje']);
           }
         } else {
           //no se pudo agregar

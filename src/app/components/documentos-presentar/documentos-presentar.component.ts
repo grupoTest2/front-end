@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { DocumentoPresentar } from 'src/app/models/clases/crear-convocatoria/documento-presentar';
+import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SeleccionDocumentos } from 'src/app/models/convocatoria-docente/seleccion-documentosPresentar';
+import { SeleccionDocumentos } from 'src/app/models/convocatoria/seleccion-documentosPresentar';
 
 declare var tata: any;
 declare var $: any;

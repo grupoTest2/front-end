@@ -1,22 +1,26 @@
 export class Tematica {
 
-    private nombre: String;
+    private nombre: string;
     private nota: number;
-    public constructor(nombre: String, nota: number=0) {
+
+    public constructor(nombre: string, nota: number = 0) {
         this.nombre = nombre;
-        this.nota = nota;
+        this.nota   = nota;
     }
 
-    public getNombre(): String {
+    public getNombre(): string {
         return this.nombre;
     }
-    public setNombre(value: String) {
+
+    public setNombre(value: string): void {
         this.nombre = value;
     }
+
     public getNota(): number {
         return this.nota;
     }
-    public setNota(value: number) {
+
+    public setNota(value: number): void {
         this.nota = value;
     }
 }

@@ -1,31 +1,28 @@
-import { Requerimiento } from '../clases/crear-convocatoria/requerimiento';
+import { Requerimiento } from '../clases/convocatoria/requerimiento';
 
 export class SeleccionRequerimiento{
-    //mis atributos
-    private materiasSeleccionadas:Requerimiento[];
-    private listaMaterias: Object[];
-    private listaMateriasDisponibles: String[];
-    
-    constructor(listaMat:Object[]) {
+
+    private materiasSeleccionadas: Requerimiento[];
+    private listaMaterias: object[];
+    private listaMateriasDisponibles: string[];
+
+    public constructor(listaMat: object[]) {
       this.materiasSeleccionadas = new Array();
       this.listaMaterias = listaMat;
-      //console.log(this.listaMaterias);
       this.actualizarListaMatDisponibles();
     }
-  
-    public actualizarListaMatDisponibles() {
+
+    public actualizarListaMatDisponibles(): void {
       this.listaMateriasDisponibles = new Array();
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
         if (!mat.seleccionado) {
           this.listaMateriasDisponibles.push(mat.nombreItem);
-  
         }
       }
-      //console.log(this.listaMateriasDisponibles);
     }
-    //devuelve el id de la materia que se esta buscando
-    private getIdMateria(nombItem) {
+
+    private getIdMateria(nombItem): number {
       let res = -1;
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
@@ -36,21 +33,18 @@ export class SeleccionRequerimiento{
       }
       return res;
     }
-  
-    public agregarRequerimientoSeleccionado(req:Requerimiento) {
+
+    public agregarRequerimientoSeleccionado(req: Requerimiento): void {
         let idMateria = this.getIdMateria(req.getnombreMateria());
-        if (idMateria != -1) {
+        if (idMateria !== -1) {
           req.setIdMat(idMateria);
           this.deshabilitarSeleccion(req.getnombreMateria());
           this.establecerCodigoAux(req,idMateria);
           this.materiasSeleccionadas.push(req);
-
-          //console.log(JSON.stringify(this.materiasSeleccionadas));
         }
-      
     }
-  
-    public deshabilitarSeleccion(nombreMatForm) {
+
+    public deshabilitarSeleccion(nombreMatForm): void {
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
         if (mat.nombreItem == nombreMatForm) {
@@ -60,23 +54,23 @@ export class SeleccionRequerimiento{
       this.actualizarListaMatDisponibles();
     }
 
-    public hayMateriasDisponibles(){
-      return this.listaMateriasDisponibles.length>0;
+    public hayMateriasDisponibles(): boolean{
+      return this.listaMateriasDisponibles.length > 0;
     }
 
-    public existeMateriasSeleccionas() {
+    public existeMateriasSeleccionas(): boolean {
       return this.materiasSeleccionadas.length > 0;
     }
 
-    public getListaMateriasDisponibles() {
+    public getListaMateriasDisponibles(): string[] {
       return this.listaMateriasDisponibles;
     }
-  
-    public getMateriasSeleccionadas() {
+
+    public getMateriasSeleccionadas(): Requerimiento[] {
       return this.materiasSeleccionadas;
     }
-    
-    private establecerCodigoAux(req:Requerimiento,idItem:number){
+
+    private establecerCodigoAux(req: Requerimiento, idItem: number): void{
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
         if (mat.idItem == idItem) {

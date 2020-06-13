@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Requisito } from 'src/app/models/clases/crear-convocatoria/requisito';
-import { SeleccionRequisito } from 'src/app/models/convocatoria-docente/seleccion-requisitos';
+import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
+import { SeleccionRequisito } from 'src/app/models/convocatoria/seleccion-requisitos';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 

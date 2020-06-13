@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { Evento } from 'src/app/models/clases/crear-convocatoria/evento';
+import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-import { SeleccionEventos } from 'src/app/models/convocatoria-docente/seleccion-eventos';
+import { SeleccionEventos } from 'src/app/models/convocatoria/seleccion-eventos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import * as moment from 'moment';
@@ -95,11 +95,6 @@ export class FechasComponent implements OnInit {
   getListaPrueba(){
     return ["hola1", "hola2", "hola3"];
   }
-
-
-
-
-
 
   resetForm(){
     if(this.listaEventosSeleccionados.length == 0){

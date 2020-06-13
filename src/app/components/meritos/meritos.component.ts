@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Merito } from '../../models/clases/crear-convocatoria/merito';
+import { Merito } from '../../models/clases/convocatoria/merito';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SeleccionMerito } from 'src/app/models/convocatoria-docente/seleccion-meritos';
+import { SeleccionMerito } from 'src/app/models/convocatoria/seleccion-meritos';
 
 declare var tata: any;
 declare var $: any;

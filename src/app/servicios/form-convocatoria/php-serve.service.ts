@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Convocatoria } from 'src/app/models/clases/crear-convocatoria/convocatoria';
+import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
 
 @Injectable({
   providedIn: 'root'
