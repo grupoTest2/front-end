@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 // formularios
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 // model
 import { Tematica } from '../../models/clases/convocatoria/tematica';
@@ -24,20 +24,9 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   calificacion: CalificacionConocimiento;
   listaCalificacion: CalificacionConocimiento[] = [];
-
-  // formalario validaciones
   formCalificacion: FormGroup;
-
   href: string = '';
-
-  /*----- evento para envio de datos ------------*/
-  @Output() datosCalificacionConocimiento = new EventEmitter();
-
-  // lista de calificaciom conocimientos de laboratorio
-  listaConocimientosAxLabo: CalificacionConocimiento[] = [];
   listaTematicas: string[] = [];
-
-  // agregando a la lista tematicas los codigos de los items requerimineto
   listaItems: Requerimiento[] = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
@@ -48,27 +37,18 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.href = this.router.url;
   }
 
-  getindice(indice: number) {
-    let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
+  getindice(indice: number): string {
+    let caracter: string = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
     return caracter;
   }
 
   /*-------------- metodo para recuperar los datos de este componente*/
-  getDatos() {
+  getDatos():Requerimiento[] {
     return this.listaItems;
   }
 
 
-  rutaActual() {
-    if (this.href === '/crearConvocatoria/tipo/2') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
-  setListaRequerimiento(listaRequeriminetos) {
+  setListaRequerimiento(listaRequeriminetos):void {
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
@@ -79,7 +59,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  agregarTematica() {
+  agregarTematica():void {
     var nombreTematica = $('#nombreTematica').val();
     this.listaTematicas.push(nombreTematica);
     var aux = 0;
@@ -128,7 +108,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     });
   }
 
-  save(event: Event) {
+  save(event: Event):void {
     event.preventDefault();
     if (this.formCalificacion.valid) {
       const value = this.formCalificacion.value;
@@ -137,12 +117,12 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  resetForm() {
+  resetForm():void {
     $('input').removeClass('is-invalid');
     this.buildForm();
   }
 
-  validarNota() {
+  validarNota():void {
     var aux = 0;
     var contador = 0;
     var bandera = false;
@@ -179,7 +159,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  formValido() {
+  formValido():void {
     if (this.formCalificacion.valid) {
       this.validarNota();
     } else {
@@ -188,7 +168,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  get detalle() {
+  get detalle(){
     return this.formCalificacion.get('detalle');
   }
   get detalleIsValid() {

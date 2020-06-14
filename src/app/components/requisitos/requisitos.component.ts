@@ -1,9 +1,16 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
-import { SeleccionRequisito } from 'src/app/models/convocatoria/seleccion-requisitos';
-import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+
+//validaciones
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+//servicios
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+
+//models
+import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
+import { SeleccionRequisito } from 'src/app/models/convocatoria/seleccion-requisitos';
+
+//jquery  toast
 declare var tata: any;
 declare var $: any;
 
@@ -12,8 +19,8 @@ declare var $: any;
   templateUrl: './requisitos.component.html',
   styleUrls: ['./requisitos.component.css']
 })
+
 export class RequisitosComponent implements OnInit {
-  //Formulario
   formRequisitos: FormGroup;
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
@@ -26,13 +33,44 @@ export class RequisitosComponent implements OnInit {
   ngOnInit(): void {
 
   }
+ 
+  //enviando los datos al com[ponente formulario
+  getDatos(): Requisito[]{
+    return this.listaRequisitos;
+  }
 
-  private buildForm() {
+  agregarRequisito(): void{
+    let descripcionRequisito = $('#descripcionRequisito').val();
+    this.requisito = new Requisito(descripcionRequisito);
+    this.seleccionRequisitos.agregarRequisito(this.requisito);
+    this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
+    tata.success('Agregado.', 'Se agregó con exito.');
+    // this.formRequisitos.reset();
+    $('#tablaRequisitos').modal('hide');
+  }
+  
+  formValido(): void{
+    if(this.formRequisitos.valid){
+      this.agregarRequisito();
+    }else{
+      this.formRequisitos.markAllAsTouched();
+      tata.error('Error', 'Formulario invalido');
+    }
+  }
+
+  getindice(indice:number): string{
+    let caracter: string = String.fromCharCode(indice + 97)+")     ";
+    return caracter;
+  }
+
+  // validaciones ----------------------------------------------------------------------
+  private buildForm(): void {
     this.formRequisitos = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
     });
   }
-  save(event: Event) {
+  
+  save(event: Event): void {
     event.preventDefault();
     if (this.formRequisitos.valid) {
       const value = this.formRequisitos.value;
@@ -41,7 +79,7 @@ export class RequisitosComponent implements OnInit {
     }
   }
 
-  resetForm(){
+  resetForm(): void{
     this.buildForm();
   }
 
@@ -55,41 +93,8 @@ export class RequisitosComponent implements OnInit {
     return this.detalleForm.touched && this.detalleForm.invalid;
   }
 
-
-
-
-
   
-  //enviando los datos al com[ponente formulario
-  getDatos(){
-    return this.listaRequisitos;
-  }
-
-  agregarRequisito(){
-    let descripcionRequisito = $('#descripcionRequisito').val();
-    this.requisito = new Requisito(descripcionRequisito);
-    this.seleccionRequisitos.agregarRequisito(this.requisito);
-    this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
-    tata.success('Agregado.', 'Se agregó con exito.');
-    // this.formRequisitos.reset();
-    $('#tablaRequisitos').modal('hide');
-  }
-  
-  formValido(){
-    if(this.formRequisitos.valid){
-      this.agregarRequisito();
-    }else{
-      this.formRequisitos.markAllAsTouched();
-      tata.error('Error', 'Formulario invalido');
-    }
-  }
-
-  getindice(indice:number){
-    let caracter: string = String.fromCharCode(indice + 97)+")     ";
-    return caracter;
-  }
-
-  //funcion para agregar los requisitos a la base de datos, se requiere del id lanzamiento de convocatoria
+  //bd---------------------------------------------------
   agregarRequisitosBD(idLanzConv):boolean{
     let resp:boolean=false;
     // this.seleccionRequisitos.setIdLanzamientoConvocatoria(idLanzConv);

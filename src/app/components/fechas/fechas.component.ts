@@ -1,14 +1,20 @@
-import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { Evento } from 'src/app/models/clases/convocatoria/evento';
-import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-import { SeleccionEventos } from 'src/app/models/convocatoria/seleccion-eventos';
+import { Component, OnInit } from '@angular/core';
+
+//validaciones
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as $ from 'jquery';
-import * as moment from 'moment';
+
+//servicio
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+
+//models
+import { Evento } from 'src/app/models/clases/convocatoria/evento';
+import { SeleccionEventos } from 'src/app/models/convocatoria/seleccion-eventos';
+
+//jquery toast 
 declare var tata: any;
 declare var $: any;
 declare function init_plugins();
-moment.locale('es');
+
 @Component({
   selector: 'app-fechas',
   templateUrl: './fechas.component.html',
@@ -18,38 +24,77 @@ export class FechasComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
-  f : Date;
   //Formulario
   formEventos: FormGroup
-  
   evento: Evento;
-  //los eventos seleccionados
   listaEventosSeleccionados: Evento[] = [];
-  //lista auxiliar nomas
   listaEventos: Object[] = new Array();
-
-  //objeto que controla los eventos
   seleccionEventos: SeleccionEventos;
 
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
-    this.seleccionEventos=new SeleccionEventos();
+    this.seleccionEventos = new SeleccionEventos();
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 5, 12, 31);
     this.maxDate = new Date(currentYear + 5, 12, 31);
   }
+
   ngOnInit(): void {
     init_plugins();
     $('.clockpicker').clockpicker();
   }
 
-  private buildForm() {
+  agregarEvento(): void {
+    let nombreNombre = $('#nombreEvento').val();
+    let fecha = $('#fecha').val();
+    let hora = $('#hora').val();
+    //creamos el evento
+    this.evento = new Evento(nombreNombre, fecha, hora);
+    //agregamos el evento
+    let resp = this.seleccionEventos.agregarEvento(this.evento);
+    if (resp) {
+      //la fecha es valida respecto a la anterior
+      tata.success('Agregado.', 'Se agregó con exito.');
+      $('#tablaFechas').modal('hide');
+      this.formEventos.reset();
+      $('#hora').val("");
+
+    } else {
+      //fecha incorrecta
+      tata.error('Error', 'debe ser una fecha posterior a la ultima');
+      $('#hora').val("");
+    }
+    this.listaEventosSeleccionados = this.seleccionEventos.getListaEventosSeleccionados();
+    this.seleccionEventos.convertirEventosBD();
+  }
+
+  getindice(indice: number): string {
+    let caracter: string = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
+    return caracter;
+  }
+
+  agregarEventosBD(): void {
+    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
+      datos => {
+        alert(datos['mensaje']);
+      }
+    );
+  }
+
+  /*-------------- metodo para recuperar los datos de este componente*/
+  getDatos(): Evento[] {
+    return this.listaEventosSeleccionados;
+  }
+
+  // validaciones -----------------------------------------------------
+  private buildForm(): void {
     this.formEventos = this.formBuilder.group({
       evento: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       fecha: ['', [Validators.required]],
     });
   }
-  save(event: Event) {
+
+  save(event: Event): void {
     event.preventDefault();
     if (this.formEventos.valid) {
       const value = this.formEventos.value;
@@ -71,87 +116,37 @@ export class FechasComponent implements OnInit {
   get fechaForm() {
     return this.formEventos.get('fecha');
   }
+
   get fechaIsValid() {
     return this.fechaForm.touched && this.fechaForm.valid;
   }
+
   get fechaIsInvalid() {
     return this.fechaForm.touched && this.fechaForm.invalid;
   }
-  formValido(){
-    if(this.formEventos.valid){
+
+  formValido() {
+    if (this.formEventos.valid) {
       this.agregarEvento();
-    }else{
+    } else {
       this.formEventos.markAllAsTouched();
       tata.error('Error', 'Formulario invalido');
     }
   }
 
-   /*-------------- metodo para recuperar los datos de este componente*/
-   getDatos() {
-
-    return this.listaEventosSeleccionados;
-  }
-
-  getListaPrueba(){
-    return ["hola1", "hola2", "hola3"];
-  }
-
-  resetForm(){
-    if(this.listaEventosSeleccionados.length == 0){
+  resetForm(): void {
+    if (this.listaEventosSeleccionados.length == 0) {
       $('#nombreEvento').val("Publicacíon de la convocatoria");
       this.formEventos.get('evento').setErrors(null);
       $('#nombreEvento').prop('readonly', true);
-      $('#nombreEvento').css("background-color","#fff");
+      $('#nombreEvento').css("background-color", "#fff");
       this.formEventos.markAsUntouched();
       $('#hora').val("");
-    }else{
+    } else {
       this.buildForm();
       $('#nombreEvento').prop('readonly', false);
       this.formEventos.reset();
       $('#hora').val("");
     }
-  }
-
-  getFechaInicio(){}
-
-  getFechaFin(){}
-
-  hora(){
-    $('.clockpicker').clockpicker();
-  }
-  
-  agregarEvento() {
-    let nombreNombre = $('#nombreEvento').val();
-    let fecha = $('#fecha').val();
-    let hora = $('#hora').val();
-    //creamos el evento
-    this.evento=new Evento(nombreNombre,fecha,hora);
-    //agregamos el evento
-    let resp=this.seleccionEventos.agregarEvento(this.evento);
-    if(resp){
-      //la fecha es valida respecto a la anterior
-      tata.success('Agregado.', 'Se agregó con exito.');
-    $('#tablaFechas').modal('hide');
-    this.formEventos.reset();
-    $('#hora').val("");
-
-    }else{
-      //fecha incorrecta
-      tata.error('Error', 'debe ser una fecha posterior a la ultima');
-      $('#hora').val("");
-    }
-    this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
-    this.seleccionEventos.convertirEventosBD();
-  }
-  getindice(indice: number) {
-    let caracter: String = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";
-    return caracter;
-  }
-  agregarEventosBD() {
-    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
-      datos => {
-        alert(datos['mensaje']);
-      }
-    );
   }
 }
