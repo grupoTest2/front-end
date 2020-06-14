@@ -1,43 +1,59 @@
 import { Evento } from '../clases/convocatoria/evento';
 
-export class SeleccionEventos{
+export class SeleccionEventos {
 
     private listaEventosSelecciados: Evento[];
     private listaEventos: object[];
     private listaEventosDisponibles: string[];
 
-    public constructor(){
+    public constructor() {
         this.listaEventosSelecciados = new Array();
     }
 
-    public actualizarListaEventosDisponibles(): void{
+    public actualizarListaEventosDisponibles(): void {
         this.listaEventosDisponibles = new Array();
-        for(let i in this.listaEventos){
-            let objAux:any=this.listaEventos[i];
-            if(!objAux.seleccionado){
+        for (let i in this.listaEventos) {
+            let objAux: any = this.listaEventos[i];
+            if (!objAux.seleccionado) {
                 this.listaEventosDisponibles.push(objAux.nombre);
             }
         }
     }
-    //exito
-    //mensaje
-    public agregarEvento(evento: Evento): string{
-        let res: boolean = false;
-        if(this.esValido(evento)){
-            this.listaEventosSelecciados.push(evento);
-            res = true;
+
+    public agregarEvento(evento: Evento): string {
+        let res: string;
+        if (this.esValido(evento)) {
+            if(!this.existeEvento(evento)){
+                this.listaEventosSelecciados.push(evento);
+                res = "exito";
+            }else{
+                res="ya existe un evento con el mismo nombre";
+            }
+        } else {
+            res = "la fecha ingresada debe ser superior al ultimo evento";
         }
-        return "exito";
+        return res;
     }
 
-    private esValido(evento: Evento): boolean{
+    private existeEvento(evento: Evento): boolean {
+        let existe: boolean = false;
+        for (let i in this.listaEventosSelecciados) {
+            if (this.listaEventosSelecciados[i].getNombre() == evento.getNombre()) {
+                existe = true;
+                break; 
+            }
+        }
+        return existe;
+    }
+
+    private esValido(evento: Evento): boolean {
         let res: boolean = false;
-        if (this.listaEventosSelecciados.length === 0){
+        if (this.listaEventosSelecciados.length === 0) {
             evento.setFechaIni(evento.getFechaFin());
             res = true;
-        }else{
+        } else {
             let eventoAux = this.listaEventosSelecciados[this.listaEventosSelecciados.length - 1];
-            if(evento.getFechaFin() >= eventoAux.getFechaFin() && evento.getNombre() !== eventoAux.getNombre()){
+            if (evento.getFechaFin() >= eventoAux.getFechaFin() && evento.getNombre() !== eventoAux.getNombre()) {
                 evento.setFechaIni(eventoAux.getFechaFin());
                 res = true;
             }
@@ -45,26 +61,26 @@ export class SeleccionEventos{
         return res;
     }
 
-    public getListaEventosDisponibles(): string[]{
+    public getListaEventosDisponibles(): string[] {
         return this.listaEventosDisponibles;
     }
 
-    public getListaEventosSeleccionados(): Evento[]{
+    public getListaEventosSeleccionados(): Evento[] {
         return this.listaEventosSelecciados;
     }
 
-    private deshabilitarEvento(nombreEv): void{
-        for(let i in this.listaEventos){
-            let objAux:any=this.listaEventos[i];
-            if(objAux.nombre==nombreEv){
-               objAux.seleccionado=true; 
+    private deshabilitarEvento(nombreEv): void {
+        for (let i in this.listaEventos) {
+            let objAux: any = this.listaEventos[i];
+            if (objAux.nombre == nombreEv) {
+                objAux.seleccionado = true;
             }
         }
         this.actualizarListaEventosDisponibles();
     }
 
-    public convertirEventosBD(): void{
-        for(let i in this.listaEventosSelecciados){
+    public convertirEventosBD(): void {
+        for (let i in this.listaEventosSelecciados) {
             this.listaEventosSelecciados[i].convertirseString();
         }
     }

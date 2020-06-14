@@ -13,8 +13,23 @@ export class SeleccionRequisito {
     }
 
     public agregarRequisito(req: Requisito): string{
-      this.listaRequisitosSeleccionados.push(req);
-      return "exito";
+      let res:string="ya existe un requisito identico a este";
+      if(!this.existeRequisito(req)){
+        this.listaRequisitosSeleccionados.push(req);
+        res="exito";
+      }
+      return res;
+    }
+
+    private existeRequisito(req:Requisito): boolean{
+      let existe:boolean=false;
+      for(let i in this.listaRequisitosSeleccionados){
+        if(this.listaRequisitosSeleccionados[i].getDescripcion()==req.getDescripcion()){
+          existe=true;
+          break;
+        }
+      }
+      return existe;
     }
 
     public setIdLanzamientoConvocatoria(idLanzConv): void{

@@ -9,9 +9,24 @@ export class SeleccionDocumentos{
     }
 
     public agregarDocumento(doc: DocumentoPresentar): string{
-        this.documentosSeleccionados.push(doc);
-        return "exito";
+        let res:string="ya existe un documento identico a este";
+        if(!this.existeDocumento(doc)){
+            this.documentosSeleccionados.push(doc);
+            res="exito";
+        }
+        return res;
     }
+
+    private existeDocumento(req:DocumentoPresentar): boolean{
+        let existe:boolean=false;
+        for(let i in this.documentosSeleccionados){
+          if(this.documentosSeleccionados[i].getDescripcion()==req.getDescripcion()){
+            existe=true;
+            break;
+          }
+        }
+        return existe;
+    }  
 
     public getDocumentosSeleccionados(): DocumentoPresentar[]{
         return this.documentosSeleccionados;
