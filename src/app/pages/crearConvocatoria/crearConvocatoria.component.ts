@@ -28,8 +28,8 @@ export class CrearConvocatoriaComponent implements OnInit {
   formCrearConv: FormGroup;
   listaTiposConvocatoria: TipoConvocatoria[] = [];
 
-  constructor(private formBuilder: FormBuilder,  private apiPHP: PhpServeConvocatoria,
-              private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
+  constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria,
+    private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
     this.getTipoConvocatoriaBD();
   }
@@ -37,29 +37,21 @@ export class CrearConvocatoriaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    //  Rutas -------------------------------------------------------------------------------------
-    ruta(): void{
-      let id = $('#tipoConvocatoria').val();
-      this.router.navigate(['crearConvocatoria/tipo', id]);
-      this.establecerDatos();
-    }
-  
-    establecerDatos(): void{
-      let convocatoria: Convocatoria;
-      this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
-      this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
-      this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
-      console.log(this.datosConvocatoria.idTipoConvocatoria);
-      convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
-                                    this.datosConvocatoria.tituloConvocatoria,
-                                    this.datosConvocatoria.gestionConvocatoria);
-      this.crearConvocatoriaBD(convocatoria);
-      localStorage.setItem('tituloConvocatoria', this.datosConvocatoria.tituloConvocatoria);
-      localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
-      localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
-    }
+  establecerDatos(): void {
+    let convocatoria: Convocatoria;
+    this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
+    this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
+    this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
+    console.log(this.datosConvocatoria.idTipoConvocatoria);
+    convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
+      this.datosConvocatoria.tituloConvocatoria,
+      this.datosConvocatoria.gestionConvocatoria);
+    this.crearConvocatoriaBD(convocatoria);
+    localStorage.setItem('tituloConvocatoria', this.datosConvocatoria.tituloConvocatoria);
+    localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
+    localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
+  }
 
-    
   // Validaciones -------------------------------------------------------------------------
   private buildForm(): void {
     this.formCrearConv = this.formBuilder.group({
@@ -77,7 +69,7 @@ export class CrearConvocatoriaComponent implements OnInit {
     }
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.buildForm();
   }
 
@@ -113,30 +105,30 @@ export class CrearConvocatoriaComponent implements OnInit {
 
 
   /*---------------------------------interaccion con la BD-------------------------------*/
-  getTipoConvocatoriaBD(){
+  getTipoConvocatoriaBD() {
     let idDep = 1;
     let listaTipos: any[] = new Array();
     this.apiPHP.getTipoConvocatoria(idDep).subscribe(
       result => {
-        for (let i in result){
+        for (let i in result) {
           listaTipos.push(result[i]);
         }
         let tipo: TipoConvocatoria;
-        for(let i in listaTipos){
-          tipo= new TipoConvocatoria(listaTipos[i].idTipoConv,listaTipos[i].nombre);
+        for (let i in listaTipos) {
+          tipo = new TipoConvocatoria(listaTipos[i].idTipoConv, listaTipos[i].nombre);
           this.listaTiposConvocatoria.push(tipo);
         }
       }
     );
-    
+
   }
 
-  crearConvocatoriaBD(objAux:Convocatoria): void{
-     this.apiPHP.crearConvocatoria(objAux).subscribe(
+  crearConvocatoriaBD(objAux: Convocatoria): void {
+    this.apiPHP.crearConvocatoria(objAux).subscribe(
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
           //se crea correctamente la convocatoria
-          if(respuesta['mensaje'] !== -1){
+          if (respuesta['mensaje'] !== -1) {
             localStorage.setItem("idConv", respuesta['mensaje']);
           }
         } else {

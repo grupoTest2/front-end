@@ -55,14 +55,6 @@ export class RequerimientosComponent implements OnInit {
     this.href = this.router.url;
   }
 
-  rutaActual(): boolean {
-    if (this.href === '/crearConvocatoria/tipo/2') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   alertEliminar(): void {
     swal.fire({
       title: 'Eliminar',
@@ -110,19 +102,11 @@ export class RequerimientosComponent implements OnInit {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
-    if (!this.rutaActual()) {
-      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-    }
-    else {
-      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-      //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
-    }
+    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
+    this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+    this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+    //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
     this.enviarLista();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();

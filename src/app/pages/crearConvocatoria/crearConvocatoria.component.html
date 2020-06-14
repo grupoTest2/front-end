@@ -1,59 +1,64 @@
 <div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Crear Convocatoria</h5>
-        </div>
-        <div class="card-body">
-            <p class="card-subtitle mb-2 text-muted">Configurar nueva convocatoria.</p>
-            <form [formGroup]="formCrearConv" (ngSubmit)="save($event)" novalidate autocomplete="off">
-                <div class="form-group">
-                    <label for="nombreConvocatoria" class="col-form-label">Nombre De La Covocatoria:</label>
-                    <textarea class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo"></textarea>
-                    <div *ngIf="tituloFormIsInvalid">
-                        <small class="text-danger" *ngIf="tituloForm.hasError('required')">
-                        Llene el campo por favor  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                        <small class="text-danger" *ngIf="tituloForm.hasError('minlength')">
-                        Texto muy corto  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="seleccionGestion" class="col-form-label">Gestion: </label>
-                    <select class="custom-select" id="seleccionGestion" [class.is-invalid]="gestionFormIsInvalid" [class.is-valid]="gestionFormIsValid" formControlName="gestion">
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                    </select>
-                    <div *ngIf="gestionFormIsInvalid">
-                        <small class="text-danger" *ngIf="gestionForm.hasError('required')">
-                              Seleccione una gestion  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="tipoConvocatoria" class="col-form-label">Tipo De Convocatoria: </label>
-                    <select class="custom-select" id="tipoConvocatoria" [class.is-invalid]="tipoFormIsInvalid" [class.is-valid]="tipoFormIsValid" formControlName="tipo">
-                      <option id="tipoConvocatoria" *ngFor="let tipo of listaTiposConvocatoria; let i = index" [value]="tipo.getId()">{{tipo.getNombre()}}</option>
-                    </select>
-                    <div *ngIf="tipoFormIsInvalid">
-                        <small class="text-danger" *ngIf="tipoForm.hasError('required')">
-                              Seleccione el tipo de convocatoria  <small class="fal fa-exclamation-triangle"></small>
-                        </small>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer text-muted">
-            <div class="form-group">
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid" (click)="ruta()">
-                          <i class="fa fa-plus"> </i>  Crear 
-                  </button>
-                </div>
-            </div>
-        </div>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Crear Convocatoria</h5>
     </div>
+    <div class="card-body">
+      <p class="card-subtitle mb-2 text-muted">Configurar nueva convocatoria.</p>
+      <form [formGroup]="formCrearConv" (ngSubmit)="save($event)" novalidate autocomplete="off">
+        <div class="form-group">
+          <label for="nombreConvocatoria" class="col-form-label">Nombre De La Covocatoria:</label>
+          <textarea class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;"
+            [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid"
+            formControlName="titulo"></textarea>
+          <div *ngIf="tituloFormIsInvalid">
+            <small class="text-danger" *ngIf="tituloForm.hasError('required')">
+              Llene el campo por favor <small class="fal fa-exclamation-triangle"></small>
+            </small>
+            <small class="text-danger" *ngIf="tituloForm.hasError('minlength')">
+              Texto muy corto <small class="fal fa-exclamation-triangle"></small>
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="seleccionGestion" class="col-form-label">Gestion: </label>
+          <select class="custom-select" id="seleccionGestion" [class.is-invalid]="gestionFormIsInvalid"
+            [class.is-valid]="gestionFormIsValid" formControlName="gestion">
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+          </select>
+          <div *ngIf="gestionFormIsInvalid">
+            <small class="text-danger" *ngIf="gestionForm.hasError('required')">
+              Seleccione una gestion <small class="fal fa-exclamation-triangle"></small>
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tipoConvocatoria" class="col-form-label">Tipo De Convocatoria: </label>
+          <select class="custom-select" id="tipoConvocatoria" [class.is-invalid]="tipoFormIsInvalid"
+            [class.is-valid]="tipoFormIsValid" formControlName="tipo">
+            <option id="tipoConvocatoria" *ngFor="let tipo of listaTiposConvocatoria; let i = index"
+              [value]="tipo.getId()">{{tipo.getNombre()}}</option>
+          </select>
+          <div *ngIf="tipoFormIsInvalid">
+            <small class="text-danger" *ngIf="tipoForm.hasError('required')">
+              Seleccione el tipo de convocatoria <small class="fal fa-exclamation-triangle"></small>
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      <div class="form-group">
+        <div class="d-flex justify-content-end">
+          <button [routerLink] = "['/crearConvocatoria/form']" class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid">
+            <i class="fa fa-plus"> </i> Crear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -55,8 +55,8 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-
   }
+  
   ngOnInit(): void {
   }
 
