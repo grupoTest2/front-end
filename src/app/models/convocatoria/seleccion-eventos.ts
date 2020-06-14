@@ -19,14 +19,15 @@ export class SeleccionEventos{
             }
         }
     }
-
-    public agregarEvento(evento: Evento): boolean{
+    //exito
+    //mensaje
+    public agregarEvento(evento: Evento): string{
         let res: boolean = false;
         if(this.esValido(evento)){
             this.listaEventosSelecciados.push(evento);
             res = true;
         }
-        return res;
+        return "exito";
     }
 
     private esValido(evento: Evento): boolean{

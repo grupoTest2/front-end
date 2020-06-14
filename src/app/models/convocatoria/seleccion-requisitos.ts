@@ -12,8 +12,9 @@ export class SeleccionRequisito {
       return this.listaRequisitosSeleccionados;
     }
 
-    public agregarRequisito(req: Requisito): void{
+    public agregarRequisito(req: Requisito): string{
       this.listaRequisitosSeleccionados.push(req);
+      return "exito";
     }
 
     public setIdLanzamientoConvocatoria(idLanzConv): void{

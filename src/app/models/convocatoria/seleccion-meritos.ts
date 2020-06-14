@@ -8,13 +8,13 @@ export class SeleccionMerito {
         this.tablaMeritos = new Array();
     }
 
-    public agregarMerito(merito: Merito): boolean{
+    public agregarMerito(merito: Merito): string{
         let res: boolean = false;
         if(this.getPorcentajeDisponible() >= merito.getPorcentaje()){
             this.tablaMeritos.push(merito);
             res = true;
         }
-        return res;
+        return "exito";
     }
 
     public agregarSubMerito(merito: Merito, i: number): boolean{

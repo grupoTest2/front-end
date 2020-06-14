@@ -34,7 +34,7 @@ export class SeleccionRequerimiento{
       return res;
     }
 
-    public agregarRequerimientoSeleccionado(req: Requerimiento): void {
+    public agregarRequerimientoSeleccionado(req: Requerimiento): string {
         let idMateria = this.getIdMateria(req.getnombreMateria());
         if (idMateria !== -1) {
           req.setIdMat(idMateria);
@@ -42,6 +42,7 @@ export class SeleccionRequerimiento{
           this.establecerCodigoAux(req,idMateria);
           this.materiasSeleccionadas.push(req);
         }
+        return "exito";
     }
 
     public deshabilitarSeleccion(nombreMatForm): void {

@@ -8,8 +8,9 @@ export class SeleccionDocumentos{
         this.documentosSeleccionados = new Array();
     }
 
-    public agregarDocumento(doc: DocumentoPresentar): void{
+    public agregarDocumento(doc: DocumentoPresentar): string{
         this.documentosSeleccionados.push(doc);
+        return "exito";
     }
 
     public getDocumentosSeleccionados(): DocumentoPresentar[]{

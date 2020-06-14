@@ -49,13 +49,13 @@ export class Requerimiento {
         return this.listaTematicas;
     }
 
-    public agregarTematica(tematica: Tematica): boolean{
+    public agregarTematica(tematica: Tematica): string{
         let res = false;
         if (this.getNotaDisponible() >= tematica.getNota()) {
             this.listaTematicas.push(tematica);
             res = true;
         }
-        return res;
+        return "exito";
     }
     public getNotaDisponible(): number {
         let suma = 0;
