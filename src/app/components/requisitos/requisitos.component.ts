@@ -42,20 +42,29 @@ export class RequisitosComponent implements OnInit {
   agregarRequisito(): void{
     let descripcionRequisito = $('#descripcionRequisito').val();
     this.requisito = new Requisito(descripcionRequisito);
-    this.seleccionRequisitos.agregarRequisito(this.requisito);
+    let respuesta =this.seleccionRequisitos.agregarRequisito(this.requisito);
+    if(respuesta==='exito'){
     this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
     tata.success('Agregado.', 'Se agregó con exito.');
     // this.formRequisitos.reset();
     $('#tablaRequisitos').modal('hide');
+    }
+    else{
+      this.ErrorAlInsertarRequisito(respuesta);
+    }
   }
   
   formValido(): void{
     if(this.formRequisitos.valid){
       this.agregarRequisito();
     }else{
-      this.formRequisitos.markAllAsTouched();
-      tata.error('Error', 'Formulario invalido');
+      this.ErrorAlInsertarRequisito();
     }
+  }
+
+  ErrorAlInsertarRequisito(mensaje:string='Formulario invalido'){
+    this.formRequisitos.markAllAsTouched();
+      tata.error('Error', mensaje);
   }
 
   getindice(indice:number): string{
