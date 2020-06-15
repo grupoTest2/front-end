@@ -52,27 +52,10 @@ export class Requerimiento {
     public agregarTematica(tematica: Tematica): string {
         let res: string;
         if (this.getNotaDisponible() >= tematica.getNota()) {
-            if (!this.existeTematica(tematica)){
-                this.listaTematicas.push(tematica);
-                res = "exito";
-            } else {
-                res = "ya existe una tematica con el mismo nombre"
-            }
-        } else {
-            res = "la nota debe ser menor o igual a " + this.getNotaDisponible();
+            this.listaTematicas.push(tematica);
+            res = "exito";
         }
         return res;
-    }
-
-    private existeTematica(tematica: Tematica): boolean {
-        let existe: boolean = false;
-        for (let i in this.listaTematicas) {
-            if (this.listaTematicas[i].getNombre() == tematica.getNombre()) {
-                existe = true;
-                break;
-            }
-        }
-        return existe;
     }
 
     public getNotaDisponible(): number {

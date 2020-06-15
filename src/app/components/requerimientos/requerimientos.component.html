@@ -12,7 +12,7 @@
                     <th class="text-center" scope="col">Cantidad De Items</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
                     <th class="text-center" scope="col">Nombre Item</th>
-                    <th *ngIf="rutaActual()" class="text-center" scope="col">Codigo Auxiliatura</th>
+                    <th  class="text-center" scope="col">Codigo Auxiliatura</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                     <td>{{requerimiento.getCantidadItem()}}</td>
                     <td>{{requerimiento.getHrsAcademicas()}}</td>
                     <td>{{requerimiento.getnombreMateria()}}</td>
-                    <td *ngIf="rutaActual()">{{requerimiento.getCodigoAuxiliatura()}}</td>
+                    <td>{{requerimiento.getCodigoAuxiliatura()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
                             <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">

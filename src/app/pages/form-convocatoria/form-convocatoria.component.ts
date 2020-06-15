@@ -81,7 +81,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
   agregarRequerimientos(){
     if (this.listaRequerimientos.length !== 0){
-      console.log(JSON.stringify(this.listaRequerimientos));
+      console.log(JSON.stringify(this.listaRequerimientos);
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
       respuesta => {
         if (respuesta['resultado'] === 'correcto'){

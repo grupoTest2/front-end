@@ -1,13 +1,21 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+
+//validaciones
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-requerimientos';
-import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+
+//rutas
 import { Router } from '@angular/router';
-import { debounceTime } from 'rxjs/operators';
-import * as $ from 'jquery';
+
+//servicios
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 
+//models
+import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-requerimientos';
+import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+import { debounceTime } from 'rxjs/operators';
+
+//jquery, toast, alertas
 declare var swal: any;
 declare var tata: any;
 declare var $: any;
@@ -17,18 +25,14 @@ declare var $: any;
   templateUrl: './requerimientos.component.html',
   styleUrls: ['./requerimientos.component.css']
 })
+
 export class RequerimientosComponent implements OnInit {
 
   formRequerimientos: FormGroup;
-
   seleccionRequerimiento: SeleccionRequerimiento;
-
-  requerimientosSeleccionados: Requerimiento[] =[];
- 
+  requerimientosSeleccionados: Requerimiento[] = [];
   listaMateriasDisponibles: String[];
-
   requerimiento: Requerimiento;
-
 
   /*----- M para envio de datos ------------*/
   href: string = "";
@@ -36,16 +40,13 @@ export class RequerimientosComponent implements OnInit {
   /* lista de reuqerimientos de laborratorios */
   listaRequeriminetos: Requerimiento[] = [];
 
-
   //variable para enviar la lista de requerimientos
   @Output() listaRequerimientos = new EventEmitter();
 
-
-
   constructor(private formBuilder: FormBuilder,
-              private apiPHP: PhpServeConvocatoria,
-              private router: Router,
-              private datosConvocatoria: DatosConvocatoriaService) {
+    private apiPHP: PhpServeConvocatoria,
+    private router: Router,
+    private datosConvocatoria: DatosConvocatoriaService) {
     this.buildForm();
     this.getNombreItems();
   }
@@ -54,66 +55,7 @@ export class RequerimientosComponent implements OnInit {
     this.href = this.router.url;
   }
 
-  rutaActual() {
-    if (this.href === '/crearConvocatoria/tipo/2') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // formularios con validaciones
-  private buildForm() {
-    this.formRequerimientos = this.formBuilder.group({
-      items: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
-      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
-      materia: ['', [Validators.required]],
-    });
-
-    this.formRequerimientos.valueChanges
-      .subscribe(value => {
-      });
-  }
-  save(event: Event) {
-    event.preventDefault();
-    if (this.formRequerimientos.valid) {
-      const value = this.formRequerimientos.value;
-    } else {
-      this.formRequerimientos.markAllAsTouched();
-    }
-  }
-
-  get materiaForm() {
-    return this.formRequerimientos.get('materia');
-  }
-  get materiaFormIsValid() {
-    return this.materiaForm.touched && this.materiaForm.valid;
-  }
-  get materiaFormIsInvalid() {
-    return this.materiaForm.touched && this.materiaForm.invalid;
-  }
-
-  get horasMes() {
-    return this.formRequerimientos.get('horasMes');
-  }
-  get horasMesIsValid() {
-    return this.horasMes.touched && this.horasMes.valid;
-  }
-  get horasMesIsInvalid() {
-    return this.horasMes.touched && this.horasMes.invalid;
-  }
-
-  get item() {
-    return this.formRequerimientos.get('items');
-  }
-  get itemIsValid() {
-    return this.item.touched && this.item.valid;
-  }
-  get itemIsInvalid() {
-    return this.item.touched && this.item.invalid;
-  }
-
-  alertEliminar() {
+  alertEliminar(): void {
     swal.fire({
       title: 'Eliminar',
       text: "¿Desea eliminar el campo seleccionado?",
@@ -139,14 +81,16 @@ export class RequerimientosComponent implements OnInit {
       }
     })
   }
+
   // notificaciones--------------------------------
-  toastExitoso() {
+  toastExitoso(): void {
     tata.success('Agregado.', 'El merito fue creado con exito.', {
       duration: 2000,
       animate: 'slide'
     });
   }
-  toastError() {
+
+  toastError(): void {
     tata.error('Elinimado', 'El merito fue creado exitosamente', {
       duration: 2000,
       animate: 'slide'
@@ -154,54 +98,106 @@ export class RequerimientosComponent implements OnInit {
   }
 
   // metodos para almacenar lo de la interfaz
-  guardarRequerimientos() {
+  guardarRequerimientos(): void {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
-    if (!this.rutaActual()) {
-      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-    }
-    else {
-      this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
-      this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-      this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-      this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-      //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
-    }
+    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
+    this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+    this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+    //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
     this.enviarLista();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
     $('#tablaRequerimientos').modal('hide');
   }
-  formValido() {
+
+  /*-------------- metodo para recuperar los datos de este componente*/
+  getDatos(): Requerimiento[] {
+    return this.requerimientosSeleccionados;
+  }
+
+  enviarLista(): void {
+    this.listaRequerimientos.emit(this.requerimientosSeleccionados);
+  }
+
+  // validacion ------------------------------------------------------------------------
+  private buildForm(): void {
+    this.formRequerimientos = this.formBuilder.group({
+      items: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
+      materia: ['', [Validators.required]],
+    });
+
+    this.formRequerimientos.valueChanges
+      .subscribe(value => {
+      });
+  }
+
+  save(event: Event): void {
+    event.preventDefault();
+    if (this.formRequerimientos.valid) {
+      const value = this.formRequerimientos.value;
+    } else {
+      this.formRequerimientos.markAllAsTouched();
+    }
+  }
+
+  formValido(): void {
     if (this.formRequerimientos.valid) {
       this.guardarRequerimientos();
     } else {
       tata.error('Error', 'Formulario invalido');
     }
   }
-  resetForm() {
+  resetForm(): void {
     this.buildForm();
   }
 
-  /*-------------- metodo para recuperar los datos de este componente*/
-  getDatos() {
-    return this.requerimientosSeleccionados;
+  get materiaForm() {
+    return this.formRequerimientos.get('materia');
   }
 
-  enviarLista() {
-        this.listaRequerimientos.emit( this.requerimientosSeleccionados);
+  get materiaFormIsValid() {
+    return this.materiaForm.touched && this.materiaForm.valid;
   }
 
-/*-------------interaccion con la base de datos---------------------*/  
-  //obtiene las materias desde la base de datos a traves de php
-  getNombreItems() {
+  get materiaFormIsInvalid() {
+    return this.materiaForm.touched && this.materiaForm.invalid;
+  }
+
+  get horasMes() {
+    return this.formRequerimientos.get('horasMes');
+  }
+
+  get horasMesIsValid() {
+    return this.horasMes.touched && this.horasMes.valid;
+  }
+
+  get horasMesIsInvalid() {
+    return this.horasMes.touched && this.horasMes.invalid;
+  }
+
+  get item() {
+    return this.formRequerimientos.get('items');
+  }
+
+  get itemIsValid() {
+    return this.item.touched && this.item.valid;
+  }
+
+  get itemIsInvalid() {
+    return this.item.touched && this.item.invalid;
+  }
+
+
+
+  /*-------------interaccion con la base de datos---------------------*/
+  getNombreItems(): void {
     console.log("al obtener items");
     console.log(parseInt(localStorage.getItem("idTipo")));
-    let idTipoConvocatoria:number =parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
+    let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
     let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
       result => {
@@ -213,5 +209,4 @@ export class RequerimientosComponent implements OnInit {
       }
     );
   }
-  
 }
