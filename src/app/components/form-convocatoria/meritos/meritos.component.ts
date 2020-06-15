@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //models
-import { Merito } from '../../models/clases/convocatoria/merito';
+import { Merito } from '../../../models/clases/convocatoria/merito';
 import { SeleccionMerito } from 'src/app/models/convocatoria/seleccion-meritos';
 
 //jquery y toast

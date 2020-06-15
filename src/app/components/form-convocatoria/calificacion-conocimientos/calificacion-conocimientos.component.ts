@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 // model
-import { Tematica } from '../../models/clases/convocatoria/tematica';
+import { Tematica } from '../../../models/clases/convocatoria/tematica';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
 
