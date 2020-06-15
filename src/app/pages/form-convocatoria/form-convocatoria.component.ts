@@ -55,19 +55,13 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
+
   }
-  
   ngOnInit(): void {
   }
 
-  // modificando la lsta de codigos de la componente calificaciones
-  setListaRequerimientos(listaRequerientos) {
-    this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
-    this.listaRequerimientos = listaRequerientos;
-  }
-
   // metodo que recu[era todos los datos
-  recuperarLosDatosDeLosComponentes(): void {
+  recuperarLosDatosDeLosComponentes() {
     this.listaRequerimientos = this.requerimiento.getDatos();
     this.listaDatosRequisitos = this.requisitos.getDatos();
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
@@ -76,7 +70,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosEventos = this.eventos.getDatos();
   }
 
-  agregarBD(): void {
+  agregarBD(){
     this.recuperarLosDatosDeLosComponentes();
     this.agregarRequerimientos();
     this.agregarRequisitos();
@@ -85,91 +79,89 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarMeritos();
     this.agregarEventos();
   }
-
-
-  // bd --------------------------------------------------------------------------------
-  agregarRequerimientos(): void {
-    if (this.listaRequerimientos.length !== 0) {
-      console.log(this.listaRequerimientos);
+  agregarRequerimientos(){
+    if (this.listaRequerimientos.length !== 0){
+      console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
-        respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los eventos');
-          } else {
-            console.log('error con los eventos');
-          }
+      respuesta => {
+        if (respuesta['resultado'] === 'correcto'){
+          console.log('todo bien con los requerimientos');
+        }else{
+          console.log('error con los requerimientos');
         }
-      );
+      }
+    );
     }
   }
-
-  agregarRequisitos() {
-    if (this.listaDatosRequisitos.length !== 0) {
+  agregarRequisitos(){
+    if (this.listaDatosRequisitos.length !== 0){
       this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
         respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los eventos');
-          } else {
-            console.log('error con los eventos');
+          if (respuesta['resultado'] === 'correcto'){
+            console.log('todo bien con los requisitos');
+          }else{
+            console.log('error con los requisitos');
           }
         }
       );
     }
   }
-
-  agregarDocumentosPresentar(): void {
-    if (this.listaDatosDocumentosPresentar.length !== 0) {
+  agregarDocumentosPresentar(){
+    if(this.listaDatosDocumentosPresentar.length !== 0){
       this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
         respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los eventos');
-          } else {
-            console.log('error con los eventos');
+          if(respuesta['resultado'] === 'correcto'){
+            console.log('todo bien con los documentos');
+          }else{
+            console.log('error con los documentos');
           }
         }
       );
     }
   }
-
-  agregarCalificaciones(): void {
-    if (this.listaItemsConCalificaciones.length !== 0) {
+  agregarCalificaciones(){
+    if (this.listaItemsConCalificaciones.length !== 0){
       this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
         respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los eventos');
-          } else {
-            console.log('error con los eventos');
+          if(respuesta['resultado'] === 'correcto'){
+            console.log('todo bien con las calificaciones');
+          }else{
+            console.log('error con las calificaciones');
           }
         }
       );
     }
   }
-
-  agregarMeritos(): void {
-    if (this.listaDatosMerito.length !== 0) {
+  agregarMeritos(){
+    if (this.listaDatosMerito.length !== 0){
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
         respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los eventos');
-          } else {
-            console.log('error con los eventos');
+          if (respuesta['resultado'] === 'correcto'){
+            console.log('todo bien con los meritos');
+          }else{
+            console.log('error con los meritos');
           }
         }
       );
     }
   }
 
-  agregarEventos(): void {
-    if (this.listaDatosEventos.length !== 0) {
+  agregarEventos(){
+    if (this.listaDatosEventos.length !== 0){
       this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
         respuesta => {
-          if (respuesta['resultado'] === 'correcto') {
+          if (respuesta['resultado'] === 'correcto'){
             console.log('todo bien con los eventos');
-          } else {
+          }else{
             console.log('error con los eventos');
           }
         }
       );
     }
+  }
+  // modificando la lsta de codigos de la componente calificaciones
+  setListaRequerimientos(listaRequerientos) {
+    this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
+    this.listaRequerimientos = listaRequerientos;
   }
 }
