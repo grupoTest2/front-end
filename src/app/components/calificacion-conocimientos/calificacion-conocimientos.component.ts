@@ -43,12 +43,12 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   /*-------------- metodo para recuperar los datos de este componente*/
-  getDatos():Requerimiento[] {
+  getDatos(): Requerimiento[] {
     return this.listaItems;
   }
 
 
-  setListaRequerimiento(listaRequeriminetos):void {
+  setListaRequerimiento(listaRequeriminetos): void {
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
@@ -59,43 +59,67 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  agregarTematica():void {
+  agregarTematica(): void {
     var nombreTematica = $('#nombreTematica').val();
-    this.listaTematicas.push(nombreTematica);
-    var aux = 0;
-    var contador = 0;
-    var idInput = "";
-    for (let i = 0; i < this.listaItems.length; i++) {
-      if (this.listaItems[i].getNotaDisponible() > 0) {
-        let id: any = this.listaItems[i].getnombreMateria();
-        idInput = id;
-        let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
-        if ((<HTMLInputElement>document.getElementById(id)).value === "") {
-          nota = 0;
-          aux++;
+    if (!this.existeTematica(nombreTematica)) {
+      this.listaTematicas.push(nombreTematica);
+      var aux = 0;
+      var contador = 0;
+      var idInput = "";
+      for (let i = 0; i < this.listaItems.length; i++) {
+        if (this.listaItems[i].getNotaDisponible() > 0) {
+          let id: any = this.listaItems[i].getnombreMateria();
+          idInput = id;
+          let nota = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+          if ((<HTMLInputElement>document.getElementById(id)).value === "") {
+            nota = 0;
+            aux++;
+          }
+          let tematica: Tematica = new Tematica(nombreTematica, nota);
+          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[i], nota));
         }
-        let tematica: Tematica = new Tematica(nombreTematica, nota);
+        else {
+          for (let j = 0; j < this.listaTematicas.length; j++) {
+            if (this.listaItems[i].getListaTematica().length <= j)
+              this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
+          }
+        }
       }
-      else {
-        for (let j = 0; j < this.listaTematicas.length; j++) {
-          if (this.listaItems[i].getListaTematica().length <= j)
-            this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
-        }
+      
+      (<HTMLInputElement>document.getElementById(idInput)).classList.remove("is-invalid");
+      tata.success('Agregado.', 'Se agregó la tematica con exito.');
+      this.formCalificacion.reset();
+      $('#modalConocimientoAux').modal('hide');
+
+
+    }
+    else {
+      this.ErrorAlInsertarDocumento(" ya existe una tematica con ese nombre!!")
+    }
+  }
+  ErrorAlInsertarDocumento(mensaje: string = 'Formulario invalido') {
+    this.formCalificacion.markAllAsTouched();
+    tata.error('Error', mensaje);
+  }
+
+  private existeTematica(nombre: string): boolean {
+    let existe: boolean = false;
+    for (let i in this.listaTematicas) {
+      if (this.listaTematicas[i] == nombre) {
+        existe = true;
+        break;
       }
     }
-    (<HTMLInputElement>document.getElementById(idInput)).classList.remove("is-invalid");
-    tata.success('Agregado.', 'Se agregó la tematica con exito.');
-    this.formCalificacion.reset();
-    $('#modalConocimientoAux').modal('hide');
+    return existe;
   }
 
 
   hayDatos(): boolean {
-   var bandera=false;
+    var bandera = false;
     for (let i = 0; i < this.listaItems.length; i++) {
-            if (this.listaItems[i].getNotaDisponible() > 0) {
-            bandera=true;
-            }
+      if (this.listaItems[i].getNotaDisponible() > 0) {
+        bandera = true;
+      }
     }
     return bandera;
   }
@@ -108,7 +132,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     });
   }
 
-  save(event: Event):void {
+  save(event: Event): void {
     event.preventDefault();
     if (this.formCalificacion.valid) {
       const value = this.formCalificacion.value;
@@ -117,12 +141,12 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  resetForm():void {
+  resetForm(): void {
     $('input').removeClass('is-invalid');
     this.buildForm();
   }
 
-  validarNota():void {
+  validarNota(): void {
     var aux = 0;
     var contador = 0;
     var bandera = false;
@@ -141,7 +165,7 @@ export class CalificacionConocimientosComponent implements OnInit {
             (<HTMLInputElement>document.getElementById(id)).classList.add('is-invalid');
             codigo = this.listaItems[i].getCodigoAuxiliatura();
             bandera = true;
-          }else{
+          } else {
             (<HTMLInputElement>document.getElementById(id)).classList.remove('is-invalid');
           }
         }
@@ -149,9 +173,9 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     }
     if (aux === contador || bandera) {
-      if(bandera){
+      if (bandera) {
         tata.error('Error', 'La nota excede el porcentaje disponible en: ' + codigo);
-      }else{
+      } else {
         tata.error('Error', 'La tematica debe tener minimo una nota asignada');
       }
     } else {
@@ -159,7 +183,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  formValido():void {
+  formValido(): void {
     if (this.formCalificacion.valid) {
       this.validarNota();
     } else {
@@ -168,7 +192,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  get detalle(){
+  get detalle() {
     return this.formCalificacion.get('detalle');
   }
   get detalleIsValid() {
@@ -187,5 +211,5 @@ export class CalificacionConocimientosComponent implements OnInit {
   get notaIsInvalid() {
     return this.nota.touched && this.nota.invalid;
   }
-// fin validaciones
+  // fin validaciones
 }

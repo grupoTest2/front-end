@@ -23,11 +23,11 @@ export class SeleccionEventos {
     public agregarEvento(evento: Evento): string {
         let res: string;
         if (this.esValido(evento)) {
-            if(!this.existeEvento(evento)){
+            if (!this.existeEvento(evento)) {
                 this.listaEventosSelecciados.push(evento);
                 res = "exito";
-            }else{
-                res="ya existe un evento con el mismo nombre";
+            } else {
+                res = "ya existe un evento con el mismo nombre";
             }
         } else {
             res = "la fecha ingresada debe ser superior al ultimo evento";
@@ -40,7 +40,7 @@ export class SeleccionEventos {
         for (let i in this.listaEventosSelecciados) {
             if (this.listaEventosSelecciados[i].getNombre() == evento.getNombre()) {
                 existe = true;
-                break; 
+                break;
             }
         }
         return existe;
@@ -53,7 +53,7 @@ export class SeleccionEventos {
             res = true;
         } else {
             let eventoAux = this.listaEventosSelecciados[this.listaEventosSelecciados.length - 1];
-            if (evento.getFechaFin() >= eventoAux.getFechaFin() && evento.getNombre() !== eventoAux.getNombre()) {
+            if (evento.getFechaFin() >= eventoAux.getFechaFin()) {
                 evento.setFechaIni(eventoAux.getFechaFin());
                 res = true;
             }

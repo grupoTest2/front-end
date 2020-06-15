@@ -42,31 +42,32 @@ export class MeritosComponent implements OnInit {
   }
 
   //nivel 1------------------------------------------------------------
-  agregarMeritoNivel1():void {
+  agregarMeritoNivel1(): void {
     var tituloMerito = (<HTMLInputElement>document.getElementById("tituloM1")).value;
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentajeM1")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     let resp = this.seleccionMerito.agregarMerito(merito);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
-    if (resp) {
+    if (resp === 'exito') {
       //el porcentaje esta en el rango que corresponde
 
       $('#modal1').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
       }
+      //resetea valores a vacio
+      (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
+      this.formMeritos.reset();
     } else {
       //el porcentaje supera los limites
-      this.toastError()
+      // this.toastError()
+      this.ErrorAlInsertarMerito(resp);
     }
-    //resetea valores a vacio
-    (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
-    this.formMeritos.reset();
   }
 
   //nivel 2------------------------------------------------------------
-  agregarMeritoNivel2():void {
+  agregarMeritoNivel2(): void {
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
     var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
@@ -74,66 +75,76 @@ export class MeritosComponent implements OnInit {
     let resp = this.seleccionMerito.agregarSubMerito(merito, this.indice1);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
 
-    if (resp) {
+    if (resp === 'exito') {
       //el porcentaje esta en el rango que corresponde
       $('#modal2').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
       }
+      this.formMeritos.reset();
     } else {
       //el porcentaje supera los limites
-      this.toastError()
+      //this.toastError()
+      this.ErrorAlInsertarMerito(resp);
+
     }
-    this.formMeritos.reset();
   }
 
   // nivel 3 ----------------------------------------------------------
-  agregarMeritoNivel3():void {
+  agregarMeritoNivel3(): void {
     var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito3")).value;
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje3")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos3")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
     let resp = this.seleccionMerito.agregarSubSubMerito(merito, this.indice1, this.indice2);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
-    if (resp) {
+    if (resp === 'exito') {
       //el porcentaje esta en el rango que corresponde
       $('#modal3').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
       }
+      (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
+      this.formMeritos.reset();
     } else {
       //el porcentaje supera los limites
-      this.toastError()
+      //this.toastError()
+      this.ErrorAlInsertarMerito(resp);
     }
-    (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
-    this.formMeritos.reset();
   }
+
+
+  ErrorAlInsertarMerito(mensaje: string = 'Formulario invalido') {
+    this.formMeritos.markAllAsTouched();
+    tata.error('Error', mensaje);
+  }
+
 
   tieneMeritos(merito: Merito): boolean {
     return merito.getListaMeritos().length !== 0;
   }
 
-  indicesSubMeritos(x: number, y: number):void {
+  indicesSubMeritos(x: number, y: number): void {
     this.indice1 = x;
     this.indice2 = y;
   }
 
-  mostrarSubMeritos():Merito[] {
+  mostrarSubMeritos(): Merito[] {
     return this.seleccionMerito.getSubSubMeritos(this.indice1, this.indice2);
   }
 
   //indice1 -------------------------------------------------------------------------------
-  setIndice1(i: number):void {
+  setIndice1(i: number): void {
     this.indice1 = i;
   }
-  setIndice2(j: number):void {
+  setIndice2(j: number): void {
     this.indice2 = j;
   }
-  setIndice3(k: number):void {
+  setIndice3(k: number): void {
     this.indice3 = k;
   }
 
-  setVariosIndices2(j: number, k: number):void {
+  setVariosIndices2(j: number, k: number): void {
     this.indice1 = j;
     this.indice2 = k;
   }
@@ -144,14 +155,14 @@ export class MeritosComponent implements OnInit {
   }
 
   //validacion -------------------------------------------------------------------------
-    private buildForm():void {
+  private buildForm(): void {
     this.formMeritos = this.formBuilder.group({
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       porcentaje: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])]
     });
   }
 
-  save(event: Event):void {
+  save(event: Event): void {
     event.preventDefault();
     if (this.formMeritos.valid) {
       const value = this.formMeritos.value;
@@ -160,11 +171,11 @@ export class MeritosComponent implements OnInit {
     }
   }
 
-  resetForm():void {
+  resetForm(): void {
     this.buildForm();
   }
 
-  formValido1():void {
+  formValido1(): void {
     if (this.formMeritos.valid) {
       this.agregarMeritoNivel1();
     } else {
@@ -173,7 +184,7 @@ export class MeritosComponent implements OnInit {
     }
   }
 
-  formValido2():void {
+  formValido2(): void {
     if (this.formMeritos.valid) {
       this.agregarMeritoNivel2();
     } else {
@@ -182,7 +193,7 @@ export class MeritosComponent implements OnInit {
     }
   }
 
-  formValido3():void {
+  formValido3(): void {
     if (this.formMeritos.valid) {
       this.agregarMeritoNivel3();
     } else {
@@ -191,14 +202,14 @@ export class MeritosComponent implements OnInit {
     }
   }
 
-  toastExitoso():void {
+  toastExitoso(): void {
     tata.success('Agregado.', 'El merito fue creado con exito.', {
       duration: 2000,
       animate: 'slide'
     });
   }
 
-  toastError():void {
+  toastError(): void {
     tata.error('Elinimado', 'no se pudo crear el merito, porcentaje no valido', {
       duration: 3000,
       animate: 'slide'

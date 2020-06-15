@@ -52,7 +52,7 @@ export class FechasComponent implements OnInit {
     this.evento = new Evento(nombreNombre, fecha, hora);
     //agregamos el evento
     let resp = this.seleccionEventos.agregarEvento(this.evento);
-    if (resp) {
+    if (resp==='exito') {
       //la fecha es valida respecto a la anterior
       tata.success('Agregado.', 'Se agregó con exito.');
       $('#tablaFechas').modal('hide');
@@ -61,11 +61,17 @@ export class FechasComponent implements OnInit {
 
     } else {
       //fecha incorrecta
-      tata.error('Error', 'debe ser una fecha posterior a la ultima');
-      $('#hora').val("");
+       //tata.error('Error', 'debe ser una fecha posterior a la ultima');
+       this.ErrorAlInsertarEvento(resp);
+       //$('#hora').val("");
     }
     this.listaEventosSeleccionados = this.seleccionEventos.getListaEventosSeleccionados();
     this.seleccionEventos.convertirEventosBD();
+  }
+
+  ErrorAlInsertarEvento(mensaje:string='Formulario invalido'){
+    this.formEventos.markAllAsTouched();
+      tata.error('Error', mensaje);
   }
 
   getindice(indice: number): string {
@@ -73,13 +79,6 @@ export class FechasComponent implements OnInit {
     return caracter;
   }
 
-  agregarEventosBD(): void {
-    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
-      datos => {
-        alert(datos['mensaje']);
-      }
-    );
-  }
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Evento[] {
@@ -148,5 +147,15 @@ export class FechasComponent implements OnInit {
       this.formEventos.reset();
       $('#hora').val("");
     }
+  }
+
+
+  //bd-----------------------------------------------------------------------
+  agregarEventosBD(): void {
+    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
+      datos => {
+        alert(datos['mensaje']);
+      }
+    );
   }
 }

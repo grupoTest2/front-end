@@ -34,10 +34,15 @@ export class DocumentosPresentarComponent implements OnInit {
   aniadirDocumento():void {
     let descripcionDocumento = $('#descripcionDocumento').val();
     this.documento = new DocumentoPresentar(descripcionDocumento);
-    this.seleccionDocumento.agregarDocumento(this.documento);
+    let respuesta=this.seleccionDocumento.agregarDocumento(this.documento);
+    if(respuesta==='exito'){
     this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
     tata.success('Agregado.', 'Se agregó con exito.');
     $('#tablaDocumentos').modal('hide');
+    }
+    else{
+      this.ErrorAlInsertarDocumento(respuesta);
+    }
   }
 
   getindice(indice:number):string{
@@ -74,10 +79,16 @@ export class DocumentosPresentarComponent implements OnInit {
       if(this.formDocumentos.valid){
         this.aniadirDocumento();
       }else{
-        this.formDocumentos.markAllAsTouched();
-        tata.error('Error', 'Formulario invalido');
+        this.ErrorAlInsertarDocumento();
       }
     }
+
+
+    ErrorAlInsertarDocumento(mensaje:string='Formulario invalido'){
+      this.formDocumentos.markAllAsTouched();
+        tata.error('Error', mensaje);
+    }
+
   
     get detalleForm() {
       return this.formDocumentos.get('detalle');
