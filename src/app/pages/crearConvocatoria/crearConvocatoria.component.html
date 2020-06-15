@@ -54,7 +54,7 @@
     <div class="card-footer text-muted">
       <div class="form-group">
         <div class="d-flex justify-content-end">
-          <button [routerLink] = "['/crearConvocatoria/form']" class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid">
+          <button routerLink = "form" class="btn btn-primary" type="submit" [disabled]="formCrearConv.invalid" (click)="establecerDatos()">
             <i class="fa fa-plus"> </i> Crear
           </button>
         </div>
