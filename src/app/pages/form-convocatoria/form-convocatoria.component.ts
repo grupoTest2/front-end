@@ -8,12 +8,12 @@ import { Merito } from 'src/app/models/clases/convocatoria/merito';
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
 
 // componentes
-import { RequerimientosComponent } from 'src/app/components/requerimientos/requerimientos.component';
-import { RequisitosComponent } from 'src/app/components/requisitos/requisitos.component';
-import { DocumentosPresentarComponent } from 'src/app/components/documentos-presentar/documentos-presentar.component';
-import { MeritosComponent } from 'src/app/components/meritos/meritos.component';
-import { FechasComponent } from 'src/app/components//fechas/fechas.component';
-import { CalificacionConocimientosComponent } from 'src/app/components/calificacion-conocimientos/calificacion-conocimientos.component';
+import { RequerimientosComponent } from 'src/app/components/form-convocatoria/requerimientos/requerimientos.component';
+import { RequisitosComponent } from 'src/app/components/form-convocatoria/requisitos/requisitos.component';
+import { DocumentosPresentarComponent } from 'src/app/components/form-convocatoria/documentos-presentar/documentos-presentar.component';
+import { MeritosComponent } from 'src/app/components/form-convocatoria/meritos/meritos.component';
+import { FechasComponent } from 'src/app/components/form-convocatoria/fechas/fechas.component';
+import { CalificacionConocimientosComponent } from 'src/app/components/form-convocatoria/calificacion-conocimientos/calificacion-conocimientos.component';
 
 // servicios
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';

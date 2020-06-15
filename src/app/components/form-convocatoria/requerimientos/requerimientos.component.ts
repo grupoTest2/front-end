@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 //servicios
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
+import { DatosConvocatoriaService } from '../../../servicios/datos-convocatoria.service';
 
 //models
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-requerimientos';

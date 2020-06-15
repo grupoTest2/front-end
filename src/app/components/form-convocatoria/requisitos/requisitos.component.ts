@@ -29,7 +29,7 @@ export class RequisitosComponent implements OnInit {
   constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
     this.buildForm();
   }
-
+  
   ngOnInit(): void {
 
   }
