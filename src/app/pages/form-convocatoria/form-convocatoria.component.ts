@@ -81,13 +81,13 @@ export class FormConvocatoriaComponent implements OnInit {
   }
   agregarRequerimientos(){
     if (this.listaRequerimientos.length !== 0){
-      console.log(this.listaRequerimientos);
+      console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
       respuesta => {
         if (respuesta['resultado'] === 'correcto'){
-          console.log('todo bien con los eventos');
+          console.log('todo bien con los requerimientos');
         }else{
-          console.log('error con los eventos');
+          console.log('error con los requerimientos');
         }
       }
     );
@@ -98,9 +98,9 @@ export class FormConvocatoriaComponent implements OnInit {
       this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
         respuesta => {
           if (respuesta['resultado'] === 'correcto'){
-            console.log('todo bien con los eventos');
+            console.log('todo bien con los requisitos');
           }else{
-            console.log('error con los eventos');
+            console.log('error con los requisitos');
           }
         }
       );
@@ -111,9 +111,9 @@ export class FormConvocatoriaComponent implements OnInit {
       this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
         respuesta => {
           if(respuesta['resultado'] === 'correcto'){
-            console.log('todo bien con los eventos');
+            console.log('todo bien con los documentos');
           }else{
-            console.log('error con los eventos');
+            console.log('error con los documentos');
           }
         }
       );
@@ -124,9 +124,9 @@ export class FormConvocatoriaComponent implements OnInit {
       this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
         respuesta => {
           if(respuesta['resultado'] === 'correcto'){
-            console.log('todo bien con los eventos');
+            console.log('todo bien con las calificaciones');
           }else{
-            console.log('error con los eventos');
+            console.log('error con las calificaciones');
           }
         }
       );
@@ -137,9 +137,9 @@ export class FormConvocatoriaComponent implements OnInit {
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
         respuesta => {
           if (respuesta['resultado'] === 'correcto'){
-            console.log('todo bien con los eventos');
+            console.log('todo bien con los meritos');
           }else{
-            console.log('error con los eventos');
+            console.log('error con los meritos');
           }
         }
       );
