@@ -14,7 +14,9 @@ export class DatosRotuloComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-
+  /**
+   * metodos que interactuan con la base de datos
+   */
   getTipoDatosRotulo(){
     let seleccion:SeleccionTipoDatoRotulo; 
     let listaTipos: object[] = new Array();
