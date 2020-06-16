@@ -3,27 +3,23 @@ import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-se
 
 export class SeleccionTipoDatoRotulo {
     private listaTiposDatosRotulo: TipoDatoRotulo[];
-
-    public constructor(private apiPHP: PhpServeConvocatoria) {
+    private tiposDatosRotulo:object[];
+    public constructor(listaTipos:object[]) {
         this.listaTiposDatosRotulo = new Array();
-        this.getTipoDatoRotuloBD();
+        this.tiposDatosRotulo=listaTipos;
+        this.cargarListaTiposDatosRotulo();
     }
 
-    /**
-     * recupera los tipos de dato para el rotulo a la listaTiposDatosRotulo 
-     * cuando se esta creando la convocatoria
-     */
-    public getTipoDatoRotuloBD() {
-        let listaTipos: Object[] = new Array();
-        this.apiPHP.getTipoDatosRotulo().subscribe(
-            result => {
-                for (let i in result) {
-                    
-                }
-                }
-        );
+    private cargarListaTiposDatosRotulo():void{
+        for(let i in this.tiposDatosRotulo){
+            let objAux:any=this.tiposDatosRotulo[i]; 
+            let tipoDato:TipoDatoRotulo=new TipoDatoRotulo(objAux.nombre,objAux.seleccionado);
+        }
     }
 
+    public getListaTiposDatosRotulo(){
+        return this.listaTiposDatosRotulo;
+    }
     /**
      * recuperar los tiposDatoRotulo desde la base de datos cuando se esta editando la convocatoria
      */
