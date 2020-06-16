@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+import { logging } from 'protractor';
 
 @Component({
   selector: 'app-datos-rotulo',
@@ -29,5 +30,7 @@ export class DatosRotuloComponent implements OnInit {
         console.log(JSON.stringify(seleccion.getListaTiposDatosRotulo()));
       }
     );
+
+    console.log("----------------------------",listaTipos);
   }
 }
