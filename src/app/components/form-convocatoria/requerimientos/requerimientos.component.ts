@@ -210,20 +210,6 @@ export class RequerimientosComponent implements OnInit {
       }
     );
   }
-  /**
-  getTipoDatosRotulo(){
-    let seleccion:SeleccionTipoDatoRotulo; 
-    let listaTipos: object[] = new Array();
-    this.apiPHP.getTipoDatosRotulo().subscribe(
-      resultado => {
-        for (let i in resultado) {
-          listaTipos.push(resultado[i]);
-        }
-        seleccion=new SeleccionTipoDatoRotulo(listaTipos);
-        console.log(JSON.stringify(seleccion.getListaTiposDatosRotulo()));
-      }
-    );
-  }*/
 
 
 }
