@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentosRotuloComponent } from './documentos-rotulo.component';
+import { DocumentosRotuloComponent } from './datos-rotulo.component';
 
 describe('DocumentosRotuloComponent', () => {
   let component: DocumentosRotuloComponent;
