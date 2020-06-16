@@ -3,6 +3,7 @@ import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-t
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { logging } from 'protractor';
 
+declare var $:any;
 @Component({
   selector: 'app-datos-rotulo',
   templateUrl: './datos-rotulo.component.html',
@@ -16,6 +17,9 @@ export class DatosRotuloComponent implements OnInit {
     this.getTipoDatosRotulo();
   }
   ngOnInit(): void {
+    $(document).ready(function(){
+      $(":checkbox").labelauty();
+    });
   }
   /**
    * metodos que interactuan con la base de datos
