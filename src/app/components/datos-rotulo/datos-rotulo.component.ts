@@ -10,6 +10,8 @@ import { logging } from 'protractor';
 })
 export class DatosRotuloComponent implements OnInit {
 
+    listaAseleccionarr:string[]=['codigo sis','nombre','apellido paterno', 'apellido materno', 'correo electronico', 'carrera', 'edad']
+
   constructor(private apiPHP: PhpServeConvocatoria) { 
     this.getTipoDatosRotulo();
   }
