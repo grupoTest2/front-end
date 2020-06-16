@@ -22,6 +22,7 @@ import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
+import { DocumentosRotuloComponent } from './components/documentos-rotulo/documentos-rotulo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convoc
     CalificacionConocimientosComponent,
     FechasComponent,
     TribunalesComponent,
-    CrearConvocatoriaComponent
+    CrearConvocatoriaComponent,
+    DocumentosRotuloComponent
   ],
   imports: [
     BrowserModule,
