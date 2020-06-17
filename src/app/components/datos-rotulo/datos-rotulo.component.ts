@@ -13,10 +13,7 @@ export class DatosRotuloComponent implements OnInit {
   constructor(private apiPHP: PhpServeConvocatoria) { 
     this.getTipoDatosRotulo();
   }
-  ngOnInit(): void {
-    $(document).ready(function(){
-      $(":checkbox").labelauty();
-    });
+  ngOnInit(){
   }
   /**
    * metodos que interactuan con la base de datos
