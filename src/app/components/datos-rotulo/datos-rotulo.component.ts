@@ -18,10 +18,6 @@ export class DatosRotuloComponent implements OnInit {
     this.getTipoDatosRotulo();
   }
   ngOnInit(): void {
-    $(document).ready(function(){
-      $(":checkbox").labelauty();
-    });
-    $('.seleccion').css('display','inline-block');
   }
   /**
    * metodos que interactuan con la base de datos
