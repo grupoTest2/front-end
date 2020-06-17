@@ -92,11 +92,27 @@ export class DatosRotuloComponent implements OnInit {
   }
 
   guardar() {
-    /*this.contador = 0;
+    this.contador = 0;
     this.bandera = true;
     this.bandera2 = true;
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-      this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
-    }*/
+     if(this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()){
+      this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
+     }
+    }
+  }
+
+  ocultarBtnGuardar(){
+    let bandera3=true;
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+      if(!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
+        bandera3=false;
+      }
+     }
+     return bandera3;
+  }
+
+  presionando(){
+    $('.switch').click();
   }
 }
