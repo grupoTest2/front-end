@@ -16,17 +16,21 @@ export class DatosRotuloComponent implements OnInit {
 
   listaAseleccionarr: string[] = ['codigo sis', 'nombre', 'apellido paterno', 'apellido materno', 'correo electronico', 'carrera', 'edad']
 
-  seleccionTodo: number = null;
+  seleccionTodo: boolean = true;
+
+  bandera: boolean = true;
+  bandera2: boolean = true;
 
   seleccion: SeleccionTipoDatoRotulo;
-  isChecked: boolean = false;
-  isCheckedInit = false;
-
+  contador: number = 0;
 
   constructor(private apiPHP: PhpServeConvocatoria) {
     this.getTipoDatosRotulo();
   }
   ngOnInit(): void {
+    $('.switch').click(function () {
+      $(this).toggleClass("switchOn");
+    });
   }
   /**
    * metodos que interactuan con la base de datos
@@ -50,31 +54,45 @@ export class DatosRotuloComponent implements OnInit {
   }
 
   cambioBandera(index: number): void {
-    this.isChecked =this.isCheckedInit;
-    $('#select').css('toggle','false')
+    console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
+
+    if (this.bandera && this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
+      console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
+      this.bandera = false;
+      this.seleccionTodo = true;
+      $('.switch').click();
+    }
     if (this.seleccion.getListaTiposDatosRotulo()[index].getSeleccionado()) {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(false);
+      this.contador -= 1;
     } else {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(true);
+      this.contador += 1;
+    }
+    if(this.contador == this.seleccion.getListaTiposDatosRotulo().length){
+      this.bandera = true;
+      this.seleccionTodo = true;
+      $('.switch').click();
     }
   }
 
-  seleccionarTodo() {
-    this.seleccionTodo += 1;
-    if (this.seleccionTodo !== null) {
-      if (this.seleccionTodo % 2 !== 0) {
+  cambio() {
+    if (this.bandera) {
+      this.contador = 0;
+      if (this.seleccionTodo) {
         for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
           this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(true);
+          this.contador += 1;
         }
+        this.seleccionTodo = false;
       }
       else {
-        this.isChecked = true;
-        $('#select').css('toggle','true')
         for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
           this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
         }
+        this.seleccionTodo = true;
       }
     }
+    this.bandera = true;
   }
-
 }

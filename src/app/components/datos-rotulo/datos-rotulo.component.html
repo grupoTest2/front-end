@@ -17,6 +17,7 @@
             </tbody>
         </table>
     </div>
+    
 </div>
 
 
@@ -31,11 +32,16 @@
         </button>
             </div>
             <div   class="modal-body"  id="modalRequisitos">
-                <div class="d-flex">
-                    <mat-slide-toggle id="select" [checked]="isChecked" (click)="seleccionarTodo()" >Seleccionar Todos</mat-slide-toggle>
-                </div>
+                <label>
+                    <input type="checkbox" name="checkboxName" class="checkbox" (click)="cambio()" checked='true' />
+                    <div class="switch"></div>
+                </label><span class="p-3">&nbsp;&nbsp;Seleccionar Todos</span>
+
                 <div  *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i"  >
-                    <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button" [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)" style="font-size: 1rem;"><i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i> <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp; &nbsp;{{item.getNombre()}} </button>
+                    <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button" 
+                    [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)" style="font-size: 1rem;">
+                    <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
+                     <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp; &nbsp;{{item.getNombre()}} </button>
                 </div>
 
             </div>
