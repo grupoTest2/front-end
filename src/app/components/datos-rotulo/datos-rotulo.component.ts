@@ -23,7 +23,7 @@ export class DatosRotuloComponent implements OnInit {
 
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
-
+  listaTipos2: TipoDatoRotulo[] = [];
   constructor(private apiPHP: PhpServeConvocatoria) {
     this.getTipoDatosRotulo();
   }
@@ -37,11 +37,6 @@ export class DatosRotuloComponent implements OnInit {
    */
   getTipoDatosRotulo() {
     let listaTipos: object[] = new Array();
-    console.log("----------------------------");
-    console.log("----------------------------");
-    console.log("----------------------------");
-    console.log("----------------------------");
-
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
         for (let i in resultado) {
@@ -69,7 +64,7 @@ export class DatosRotuloComponent implements OnInit {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(true);
       this.contador += 1;
     }
-    if(this.contador == this.seleccion.getListaTiposDatosRotulo().length){
+    if (this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
       this.bandera = true;
       this.seleccionTodo = true;
       $('.switch').click();
@@ -94,5 +89,14 @@ export class DatosRotuloComponent implements OnInit {
       }
     }
     this.bandera = true;
+  }
+
+  guardar() {
+    /*this.contador = 0;
+    this.bandera = true;
+    this.bandera2 = true;
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+      this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
+    }*/
   }
 }
