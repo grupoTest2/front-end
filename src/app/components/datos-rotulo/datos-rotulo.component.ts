@@ -13,6 +13,7 @@ export class DatosRotuloComponent implements OnInit {
 
     listaAseleccionarr:string[]=['codigo sis','nombre','apellido paterno', 'apellido materno', 'correo electronico', 'carrera', 'edad']
 
+    bandera:boolean=false;
   constructor(private apiPHP: PhpServeConvocatoria) { 
     this.getTipoDatosRotulo();
   }
@@ -20,6 +21,7 @@ export class DatosRotuloComponent implements OnInit {
     $(document).ready(function(){
       $(":checkbox").labelauty();
     });
+    $('.seleccion').css('display','inline-block');
   }
   /**
    * metodos que interactuan con la base de datos
@@ -36,7 +38,13 @@ export class DatosRotuloComponent implements OnInit {
         console.log(JSON.stringify(seleccion.getListaTiposDatosRotulo()));
       }
     );
-
     console.log("----------------------------",listaTipos);
+  }
+
+  setBandera(){
+    if(this.bandera)
+    this.bandera=false;
+    else
+    this.bandera=true;
   }
 }
