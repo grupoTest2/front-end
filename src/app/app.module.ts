@@ -23,6 +23,8 @@ import { from } from 'rxjs';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,7 @@ import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.com
     TribunalesComponent,
     CrearConvocatoriaComponent,
     DatosRotuloComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -48,7 +50,8 @@ import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.com
     HttpClientModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   providers: [
     MatDatepickerModule,

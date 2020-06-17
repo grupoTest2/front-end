@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentosRotuloComponent } from './datos-rotulo.component';
+import { DatosRotuloComponent } from './datos-rotulo.component';
 
 describe('DocumentosRotuloComponent', () => {
-  let component: DocumentosRotuloComponent;
-  let fixture: ComponentFixture<DocumentosRotuloComponent>;
+  let component: DatosRotuloComponent;
+  let fixture: ComponentFixture<DatosRotuloComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentosRotuloComponent ]
+      declarations: [ DatosRotuloComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentosRotuloComponent);
+    fixture = TestBed.createComponent(DatosRotuloComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
