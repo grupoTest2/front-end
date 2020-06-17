@@ -14,20 +14,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr *ngFor="let documento of listaDocumentos; index as i">
-                    <td scope="row">.... </td>
-                    <td class="text-right">
-                        <div class="btn btn-group" role="group">
-                            <button class="btn btn-outline-success mr-1" type="button">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            -->
             </tbody>
         </table>
     </div>
@@ -39,23 +25,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Agregar nuevo detalle de rotulo</h5>
+                <h5 class="modal-title" id="">Seleccionar Datos A Presentar En El Rotulo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
         </button>
             </div>
-            <div class="modal-body" id="modalRequisitos">
-                <div class="container">
-                    <input type="checkbox" data-labelauty="Nombres" />
-                    <input type="checkbox" data-labelauty="Apellidos" />
-                    <input type="checkbox" data-labelauty="Correo" />
-                    <input type="checkbox" data-labelauty="Cod Sis" />
-                    <input type="checkbox" data-labelauty="Telefono" />
+            <div   class="modal-body"  id="modalRequisitos">
+                <div class="d-flex">
+                    <mat-slide-toggle id="select" [checked]="isChecked" (click)="seleccionarTodo()" >Seleccionar Todos</mat-slide-toggle>
+                </div>
+                <div  *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i"  >
+                    <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button" [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)" style="font-size: 1rem;"><i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i> <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp; &nbsp;{{item.getNombre()}} </button>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
