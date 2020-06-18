@@ -26,6 +26,7 @@ import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.com
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { EditarConvocatoriaComponent } from './pages/editar-convocatoria/editar-convocatoria.component';
 import { HomeComponent } from './pages/home/home.component';
+import { FiltroConvocatoriasPipe } from './pipes/convocatoria/filtro-convocatorias.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HomeComponent } from './pages/home/home.component';
     CrearConvocatoriaComponent,
     DatosRotuloComponent,
     EditarConvocatoriaComponent,
-    HomeComponent
+    HomeComponent,
+    FiltroConvocatoriasPipe
     ],
   imports: [
     BrowserModule,
