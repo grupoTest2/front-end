@@ -7,7 +7,7 @@ import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
 })
 export class PhpServeConvocatoria {
 
-  URL = "http://localhost/back-end/apiPHP/convocatoria/";
+  URL = "http://localhost/back-end/apiPHP/convocatoria/crearConvocatoria/";
   constructor(private http: HttpClient) { }
 
   //recuperan informacion de la base de datos
@@ -26,7 +26,7 @@ export class PhpServeConvocatoria {
   }
 
   public getTipoDatosRotulo(){
-    return this.http.get(`${this.URL}crearConvocatoria/obtenerTipoDatoRotulo.php`);
+    return this.http.get(`${this.URL}obtenerTipoDatoRotulo.php`);
   }
 
   //agregar a la base de datos

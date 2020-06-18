@@ -119,8 +119,21 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
   }
+  /**
+   * revisar la impresion del metodo
+   */
   agregarCalificaciones(){
-    if (this.listaItemsConCalificaciones.length !== 0){
+    let resp:boolean=false;
+    for(let i in this.listaItemsConCalificaciones){
+      let listaTem=this.listaItemsConCalificaciones[i].getListaTematica();
+      console.log("las tematicasssss");
+      console.log(JSON.stringify(listaTem));
+      if(listaTem.length!==0){
+        resp=true;
+        break;
+      }
+    }
+    if (resp){
       this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
         respuesta => {
           if(respuesta['resultado'] === 'correcto'){
