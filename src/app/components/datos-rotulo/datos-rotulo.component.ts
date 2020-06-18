@@ -23,7 +23,6 @@ export class DatosRotuloComponent implements OnInit {
 
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
-  listaTipos2: TipoDatoRotulo[] = [];
   numeroDeEnLista:number=0;
   constructor(private apiPHP: PhpServeConvocatoria) {
     this.getTipoDatosRotulo();
@@ -118,5 +117,15 @@ export class DatosRotuloComponent implements OnInit {
 
   presionando(){
     $('.switch').click();
+  }
+
+  getDatos(){
+    let   listaDatosR: TipoDatoRotulo[] = [];
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+          if(this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
+            listaDatosR.push(this.seleccion.getListaTiposDatosRotulo()[i]);
+          }      
+    }
+    return listaDatosR;
   }
 }

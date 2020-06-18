@@ -6,6 +6,7 @@ import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { Merito } from 'src/app/models/clases/convocatoria/merito';
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
+import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 
 // componentes
 import { RequerimientosComponent } from 'src/app/components/form-convocatoria/requerimientos/requerimientos.component';
@@ -14,6 +15,7 @@ import { DocumentosPresentarComponent } from 'src/app/components/form-convocator
 import { MeritosComponent } from 'src/app/components/form-convocatoria/meritos/meritos.component';
 import { FechasComponent } from 'src/app/components/form-convocatoria/fechas/fechas.component';
 import { CalificacionConocimientosComponent } from 'src/app/components/form-convocatoria/calificacion-conocimientos/calificacion-conocimientos.component';
+import { DatosRotuloComponent } from 'src/app/components/datos-rotulo/datos-rotulo.component';
 
 // servicios
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
@@ -31,6 +33,7 @@ export class FormConvocatoriaComponent implements OnInit {
   @ViewChild('merito') merito: MeritosComponent;
   @ViewChild('eventos') eventos: FechasComponent;
   @ViewChild('calificacionConocimiento') calificacionConocimiento: CalificacionConocimientosComponent;
+  @ViewChild('datosRotulo') datosRotulo: DatosRotuloComponent;
   @Input() titulo: string = '';
   @Input() gestion: string = '';
 
@@ -42,6 +45,7 @@ export class FormConvocatoriaComponent implements OnInit {
   listaDatosMerito: Merito[] = [];
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
+  listaDatosRotulo:TipoDatoRotulo[]=[];
 
   // lista de los requerimientos
   listaRequerimientos: any = [];
@@ -68,6 +72,10 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosMerito = this.merito.getDatos();
     this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
+
+    this.listaDatosRotulo=this.datosRotulo.getDatos();
+    console.log("-----------------------------------------------------------------");
+    console.log(this.listaDatosRotulo);
   }
 
   agregarBD(){
