@@ -75,8 +75,8 @@ export class CalificacionConocimientosComponent implements OnInit {
             nota = 0;
             aux++;
           }
-          let tematica: Tematica = new Tematica(nombreTematica, nota);
-          this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[i], nota));
+          let tematica: Tematica = new Tematica(this.listaTematicas[this.listaTematicas.length-1], nota);
+          this.listaItems[i].getListaTematica().push(tematica);
         }
         else {
           for (let j = 0; j < this.listaTematicas.length; j++) {
@@ -90,8 +90,6 @@ export class CalificacionConocimientosComponent implements OnInit {
       tata.success('Agregado.', 'Se agregó la tematica con exito.');
       this.formCalificacion.reset();
       $('#modalConocimientoAux').modal('hide');
-
-
     }
     else {
       this.ErrorAlInsertarDocumento(" ya existe una tematica con ese nombre!!")
@@ -105,7 +103,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   private existeTematica(nombre: string): boolean {
     let existe: boolean = false;
     for (let i in this.listaTematicas) {
-      if (this.listaTematicas[i] == nombre) {
+      if (this.listaTematicas[i] === nombre) {
         existe = true;
         break;
       }

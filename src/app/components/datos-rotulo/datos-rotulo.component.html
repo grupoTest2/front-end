@@ -1,48 +1,73 @@
 <div class="form-group">
-    <div class="d-flex justify-content-between align-items-end">
-        <label for="documentos">3.- Documentos a presentar (Rotulo) </label>
-        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaDatosRotulo">
+  <div class="d-flex justify-content-between align-items-end">
+    <label for="documentos">9.- Documentos a presentar (Rotulo) </label>
+    <button [disabled]="ocultarBtnGuardar()" type="button" class="btn btn-outline-info" data-toggle="modal"
+      data-target="#tablaDatosRotulo">
       <i class="fa fa-plus"></i> Añadir
     </button>
-    </div>
-    <div class="mt-3 table-responsive">
-        <table class="table align-middle table-hover table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="text-center" scope="col">Detalle Rotulo</th>
-                    <th class="text-center" scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+  </div>
+  <div class="mt-3 table-responsive">
+    <table class="table align-middle table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-center" scope="col">Detalle Rotulo</th>
+          <th class="text-center" scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i">
+          <td *ngIf="item.getEnLista()" scope="row"> {{item.getNombre() | titlecase }}</td>
+          <td *ngIf="item.getEnLista()" class="text-right">
+            <div class="btn btn-group" role="group">
+              <button class="btn btn-outline-danger" type="button">
+                <i class="fa fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
 <!-- Modal para agregar documentos -->
-<div class="modal fade" id="tablaDatosRotulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="">Seleccionar Datos A Presentar En El Rotulo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+<div class="modal fade" id="tablaDatosRotulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Seleccionar Datos A Presentar En El Rotulo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
-            </div>
-            <div   class="modal-body"  id="modalRequisitos">
-                <div class="d-flex">
-                    <mat-slide-toggle id="select" [checked]="isChecked" (click)="seleccionarTodo()" >Seleccionar Todos</mat-slide-toggle>
-                </div>
-                <div  *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i"  >
-                    <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button" [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)" style="font-size: 1rem;"><i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i> <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp; &nbsp;{{item.getNombre()}} </button>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
+      </div>
+      <div class="modal-body" id="modalRequisitos">
+        <div class="d-flex "> 
+          <label >
+            <input type="checkbox" name="checkboxName" class="checkbox" (click)="cambio()" checked='true' />
+            <div class="switch"></div>
+          </label>
+            <span  class="mb-4 h5" (click)="presionando()">&nbsp;&nbsp;Seleccionar Todos</span>
         </div>
+        <hr>
+
+
+        <div *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i">
+          <button *ngIf="!item.getEnLista()"
+            class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button"
+            [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)"
+            style="font-size: 1rem;">
+            <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
+            <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp;
+            &nbsp;{{item.getNombre() | titlecase}} </button>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="guardar()" data-dismiss="modal">Guardar</button>
+      </div>
     </div>
+  </div>
 </div>
