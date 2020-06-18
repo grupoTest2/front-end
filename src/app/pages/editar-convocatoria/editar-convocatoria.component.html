@@ -1,38 +1,43 @@
-<div class="form-group">
+<div class="row">
     <div>
         <h5 for="requisitos">Convocatorias creadas</h5>
         <hr>
     </div>
-    <div class="table-responsive mt-3">
-        <table class="table align-middle table-hover table-bordered" id="requerimientos">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="text-center" scope="col">Título Convocatoria</th>
-                    <th class="text-center" scope="col">Tipo</th>
-                    <th class="text-center" scope="col">Estado</th>
-                    <th class="text-center" scope="col">Gestión</th>
-                    <th class="text-center" scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{titulo | titlecase}}</td>
-                    <td class="text-center">Docencia</td>
-                    <td class="text-center">En curso</td>
-                    <td class="text-center">2020</td>
-                    <td class="text-center">
-                        <div class="btn btn-group" role="group">
-                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaEditar">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" type="button">
-                                <i class="fa fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+</div>
+<div class="row">Filtros</div>
+<div class="row">
+    <div class="form-group">
+        <div class="table-responsive mt-3">
+            <table class="table align-middle table-hover table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center" scope="col">Título Convocatoria</th>
+                        <th class="text-center" scope="col">Tipo</th>
+                        <th class="text-center" scope="col">Estado</th>
+                        <th class="text-center" scope="col">Gestión</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{titulo | titlecase}}</td>
+                        <td class="text-center">Docencia</td>
+                        <td class="text-center">En curso</td>
+                        <td class="text-center">2020</td>
+                        <td class="text-center">
+                            <div class="btn btn-group" role="group">
+                                <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaEditar">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-outline-danger" type="button">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

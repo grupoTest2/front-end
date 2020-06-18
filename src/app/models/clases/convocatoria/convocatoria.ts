@@ -3,11 +3,13 @@ export class Convocatoria{
     private idTipoConv: number;
     private titulo: string;
     private gestion: string;
+    private estado: string;
 
-    public constructor(idTipoConv: number, titulo: string, gestion: string){
+    public constructor(idTipoConv: number, titulo: string, gestion: string, estado: string = 'No asignado'){
         this.idTipoConv = idTipoConv;
         this.titulo     = titulo;
         this.gestion    = gestion;
+        this.estado     = estado;
     }
 
     public getTitulo(): string{
@@ -40,5 +42,13 @@ export class Convocatoria{
 
     public setTipoConv(idTipoConv){
         this.idTipoConv = idTipoConv;
+    }
+
+    public getEstado(): string{
+        return this.estado;
+    }
+
+    public setEstado(estado): void{
+        this.estado = estado;
     }
 }
