@@ -7,7 +7,7 @@
             <p class="card-subtitle mb-2 text-muted">Configurar nueva convocatoria.</p>
             <form [formGroup]="formCrearConv" (ngSubmit)="save($event)" novalidate autocomplete="off">
                 <div class="form-group">
-                    <label for="nombreConvocatoria" class="col-form-label">Nombre De La Covocatoria:</label>
+                    <label for="nombreConvocatoria" class="col-form-label">Título De La Covocatoria:</label>
                     <textarea class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo"></textarea>
                     <div *ngIf="tituloFormIsInvalid">
                         <small class="text-danger" *ngIf="tituloForm.hasError('required')">

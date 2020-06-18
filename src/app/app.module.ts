@@ -24,6 +24,8 @@ import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvo
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { EditarConvocatoriaComponent } from './pages/editar-convocatoria/editar-convocatoria.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FechasComponent,
     TribunalesComponent,
     CrearConvocatoriaComponent,
-    DatosRotuloComponent
+    DatosRotuloComponent,
+    EditarConvocatoriaComponent,
+    HomeComponent
     ],
   imports: [
     BrowserModule,
