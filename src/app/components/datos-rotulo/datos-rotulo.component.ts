@@ -44,7 +44,7 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
       }
     );
   }
