@@ -90,8 +90,6 @@ export class CalificacionConocimientosComponent implements OnInit {
       tata.success('Agregado.', 'Se agregó la tematica con exito.');
       this.formCalificacion.reset();
       $('#modalConocimientoAux').modal('hide');
-
-
     }
     else {
       this.ErrorAlInsertarDocumento(" ya existe una tematica con ese nombre!!")
