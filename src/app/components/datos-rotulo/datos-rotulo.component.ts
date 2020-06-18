@@ -24,6 +24,7 @@ export class DatosRotuloComponent implements OnInit {
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
   listaTipos2: TipoDatoRotulo[] = [];
+  numeroDeEnLista:number=0;
   constructor(private apiPHP: PhpServeConvocatoria) {
     this.getTipoDatosRotulo();
   }
@@ -64,7 +65,7 @@ export class DatosRotuloComponent implements OnInit {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(true);
       this.contador += 1;
     }
-    if (this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
+    if (this.contador == this.seleccion.getListaTiposDatosRotulo().length||this.contador ==this.numeroDeEnLista) {
       this.bandera = true;
       this.seleccionTodo = true;
       $('.switch').click();
@@ -95,11 +96,14 @@ export class DatosRotuloComponent implements OnInit {
     this.contador = 0;
     this.bandera = true;
     this.bandera2 = true;
+    let conteoEnLista=0;
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
      if(this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()){
       this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
+      conteoEnLista+=1;
      }
     }
+    this. numeroDeEnLista=this.seleccion.getListaTiposDatosRotulo().length-conteoEnLista;
   }
 
   ocultarBtnGuardar(){
