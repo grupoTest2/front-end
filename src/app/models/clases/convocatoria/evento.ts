@@ -5,8 +5,6 @@ export class Evento{
     private fechaFin: Date;
     private horaIni: string;
     private horaFin: string;
-    private fechaIniString: string;
-    private fechaFinString: string;
 
     public constructor(nombre: string, fecha: string, horaFin: string = '', horaIni: string = ''){
         this.idConv =  parseInt(localStorage.getItem("idConv"));
