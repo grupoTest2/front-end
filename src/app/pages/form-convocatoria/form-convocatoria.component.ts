@@ -89,7 +89,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
   agregarRequerimientos(){
     if (this.listaRequerimientos.length !== 0){
-      console.log(JSON.stringify(this.listaRequerimientos));
+      //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
       respuesta => {
         if (respuesta['resultado'] === 'correcto'){
@@ -132,6 +132,7 @@ export class FormConvocatoriaComponent implements OnInit {
    */
   agregarCalificaciones(){
     let resp:boolean=false;
+    console.log(JSON.stringify(this.listaItemsConCalificaciones));
     for(let i in this.listaItemsConCalificaciones){
       let listaTem=this.listaItemsConCalificaciones[i].getListaTematica();
       console.log("las tematicasssss");

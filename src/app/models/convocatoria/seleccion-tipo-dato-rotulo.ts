@@ -14,6 +14,7 @@ export class SeleccionTipoDatoRotulo {
         for(let i in this.tiposDatosRotulo){
             let objAux:any=this.tiposDatosRotulo[i]; 
             let tipoDato:TipoDatoRotulo=new TipoDatoRotulo(objAux.nombre,objAux.seleccionado);
+            tipoDato.setIdDato(objAux.idTipo);
             this.listaTiposDatosRotulo.push(tipoDato);
         }
     }

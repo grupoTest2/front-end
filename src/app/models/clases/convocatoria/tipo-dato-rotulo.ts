@@ -1,5 +1,6 @@
 export class TipoDatoRotulo {
     private idConv: number;
+    private idDato:number;
     private nombre: string;
     private seleccionado: boolean;
     private enLista:boolean;
@@ -19,6 +20,9 @@ export class TipoDatoRotulo {
         return this.seleccionado;
     }
 
+    public setIdDato(idDato:number){
+        this.idDato=idDato;
+    }
     public setNombre(nombre: string): void {
         this.nombre = nombre;
     }
@@ -26,9 +30,11 @@ export class TipoDatoRotulo {
     public setSeleccionado(seleccionado: boolean) {
         this.seleccionado = seleccionado;
     }
+
     public setEnLista(bandera:boolean){
         this.enLista=bandera;
     }
+
     public getEnLista(){
         return this.enLista;
     }
