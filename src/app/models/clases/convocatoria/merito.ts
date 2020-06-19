@@ -1,5 +1,6 @@
 export class Merito {
   private idConv: number;
+  private idMerito: number;
   private titulo: string;
   private descripcion: string;
   private porcentaje: number;
@@ -11,6 +12,7 @@ export class Merito {
     this.descripcion = descrip;
     this.porcentaje = porcentaje;
     this.listaMeritos = listaMeritos;
+    this.idMerito=-1;
   }
 
   public getTitulo(): string {

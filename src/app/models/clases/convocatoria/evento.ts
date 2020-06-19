@@ -5,12 +5,15 @@ export class Evento{
     private fechaFin: Date;
     private horaIni: string;
     private horaFin: string;
+    private fechaIniString: string;
+    private fechaFinString: string;
 
     public constructor(nombre: string, fecha: string, horaFin: string = '', horaIni: string = ''){
         this.idConv =  parseInt(localStorage.getItem("idConv"));
         this.nombre = nombre;
         this.construirFecha(fecha);
         this.horaFin = horaFin;
+        this.horaIni= horaIni;
     }
 
     private construirFecha(fecha: string): void{
