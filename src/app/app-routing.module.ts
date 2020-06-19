@@ -10,18 +10,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent },
   { path: 'crearConvocatoria/formulario', component: FormConvocatoriaComponent },
-  { path: 'editarConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editarConvocatoria', component: EditarConvocatoriaComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled', // Add options right here
-    })
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

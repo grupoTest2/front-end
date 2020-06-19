@@ -28,9 +28,6 @@ export class EditarConvocatoriaComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
   } 
 
 
@@ -52,11 +49,11 @@ export class EditarConvocatoriaComponent implements OnInit {
     this.listaConvocatoria.push(new Convocatoria(15, "titulo convocatoria 15","2019",'desierta', new TipoConvocatoria(1,'Docencia')));
     this.listaConvocatoria.push(new Convocatoria(16, "titulo convocatoria 16","2019",'desierta', new TipoConvocatoria(2,'Laboratorio')));
     this.listaConvocatoria.push(new Convocatoria(17, "titulo convocatoria 17","2019",'desierta', new TipoConvocatoria(2,'Laboratorio')));
-    this.listaConvocatoria.push(new Convocatoria(18, "titulo convocatoria 18","2019",'En configuracion', new TipoConvocatoria(2,'Docencia')));
-    this.listaConvocatoria.push(new Convocatoria(19, "titulo convocatoria 19","2019",'En configuracion', new TipoConvocatoria(2,'Docencia')));
-    this.listaConvocatoria.push(new Convocatoria(20, "titulo convocatoria 20","2020",'En configuracion', new TipoConvocatoria(2,'Docencia')));
-    this.listaConvocatoria.push(new Convocatoria(21, "titulo convocatoria 21","2018",'En configuracion', new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatoria.push(new Convocatoria(22, "titulo convocatoria 22","2018",'En configuracion', new TipoConvocatoria(2,'Docencia')));
+    this.listaConvocatoria.push(new Convocatoria(18, "titulo convocatoria 18","2019",'No asignada', new TipoConvocatoria(2,'Docencia')));
+    this.listaConvocatoria.push(new Convocatoria(19, "titulo convocatoria 19","2019",'No asignada', new TipoConvocatoria(2,'Docencia')));
+    this.listaConvocatoria.push(new Convocatoria(20, "titulo convocatoria 20","2020",'No asignada', new TipoConvocatoria(2,'Docencia')));
+    this.listaConvocatoria.push(new Convocatoria(21, "titulo convocatoria 21","2018",'No asignada', new TipoConvocatoria(1,'Docencia')));
+    this.listaConvocatoria.push(new Convocatoria(22, "titulo convocatoria 22","2018",'No asignada', new TipoConvocatoria(2,'Docencia')));
     this.listaConvocatoria.push(new Convocatoria(23, "titulo convocatoria 23","2018",'desierta', new TipoConvocatoria(2,'Docencia')));
     this.listaConvocatoria.push(new Convocatoria(24, "titulo convocatoria 24","2018",'en curso', new TipoConvocatoria(1,'Laboratorio')));
     this.listaConvocatoria.push(new Convocatoria(25, "titulo convocatoria 25","2018",'en curso', new TipoConvocatoria(2,'Docencia')));
@@ -70,17 +67,9 @@ export class EditarConvocatoriaComponent implements OnInit {
   }
 
   editar(item: Convocatoria){
-    console.log("entraaaaaaa")
     this.formCrearConv.reset();
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
-  }
-
-  loading(){
-    $.fakeLoader({
-      bgColor: '#2ecc71',
-      spinner:"spinner3"
-  });
   }
 
   // Validaciones -------------------------------------------------------------------------
