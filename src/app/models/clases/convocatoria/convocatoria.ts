@@ -1,13 +1,19 @@
+import { TipoConvocatoria } from './tipo-convocatoria';
 export class Convocatoria{
     private idConv: number;
     private idTipoConv: number;
     private titulo: string;
     private gestion: string;
+    private estado: string;
+    private tipoConv: TipoConvocatoria;
 
-    public constructor(idTipoConv: number, titulo: string, gestion: string){
+    public constructor(idTipoConv: number, titulo: string, gestion: string, estado: string = 'No asignado',
+                        tipo: TipoConvocatoria = new TipoConvocatoria(idTipoConv,'Docencia')){
         this.idTipoConv = idTipoConv;
         this.titulo     = titulo;
         this.gestion    = gestion;
+        this.estado     = estado;
+        this.tipoConv   = tipo;
     }
 
     public getTitulo(): string{
@@ -40,5 +46,21 @@ export class Convocatoria{
 
     public setTipoConv(idTipoConv){
         this.idTipoConv = idTipoConv;
+    }
+
+    public getEstado(): string{
+        return this.estado;
+    }
+
+    public setEstado(estado): void{
+        this.estado = estado;
+    }
+
+    public setTipo(tipo: TipoConvocatoria): void{
+        this.tipoConv = tipo;
+    }
+
+    public getTipo(): TipoConvocatoria{
+        return this.tipoConv;
     }
 }

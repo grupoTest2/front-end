@@ -26,7 +26,9 @@ import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.com
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { EditarConvocatoriaComponent } from './pages/editar-convocatoria/editar-convocatoria.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { FiltroConvocatoriasPipe } from './pipes/convocatoria/filtro-convocatorias.pipe';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { BlockUIModule } from 'ng-block-ui';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,9 @@ import { HomeComponent } from './pages/home/home.component';
     CrearConvocatoriaComponent,
     DatosRotuloComponent,
     EditarConvocatoriaComponent,
-    HomeComponent
+    HomeComponent,
+    FiltroConvocatoriasPipe,
+    LoadingSpinnerComponent
     ],
   imports: [
     BrowserModule,
@@ -55,12 +59,18 @@ import { HomeComponent } from './pages/home/home.component';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    BlockUIModule.forRoot({
+      template: LoadingSpinnerComponent
+    })
   ],
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+  ],
+  entryComponents: [
+    LoadingSpinnerComponent // Make sure to add it to the entry components
   ],
   bootstrap: [AppComponent]
 })
