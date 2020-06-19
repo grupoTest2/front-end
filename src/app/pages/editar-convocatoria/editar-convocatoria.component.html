@@ -25,9 +25,10 @@
             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Estado:</label>
             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="filtroEstado" [(ngModel)]="filtroEstado">
                 <option selected disabled>Estado...</option>
-                <option value="No asignada">No asignada</option>
+                <option value="En configuracion">En configuracion</option> <!-- editar - borrar -->
                 <option value="En curso">En curso</option>
-                <option value="Habilitado">Habilitado</option>
+                <option value="Finalizado">Finalizado</option>
+                <option value="Impugnado">Impugnado</option>
                 <option value="Desierta">Desierta</option>
             </select>
         </div>
@@ -68,10 +69,15 @@
                         <td class="text-center">{{item.getGestion() | titlecase}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
-                                <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaEditar" (click)="editar(item)">
-                                        <i class="fa fa-pencil"></i>
+                                <button class="btn btn-outline-info mr-1" type="button" data-toggle="tooltip" data-placement="top" title="Habilitar Convocatoria" [disabled]="item.getEstado() != 'En configuracion'">
+                                    <i class="fa fa-file-alt"></i>
+                                </button>
+                                <span data-toggle="modal" data-target="#tablaEditar">
+                                    <button class="btn btn-outline-success mr-1" type="button"  (click)="editar(item)"  [disabled]="item.getEstado() !='En configuracion'" data-toggle="tooltip" data-placement="top" title="Editar Convocatoria" >
+                                        <i class="fa fa-pencil "></i>
                                     </button>
-                                <button class="btn btn-outline-danger" type="button">
+                                </span>
+                                <button class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Borrar Convocatoria" [disabled]="item.getEstado() !='En configuracion'">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                             </div>
@@ -87,22 +93,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Editar convocatoria</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+                <h5 class="modal-title">Editar convocatoria</h5>
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true ">&times;</span>
           </button>
             </div>
             <div class="modal-body" id="modalMeritos">
                 <form [formGroup]="formCrearConv" (ngSubmit)="save($event)" novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="nombreConvocatoria" class="col-form-label">Título De La Covocatoria:</label>
-                        <textarea role="input" class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo">titulo</textarea>
+                        <textarea role="input" class="form-control" id="tituloConvocatoria" rows="3" style="min-height: 100px; max-height: 150px;" [class.is-invalid]="tituloFormIsInvalid" [class.is-valid]="tituloFormIsValid" formControlName="titulo"></textarea>
                         <div *ngIf="tituloFormIsInvalid">
                             <small class="text-danger" *ngIf="tituloForm.hasError('required')">
-                  Llene el campo por favor <small class="fal fa-exclamation-triangle"></small>
+                  Llene el campo por favor <small class="fal fa-exclamation-triangle "></small>
                             </small>
-                            <small class="text-danger" *ngIf="tituloForm.hasError('minlength')">
-                  Texto muy corto <small class="fal fa-exclamation-triangle"></small>
+                            <small class="text-danger" *ngIf="tituloForm.hasError( 'minlength')">
+                  Texto muy corto <small class="fal fa-exclamation-triangle "></small>
                             </small>
                         </div>
                     </div>
@@ -116,7 +122,7 @@
                 <option value="2022">2022</option>
               </select>
                         <div *ngIf="gestionFormIsInvalid">
-                            <small class="text-danger" *ngIf="gestionForm.hasError('required')">
+                            <small class="text-danger" *ngIf="gestionForm.hasError( 'required')">
                   Seleccione una gestion <small class="fal fa-exclamation-triangle"></small>
                             </small>
                         </div>
@@ -124,7 +130,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="submit" class="btn btn-primary" id="guardar">Ver convocatoria</button>
+                <button routerLink="/editarConvocatoria/formulario" data-dismiss="modal" type="submit" class="btn btn-primary" id="guardar" (click)="loading()">Ver convocatoria</button>
                 <div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
