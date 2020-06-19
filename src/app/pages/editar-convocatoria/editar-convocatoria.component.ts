@@ -6,6 +6,8 @@ import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TipoConvocatoria } from '../../models/clases/convocatoria/tipo-convocatoria';
 
+// jquery
+declare var $: any;
 @Component({
   selector: 'app-editar-convocatoria',
   templateUrl: './editar-convocatoria.component.html',
@@ -62,6 +64,12 @@ export class EditarConvocatoriaComponent implements OnInit {
     this.filtroGestion = '';
     this.filtroTipo = '';
     this.filtroEstado = '';
+  }
+
+  editar(item: Convocatoria){
+    this.formCrearConv.reset();
+    $('#tituloConvocatoria').val(item.getTitulo());
+    $('#seleccionGestion').val(item.getGestion());
   }
 
   // Validaciones -------------------------------------------------------------------------

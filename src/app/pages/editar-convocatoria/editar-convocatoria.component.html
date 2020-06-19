@@ -61,14 +61,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of listaConvocatoria | filtroConvocatorias:filtroGestion:filtroTipo:filtroEstado">
+                    <tr *ngFor="let item of listaConvocatoria | filtroConvocatorias:filtroGestion:filtroTipo:filtroEstado; let i = index">
                         <td>{{item.getTitulo() | titlecase}}</td>
                         <td class="text-center">{{item.getTipo().getNombre() | titlecase}}</td>
                         <td class="text-center">{{item.getEstado() | titlecase}}</td>
                         <td class="text-center">{{item.getGestion() | titlecase}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
-                                <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaEditar">
+                                <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaEditar" (click)="editar(item)">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                 <button class="btn btn-outline-danger" type="button">
