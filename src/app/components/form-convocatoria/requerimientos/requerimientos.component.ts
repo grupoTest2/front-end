@@ -196,8 +196,6 @@ export class RequerimientosComponent implements OnInit {
 
   /*-------------interaccion con la base de datos---------------------*/
   getNombreItems(): void {
-    console.log("al obtener items");
-    console.log(parseInt(localStorage.getItem("idTipo")));
     let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
     let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(

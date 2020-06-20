@@ -30,6 +30,7 @@ import { FiltroConvocatoriasPipe } from './pipes/convocatoria/filtro-convocatori
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { ComisionesComponent } from './pages/comisiones/comisiones.component';
+import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/editar-convocatoria.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { ComisionesComponent } from './pages/comisiones/comisiones.component';
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    EditarConvocatoriaServicePhp,
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   entryComponents: [

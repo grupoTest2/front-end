@@ -46,10 +46,10 @@ export class CrearConvocatoriaComponent implements OnInit {
     convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
       this.datosConvocatoria.tituloConvocatoria,
       this.datosConvocatoria.gestionConvocatoria);
-    this.crearConvocatoriaBD(convocatoria);
     localStorage.setItem('tituloConvocatoria', this.datosConvocatoria.tituloConvocatoria);
     localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
     localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
+    this.crearConvocatoriaBD(convocatoria);
   }
 
   // Validaciones -------------------------------------------------------------------------
@@ -128,8 +128,8 @@ export class CrearConvocatoriaComponent implements OnInit {
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
           //se crea correctamente la convocatoria
-          if (respuesta['mensaje'] !== -1) {
-            localStorage.setItem("idConv", respuesta['mensaje']);
+          if (respuesta['idConvocatoria'] !== -1) {
+            localStorage.setItem("idConv", respuesta['idConvocatoria']);
           }
         } else {
           //no se pudo agregar
