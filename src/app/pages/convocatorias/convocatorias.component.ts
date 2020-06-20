@@ -78,12 +78,8 @@ export class ConvocatoriasComponent implements OnInit {
   listaConvocatoriaComision() {
     let listaAuxiliar:Convocatoria[]=[];
     for (let index = 0; index < this.listaConvocatoria.length; index++) {
-<<<<<<< HEAD
       if (this.listaConvocatoria[index].getEstado().toLowerCase() === 'en curso' || 
           this.listaConvocatoria[index].getEstado().toLowerCase() === 'en configuracion') {
-=======
-      if (this.listaConvocatoria[index].getEstado()==="en curso"||this.listaConvocatoria[index].getEstado()==="en configuracion") {
->>>>>>> a374a66aace8d551c662b86f798bf3068e5e0395
          listaAuxiliar.push(this.listaConvocatoria[index]);
       }
     }
