@@ -35,9 +35,7 @@ export class ConvocatoriasComponent implements OnInit {
     private editarConv:EditarConvocatoriaServicePhp,
     private cargarDatos:PhpServeConvocatoria) {
     this.buildForm();
-    this.cargarDatosConvocatoria();
-    this.cargarEstados();
-    this.cargarTiposConv();
+    
     console.log("mi lista");
     console.log(this.listaConvocatoria);
     console.log("mis estados");
@@ -47,6 +45,9 @@ export class ConvocatoriasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cargarDatosConvocatoria();
+    this.cargarEstados();
+    this.cargarTiposConv();
     this.href = this.router.url;
     if (this.href === '/editar/convocatorias') {
       this.cargarDatosConvocatoria();
@@ -165,7 +166,7 @@ export class ConvocatoriasComponent implements OnInit {
           conv = new Convocatoria(
             objAux.idTipoConv,
             objAux.titulo,
-            objAux.gestion,
+            objAux.gestion.toString(),
             objAux.estado,
             tipo
           );
