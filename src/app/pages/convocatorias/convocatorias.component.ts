@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TipoConvocatoria } from '../../models/clases/convocatoria/tipo-convocatoria';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+import { EstadoConv } from 'src/app/models/clases/convocatoria/estadoConv';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 // jquery
 declare var $: any;
@@ -25,12 +27,23 @@ export class ConvocatoriasComponent implements OnInit {
   href: string = '';
 
   listaConvocatoria: Convocatoria[] = [];
-  constructor(private formBuilder: FormBuilder, private router: Router, private editarConv:EditarConvocatoriaServicePhp) {
+  listaEstados:EstadoConv[]=[];
+  listaTiposConv:TipoConvocatoria[]=[];
+
+  constructor(private formBuilder: FormBuilder, 
+    private router: Router, 
+    private editarConv:EditarConvocatoriaServicePhp,
+    private cargarDatos:PhpServeConvocatoria) {
     this.buildForm();
     this.cargarDatosConvocatoria();
-    
+    this.cargarEstados();
+    this.cargarTiposConv();
     console.log("mi lista");
     console.log(this.listaConvocatoria);
+    console.log("mis estados");
+    console.log(this.listaEstados);
+    console.log("mis tipos de convocatoria");
+    console.log(this.listaTiposConv);
   }
 
   ngOnInit(): void {
@@ -48,27 +61,7 @@ export class ConvocatoriasComponent implements OnInit {
     }
   }
 
-  cargarDatosConvocatoria() {
-    let idDep=1;
-    this.editarConv.getConvocatorias(idDep).subscribe(
-      resultado => {
-        let conv:Convocatoria;
-        let tipo:TipoConvocatoria;
-        for (let i in resultado) {
-          let objAux:any=resultado[i];
-          tipo = new TipoConvocatoria(objAux.idTipoConv, objAux.tipoConv);
-          conv = new Convocatoria(
-            objAux.idTipoConv,
-            objAux.titulo,
-            objAux.gestion,
-            objAux.estado,
-            tipo
-          );
-          this.listaConvocatoria.push(conv);
-        }
-      }
-    );
-  }
+  
 
   listarTodo() {
     this.filtroGestion = '';
@@ -148,5 +141,51 @@ export class ConvocatoriasComponent implements OnInit {
   }
   get tipoFormIsInvalid() {
     return this.tipoForm.touched && this.tipoForm.invalid;
+  }
+
+  /**
+   * metodos que interactuan con la base de datos
+   */
+  cargarDatosConvocatoria() {
+    let idDep=1;
+    this.editarConv.getConvocatorias(idDep).subscribe(
+      resultado => {
+        let conv:Convocatoria;
+        let tipo:TipoConvocatoria;
+        for (let i in resultado) {
+          let objAux:any=resultado[i];
+          tipo = new TipoConvocatoria(objAux.idTipoConv, objAux.tipoConv);
+          conv = new Convocatoria(
+            objAux.idTipoConv,
+            objAux.titulo,
+            objAux.gestion,
+            objAux.estado,
+            tipo
+          );
+          this.listaConvocatoria.push(conv);
+        }
+      }
+    );
+  }
+
+  cargarEstados(){
+    this.cargarDatos.getEstadosConv().subscribe(
+      (resultado:EstadoConv[])=>{
+        for(let i in resultado){
+          this.listaEstados.push(resultado[i]);
+        }
+      }
+    )
+  }
+
+  cargarTiposConv(){
+    this.cargarDatos.getTipoConvocatoria(1).subscribe(
+      (resultado:TipoConvocatoria[])=>{
+        for(let i in resultado){
+          this.listaTiposConv.push(resultado[i]);
+        }
+      }
+    )
+    
   }
 }
