@@ -32,4 +32,8 @@ export class EditarConvocatoriaServicePhp {
   public getDatosRotulo(idConv: number) {
     return this.http.get(`${this.URL}obtenerDatosRotulo.php?idConv=${idConv}`);
   }
+
+  public getConvocatorias(idDep: number) {
+    return this.http.get(`${this.URL}obtenerConvocatorias.php?idDep=${idDep}`);
+  }
 }

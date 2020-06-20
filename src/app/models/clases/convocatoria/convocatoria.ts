@@ -14,6 +14,7 @@ export class Convocatoria{
         this.gestion    = gestion;
         this.estado     = estado;
         this.tipoConv   = tipo;
+        this.idConv=-1;
     }
 
     public getTitulo(): string{

@@ -29,6 +29,9 @@ export class PhpServeConvocatoria {
     return this.http.get(`${this.URL}obtenerTipoDatoRotulo.php`);
   }
 
+  public getEstadosConv(){
+    return this.http.get(`${this.URL}obtenerEstadosConv.php`);
+  }
   //agregar a la base de datos
   public crearConvocatoria(conv: Convocatoria) {
     return this.http.post(`${this.URL}crearConvocatoria.php`, JSON.stringify(conv));
@@ -57,4 +60,7 @@ export class PhpServeConvocatoria {
     return this.http.post(`${this.URL}establecerEventos.php`, JSON.stringify(listaEventos));
   }
 
+  public agregarDatosRotulo(listaDatos){
+    return this.http.post(`${this.URL}establecerTipoDatosRotulo.php`, JSON.stringify(listaDatos));
+  }
 }
