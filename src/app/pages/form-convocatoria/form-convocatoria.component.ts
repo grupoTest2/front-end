@@ -99,6 +99,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarCalificaciones();
     this.agregarMeritos();
     this.agregarEventos();
+    this.agregarDatosRotulo();
   }
   agregarRequerimientos(){
     if (this.listaRequerimientos.length !== 0){
@@ -199,5 +200,19 @@ export class FormConvocatoriaComponent implements OnInit {
   setListaRequerimientos(listaRequerientos) {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
     this.listaRequerimientos = listaRequerientos;
+  }
+
+  agregarDatosRotulo(){
+    if (this.listaDatosRotulo.length !== 0) {
+      this.apiPHP.agregarDatosRotulo(this.listaDatosRotulo).subscribe(
+        respuesta => {
+          if (respuesta['resultado'] === 'correcto') {
+            console.log('todo bien con los datos rotulo');
+          } else {
+            console.log('error con los datos rotulo');
+          }
+        }
+      );
+    }
   }
 }

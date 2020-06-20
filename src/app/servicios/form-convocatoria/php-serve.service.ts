@@ -57,4 +57,7 @@ export class PhpServeConvocatoria {
     return this.http.post(`${this.URL}establecerEventos.php`, JSON.stringify(listaEventos));
   }
 
+  public agregarDatosRotulo(listaDatos){
+    return this.http.post(`${this.URL}establecerTipoDatosRotulo.php`, JSON.stringify(listaDatos));
+  }
 }
