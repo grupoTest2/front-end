@@ -45,14 +45,14 @@ export class ConvocatoriasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarDatosConvocatoria();
+//    this.cargarDatosConvocatoria();
     this.cargarEstados();
     this.cargarTiposConv();
+    this.cargarDatosConvocatoria();
+
     this.href = this.router.url;
     if (this.href === '/editar/convocatorias') {
-      this.cargarDatosConvocatoria();
     }else{
-      this.cargarDatosConvocatoria();
       this.listaConvocatoriaComision();
     }
     $(function () {
@@ -81,7 +81,7 @@ export class ConvocatoriasComponent implements OnInit {
     for (let index = 0; index < this.listaConvocatoria.length; index++) {
       if (this.listaConvocatoria[index].getEstado().toLowerCase() === 'en curso' || 
           this.listaConvocatoria[index].getEstado().toLowerCase() === 'en configuracion') {
-         listaAuxiliar.push(this.listaConvocatoria[index]);
+          listaAuxiliar.push(this.listaConvocatoria[index]);
       }
     }
     this.listaConvocatoria = listaAuxiliar;

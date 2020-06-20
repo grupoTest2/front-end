@@ -29,7 +29,7 @@ export class PhpServeConvocatoria {
     return this.http.get(`${this.URL}obtenerTipoDatoRotulo.php`);
   }
 
-  public getEstadosConv(){
+  public getEstadosConv():any{
     return this.http.get(`${this.URL}obtenerEstadosConv.php`);
   }
   //agregar a la base de datos
