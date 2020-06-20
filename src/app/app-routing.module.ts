@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
-import { EditarConvocatoriaComponent } from './pages/editar-convocatoria/editar-convocatoria.component';
+import { ConvocatoriasComponent } from './pages/convocatorias/convocatorias.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,9 @@ const routes: Routes = [
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent },
   { path: 'crearConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editarConvocatoria/formulario', component: FormConvocatoriaComponent },
-  { path: 'editarConvocatoria', component: EditarConvocatoriaComponent },
+  { path: 'editar/convocatorias', component: ConvocatoriasComponent },
+  { path: 'convocatorias', component: ConvocatoriasComponent },
+  { path: 'comisiones', component: ComisionesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

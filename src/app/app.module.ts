@@ -24,11 +24,12 @@ import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvo
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { EditarConvocatoriaComponent } from './pages/editar-convocatoria/editar-convocatoria.component';
+import { ConvocatoriasComponent } from './pages/convocatorias/convocatorias.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FiltroConvocatoriasPipe } from './pipes/convocatoria/filtro-convocatorias.pipe';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,10 +46,11 @@ import { BlockUIModule } from 'ng-block-ui';
     TribunalesComponent,
     CrearConvocatoriaComponent,
     DatosRotuloComponent,
-    EditarConvocatoriaComponent,
+    ConvocatoriasComponent,
     HomeComponent,
     FiltroConvocatoriasPipe,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ComisionesComponent
     ],
   imports: [
     BrowserModule,

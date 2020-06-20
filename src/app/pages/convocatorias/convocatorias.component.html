@@ -69,14 +69,17 @@
                         <td class="text-center">{{item.getGestion() | titlecase}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
+                                <button routerLink="/comisiones" class="btn btn-outline-info mr-1" type="button" data-toggle="tooltip" data-placement="top" title="Habilitar Convocatoria" [disabled]="item.getEstado() != 'En configuracion'">
+                                    <i class="fa fa-file-alt"></i>
+                                </button>
                                 <button class="btn btn-outline-info mr-1" type="button" data-toggle="tooltip" data-placement="top" title="Habilitar Convocatoria" [disabled]="item.getEstado() != 'En configuracion'">
                                     <i class="fa fa-file-alt"></i>
                                 </button>
-                                <span data-toggle="modal" data-target="#tablaEditar">
-                                    <button class="btn btn-outline-success mr-1" type="button"  (click)="editar(item)"  [disabled]="item.getEstado() !='En configuracion'" data-toggle="tooltip" data-placement="top" title="Editar Convocatoria" >
+                                <button class="btn m-0 p-0" data-toggle="modal" data-target="#tablaEditar" [disabled]="item.getEstado() !='En configuracion'">
+                                    <button class="btn btn-outline-success mr-1" type="button" (click)="editar(item)" [disabled]="item.getEstado() !='En configuracion'" data-toggle="tooltip" data-placement="top" title="Editar Convocatoria">
                                         <i class="fa fa-pencil "></i>
                                     </button>
-                                </span>
+                                </button>
                                 <button class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Borrar Convocatoria" [disabled]="item.getEstado() !='En configuracion'">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>

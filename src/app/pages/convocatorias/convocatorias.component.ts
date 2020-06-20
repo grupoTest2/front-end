@@ -9,11 +9,11 @@ import { TipoConvocatoria } from '../../models/clases/convocatoria/tipo-convocat
 // jquery
 declare var $: any;
 @Component({
-  selector: 'app-editar-convocatoria',
-  templateUrl: './editar-convocatoria.component.html',
-  styleUrls: ['./editar-convocatoria.component.css']
+  selector: 'app-convocatorias',
+  templateUrl: './convocatorias.component.html',
+  styleUrls: ['./convocatorias.component.css']
 })
-export class EditarConvocatoriaComponent implements OnInit {
+export class ConvocatoriasComponent implements OnInit {
 
   formCrearConv: FormGroup;
   filtroGestion = '';
