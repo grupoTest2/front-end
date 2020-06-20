@@ -5,14 +5,15 @@ export class Usuario {
     private apellidoMaterno: string;
     private telefono: number;
     private usuario: string;
-
-    constructor(idUsuario: number, nombres: string, apllidoPaterno: string, apellidoMaterno: string, telefono: number, ususario: string) {
+    private correo:string;
+    constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string, telefono: number, usuario:string) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
-        this.apellidoPaterno = this.apellidoPaterno;
+        this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.correo=correo;
         this.telefono = telefono;
-        this.usuario = this.usuario;
+        this.usuario = usuario;
     }
 
     public getIdUsuario(): number {
