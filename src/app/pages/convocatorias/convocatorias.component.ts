@@ -26,11 +26,16 @@ export class ConvocatoriasComponent implements OnInit {
   listaConvocatoria: Convocatoria[] = [];
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.buildForm();
-    this.cargarDatosConvocatoria();
   }
 
   ngOnInit(): void {
     this.href = this.router.url;
+    if (this.href === '/editar/convocatorias') {
+      this.cargarDatosConvocatoria();
+    }else{
+      this.cargarDatosConvocatoria();
+      this.listaConvocatoriaComision();
+    }
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -82,11 +87,12 @@ export class ConvocatoriasComponent implements OnInit {
   listaConvocatoriaComision() {
     let listaAuxiliar:Convocatoria[]=[];
     for (let index = 0; index < this.listaConvocatoria.length; index++) {
-      if (this.listaConvocatoria[index].getEstado()==="en curso"||this.listaConvocatoria[i].getEstado()==="en configuracion") {
+      if (this.listaConvocatoria[index].getEstado().toLowerCase() === 'en curso' || 
+          this.listaConvocatoria[index].getEstado().toLowerCase() === 'en configuracion') {
          listaAuxiliar.push(this.listaConvocatoria[index]);
       }
     }
-    this.listaConvocatoria=listaAuxiliar;
+    this.listaConvocatoria = listaAuxiliar;
   }
 
   editar(item: Convocatoria) {
