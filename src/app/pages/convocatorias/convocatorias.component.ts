@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
 
+//rutas
+import { Router } from '@angular/router';
 
 // form y validaciones
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -19,20 +21,28 @@ export class ConvocatoriasComponent implements OnInit {
   filtroGestion = '';
   filtroTipo = '';
   filtroEstado = '';
-
+  href: string = '';
 
   listaConvocatoria: Convocatoria[] = [];
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.buildForm();
     this.cargarDatosConvocatoria();
    }
 
   ngOnInit(): void {
+    this.href = this.router.url;
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  } 
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  }
 
+  mostrar(): boolean{
+    if ( this.href === '/editar/convocatorias'){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   cargarDatosConvocatoria(){
     this.listaConvocatoria.push(new Convocatoria(1, "titulo convocatoria 1","2020",'No asignada', new TipoConvocatoria(2,'Docencia')));
