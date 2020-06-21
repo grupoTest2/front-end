@@ -19,14 +19,17 @@ export class SeleccionTipoDatoRotulo {
         }
     }
 
-    public getListaTiposDatosRotulo(){
+    public getListaTiposDatosRotulo():TipoDatoRotulo[]{
         return this.listaTiposDatosRotulo;
     }
-    /**
-     * recuperar los tiposDatoRotulo desde la base de datos cuando se esta editando la convocatoria
-     */
-    public recuperarTipoDatoRotuloBD() {
 
+    public setDatoRotulo(nombreDato:string){
+        for(let i in this.listaTiposDatosRotulo){
+            if(this.listaTiposDatosRotulo[i].getNombre()===nombreDato){
+                this.listaTiposDatosRotulo[i].setEnLista(true);
+                this.listaTiposDatosRotulo[i].setSeleccionado(true);
+                break;
+            }
+        }
     }
-
 }

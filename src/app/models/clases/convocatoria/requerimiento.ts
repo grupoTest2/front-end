@@ -7,6 +7,7 @@ export class Requerimiento {
     private idItem: number;
     private codigoAuxiliatura: string;
     private listaTematicas: Tematica[];
+    private accion: string;
 
     public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string, listaTematicas: Tematica[] = [], codigo: string = '') {
         this.idConv = parseInt(localStorage.getItem("idConv"));
@@ -15,6 +16,7 @@ export class Requerimiento {
         this.nombreMateria = nombreM;
         this.listaTematicas = listaTematicas;
         this.codigoAuxiliatura = codigo;
+        this.accion="nada";
     }
 
     public getCantidadItem(): number {
@@ -33,6 +35,14 @@ export class Requerimiento {
         return this.codigoAuxiliatura;
     }
 
+    public getAccion(): string {
+        return this.accion;
+    }
+
+    public setAccion(accion):void {
+        this.accion=accion;
+    }
+    
     public setIdMat(id: number): void {
         this.idItem = id;
     }

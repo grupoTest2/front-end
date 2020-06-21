@@ -1,10 +1,13 @@
 export class Requisito {
     private idConv: number;
+    private idRequisito: number;
     private descripcion: string;
-
-    public constructor(descripcion){
+    private accion: string;
+    public constructor(descripcion,idRequisto=-1){
         this.idConv        = parseInt(localStorage.getItem("idConv"));
         this.descripcion   = descripcion;
+        this.idRequisito=idRequisto;
+        this.accion="nada";
     }
 
     public getDescripcion(): string{
@@ -15,7 +18,16 @@ export class Requisito {
         return this.idConv;
     }
 
-    public setIdLanzConv(idLanzConv): void{
-        this.idConv = idLanzConv;
+    public getIdRequisito(): number{
+        return this.idRequisito
     }
+
+    public getAccion(): string{
+        return this.accion;
+    }
+
+    public setAccion(accion){
+        this.accion=accion;
+    }
+    
 }

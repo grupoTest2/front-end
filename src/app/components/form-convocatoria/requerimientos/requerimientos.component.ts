@@ -15,6 +15,8 @@ import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-re
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
 import { debounceTime } from 'rxjs/operators';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
 
 //jquery, toast, alertas
 declare var swal: any;
@@ -47,9 +49,13 @@ export class RequerimientosComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private apiPHP: PhpServeConvocatoria,
     private router: Router,
-    private datosConvocatoria: DatosConvocatoriaService) {
+    private datosConvocatoria: DatosConvocatoriaService,
+    private editarConv:EditarConvocatoriaServicePhp) {
     this.buildForm();
     this.getNombreItems();
+    this.getRequerimientosBD();
+    this.enviarLista();
+    console.log(this.listaRequerimientos);
   }
 
   ngOnInit(): void {
@@ -104,10 +110,12 @@ export class RequerimientosComponent implements OnInit {
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
     this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    this.requerimiento.setAccion("insertar");
     this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
     this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
     this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
     //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
+    console.log(this.requerimientosSeleccionados);
     this.enviarLista();
     tata.success('Agregado.', 'Se agregó con exito.');
     this.formRequerimientos.reset();
@@ -209,5 +217,23 @@ export class RequerimientosComponent implements OnInit {
     );
   }
 
+  getRequerimientosBD(): void {
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getRequerimientos(idConv).subscribe(
+      resultado=>{
+        let req: Requerimiento;
+        for(let i in resultado){
+          req=new Requerimiento(resultado[i].cantidadItem,
+            resultado[i].hrsAcademicas, 
+            resultado[i].nombreItem,
+            resultado[i].listaTematicas,
+            resultado[i].codigoItem);
+          this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
+        }
+        this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+      }
+    )
+  }
 
 }

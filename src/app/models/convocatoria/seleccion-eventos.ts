@@ -24,6 +24,7 @@ export class SeleccionEventos {
         let res: string;
         if (this.esValido(evento)) {
             if (!this.existeEvento(evento)) {
+                evento.convertirseString();
                 this.listaEventosSelecciados.push(evento);
                 res = "exito";
             } else {

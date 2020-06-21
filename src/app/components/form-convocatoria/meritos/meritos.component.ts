@@ -3,6 +3,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 //validacion
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+//servicios
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+
 //models
 import { Merito } from '../../../models/clases/convocatoria/merito';
 import { SeleccionMerito } from 'src/app/models/convocatoria/seleccion-meritos';
@@ -31,11 +34,12 @@ export class MeritosComponent implements OnInit {
   porcentajeMerito: number = 0;
   descripcionMerito: String = " ";
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp) {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     })
     this.buildForm();
+    this.getMeritosBD();
   }
 
   ngOnInit(): void {
@@ -47,6 +51,7 @@ export class MeritosComponent implements OnInit {
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentajeM1")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitosM1")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
+    merito.setAccion("insertar");
     let resp = this.seleccionMerito.agregarMerito(merito);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
     if (resp === 'exito') {
@@ -71,7 +76,7 @@ export class MeritosComponent implements OnInit {
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
     var merito: Merito = new Merito(tituloSubMerito, '', porcentajeSubMerito, []);
-
+    merito.setAccion("insertar");
     let resp = this.seleccionMerito.agregarSubMerito(merito, this.indice1);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
 
@@ -96,8 +101,10 @@ export class MeritosComponent implements OnInit {
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje3")).value);
     var descripcionMerito = (<HTMLInputElement>document.getElementById("requisitos3")).value;
     var merito: Merito = new Merito(tituloMerito, descripcionMerito, porcentaje, []);
+    merito.setAccion("insertar");
     let resp = this.seleccionMerito.agregarSubSubMerito(merito, this.indice1, this.indice2);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
+    console.log(this.tablasMeritos);
     if (resp === 'exito') {
       //el porcentaje esta en el rango que corresponde
       $('#modal3').modal('hide');
@@ -236,5 +243,46 @@ export class MeritosComponent implements OnInit {
     return this.porcentaje.touched && this.porcentaje.invalid;
   }
 
+  /**
+   * metodos que interaccuan con la base de datos
+   */
+  getMeritosBD(){
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getMeritos(idConv).subscribe(
+      resultado=>{
+        let me1: Merito;
+        for(let i in resultado){
+          me1=new Merito(resultado[i].titulo,
+            resultado[i].descripcion,
+            parseInt(resultado[i].porcentaje),
+            [],
+            resultado[i].idMerito);
+            this.seleccionMerito.agregarMerito(me1);
+            let listaMeritos1=resultado[i].listaMeritos;
+            let me2: Merito;
+            for(let j in listaMeritos1){
+              me2=new Merito(listaMeritos1[j].titulo,
+                listaMeritos1[j].descripcion,
+                parseInt(listaMeritos1[j].porcentaje),
+                [],
+                listaMeritos1[j].idMerito);
+              this.seleccionMerito.agregarSubMerito(me2,parseInt(i));
+              let listaMeritos2=listaMeritos1[j].listaMeritos;
+              let me3: Merito;
+              for(let k in listaMeritos2){
+                me3=new Merito(listaMeritos2[k].titulo,
+                  listaMeritos2[k].descripcion,
+                  parseInt(listaMeritos2[k].porcentaje),
+                  [],
+                  listaMeritos2[k].idMerito);
+                this.seleccionMerito.agregarSubSubMerito(me3,parseInt(i),parseInt(j));
+              }
+            }
+        }
+        //console.log(this.seleccionMerito.getTablaMeritos());
+        this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
+      }
+    )
+  }
 }
 

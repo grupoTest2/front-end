@@ -3,6 +3,9 @@ import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 //validacion
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+//servicios
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+
 //models
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
 import { SeleccionDocumentos } from 'src/app/models/convocatoria/seleccion-documentosPresentar';
@@ -23,9 +26,10 @@ export class DocumentosPresentarComponent implements OnInit {
   formDocumentos: FormGroup;
   seleccionDocumento:SeleccionDocumentos;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) { 
     this.buildForm();
     this.seleccionDocumento=new SeleccionDocumentos();
+    this.getDocumentosPresentar();
   }
 
   ngOnInit(): void {
@@ -34,6 +38,7 @@ export class DocumentosPresentarComponent implements OnInit {
   aniadirDocumento():void {
     let descripcionDocumento = $('#descripcionDocumento').val();
     this.documento = new DocumentoPresentar(descripcionDocumento);
+    this.documento.setAccion("insertar");
     let respuesta=this.seleccionDocumento.agregarDocumento(this.documento);
     if(respuesta==='exito'){
     this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
@@ -98,5 +103,22 @@ export class DocumentosPresentarComponent implements OnInit {
     }
     get detalleFormIsInvalid() {
       return this.detalleForm.touched && this.detalleForm.invalid;
+    }
+
+    /**
+     * metodos que interactuan con la base de datos
+     */
+
+    getDocumentosPresentar(){
+      let idConv: number = parseInt(localStorage.getItem('idConv'));
+      this.editarConv.getDocumentos(idConv).subscribe(
+        resultado=>{
+          for(let i in resultado){
+            this.documento=new DocumentoPresentar(resultado[i].descripcion,resultado[i].idDocumento);
+            this.seleccionDocumento.agregarDocumento(this.documento);
+          }
+          this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
+        }
+      )
     }
 }

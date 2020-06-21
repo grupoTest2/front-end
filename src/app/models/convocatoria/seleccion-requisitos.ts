@@ -32,9 +32,5 @@ export class SeleccionRequisito {
       return existe;
     }
 
-    public setIdLanzamientoConvocatoria(idLanzConv): void{
-      for(let i in this.listaRequisitosSeleccionados){
-        this.listaRequisitosSeleccionados[i].setIdLanzConv(idLanzConv);
-      }
-    }
+
 }

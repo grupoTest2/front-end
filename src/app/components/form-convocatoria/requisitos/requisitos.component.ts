@@ -4,8 +4,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //servicios
-import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
-
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 //models
 import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { SeleccionRequisito } from 'src/app/models/convocatoria/seleccion-requisitos';
@@ -26,8 +25,9 @@ export class RequisitosComponent implements OnInit {
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
 
-  constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
+  constructor(private editarConv: EditarConvocatoriaServicePhp, private formBuilder: FormBuilder) {
     this.buildForm();
+    this.getRequisitosBD();
   }
   
   ngOnInit(): void {
@@ -42,9 +42,11 @@ export class RequisitosComponent implements OnInit {
   agregarRequisito(): void{
     let descripcionRequisito = $('#descripcionRequisito').val();
     this.requisito = new Requisito(descripcionRequisito);
+    this.requisito.setAccion("insertar");
     let respuesta =this.seleccionRequisitos.agregarRequisito(this.requisito);
     if(respuesta==='exito'){
     this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
+    console.log(this.listaRequisitos);
     tata.success('Agregado.', 'Se agregó con exito.');
     // this.formRequisitos.reset();
     $('#tablaRequisitos').modal('hide');
@@ -103,22 +105,22 @@ export class RequisitosComponent implements OnInit {
   }
 
   
-  //bd---------------------------------------------------
-  agregarRequisitosBD(idLanzConv):boolean{
-    let resp:boolean=false;
-    // this.seleccionRequisitos.setIdLanzamientoConvocatoria(idLanzConv);
-    this.apiPHP.agregarRequisitos(this.seleccionRequisitos.getListaRequisitosSeleccionados()).subscribe(
-      datos => {
-        if(datos['resultado']=="correcto"){
-          //se agrego correctamente
-          resp=true;
-        }else{
-          //ocurrio un error al guardar los datos 
+  /**
+   * metodos que interactuan con el servidor php y la base de datos
+   */
+
+   getRequisitosBD(){
+     let idConv: number= parseInt(localStorage.getItem("idConv"));
+     this.editarConv.getRequisitos(idConv).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.requisito=new Requisito(resultado[i].descripcion,resultado[i].idRequisito);
+          this.seleccionRequisitos.agregarRequisito(this.requisito);
         }
-        alert(datos['mensaje']);
+        this.listaRequisitos=this.seleccionRequisitos.getListaRequisitosSeleccionados();
       }
-    );
-    return resp;
-  }
+     )
+
+   }
 
 }

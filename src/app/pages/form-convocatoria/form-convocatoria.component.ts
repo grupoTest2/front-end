@@ -96,7 +96,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarRequerimientos();
     this.agregarRequisitos();
     this.agregarDocumentosPresentar();
-    this.agregarCalificaciones();
+    //this.agregarCalificaciones();
     this.agregarMeritos();
     this.agregarEventos();
     this.agregarDatosRotulo();
@@ -203,6 +203,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   agregarDatosRotulo(){
+    console.log(JSON.stringify(this.listaDatosRotulo));
     if (this.listaDatosRotulo.length !== 0) {
       this.apiPHP.agregarDatosRotulo(this.listaDatosRotulo).subscribe(
         respuesta => {

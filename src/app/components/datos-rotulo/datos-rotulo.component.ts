@@ -5,6 +5,7 @@ import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-se
 import { logging } from 'protractor';
 import { MatSlideToggleModule, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 
 declare var $: any;
 @Component({
@@ -24,29 +25,16 @@ export class DatosRotuloComponent implements OnInit {
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
   numeroDeEnLista:number=0;
-  constructor(private apiPHP: PhpServeConvocatoria) {
+  constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp) {
     this.getTipoDatosRotulo();
+    this.getTipoDatosRotuloBD()
   }
   ngOnInit(): void {
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });
   }
-  /**
-   * metodos que interactuan con la base de datos
-   */
-  getTipoDatosRotulo() {
-    let listaTipos: object[] = new Array();
-    this.apiPHP.getTipoDatosRotulo().subscribe(
-      resultado => {
-        for (let i in resultado) {
-          listaTipos.push(resultado[i]);
-        }
-        this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
-      }
-    );
-  }
+  
 
   cambioBandera(index: number): void {
     console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
@@ -102,6 +90,7 @@ export class DatosRotuloComponent implements OnInit {
       conteoEnLista+=1;
      }
     }
+    console.log(this.seleccion.getListaTiposDatosRotulo());
     this. numeroDeEnLista=this.seleccion.getListaTiposDatosRotulo().length-conteoEnLista;
   }
 
@@ -128,4 +117,35 @@ export class DatosRotuloComponent implements OnInit {
     }
     return listaDatosR;
   }
+
+  /**
+   * metodos que interactuan con la base de datos
+   */
+  getTipoDatosRotulo() {
+    let listaTipos: object[] = new Array();
+    this.apiPHP.getTipoDatosRotulo().subscribe(
+      resultado => {
+        for (let i in resultado) {
+          listaTipos.push(resultado[i]);
+        }
+        this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+      }
+    );
+  }
+  /**
+   * recupera la configuracion de una convocatoria
+   */
+  getTipoDatosRotuloBD(){
+    let idConv: number= parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getDatosRotulo(idConv).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.seleccion.setDatoRotulo(resultado[i].nombre);
+        }
+      }
+    )
+  }
+
+
 }

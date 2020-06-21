@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //servicio
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 
 //models
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
@@ -31,12 +32,15 @@ export class FechasComponent implements OnInit {
   listaEventos: Object[] = new Array();
   seleccionEventos: SeleccionEventos;
 
-  constructor(private apiPHP: PhpServeConvocatoria, private formBuilder: FormBuilder) {
+  constructor(private apiPHP: PhpServeConvocatoria, 
+    private formBuilder: FormBuilder,
+    private editarConv:EditarConvocatoriaServicePhp) {
     this.buildForm();
     this.seleccionEventos = new SeleccionEventos();
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 5, 12, 31);
     this.maxDate = new Date(currentYear + 5, 12, 31);
+    this.getEventosBD();
   }
 
   ngOnInit(): void {
@@ -51,6 +55,7 @@ export class FechasComponent implements OnInit {
     //creamos el evento
     this.evento = new Evento(nombreNombre, fecha, hora);
     //agregamos el evento
+    this.evento.setAccion("insertar");
     let resp = this.seleccionEventos.agregarEvento(this.evento);
     if (resp==='exito') {
       //la fecha es valida respecto a la anterior
@@ -66,7 +71,8 @@ export class FechasComponent implements OnInit {
        //$('#hora').val("");
     }
     this.listaEventosSeleccionados = this.seleccionEventos.getListaEventosSeleccionados();
-    this.seleccionEventos.convertirEventosBD();
+    console.log(this.listaEventosSeleccionados);
+    //this.seleccionEventos.convertirEventosBD();
   }
 
   ErrorAlInsertarEvento(mensaje:string='Formulario invalido'){
@@ -150,12 +156,28 @@ export class FechasComponent implements OnInit {
   }
 
 
-  //bd-----------------------------------------------------------------------
-  agregarEventosBD(): void {
-    this.apiPHP.agregarEventos(this.seleccionEventos.getListaEventosSeleccionados()).subscribe(
-      datos => {
-        alert(datos['mensaje']);
+ /**
+  * metodos que interactuan con la base de datos
+  */
+  getEventosBD(){
+    let idConv: number =  parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getEventos(idConv).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.evento=new Evento(
+            resultado[i].nombre,
+            resultado[i].fechaFin,
+            resultado[i].horaFin,
+            resultado[i].horaInicio,
+            resultado[i].idEvento
+          );
+          //this.evento.setFechaIniString(resultado[i].fechaInicio);
+          //this.evento.setFechaFinString(resultado[i].fechaFin)
+          this.seleccionEventos.agregarEvento(this.evento);
+        }
+        //console.log(this.seleccionEventos.getListaEventosSeleccionados());
+        this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
       }
-    );
+    )
   }
 }

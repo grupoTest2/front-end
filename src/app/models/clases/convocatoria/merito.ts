@@ -5,14 +5,15 @@ export class Merito {
   private descripcion: string;
   private porcentaje: number;
   private listaMeritos: Merito[];
-
-  public constructor(titulo: string, descrip: string, porcentaje: number, listaMeritos: Merito[] = []) {
+  private accion:string;
+  public constructor(titulo: string, descrip: string, porcentaje: number, listaMeritos: Merito[] = [],idMerito=-1) {
     this.idConv = parseInt(localStorage.getItem("idConv"));
     this.titulo = titulo;
     this.descripcion = descrip;
     this.porcentaje = porcentaje;
     this.listaMeritos = listaMeritos;
-    this.idMerito=-1;
+    this.idMerito=idMerito;
+    this.accion="nada";
   }
 
   public getTitulo(): string {
@@ -31,8 +32,8 @@ export class Merito {
     return this.listaMeritos;
   }
 
-  public setLanzConv(idLanzConv): void {
-    this.idConv = idLanzConv;
+  public setAccion(accion):void{
+    this.accion=accion;
   }
 
   public agregarMerito(merito: Merito): string {
