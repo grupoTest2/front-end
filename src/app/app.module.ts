@@ -31,6 +31,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { BlockUIModule } from 'ng-block-ui';
 import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/editar-convocatoria.service';
+import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/ed
     HomeComponent,
     FiltroConvocatoriasPipe,
     LoadingSpinnerComponent,
-    ComisionesComponent
+    ComisionesComponent,
+    FormRegistroComponent
     ],
   imports: [
     BrowserModule,
