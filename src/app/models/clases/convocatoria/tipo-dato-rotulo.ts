@@ -1,16 +1,17 @@
 export class TipoDatoRotulo {
     private idConv: number;
-    private idDato:number;
+    private idDato: number;
     private nombre: string;
     private seleccionado: boolean;
-    private enLista:boolean;
+    private enLista: boolean;
     private accion: string;
+    private tipo: any;
     public constructor(nombre: string, seleccionado: boolean,enLista:boolean=false) {
         this.idConv        = parseInt(localStorage.getItem("idConv"));
         this.nombre = nombre;
         this.seleccionado = seleccionado;
-        this.enLista=enLista;
-        this.accion="nada";
+        this.enLista = enLista;
+        this.accion ="nada";
     }
 
     public getNombre(): string {

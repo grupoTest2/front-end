@@ -6,6 +6,7 @@ import { ConvocatoriasComponent } from './pages/convocatorias/convocatorias.comp
 import { HomeComponent } from './pages/home/home.component';
 import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
+import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'crearConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editarConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editar/convocatorias', component: ConvocatoriasComponent },
-  { path: 'formularioRegistro', component: FormRegistroComponent },
+  { path: 'formularioRegistro', component: FormPostulanteComponent },
+  { path: 'formularioMiembro', component: FormRegistroComponent},
   { path: 'convocatorias', component: ConvocatoriasComponent },
   { path: 'comisiones', component: ComisionesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },

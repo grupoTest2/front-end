@@ -142,8 +142,8 @@ export class DatosRotuloComponent implements OnInit {
     this.editarConv.getDatosRotulo(idConv).subscribe(
       resultado=>{
         for(let i in resultado){
-          console.log("------------------------");
-          console.log(resultado[i].nombre);
+          console.log("------------------------lista datos");
+          console.log(resultado[i]);
           this.seleccion.setDatoRotulo(resultado[i].nombre);
         }
       }
