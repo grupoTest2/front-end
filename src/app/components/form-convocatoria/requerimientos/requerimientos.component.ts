@@ -54,8 +54,7 @@ export class RequerimientosComponent implements OnInit {
     this.buildForm();
     this.getNombreItems();
     this.getRequerimientosBD();
-    this.enviarLista();
-    console.log(this.listaRequerimientos);
+    
   }
 
   ngOnInit(): void {
@@ -222,16 +221,27 @@ export class RequerimientosComponent implements OnInit {
     this.editarConv.getRequerimientos(idConv).subscribe(
       resultado=>{
         let req: Requerimiento;
+        let tem: Tematica;
+        let listaTem:Tematica[];
         for(let i in resultado){
+          let listaAux2=resultado[i].listaTematicas;
+          listaTem=[];
+          for(let j in listaAux2){
+            tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota);
+            listaTem.push(tem);
+          }
           req=new Requerimiento(resultado[i].cantidadItem,
             resultado[i].hrsAcademicas, 
             resultado[i].nombreItem,
-            resultado[i].listaTematicas,
+            listaTem,
             resultado[i].codigoItem);
           this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
+          
         }
         this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+        console.log(this.requerimientosSeleccionados);
         this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        this.enviarLista();
       }
     )
   }

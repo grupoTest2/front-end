@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 // formularios
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+//servicios
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service'; 
+
 // model
 import { Tematica } from '../../../models/clases/convocatoria/tematica';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
@@ -28,9 +31,9 @@ export class CalificacionConocimientosComponent implements OnInit {
   href: string = '';
   listaTematicas: string[] = [];
   listaItems: Requerimiento[] = [];
-
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
+    this.getRequerimientosBD()
   }
 
   ngOnInit(): void {
@@ -48,7 +51,9 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
 
-  setListaRequerimiento(listaRequeriminetos): void {
+  setListaRequerimiento(listaRequeriminetos:Requerimiento[]): void {
+    console.log("----------------------xd");
+    console.log(listaRequeriminetos);
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
@@ -76,12 +81,16 @@ export class CalificacionConocimientosComponent implements OnInit {
             aux++;
           }
           let tematica: Tematica = new Tematica(this.listaTematicas[this.listaTematicas.length-1], nota);
+          tematica.setAccion("insertar");
           this.listaItems[i].getListaTematica().push(tematica);
         }
         else {
           for (let j = 0; j < this.listaTematicas.length; j++) {
-            if (this.listaItems[i].getListaTematica().length <= j)
-              this.listaItems[i].getListaTematica().push(new Tematica(this.listaTematicas[j], 0));
+            if (this.listaItems[i].getListaTematica().length <= j){
+              let tem: Tematica = new Tematica(this.listaTematicas[j], 0);
+              tem.setAccion("insertar");
+              this.listaItems[i].getListaTematica().push(tem);
+            }
           }
         }
       }
@@ -210,4 +219,41 @@ export class CalificacionConocimientosComponent implements OnInit {
     return this.nota.touched && this.nota.invalid;
   }
   // fin validaciones
+
+  /**
+   * metodos que interactuan con la base de datos
+   */
+  getRequerimientosBD(): void {
+    let bandera=true;
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getRequerimientos(idConv).subscribe(
+      resultado=>{
+        let req: Requerimiento;
+        let listaAux: Requerimiento[]=[];
+        let tem: Tematica;
+        let listaTem : Tematica[];
+        for(let i in resultado){
+          let listaAux2=resultado[i].listaTematicas;
+          listaTem=[];
+          for(let j in listaAux2){
+            tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota);
+            listaTem.push(tem);
+            if(bandera){  
+              console.log("lista tematicas XD");
+              console.log(listaTem);
+              this.listaTematicas.push(tem.getNombre());
+            }
+          }
+          bandera=false;
+          req=new Requerimiento(resultado[i].cantidadItem,
+            resultado[i].hrsAcademicas, 
+            resultado[i].nombreItem,
+            listaTem,
+            resultado[i].codigoItem);
+          listaAux.push(req);
+        }
+        this.setListaRequerimiento(listaAux);
+      }
+    )
+  }
 }

@@ -49,7 +49,7 @@ export class FormConvocatoriaComponent implements OnInit {
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
   listaDatosRotulo: TipoDatoRotulo[] = [];
-
+  listaJhon: Requerimiento[];
   // lista de los requerimientos
   listaRequerimientos: any = [];
   tituloConvocatoria: string = '';
@@ -76,7 +76,15 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
 
-
+  // modificando la lsta de codigos de la componente calificaciones
+  setListaRequerimientos(listaRequerimientos:Requerimiento[]) {
+    console.log("jhon putito");
+    console.log(listaRequerimientos);
+    console.log("xdxdxdxdxdxdxdxd");
+    console.log(this.calificacionConocimiento);
+    this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
+    this.listaRequerimientos = listaRequerimientos;
+  }
   // metodo que recu[era todos los datos
   recuperarLosDatosDeLosComponentes() {
     this.listaRequerimientos = this.requerimiento.getDatos();
@@ -96,7 +104,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarRequerimientos();
     this.agregarRequisitos();
     this.agregarDocumentosPresentar();
-    //this.agregarCalificaciones();
+    this.agregarCalificaciones();
     this.agregarMeritos();
     this.agregarEventos();
     this.agregarDatosRotulo();
@@ -169,6 +177,7 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
   }
+
   agregarMeritos() {
     if (this.listaDatosMerito.length !== 0) {
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
@@ -196,11 +205,7 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
   }
-  // modificando la lsta de codigos de la componente calificaciones
-  setListaRequerimientos(listaRequerientos) {
-    this.calificacionConocimiento.setListaRequerimiento(listaRequerientos);
-    this.listaRequerimientos = listaRequerientos;
-  }
+ 
 
   agregarDatosRotulo(){
     console.log(JSON.stringify(this.listaDatosRotulo));
