@@ -236,7 +236,7 @@ export class CalificacionConocimientosComponent implements OnInit {
           let listaAux2=resultado[i].listaTematicas;
           listaTem=[];
           for(let j in listaAux2){
-            tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota);
+            tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota,listaAux2[j].idTematica);
             listaTem.push(tem);
             if(bandera){  
               console.log("lista tematicas XD");
@@ -250,6 +250,7 @@ export class CalificacionConocimientosComponent implements OnInit {
             resultado[i].nombreItem,
             listaTem,
             resultado[i].codigoItem);
+          req.setIdMat(resultado[i].idItem);
           listaAux.push(req);
         }
         this.setListaRequerimiento(listaAux);

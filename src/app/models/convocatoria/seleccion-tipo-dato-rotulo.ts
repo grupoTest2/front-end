@@ -27,7 +27,8 @@ export class SeleccionTipoDatoRotulo {
         for(let i in this.listaTiposDatosRotulo){
             if(this.listaTiposDatosRotulo[i].getNombre()===nombreDato){
                 this.listaTiposDatosRotulo[i].setEnLista(true);
-                this.listaTiposDatosRotulo[i].setSeleccionado(true);
+                //this.listaTiposDatosRotulo[i].setSeleccionado(true);
+                //this.listaTiposDatosRotulo[i].setAccion("nada");
                 break;
             }
         }

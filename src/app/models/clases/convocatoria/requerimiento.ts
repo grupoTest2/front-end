@@ -9,13 +9,14 @@ export class Requerimiento {
     private listaTematicas: Tematica[];
     private accion: string;
 
-    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string, listaTematicas: Tematica[] = [], codigo: string = '') {
+    public constructor(cantidadItem: number, hrsAcademica: number, nombreM: string, listaTematicas: Tematica[] = [], codigo: string = '',idItem=-1) {
         this.idConv = parseInt(localStorage.getItem("idConv"));
         this.cantidadItem = cantidadItem;
         this.hrsAcademicas = hrsAcademica;
         this.nombreMateria = nombreM;
         this.listaTematicas = listaTematicas;
         this.codigoAuxiliatura = codigo;
+        this.idItem=idItem;
         this.accion="nada";
     }
 

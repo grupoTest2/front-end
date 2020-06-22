@@ -87,6 +87,7 @@ export class DatosRotuloComponent implements OnInit {
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
      if(this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()){
       this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
+      this.seleccion.getListaTiposDatosRotulo()[i].setAccion("insertar");
       conteoEnLista+=1;
      }
     }
@@ -141,6 +142,8 @@ export class DatosRotuloComponent implements OnInit {
     this.editarConv.getDatosRotulo(idConv).subscribe(
       resultado=>{
         for(let i in resultado){
+          console.log("------------------------");
+          console.log(resultado[i].nombre);
           this.seleccion.setDatoRotulo(resultado[i].nombre);
         }
       }
