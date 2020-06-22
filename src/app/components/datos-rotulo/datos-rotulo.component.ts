@@ -118,6 +118,13 @@ export class DatosRotuloComponent implements OnInit {
     }
     return listaDatosR;
   }
+  
+  /**
+   *indica si la convocatoria es apta para ser lanzada 
+   */
+  estaHabilitado(){
+    return this.seleccion.estaHabilitado();
+  }
 
   /**
    * metodos que interactuan con la base de datos

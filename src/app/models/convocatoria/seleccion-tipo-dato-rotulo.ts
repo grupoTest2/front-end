@@ -33,4 +33,28 @@ export class SeleccionTipoDatoRotulo {
             }
         }
     }
+
+    public estaHabilitado(){
+        let res: boolean=false;
+        for(let i in this.listaTiposDatosRotulo){
+            if(this.listaTiposDatosRotulo[i].getNombre()=="Nombre"||this.listaTiposDatosRotulo[i].getNombre()=="Apellido"){
+                if(this.listaTiposDatosRotulo[i].getEnLista()){
+                    res=true;
+                }else{
+                    res=false;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+    public cantDatosEnLista(): number{
+        let cont: number=0;
+        for(let i in this.listaTiposDatosRotulo){
+            if(this.listaTiposDatosRotulo[i].getEnLista()){
+                cont++;
+            }
+        }
+        return cont;
+    }
 }

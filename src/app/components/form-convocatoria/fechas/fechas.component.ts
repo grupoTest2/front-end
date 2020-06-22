@@ -29,7 +29,7 @@ export class FechasComponent implements OnInit {
   formEventos: FormGroup
   evento: Evento;
   listaEventosSeleccionados: Evento[] = [];
-  listaEventos: Object[] = new Array();
+
   seleccionEventos: SeleccionEventos;
 
   constructor(private apiPHP: PhpServeConvocatoria, 
@@ -154,7 +154,12 @@ export class FechasComponent implements OnInit {
       $('#hora').val("");
     }
   }
-
+  /**
+   *indica si la convocatoria es apta para ser lanzada 
+   */
+  estaHabilitado(){
+    return this.listaEventosSeleccionados.length>1;
+  }
 
  /**
   * metodos que interactuan con la base de datos

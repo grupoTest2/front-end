@@ -199,8 +199,12 @@ export class RequerimientosComponent implements OnInit {
     return this.item.touched && this.item.invalid;
   }
 
-
-
+  /**
+   * verificar si es apto para que la convocatoria sea lanzada
+   */
+  estaHabilitado(){
+    return this.requerimientosSeleccionados.length>0;
+  }
   /*-------------interaccion con la base de datos---------------------*/
   getNombreItems(): void {
     let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
