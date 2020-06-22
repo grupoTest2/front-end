@@ -105,6 +105,13 @@ export class DocumentosPresentarComponent implements OnInit {
       return this.detalleForm.touched && this.detalleForm.invalid;
     }
 
+    
+    /**
+     *indica si la convocatoria es apta para ser lanzada 
+    */
+    estaHabilitado(){
+      return this.listaDocumentos.length>0;
+    }
     /**
      * metodos que interactuan con la base de datos
      */

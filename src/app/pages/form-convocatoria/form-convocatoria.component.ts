@@ -65,7 +65,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-
+    
   }
   ngOnInit(): void {
     this.blockUI.start("cargando");
@@ -75,7 +75,9 @@ export class FormConvocatoriaComponent implements OnInit {
     }, 3500);
   }
 
-
+  estaHabilitado(){
+    return this.requerimiento.estaHabilitado();
+  }
   // modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerimientos:Requerimiento[]) {
     console.log("jhon putito");

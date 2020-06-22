@@ -220,6 +220,25 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
   // fin validaciones
 
+  
+  /**
+   *indica si la convocatoria es apta para ser lanzada 
+   */
+  estaHabilitado(){
+    let res: boolean=true;
+    if(this.listaTematicas.length>0){
+      for(let i in this.listaItems){
+        res=this.listaItems[i].getNotaDisponible()==0;
+        if(!res){
+          break;
+        }
+      }
+    }else{
+      res=false;
+    }
+    return res;
+  }
+
   /**
    * metodos que interactuan con la base de datos
    */

@@ -104,6 +104,12 @@ export class RequisitosComponent implements OnInit {
     return this.detalleForm.touched && this.detalleForm.invalid;
   }
 
+  /**
+   *indica si la convocatoria es apta para ser lanzada 
+   */
+  estaHabilitado(){
+    return this.listaRequisitos.length>0;
+  }
   
   /**
    * metodos que interactuan con el servidor php y la base de datos

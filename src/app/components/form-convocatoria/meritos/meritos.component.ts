@@ -242,7 +242,12 @@ export class MeritosComponent implements OnInit {
   get porcentajeIsInvalid() {
     return this.porcentaje.touched && this.porcentaje.invalid;
   }
-
+    /**
+   *indica si la convocatoria es apta para ser lanzada 
+   */
+  estaHabilitado(){
+    return this.seleccionMerito.getPorcentajeDisponible()==0;
+  }
   /**
    * metodos que interaccuan con la base de datos
    */
