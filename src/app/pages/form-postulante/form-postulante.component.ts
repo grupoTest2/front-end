@@ -76,14 +76,13 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "11").css('display', 'block');
           }
           if (value.length < 1 && value.length > 0) {
-            console.log("ongreso algunos datos")
             $("#" + id).addClass("is-invalid");
-            let res = $("#" + id).addClass("is-invalid");
             $("#" + id + "11").css('display', 'none');
             $("#" + id + "12").css('display', 'block');
           }
           if (value.length >= 1) {
             $("#" + id).removeClass("is-invalid");
+            $("#" + id).addClass("is-valid");
             $("#" + id + "11").css('display', 'none');
             $("#" + id + "12").css('display', 'none');
           }
@@ -96,14 +95,13 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "22").css('display', 'none');
           }
           if (value.length < 2 && value.length > 0) {
-            console.log("ongreso algunos datos")
             $("#" + id).addClass("is-invalid");
-            let res = $("#" + id).addClass("is-invalid");
             $("#" + id + "21").css('display', 'none');
             $("#" + id + "22").css('display', 'block');
           }
           if (value.length >= 2) {
             $("#" + id).removeClass("is-invalid");
+            $("#" + id).addClass("is-valid");
             $("#" + id + "21").css('display', 'none');
             $("#" + id + "22").css('display', 'none');
           }
@@ -118,7 +116,7 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "32").css('display', 'none');
             $("#" + id + "33").css('display', 'none');
           }
-          if (value.length < 4 && value.length > 0) {
+          if (value.length < 5 && value.length > 0) {
             $("#" + id).removeClass("is-valid");
             $("#" + id).addClass("is-invalid");
             $("#" + id + "31").css('display', 'none');
@@ -126,11 +124,18 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "33").css('display', 'none');
           }
           if (value.length >= 5) {
-            if (value.indexOf('@', 0) == -1 || $("#email").val().indexOf('.', 0) == -1) {
+            if (value.indexOf('@', 0) == -1 || $("#"+id).val().indexOf('.', 0) == -1) {
               $("#" + id).addClass("is-invalid");
               $("#" + id + "31").css('display', 'none');
               $("#" + id + "32").css('display', 'none');
               $("#" + id + "33").css('display', 'block');
+            }
+            if (!(value.indexOf('@', 0) == -1 || $("#"+id).val().indexOf('.', 0) == -1)) {
+              $("#" + id).removeClass("is-invalid");
+              $("#" + id).addClass("is-valid");
+              $("#" + id + "31").css('display', 'none');
+              $("#" + id + "32").css('display', 'none');
+              $("#" + id + "33").css('display', 'none');
             }
           }
         }
