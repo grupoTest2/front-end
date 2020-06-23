@@ -200,11 +200,9 @@ export class FormPostulanteComponent implements OnInit {
             }
           }
         }
-
       })
     }
   }
-
 
   guardarDatos() {
     let contador = 0;
