@@ -18,7 +18,7 @@ export class FormPostulanteComponent implements OnInit {
 
   listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
-  postulante:Postulante;
+  postulante: Postulante;
 
   listaDatosRotulo: TipoDatoRotulo[] = [];
   bandera = true;
@@ -40,6 +40,9 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $('.switch').click(function () {
+      $(this).toggleClass("switchOn");
+    });
   }
   cargarDatos() {
     this.listaDatosRotulo.push(new TipoDatoRotulo("nombre", true, true, "text"));
@@ -76,8 +79,8 @@ export class FormPostulanteComponent implements OnInit {
 
 
   validarDato() {
-    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-      let id = this.listaDatosRotulo[index].getNombre();
+    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+      let id = this.listaDatosPostulante[index].getNombreDato();
       let aux = document.getElementById(id);
       let inputTipe = $("#" + id).attr('type');
       aux.addEventListener("blur", function (event) {
@@ -212,10 +215,31 @@ export class FormPostulanteComponent implements OnInit {
             }
           }
         }
-
       })
     }
   }
+
+  seleccionItem(index: number) {
+    if (this.listaItems[index].getSeleccionado()) {
+      this.listaItems[index].setSeleccionado(false);
+    }
+    else {
+      this.listaItems[index].setSeleccionado(true);
+    }
+  }
+
+  cambio(){
+    this.presionandoSwitch(false) 
+  }
+
+  presionandoSwitch(bandera) {
+    if(bandera){
+    console.log("presiono el switch ---------------------------")
+    $('.switch').click();
+    }
+  }
+
+
 
 
   guardarDatos() {
@@ -254,33 +278,35 @@ export class FormPostulanteComponent implements OnInit {
   /**
    * metodos que interactuan con la base de datos
    */
-  getItemsBD(){
-    let idConv: number=3;
+  getItemsBD() {
+    let idConv: number = 5;
     this.servicePostulante.getItems(idConv).subscribe(
-      (resultado:Item)=>{
-        this.listaItems.push(resultado);
+      (resultado: Item) => {
+        let item: Item;
+        for (let i in resultado) {
+          item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
+          this.listaItems.push(item);
+        }
       }
     )
-    console.log("la lista de items desde la base de datos");
-    console.log(this.listaItems);
   }
 
-  getDatosRotuloConvBD(){
-    let idConv: number=3;
+  getDatosRotuloConvBD() {
+    let idConv: number = 5;
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
-      resultado=>{
+      resultado => {
         let datoP: DatosPostulante;
-        for(let i in resultado){
-          datoP= new DatosPostulante(resultado[i].idTipo,resultado[i].nombre);
+        for (let i in resultado) {
+          datoP = new DatosPostulante(resultado[i].idTipo, resultado[i].nombre);
           this.listaDatosPostulante.push(datoP);
         }
       }
     )
-    
+
     console.log("la lista de datos rotulo desde la base de datos");
     console.log(this.listaDatosPostulante);
 
   }
-  
+
 }
 
