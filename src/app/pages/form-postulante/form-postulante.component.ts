@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { DatosPostulante } from 'src/app/models/clases/postulante/datos-postulante';
+import { Item } from 'src/app/models/clases/postulante/item';
+import { Postulante } from 'src/app/models/clases/postulante/postulante';
+import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 
 declare var $: any;
 
@@ -11,6 +15,10 @@ declare var $: any;
   styleUrls: ['./form-postulante.component.css']
 })
 export class FormPostulanteComponent implements OnInit {
+
+  listaDatosPostulante: DatosPostulante[] = [];
+  listaItems: Item[] = [];
+  postulante:Postulante;
 
   listaDatosRotulo: TipoDatoRotulo[] = [];
   bandera = true;
@@ -24,9 +32,13 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailVacio = "campo de correo vacio"
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
-  constructor() {
+
+  constructor(private servicePostulante: PostulanteServicePhp) {
     this.cargarDatos();
+    this.getItemsBD();
+    this.getDatosRotuloConvBD();
   }
+
   ngOnInit(): void {
   }
   cargarDatos() {
@@ -238,5 +250,37 @@ export class FormPostulanteComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * metodos que interactuan con la base de datos
+   */
+  getItemsBD(){
+    let idConv: number=3;
+    this.servicePostulante.getItems(idConv).subscribe(
+      (resultado:Item)=>{
+        this.listaItems.push(resultado);
+      }
+    )
+    console.log("la lista de items desde la base de datos");
+    console.log(this.listaItems);
+  }
+
+  getDatosRotuloConvBD(){
+    let idConv: number=3;
+    this.servicePostulante.getDatosPostulante(idConv).subscribe(
+      resultado=>{
+        let datoP: DatosPostulante;
+        for(let i in resultado){
+          datoP= new DatosPostulante(resultado[i].idTipo,resultado[i].nombre);
+          this.listaDatosPostulante.push(datoP);
+        }
+      }
+    )
+    
+    console.log("la lista de datos rotulo desde la base de datos");
+    console.log(this.listaDatosPostulante);
+
+  }
+  
 }
 
