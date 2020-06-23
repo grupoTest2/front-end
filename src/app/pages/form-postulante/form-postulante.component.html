@@ -6,14 +6,26 @@
                 <hr class="border border-light bg-secondary">
             </div>
             <form class="form p-t-20">
-                <div class="form-group">
-                    <label for="exampleInputpwd2">Nombres</label>
+                <div class="form-group" *ngFor="let item of listaDatosRotulo">
+                    <label for="exampleInputpwd2">{{item.getNombre()}}</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="exampleInputpwd2" placeholder="Ingrese sus nombres">
-                        <span class="btn disabled" style="background-color: #e9ecef; border: 1px solid rgba(0,0,0,.15); border-radius: 0px 0.25rem 0.25rem 0px;"><i class="far fa-user"></i></span>
+                        <input type="{{item.getTipo()}}" class="form-control" id="{{item.getNombre()}}" placeholder="Ingrese su {{item.getNombre()}}">
                     </div>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}11" style="display: none;">{{msjErrorNumericoVacio}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}12" style="display: none;">{{msjErrorNumericoCorto}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}21" style="display: none;">{{msjTextoVacio}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}22" style="display: none;">{{msjTextocorto}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}31" style="display: none;">{{msjErrorEmailVacio}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}32" style="display: none;">{{msjErrorEmailCorto}}</small>
+                    <small class="inline-block text-danger" id="{{item.getNombre()}}33" style="display: none;">{{msjErrorEmailIncorrecto}}</small>
                 </div>
             </form>
+            <div class="form-group">
+                <div class="d-flex justify-content-end mt-5">
+                  <button class="btn btn-outline-dark" type="button" (click)="guardarDatos()">Guardar </button>
+                </div>
+              </div>
+              <br>
         </div>
-    </div>
+        </div>
 </div>
