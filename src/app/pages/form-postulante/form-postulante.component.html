@@ -1,32 +1,71 @@
 <div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Registrar Datos personales</h4>
-            <div class="w-100">
-                <hr class="border border-light bg-secondary">
-            </div>
-            <form class="form p-t-20">
-                <div class="form-group" *ngFor="let item of listaDatosRotulo">
-                    <label for="exampleInputpwd2">{{item.getNombre()}}</label>
-                    <div class="input-group">
-                        <input type="{{item.getTipo()}}" class="form-control" id="{{item.getNombre()}}" placeholder="Ingrese su {{item.getNombre()}}">
-                    </div>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}11" style="display: none;">{{msjErrorNumericoVacio}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}12" style="display: none;">{{msjErrorNumericoCorto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}13" style="display: none;">{{msjErrorNumericoIncorrecto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}21" style="display: none;">{{msjTextoVacio}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}22" style="display: none;">{{msjTextocorto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}23" style="display: none;">{{msjTextoIncorrecto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}31" style="display: none;">{{msjErrorEmailVacio}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}32" style="display: none;">{{msjErrorEmailCorto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                    <small class="inline-block text-danger" id="{{item.getNombre()}}33" style="display: none;">{{msjErrorEmailIncorrecto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
-                </div>
-            </form>
-            <div class="form-group">
-                <div class="d-flex justify-content-end mt-5">
-                <button class="btn btn-outline-dark" type="button" (click)="guardarDatos()">Guardar </button>
-                </div>
-            </div>
-            <br>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Registrar Datos personales</h4>
+      <div class="w-100">
+        <hr class="border border-secondary bg-secondary">
+      </div>
+      <form class="form p-t-20">
+        <div class="form-group" *ngFor="let item of listaDatosPostulante">
+          <label for="exampleInputpwd2">{{item.getNombreDato()}}</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="{{item.getNombreDato()}}"
+              placeholder="Ingrese su {{item.getNombreDato()}}"><!--{{item.getTipo()}}-->
+          </div><!--
+          <small class="inline-block text-danger" id="{{item.getNombre()}}11"
+            style="display: none;">{{msjErrorNumericoVacio}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombre()}}12"
+            style="display: none;">{{msjErrorNumericoCorto}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombre()}}13"
+            style="display: none;">{{msjErrorNumericoIncorrecto}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>-->
+          <small class="inline-block text-danger" id="{{item.getNombreDato()}}21"
+            style="display: none;">{{msjTextoVacio}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombreDato()}}22"
+            style="display: none;">{{msjTextocorto}}&nbsp;<small class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombreDato()}}23"
+            style="display: none;">{{msjTextoIncorrecto}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+         <!-- <small class="inline-block text-danger" id="{{item.getNombre()}}31"
+            style="display: none;">{{msjErrorEmailVacio}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombre()}}32"
+            style="display: none;">{{msjErrorEmailCorto}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+          <small class="inline-block text-danger" id="{{item.getNombre()}}33"
+            style="display: none;">{{msjErrorEmailIncorrecto}}&nbsp;<small
+              class="fal fa-exclamation-triangle"></small></small>
+              -->
         </div>
-</div>
+        <br>
+        <br>
+        <h4 class="card-title">Seleccion De Items A Postular</h4>
+        <div class="w-100">
+          <hr class="border border-secondary bg-secondary">
+        </div>
+        <!--<div class="d-flex ">
+            <label>
+              <input type="checkbox" name="checkboxName" class="checkbox" (click)="cambio()" checked='true' />
+              <div class="switch"></div>
+            </label>
+            <span class="mb-4 h5" (click)="presionandoSwitch(true)">&nbsp;&nbsp;Seleccionar Todos</span>
+          </div>-->
+          <div *ngFor="let item of listaItems; index as i">
+          <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg"
+            data-toggle="button" [ngClass]="{opaco: ! item.getSeleccionado(), negro:item. getSeleccionado()}"
+            style="font-size: 1rem;" (click)="seleccionItem(i)">
+            <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
+            <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue; background: rgb(124, 172, 235);"> </i>&nbsp;
+            &nbsp;{{item.getNombreItem() | titlecase}} </button>
+        </div>
+      </form>
+      <div class="form-group">
+        <div class="d-flex justify-content-end mt-5">
+          <button class="btn btn-outline-dark" type="button">Guardar </button>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>

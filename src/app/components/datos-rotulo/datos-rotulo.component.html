@@ -45,14 +45,12 @@
       <div class="modal-body" id="modalRequisitos">
         <div class="d-flex ">
           <label>
-            <input type="checkbox" name="checkboxName" class="checkbox" (click)="cambio()" checked='true' />
+            <input type="checkbox" name="checkboxName" class="checkbox" (click)="presionando()" checked='true' />
             <div class="switch"></div>
           </label>
           <span class="mb-4 h5" (click)="presionando()">&nbsp;&nbsp;Seleccionar Todos</span>
         </div>
         <hr>
-
-
         <div *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i">
           <button *ngIf="!item.getEnLista()"
             class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button"
