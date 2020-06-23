@@ -25,7 +25,7 @@ export class ConvocatoriasComponent implements OnInit {
   filtroTipo = '';
   filtroEstado = '';
   href: string = '';
-
+  expandContent = true;
   listaConvocatoria: Convocatoria[] = [];
   listaEstados:EstadoConv[]=[];
   listaTiposConv:TipoConvocatoria[]=[];
@@ -49,7 +49,6 @@ export class ConvocatoriasComponent implements OnInit {
     this.cargarEstados();
     this.cargarTiposConv();
     this.cargarDatosConvocatoria();
-
     this.href = this.router.url;
     if (this.href === '/editar/convocatorias') {
     }else{
@@ -60,16 +59,17 @@ export class ConvocatoriasComponent implements OnInit {
     });
   }
 
-  mostrar(): boolean {
-    if (this.href === '/editar/convocatorias') {
-      return true;
-    } else {
-      return false;
-    }
+  cambiar(id: string){
+    $('#id2'+id).toggleClass('color');
+    $('#idIcono'+id).toggleClass('fa-angle-right');
+    $('#idIcono'+id).toggleClass('fa-angle-down');
+    console.log("iddddd", '#id2'+id)
   }
 
+  expand(){
+    this.expandContent = !this.expandContent
+    }
   
-
   listarTodo() {
     this.filtroGestion = '';
     this.filtroTipo = '';
@@ -88,7 +88,6 @@ export class ConvocatoriasComponent implements OnInit {
   }
 
   editar(item: Convocatoria) {
-    console.log("entraaaaaaa")
     this.formCrearConv.reset();
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
@@ -170,6 +169,7 @@ export class ConvocatoriasComponent implements OnInit {
             objAux.estado,
             tipo
           );
+          conv.setIdConv(objAux.idConv);
           this.listaConvocatoria.push(conv);
         }
       }
