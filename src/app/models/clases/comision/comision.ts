@@ -1,26 +1,34 @@
-import { Usuario } from '../usuarios/usuario';
+import { Usuario } from './usuario';
+import { TipoComision } from './tipo-comision';
+import { UsuarioComision } from './usuario-comision';
 
 export class Comision {
-    private tipoComision: string;
-    private listaUsuarios: Usuario[];
+    private idConv: number;
+    private idComision: number;
+    private idTipoComision: number;
+    private listaUsuarios: UsuarioComision[];
 
-	constructor(tipoComision:string,listaUsuarios:Usuario[]=[]) {
-        this.tipoComision=tipoComision;
+	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[],idComision: number=-1) {
+        this.idConv= parseInt(localStorage.getItem("idConv"));
+        this.idTipoComision=idTipoComision;
         this.listaUsuarios=listaUsuarios;
+        this.idComision=idComision;
 	}
 
-    public getListaUsuarios(): Usuario[] {
+    public getListaUsuarios(): UsuarioComision[] {
         return this.listaUsuarios;
     }
-    public setListaUsuarios(value: Usuario[]) {
+
+    public setListaUsuarios(value: UsuarioComision[]) {
         this.listaUsuarios = value;
     }
 
-    public getTipoComision(): string {
-        return this.tipoComision;
+    public getIdTipoComision(): number {
+        return this.idTipoComision;
     }
-    public setTipoComision(value: string) {
-        this.tipoComision = value;
+
+    public setTipoComision(value: number) {
+        this.idTipoComision = value;
     }
 
 }

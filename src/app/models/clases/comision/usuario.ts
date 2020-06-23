@@ -6,14 +6,12 @@ export class Usuario {
     private telefono: number;
     private usuario: string;
     private correo:string;
-    constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string, telefono: number, usuario:string) {
+    constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo=correo;
-        this.telefono = telefono;
-        this.usuario = usuario;
     }
 
     public getIdUsuario(): number {
@@ -51,14 +49,9 @@ export class Usuario {
     public setTelefono(telefono): void {
         this.telefono = telefono;
     }
-    public getUsuario(): string {
-        return this.usuario;
+    
+    public getCorreo(): string{
+        return this.correo;
     }
-
-    public setUsuario(usuario): void {
-        this.usuario = usuario;
-    }
-
-
 
 }
