@@ -68,6 +68,7 @@ export class FormPostulanteComponent implements OnInit {
       let inputTipe = $("#" + id).attr('type');
       aux.addEventListener("blur", function (event) {
         let value = $("#" + id).val();
+        var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
 
         //inputs tipo text
         if (inputTipe == "number") {
@@ -123,14 +124,14 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "32").css('display', 'block');
             $("#" + id + "33").css('display', 'none');
           }
-          if (value.length >= 5) {
-            if (value.indexOf('@', 0) == -1 || $("#"+id).val().indexOf('.', 0) == -1) {
+          if (value.length >= 4) {
+            if (!pattern.test(value)) {
               $("#" + id).addClass("is-invalid");
               $("#" + id + "31").css('display', 'none');
               $("#" + id + "32").css('display', 'none');
               $("#" + id + "33").css('display', 'block');
             }
-            if (!(value.indexOf('@', 0) == -1 || $("#"+id).val().indexOf('.', 0) == -1)) {
+            if (pattern.test(value)) {
               $("#" + id).removeClass("is-invalid");
               $("#" + id).addClass("is-valid");
               $("#" + id + "31").css('display', 'none');
@@ -145,7 +146,7 @@ export class FormPostulanteComponent implements OnInit {
       $("#" + id).keydown(function () {
         let value = $("#" + id).val();
         if (inputTipe == "text") {
-          if (value.length >=2) {
+          if (value.length >= 2) {
             $("#" + id).removeClass("is-invalid");
             $("#" + id).addClass("is-valid");
             $("#" + id + "21").css('display', 'none');
@@ -161,8 +162,10 @@ export class FormPostulanteComponent implements OnInit {
           }
         }
         if (inputTipe == "email") {
-          if (value.length > 5) {
-            if (!(value.indexOf('@', 0) == -1 ||$("#" + id).val().indexOf('.', 0) == -1)) {
+          var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+          if (value.length >= 4) {
+            if (pattern.test(value)) {
               $("#" + id).removeClass("is-invalid");
               $("#" + id).addClass("is-valid");
               $("#" + id + "31").css('display', 'none');
@@ -176,19 +179,19 @@ export class FormPostulanteComponent implements OnInit {
   }
 
 
-  guardarDatos(){
-    let contador=0;
+  guardarDatos() {
+    let contador = 0;
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getNombre();
-      if($("#"+id).hasClass("is-valid") ){
-        console.log("si tien la clase:->"+id)
-        contador+=1
+      if ($("#" + id).hasClass("is-valid")) {
+        console.log("si tien la clase:->" + id)
+        contador += 1
       }
     }
-    if(contador==this.listaDatosRotulo.length){
+    if (contador == this.listaDatosRotulo.length) {
       console.log("puede guardar sus datos");
     }
-    else{
+    else {
       console.log("No puede guardar sus datos");
     }
   }
