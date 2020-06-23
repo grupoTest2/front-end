@@ -51,7 +51,7 @@
 
     <div class="form-group">
         <div class="table-responsive mt-3">
-            <table class="table align-middle table-bordered" id="requerimientos">
+            <table class="table align-middle" id="requerimientos">
                 <thead class="thead-dark">
                     <tr>
                         <th class="text-center" scope="col">Título Convocatoria</th>
@@ -62,17 +62,17 @@
                 </thead>
                 <tbody class="accordion" id="accordionExample">
                     <ng-container *ngFor="let item of listaConvocatoria | filtroConvocatorias:filtroGestion:filtroTipo:filtroEstado; let i = index">
-                        <tr data-toggle="collapse" attr.data-target="#id{{item.getIdConv()}}" aria-expanded="false" aria-controls="collapseExample" id="id2{{item.getIdConv()}}" (click)="cambiar(item.getIdConv())">
+                        <tr data-toggle="collapse" attr.data-target="#id{{item.getIdConv()}}" aria-expanded="false" attr.aria-controls="id{{item.getIdConv()}}" id="id2{{item.getIdConv()}}" (click)="cambiar(item.getIdConv())">
                             <td><i id="idIcono{{item.getIdConv()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{item.getTitulo() | titlecase}}</td>
                             <td class="text-center">{{item.getTipo().getNombre() | titlecase}}</td>
                             <td class="text-center">{{item.getEstado() | titlecase}}</td>
                             <td class="text-center">{{item.getGestion() | titlecase}}</td>
                         </tr>
-                        <tr class="collapse" style="background-color: rgba(217, 217, 217,0.3);" id="id{{item.getIdConv()}}">
+                        <tr class="collapse" id="id{{item.getIdConv()}}">
                             <td colspan="4" class="pt-2 pb-4">
                                 <span class="font-weight-bold mr-2">Acciones:&nbsp;</span><br>
-                                <button class="ml-5 mr-2 btn btn-outline-primary badge" [disabled]="item.getEstado() != 'En configuracion'"><i class="fas fa-users"></i>&nbsp; Comisiones</button>
-                                <button class="mr-2 btn btn-outline-warning badge" [disabled]="item.getEstado() !='En configuracion'"><i class="fa fa-file-alt"></i>&nbsp; Habilitar</button>
+                                <button class="ml-5 mr-2 btn btn-outline-primary badge" [disabled]="item.getEstado() !='En configuracion'"><i class="fa fa-file-alt"></i>&nbsp; Habilitar</button>
+                                <button routerLink="/comisiones" class="mr-2 btn btn-outline-info badge" [disabled]="item.getEstado() != 'En configuracion'"><i class="fas fa-users"></i>&nbsp; Comisiones</button>
                                 <button class="mr-2 btn btn-outline-success badge" [disabled]="item.getEstado() !='En configuracion'" data-toggle="modal" data-target="#tablaEditar" (click)="editar(item)"><i class="fa fa-pencil"></i>&nbsp; Editar</button>
                                 <button class="mr-2 btn btn-outline-danger badge" [disabled]="item.getEstado() !='En configuracion'"><i class="fa fa-trash-alt"></i>&nbsp; Borrar</button>
                             </td>
@@ -129,7 +129,7 @@
                 <button routerLink="/editarConvocatoria/formulario" data-dismiss="modal" type="submit" class="btn btn-primary" id="guardar" (click)="loading()">Ver convocatoria</button>
                 <div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="guardar" (click)="formValido()">Guardar</button>
                 </div>
             </div>
         </div>

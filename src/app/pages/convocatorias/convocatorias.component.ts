@@ -11,7 +11,8 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 import { EstadoConv } from 'src/app/models/clases/convocatoria/estadoConv';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
-// jquery
+// jquery y toast
+declare var tata: any;
 declare var $: any;
 @Component({
   selector: 'app-convocatorias',
@@ -61,6 +62,7 @@ export class ConvocatoriasComponent implements OnInit {
 
   cambiar(id: string){
     $('#id2'+id).toggleClass('color');
+    $('#id2'+id).toggleClass('shadow').toggleClass('rounded');
     $('#idIcono'+id).toggleClass('fa-angle-right');
     $('#idIcono'+id).toggleClass('fa-angle-down');
     console.log("iddddd", '#id2'+id)
@@ -89,6 +91,8 @@ export class ConvocatoriasComponent implements OnInit {
 
   editar(item: Convocatoria) {
     this.formCrearConv.reset();
+    this.formCrearConv.get('titulo').setErrors(null);
+    this.formCrearConv.get('gestion').setErrors(null);
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
   }
@@ -113,6 +117,16 @@ export class ConvocatoriasComponent implements OnInit {
       const value = this.formCrearConv.value;
     } else {
       this.formCrearConv.markAllAsTouched();
+    }
+  }
+
+  formValido(){
+    if (this.formCrearConv.valid) {
+      tata.success('Cambios.', 'Se cambió los datos con exito.');
+      $('#tablaEditar').modal('hide');
+    } else {
+      this.formCrearConv.markAllAsTouched();
+      tata.error('Error', 'Formulario invalido');
     }
   }
 
