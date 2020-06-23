@@ -31,4 +31,23 @@ export class Comision {
         this.idTipoComision = value;
     }
 
+    public getIdConv(): number{
+        return this.idConv;
+    }
+
+    public agregarUsuarioComision(usuario: UsuarioComision){
+        this.listaUsuarios.push(usuario);
+    }
+    public existeUsuario(idUsuario):boolean{
+        let res:boolean=false;
+        for(let i in this.listaUsuarios){
+            let objAux:UsuarioComision=this.listaUsuarios[i];
+            if(objAux.getIdUsuario()===idUsuario){
+                res=true;
+                break;
+            }
+
+        }
+        return res;
+    }
 }

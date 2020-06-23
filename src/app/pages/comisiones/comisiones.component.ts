@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { Comision} from 'src/app/models/clases/comision/comision';
 import { TipoComision } from 'src/app/models/clases/comision/tipo-comision';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
+import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 
 @Component({
   selector: 'app-comisiones',
@@ -11,15 +12,15 @@ import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.se
 })
 export class ComisionesComponent implements OnInit {
 
-  comision1:Comision;
-  comision2:Comision;
+  listaComision: Comision[]=[];
   listaTipoComision: TipoComision[]=[];
   listaUsuarios:Usuario[]=[];
   constructor(private comisionServ:ComisionesServicePhp) { 
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
-    this.getTipoComisiones();
-    this.getUsuarios();
+    this.getTipoComisionesBD();
+    this.getUsuariosBD();
+
   }
 
   ngOnInit(): void {
@@ -60,12 +61,42 @@ export class ComisionesComponent implements OnInit {
       this.comision2.getListaUsuarios().push(usuario);
     }
   }*/
+  agregarUsuarioComison(idUsuario,idTipoComision){
+    for(let i in this.listaComision){
+      let objCom:Comision=this.listaComision[i];
+      if(objCom.getIdTipoComision()===idTipoComision){
+        let usuarioCom= new UsuarioComision(idUsuario,"insertar",objCom.getIdConv());
+        objCom.agregarUsuarioComision(usuarioCom);
+      }
+    }
+  }
+
+  getComision(idTipoComision){
+    let objCom:Comision;
+    for(let i in this.listaComision){
+      objCom=this.listaComision[i];
+      if(objCom.getIdTipoComision()===idTipoComision){
+        break;
+      }
+    }
+    return objCom;
+  }
+  crearComisiones(){
+    let com:Comision;
+    for(let i in this.listaTipoComision){
+      let objAux=this.listaTipoComision[i];
+      com=new Comision(objAux.getIdTipoComision());
+      this.listaComision.push(com);
+    }
+    console.log("las comisiones");
+    console.log(this.listaComision);
+  }
 
   /**
    * metodos que interactuan con la base de datos
    */
 
-   getTipoComisiones(){
+   getTipoComisionesBD(){
     this.comisionServ.getTiposComision().subscribe(
       resultado=>{
         let tipoCom:TipoComision;
@@ -73,13 +104,15 @@ export class ComisionesComponent implements OnInit {
           tipoCom=new TipoComision(resultado[i].idTipoComision,resultado[i].nombre);
           this.listaTipoComision.push(tipoCom);
         }
+        this.crearComisiones();
       }
     )
     console.log("los tipos de comisionessss");
     console.log(this.listaTipoComision);
+    
    }
 
-   getUsuarios(){
+   getUsuariosBD(){
     this.comisionServ.getUsuarios().subscribe(
       resultado=>{
         let usuario:Usuario;
@@ -93,4 +126,6 @@ export class ComisionesComponent implements OnInit {
     console.log("los usuariossss");
     console.log(this.listaUsuarios);
    }
+
+   
 }
