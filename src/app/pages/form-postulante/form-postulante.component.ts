@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { from } from 'rxjs';
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
@@ -8,7 +8,7 @@ import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 
 declare var $: any;
-declare var tata:any;
+declare var tata: any;
 
 @Component({
   selector: 'app-form-postulante',
@@ -227,7 +227,7 @@ export class FormPostulanteComponent implements OnInit {
       }
     }
 
-    if(!bandera){
+    if (!bandera) {
       this.mensajeToastError();
     }
     if (contador == this.listaDatosPostulante.length && bandera) {
@@ -269,12 +269,18 @@ export class FormPostulanteComponent implements OnInit {
 
   //metodo para rrecuperar datos de los imputs y checks
   recuperarDatos() {
+    let codigoSis:number=0;
     let listaDatosInputs: DatosPostulante[] = [];
     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
       let id = this.listaDatosPostulante[index].getNombreDato();
       let value = $("#" + id).val();
-      this.listaDatosPostulante[index].setValorDato(value);
-      listaDatosInputs.push(this.listaDatosPostulante[index]);
+      if (id == "codigo_siss") {
+        codigoSis=parseInt(value);
+      }
+      else {
+        this.listaDatosPostulante[index].setValorDato(value);
+        listaDatosInputs.push(this.listaDatosPostulante[index]);
+      }
     }
 
     let listaItemsSeleccionados: Item[] = [];
@@ -285,18 +291,20 @@ export class FormPostulanteComponent implements OnInit {
     }
     console.log(listaDatosInputs)
     console.log(listaItemsSeleccionados)
-    //crear postulante
+    this.postulante=new Postulante(codigoSis,this.listaItems,this.listaDatosPostulante)
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(this.postulante);
     this.registrarPostulanteBD();
   }
 
 
-  mensajeToastError(){
-    tata.error("Error","Debe De Seleccionar Almenos Un Item");
-    
+  mensajeToastError() {
+    tata.error("Error", "Debe De Seleccionar Almenos Un Item");
+
   }
 
-  mensajeToastExito(){
-    tata.success("Registro Exitoso","Se Guardaron Sus Datos Correctamente");
+  mensajeToastExito() {
+    tata.success("Registro Exitoso", "Se Guardaron Sus Datos Correctamente");
   }
 
   /**
@@ -317,7 +325,7 @@ export class FormPostulanteComponent implements OnInit {
 
   getDatosRotuloConvBD() {
     let idConv: number = 5;
-    this.listaDatosPostulante.push(new DatosPostulante(1,"codigo_siss"))
+    this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_siss"))
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
         let datoP: DatosPostulante;
@@ -333,8 +341,8 @@ export class FormPostulanteComponent implements OnInit {
 
   }
 
-  registrarPostulanteBD(){
-    
+  registrarPostulanteBD() {
+
   }
 
 
