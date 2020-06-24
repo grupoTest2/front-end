@@ -19,9 +19,9 @@ export class PostulanteServicePhp {
     return this.http.get(`${this.URL}obtenerDatosRotuloConv.php?idConv=${idConv}`);
   }
 
-  //envian informacion al servidor php
+  //envian informacion al servidor phpç
 
   public agregarPostulante(postulante: Postulante){
-
+    return this.http.post(`${this.URL}establecerPrePostulante.php`, JSON.stringify(postulante));
   }
 }

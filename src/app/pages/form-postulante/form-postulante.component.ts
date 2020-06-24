@@ -231,7 +231,7 @@ export class FormPostulanteComponent implements OnInit {
       this.mensajeToastError();
     }
     if (contador == this.listaDatosPostulante.length && bandera) {
-      this.mensajeToastExito();
+      //this.mensajeToastExito();
       this.recuperarDatos();
       console.log("puede guardar sus datos");
     }
@@ -274,7 +274,7 @@ export class FormPostulanteComponent implements OnInit {
     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
       let id = this.listaDatosPostulante[index].getNombreDato();
       let value = $("#" + id).val();
-      if (id == "codigo_siss") {
+      if (id === "codigo_sis") {
         codigoSis=parseInt(value);
       }
       else {
@@ -291,9 +291,9 @@ export class FormPostulanteComponent implements OnInit {
     }
     console.log(listaDatosInputs)
     console.log(listaItemsSeleccionados)
-    this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,this.listaDatosPostulante)
+    this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,listaDatosInputs);
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(this.postulante);
+    console.log(JSON.stringify(this.postulante));
     this.registrarPostulanteBD();
   }
 
@@ -302,16 +302,19 @@ export class FormPostulanteComponent implements OnInit {
     tata.error("Error", "Debe De Seleccionar Almenos Un Item");
 
   }
+  mensajeToastErrorBD(mensaje) {
+    tata.error("Error", mensaje);
 
-  mensajeToastExito() {
-    tata.success("Registro Exitoso", "Se Guardaron Sus Datos Correctamente");
+  }
+  mensajeToastExito(mensaje) {
+    tata.success("Registro Exitoso", mensaje);
   }
 
   /**
    * metodos que interactuan con la base de datos
    */
   getItemsBD() {
-    let idConv: number = 5;
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.servicePostulante.getItems(idConv).subscribe(
       (resultado: Item) => {
         let item: Item;
@@ -324,8 +327,8 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   getDatosRotuloConvBD() {
-    let idConv: number = 5;
-    this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_siss"))
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_sis"))
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
         let datoP: DatosPostulante;
@@ -342,7 +345,17 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   registrarPostulanteBD() {
-
+    this.servicePostulante.agregarPostulante(this.postulante).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          this.mensajeToastExito("datos registrados correctamente");
+          console.log("el postulante se registro correctamente");
+        }else{
+          console.log("error al registrar el postulante");
+          this.mensajeToastErrorBD("error al registrar el postulante");
+        }
+      }
+    )
   }
 
 

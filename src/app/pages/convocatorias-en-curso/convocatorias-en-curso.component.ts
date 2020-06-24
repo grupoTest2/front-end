@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Convocatoria} from '../../models/clases/convocatoria/convocatoria'
 import {TipoConvocatoria} from '../../models/clases/convocatoria/tipo-convocatoria'
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 
 @Component({
   selector: 'app-convocatorias-en-curso',
@@ -11,7 +12,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
 
 
   listaConvocatorias: Convocatoria[]=[]
-  constructor() { 
+  constructor(private convService: EditarConvocatoriaServicePhp) { 
     this.recuperarDatos();
   }
 
@@ -19,11 +20,27 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
   }
 
   recuperarDatos(){
-    this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 1","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(2,"convocatoria 2","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(3,"convocatoria 3","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(4,"convocatoria 4","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(5,"convocatoria 5","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
+    this.convService.getConvocatoriasEncurso(1).subscribe(
+      resultado=>{
+        let conv: Convocatoria;
+        let tipoCon:TipoConvocatoria;
+        for(let i in resultado){
+          let objAux=resultado[i];
+          tipoCon=new TipoConvocatoria(objAux.idTipoConv,objAux.tipoConv);
+          conv=new Convocatoria(
+            objAux.idTipoConv,
+            objAux.titulo,
+            objAux.gestion,
+            objAux.estado,
+            tipoCon);
+          conv.setIdConv(objAux.idConv);
+            this.listaConvocatorias.push(conv);
+        }
+      }
+    )
+    console.log("las convocatorias");
+    console.log(this.listaConvocatorias);
+    
   }
 
   setearLocalStore(id:number){

@@ -20,7 +20,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" (click)="marcar(tipo.getIdTipoComision(), usuario.getIdUsuario())">
+                                    <tr class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" (click)="marcar(tipo.getIdTipoComision(), usuario.getIdUsuario())">
                                         <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
                                         <td>{{usuario.getCorreo()}}</td>
                                         <td class="text-center">
