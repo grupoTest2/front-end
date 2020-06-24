@@ -27,7 +27,7 @@ export class DatosRotuloComponent implements OnInit {
   numeroDeEnLista:number=0;
   constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp) {
     this.getTipoDatosRotulo();
-    this.getTipoDatosRotuloBD()
+    this.getTipoDatosRotuloBD();
   }
   ngOnInit(): void {
     $('.switch').click(function () {
@@ -139,7 +139,7 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));sss
       }
     );
   }
