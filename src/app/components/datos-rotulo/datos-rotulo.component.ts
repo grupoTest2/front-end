@@ -136,7 +136,8 @@ export class DatosRotuloComponent implements OnInit {
    *indica si la convocatoria es apta para ser lanzada 
    */
   estaHabilitado(){
-    return this.seleccion.estaHabilitado();
+    return this.seleccion.cantDatosEnLista() > 0;
+    
   }
 
   /**
