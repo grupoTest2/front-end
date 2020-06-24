@@ -37,6 +37,10 @@ export class ConvocatoriasComponent implements OnInit {
     private cargarDatos:PhpServeConvocatoria) {
     this.buildForm();
     
+    localStorage.setItem('tituloConvocatoria', "");
+    localStorage.setItem('gestionConvocatoria', "");
+    localStorage.setItem('idTipo',"");
+    localStorage.setItem("idConv","");
     console.log("mi lista");
     console.log(this.listaConvocatoria);
     console.log("mis estados");
@@ -95,6 +99,10 @@ export class ConvocatoriasComponent implements OnInit {
     this.formCrearConv.get('gestion').setErrors(null);
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
+    localStorage.setItem('tituloConvocatoria', item.getTitulo());
+    localStorage.setItem('gestionConvocatoria',item.getGestion());
+    localStorage.setItem('idTipo',item.getIdTipoConv()+"");
+    localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
   loading() {
