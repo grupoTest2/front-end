@@ -117,6 +117,10 @@ export class ComisionesComponent implements OnInit {
     $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
 
     console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
-    
+    this.agregarUsuarioComison(idUsuario, idTipo);
+   }
+
+   lista(){
+     console.log(this.listaComision);
    }
 }
