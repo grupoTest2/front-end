@@ -41,4 +41,7 @@ export class EditarConvocatoriaServicePhp {
     return this.http.get(`${this.URL}obtenerConvocatoriasCurso.php?idDep=${idDep}`);
   }
   
+  public habilitarConvocatoria(idConv: number) {
+    return this.http.get(`${this.URL}habilitarConvocatoria.php?idConv=${idConv}`);
+  }
 }

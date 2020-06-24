@@ -23,6 +23,7 @@ import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-se
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 declare var $: any;
 declare var swal: any;
 declare var tata: any;
@@ -62,7 +63,10 @@ export class FormConvocatoriaComponent implements OnInit {
   href: string = '';
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria, private router: Router) {
+  constructor(private datosConvocatoria: DatosConvocatoriaService, 
+    private apiPHP: PhpServeConvocatoria, 
+    private router: Router,
+    private editarConv: EditarConvocatoriaServicePhp) {
     this.tituloConvocatoria = localStorage.getItem('tituloConvocatoria');
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
@@ -171,7 +175,16 @@ export class FormConvocatoriaComponent implements OnInit {
 
   //metodo para lanzar convocatoria
   lanzarConvocatoria() {
-    this.mensajeToastExito("la convocatoria esta habilitada");
+    let idConv:number = parseInt(localStorage.getItem("idConv"));
+    this.editarConv.habilitarConvocatoria(idConv).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          this.mensajeToastExito("la convocatoria esta habilitada");
+        }else{
+          this.mensajeToastErrorBD("no se pudo habilitar la convocatoria");
+        }
+      }
+    )
 
   }
 

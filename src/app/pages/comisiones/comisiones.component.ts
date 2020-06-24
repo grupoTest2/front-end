@@ -74,6 +74,22 @@ export class ComisionesComponent implements OnInit {
     console.log(this.listaComision);
   }
 
+  lista(){
+    //this.agregarUsuarioComisionBD();
+    console.log(JSON.stringify(this.listaComision));
+  }
+
+  marcar(idTipo: number, idUsuario: number){
+    //  pintar fila y cambiar iconos
+    $('#id' + idTipo + idUsuario).toggleClass('text-primary').toggleClass("text-muted");
+    $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
+    $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
+    $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
+
+    console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
+    this.agregarUsuarioComison(idUsuario, idTipo);
+   }
+
   /**
    * metodos que interactuan con la base de datos
    */
@@ -107,20 +123,20 @@ export class ComisionesComponent implements OnInit {
     )
     console.log("los usuariossss");
     console.log(this.listaUsuarios);
-   }//
-
-   marcar(idTipo: number, idUsuario: number){
-    //  pintar fila y cambiar iconos
-    $('#id' + idTipo + idUsuario).toggleClass('text-primary').toggleClass("text-muted");
-    $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
-    $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
-    $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
-
-    console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
-    this.agregarUsuarioComison(idUsuario, idTipo);
    }
 
-   lista(){
-     console.log(this.listaComision);
+   agregarUsuarioComisionBD(){
+    this.comisionServ.agregarUsuariosComision(this.listaComision).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          console.log("miembros agregados correctamente");
+        }else{
+          console.log("error al agregar miembros");
+        }
+      }
+    )
    }
+  
+
+   
 }

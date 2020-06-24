@@ -63,6 +63,10 @@ export class ConvocatoriasComponent implements OnInit {
       $('[data-toggle="tooltip"]').tooltip();
     });
   }
+  clickComision(item: Convocatoria){
+    console.log("hice click en comision");
+    localStorage.setItem("idConv",item.getIdConv()+"");
+  }
 
   cambiar(id: string){
     $('#id2'+id).toggleClass('color');
