@@ -73,7 +73,7 @@ export class FormConvocatoriaComponent implements OnInit {
       this.blockUI.stop();
     }, 500);
     $(window).bind('beforeunload', function(){
-      return '>>>>>Before You Go<<<<<<<< \n Guardar cambios?';
+      return confirm("Do you really want to refresh?");
   });
   }
 
