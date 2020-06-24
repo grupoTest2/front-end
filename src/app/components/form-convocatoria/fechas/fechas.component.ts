@@ -11,6 +11,9 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { SeleccionEventos } from 'src/app/models/convocatoria/seleccion-eventos';
 
+import { Router } from '@angular/router';
+
+
 //jquery toast 
 declare var tata: any;
 declare var $: any;
@@ -31,10 +34,13 @@ export class FechasComponent implements OnInit {
   listaEventosSeleccionados: Evento[] = [];
 
   seleccionEventos: SeleccionEventos;
+  href: string = '';
+  
 
   constructor(private apiPHP: PhpServeConvocatoria, 
     private formBuilder: FormBuilder,
-    private editarConv:EditarConvocatoriaServicePhp) {
+    private editarConv:EditarConvocatoriaServicePhp,
+    private router: Router) {
     this.buildForm();
     this.seleccionEventos = new SeleccionEventos();
     const currentYear = new Date().getFullYear();
@@ -44,8 +50,17 @@ export class FechasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.href = this.router.url;
     init_plugins();
     $('.clockpicker').clockpicker();
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   agregarEvento(): void {

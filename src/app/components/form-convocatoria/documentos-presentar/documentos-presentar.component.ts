@@ -9,6 +9,7 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 //models
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
 import { SeleccionDocumentos } from 'src/app/models/convocatoria/seleccion-documentosPresentar';
+import { Router } from '@angular/router';
 
 //jquery y toast
 declare var tata: any;
@@ -25,14 +26,25 @@ export class DocumentosPresentarComponent implements OnInit {
   listaDocumentos: DocumentoPresentar[] = [];
   formDocumentos: FormGroup;
   seleccionDocumento:SeleccionDocumentos;
+  href: string = '';
 
-  constructor(private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) { 
+
+  constructor(private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp, private router: Router) { 
     this.buildForm();
     this.seleccionDocumento=new SeleccionDocumentos();
     this.getDocumentosPresentar();
   }
 
   ngOnInit(): void {
+    this.href = this.router.url;
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   aniadirDocumento():void {

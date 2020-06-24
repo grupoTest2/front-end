@@ -39,6 +39,13 @@ export class CalificacionConocimientosComponent implements OnInit {
   ngOnInit(): void {
     this.href = this.router.url;
   }
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   getindice(indice: number): string {
     let caracter: string = String.fromCharCode(indice + 65).toLocaleLowerCase() + ")     ";

@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label for="requisitos">5.- Calificación de méritos</label>
-        <button *ngIf="seleccionMerito.getPorcentajeDisponible()>0" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal1" (click)="resetForm()">
+        <button *ngIf="seleccionMerito.getPorcentajeDisponible()>0" [disabled]="!ruta()" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#modal1" (click)="resetForm()">
                 <i class="fa fa-plus"></i> Añadir {{seleccionMerito.getPorcentajeDisponible()}} %
         </button>
     </div>
@@ -24,13 +24,13 @@
                             <th class="text-center" scope="col" style="width: 150px;">{{merito1.getPorcentaje()}} % </th>
                             <th class="text-center" scope="col" style="width: 200px;">
                                 <div class="btn btn-group" role="group">
-                                    <button class="btn btn-outline-success mr-1" type="button">
+                                    <button [disabled]="!ruta()" class="btn btn-outline-success mr-1" type="button">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger mr-1" type="button">
+                                    <button [disabled]="!ruta()" class="btn btn-outline-danger mr-1" type="button">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
-                                    <button *ngIf="merito1.quedaPorcentaje()" class="btn btn-outline-primary" type="submit" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
+                                    <button *ngIf="merito1.quedaPorcentaje()" [disabled]="!ruta()" class="btn btn-outline-primary" type="submit" data-toggle="modal" data-target="#modal2" (click)="setIndice1(indice1)">
                                         <i class="fa fa-plus">{{merito1.getPorcentajeDisponible()}}%</i> 
                                     </button>
                                 </div>

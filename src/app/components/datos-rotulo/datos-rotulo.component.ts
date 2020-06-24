@@ -6,6 +6,7 @@ import { logging } from 'protractor';
 import { MatSlideToggleModule, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -25,14 +26,24 @@ export class DatosRotuloComponent implements OnInit {
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
   numeroDeEnLista:number=0;
-  constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp) {
+  href: string = '';
+  constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
-    this.getTipoDatosRotuloBD()
+    this.getTipoDatosRotuloBD();
   }
   ngOnInit(): void {
+    this.href = this.router.url;
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
   
   cambioBandera(index: number): void {
@@ -125,7 +136,8 @@ export class DatosRotuloComponent implements OnInit {
    *indica si la convocatoria es apta para ser lanzada 
    */
   estaHabilitado(){
-    return this.seleccion.estaHabilitado();
+    return this.seleccion.cantDatosEnLista() > 0;
+    
   }
 
   /**
@@ -139,7 +151,7 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));sss
       }
     );
   }

@@ -97,12 +97,25 @@ export class ConvocatoriasComponent implements OnInit {
     this.listaConvocatoria = listaAuxiliar;
   }
 
+
+  habilitar(item){
+    console.log("++++++++++++++++++++++++++++++++++")
+    console.log();
+  }
+
   editar(item: Convocatoria) {
     this.formCrearConv.reset();
     this.formCrearConv.get('titulo').setErrors(null);
     this.formCrearConv.get('gestion').setErrors(null);
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
+    localStorage.setItem('tituloConvocatoria', item.getTitulo());
+    localStorage.setItem('gestionConvocatoria',item.getGestion());
+    localStorage.setItem('idTipo',item.getIdTipoConv()+"");
+    localStorage.setItem("idConv",item.getIdConv()+"");
+  }
+
+  habilitar(item: Convocatoria){
     localStorage.setItem('tituloConvocatoria', item.getTitulo());
     localStorage.setItem('gestionConvocatoria',item.getGestion());
     localStorage.setItem('idTipo',item.getIdTipoConv()+"");

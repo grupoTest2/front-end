@@ -61,6 +61,14 @@ export class RequerimientosComponent implements OnInit {
     this.href = this.router.url;
   }
 
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   alertEliminar(): void {
     swal.fire({
       title: 'Eliminar',
