@@ -81,7 +81,7 @@ export class FormConvocatoriaComponent implements OnInit {
   // });
   }
 
-  alertEliminar(): void {
+  alertAgregar(): void {
     swal.fire({
       title: 'Guardar Datos',
       text: "¿Está seguro de guardar los datos?",
@@ -101,7 +101,7 @@ export class FormConvocatoriaComponent implements OnInit {
       } else {
         swal.fire(
           'Cancelado!',
-          '!.',
+          'Los datos no fueron guardados.',
           'error'
         )
       }
@@ -109,7 +109,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   ruta(){
-    if (this.href === '/editarConvocatoria/formulario') {
+    if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     }else{
       return false;
@@ -143,28 +143,28 @@ export class FormConvocatoriaComponent implements OnInit {
 
 
   habilitar() {
-    let mensaje=" campo de: "
+    let mensaje=""
     if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado() && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado() && this.datosRotulo.estaHabilitado()) {
       this.lanzarConvocatoria();
     }
     else{
       if (!this.requerimiento.estaHabilitado()){
-        mensaje+="requerimiento, "
+        mensaje+="Campo Requerimiento, "
       }
       if(!this.requisitos.estaHabilitado()){
-        mensaje+="campo de requerimiento, "
+        mensaje+="</br>Campo requisitos, "
       }if(!this.documentosPresentar.estaHabilitado()){
-        mensaje+="campo de documentos a presentar, "
+        mensaje+="</br>Campo documentos a presentar, "
       }if(!this.merito.estaHabilitado()){
-        mensaje+="campo de meritos, "      
+        mensaje+="</br>Campo meritos, "      
       }if(this.calificacionConocimiento.estaHabilitado()){
-        mensaje+="campo de calificacion conocimiento, "
+        mensaje+="</br>Campo calificacion conocimiento, "
       }if(!this.eventos.estaHabilitado()){
-        mensaje+="campo de eventos, "
+        mensaje+="</br>Campo eventos, "
       }if(!this.datosRotulo.estaHabilitado()) {
-        mensaje+="campo de datos rotulo, "
+        mensaje+="</br>Campo datos rotulo, "
       }
-      this.mensajeToastErrorBD(mensaje+"a llenar faltantes!"); 
+      this.mensajeToastErrorBD(mensaje+ "</br>A llenar faltantes!"); 
     }
 
   }
@@ -176,7 +176,9 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   mensajeToastErrorBD(mensaje) {
-    tata.error("Error", mensaje);
+    tata.error("Error", mensaje, {
+      duration: 3000
+    });
 
   }
   mensajeToastExito(mensaje) {
@@ -184,6 +186,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   agregarBD() {
+    this.alertAgregar();
     this.recuperarLosDatosDeLosComponentes();
     this.agregarRequerimientos();
     this.agregarRequisitos();
@@ -192,7 +195,6 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarMeritos();
     this.agregarEventos();
     this.agregarDatosRotulo();
-    this.alertEliminar();
   }
   agregarRequerimientos() {
     console.log(this.listaRequerimientos);

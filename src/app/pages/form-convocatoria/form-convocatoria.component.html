@@ -37,8 +37,8 @@
             <hr>
             <div class="form-group">
                 <div class="d-flex justify-content-end mt-5">
-                    <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="agregarBD()">Guardar </button>
-                    <button *ngIf="!ruta()" class="btn btn-outline-dark" type="button">Habilitar </button>
+                    <button *ngIf="!ruta()" class="btn btn-outline-dark" type="button" (click)="agregarBD()">Guardar </button>
+                    <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="habilitar()">Habilitar </button>
                 </div>
             </div>
             <br>

@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label for="documentos">3.- Documentos a presentar </label>
-        <button [disabled]="!ruta()" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaDocumentos" (click)="resetForm()">
+        <button [disabled]="ruta()" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaDocumentos" (click)="resetForm()">
                 <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -18,10 +18,10 @@
                     <td scope="row">{{getindice(i)}} {{documento.getDescripcion()}} </td>
                     <td class="text-right">
                         <div class="btn btn-group" role="group">
-                            <button [disabled]="!ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaDocumentos" (click)="editar(i)">
+                            <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaDocumentos" (click)="editar(i)">
                                 <i class="fa fa-pencil"></i>
                             </button>
-                            <button [disabled]="!ruta()" class="btn btn-outline-danger" type="button">
+                            <button [disabled]="ruta()" class="btn btn-outline-danger" type="button">
                                 <i class="fa fa-trash-alt"></i>
                             </button>
                         </div>

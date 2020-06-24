@@ -40,7 +40,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.href = this.router.url;
   }
   ruta(){
-    if (this.href === '/editarConvocatoria/formulario') {
+    if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     }else{
       return false;

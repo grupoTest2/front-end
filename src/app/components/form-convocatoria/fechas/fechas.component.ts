@@ -56,7 +56,7 @@ export class FechasComponent implements OnInit {
   }
 
   ruta(){
-    if (this.href === '/editarConvocatoria/formulario') {
+    if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     }else{
       return false;
