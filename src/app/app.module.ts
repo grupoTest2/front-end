@@ -33,6 +33,7 @@ import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/editar-convocatoria.service';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
+import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,8 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
     LoadingSpinnerComponent,
     ComisionesComponent,
     FormRegistroComponent,
-    FormPostulanteComponent
+    FormPostulanteComponent,
+    ConvocatoriasEnCursoComponent
     ],
   imports: [
     BrowserModule,
