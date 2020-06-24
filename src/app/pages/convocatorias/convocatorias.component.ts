@@ -105,6 +105,13 @@ export class ConvocatoriasComponent implements OnInit {
     localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
+  habilitar(item: Convocatoria){
+    localStorage.setItem('tituloConvocatoria', item.getTitulo());
+    localStorage.setItem('gestionConvocatoria',item.getGestion());
+    localStorage.setItem('idTipo',item.getIdTipoConv()+"");
+    localStorage.setItem("idConv",item.getIdConv()+"");
+  }
+
   loading() {
     $.fakeLoader({
       bgColor: '#2ecc71',

@@ -9,6 +9,7 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 //models
 import { Merito } from '../../../models/clases/convocatoria/merito';
 import { SeleccionMerito } from 'src/app/models/convocatoria/seleccion-meritos';
+import { Router } from '@angular/router';
 
 //jquery y toast
 declare var tata: any;
@@ -33,8 +34,10 @@ export class MeritosComponent implements OnInit {
   tituloMerito: String = " ";
   porcentajeMerito: number = 0;
   descripcionMerito: String = " ";
+  href: string = '';
 
-  constructor(private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp) {
+
+  constructor(private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     })
@@ -43,6 +46,16 @@ export class MeritosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.href = this.router.url;
+
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   //nivel 1------------------------------------------------------------

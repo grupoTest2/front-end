@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent },
   { path: 'crearConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editarConvocatoria/formulario', component: FormConvocatoriaComponent },
+  { path: 'habilitarConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'convocatoriasEnCurso', component: ConvocatoriasEnCursoComponent },
   { path: 'editar/convocatorias', component: ConvocatoriasComponent },
   { path: 'formularioRegistro', component: FormPostulanteComponent },

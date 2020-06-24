@@ -8,6 +8,7 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 //models
 import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { SeleccionRequisito } from 'src/app/models/convocatoria/seleccion-requisitos';
+import { Router } from '@angular/router';
 
 //jquery  toast
 declare var tata: any;
@@ -24,14 +25,25 @@ export class RequisitosComponent implements OnInit {
   requisito:Requisito;
   listaRequisitos:Requisito[]=[];
   seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
+  href: string = '';
 
-  constructor(private editarConv: EditarConvocatoriaServicePhp, private formBuilder: FormBuilder) {
+
+  constructor(private editarConv: EditarConvocatoriaServicePhp, private formBuilder: FormBuilder, private router: Router) {
     this.buildForm();
     this.getRequisitosBD();
   }
   
   ngOnInit(): void {
+    this.href = this.router.url;
 
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
  
   //enviando los datos al com[ponente formulario

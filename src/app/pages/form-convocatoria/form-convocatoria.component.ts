@@ -22,6 +22,7 @@ import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.ser
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Router } from '@angular/router';
 declare var $: any;
 declare var swal: any;
 
@@ -57,9 +58,10 @@ export class FormConvocatoriaComponent implements OnInit {
   gestionConvocatoria: string = '';
   idTipo: string = '';
   bandera: boolean;
+  href: string = '';
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria) {
+  constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria, private router: Router) {
     this.tituloConvocatoria = localStorage.getItem('tituloConvocatoria');
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
@@ -67,14 +69,15 @@ export class FormConvocatoriaComponent implements OnInit {
     
   }
   ngOnInit(): void {
+    this.href = this.router.url;
     this.blockUI.start("cargando");
 
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-    $(window).bind('beforeunload', function(){
-      return confirm("Do you really want to refresh?");
-  });
+  //   $(window).bind('beforeunload', function(){
+  //     return confirm("Do you really want to refresh?");
+  // });
   }
 
   alertEliminar(): void {
@@ -102,6 +105,14 @@ export class FormConvocatoriaComponent implements OnInit {
         )
       }
     })
+  }
+
+  ruta(){
+    if (this.href === '/editarConvocatoria/formulario') {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   estaHabilitado(){
