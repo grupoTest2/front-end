@@ -291,7 +291,7 @@ export class FormPostulanteComponent implements OnInit {
     }
     console.log(listaDatosInputs)
     console.log(listaItemsSeleccionados)
-    this.postulante=new Postulante(codigoSis,this.listaItems,this.listaDatosPostulante)
+    this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,this.listaDatosPostulante)
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     console.log(this.postulante);
     this.registrarPostulanteBD();
