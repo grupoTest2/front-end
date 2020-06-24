@@ -18,7 +18,7 @@
                     <td scope="row">{{getindice(i)}} {{requisito.getDescripcion()}}</td>
                     <td class="text-right">
                         <div class="btn btn-group" role="group">
-                            <button class="btn btn-outline-success mr-1" type="button">
+                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequisitos" (click)="editar(i)">
                                 <i class="fa fa-pencil"></i>
                             </button>
                             <button class="btn btn-outline-danger" type="button">

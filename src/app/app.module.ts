@@ -33,6 +33,7 @@ import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/editar-convocatoria.service';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
+import {MatTabsModule} from '@angular/material/tabs';
 import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/co
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
@@ -76,6 +78,7 @@ import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/co
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
     EditarConvocatoriaServicePhp,
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],

@@ -9,7 +9,7 @@ export class SeleccionDocumentos{
     }
 
     public agregarDocumento(doc: DocumentoPresentar): string{
-        let res:string="ya existe un documento identico a este";
+        let res:string="El documento ya existe";
         if(!this.existeDocumento(doc)){
             this.documentosSeleccionados.push(doc);
             res="exito";

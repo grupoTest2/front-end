@@ -5,6 +5,10 @@ import { TipoComision } from 'src/app/models/clases/comision/tipo-comision';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 
+import {FormControl} from '@angular/forms';
+
+declare var $: any;
+
 @Component({
   selector: 'app-comisiones',
   templateUrl: './comisiones.component.html',
@@ -12,15 +16,18 @@ import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision
 })
 export class ComisionesComponent implements OnInit {
 
+  comision1:Comision;
+  comision2:Comision;
+  listaTipoComision: TipoComision[]=[];
+  listaUsuarios:Usuario[]=[];
+  tabs = ['First', 'Second', 'Third'];
+  selected = new FormControl(0);
   listaComision: Comision[] = [];
-  listaTipoComision: TipoComision[] = [];
-  listaUsuarios: Usuario[] = [];
-  constructor(private comisionServ: ComisionesServicePhp) {
+  constructor(private comisionServ:ComisionesServicePhp) { 
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
     this.getTipoComisionesBD();
     this.getUsuariosBD();
-    this.generarLista();
 
   }
 
@@ -126,15 +133,16 @@ export class ComisionesComponent implements OnInit {
     )
     console.log("los usuariossss");
     console.log(this.listaUsuarios);
-  }
+   }//
 
-  generarTablas(nombre: any) {
-    nombre = [1, 1, 2, 3];
-    return nombre;
-  }
-  generarLista() {
-    let arreglo=["comisionMeritos","comisionEvaluadora"];
-    console.log(this.generarTablas(arreglo[0]));
-    console.log(this.generarTablas(arreglo[0]));
-  }
+   marcar(idTipo: number, idUsuario: number){
+    //  pintar fila y cambiar iconos
+    $('#id' + idTipo + idUsuario).toggleClass('text-primary').toggleClass("text-muted");
+    $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
+    $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
+    $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
+
+    console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
+    
+   }
 }
