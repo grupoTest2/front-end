@@ -133,11 +133,11 @@ export class ComisionesComponent implements OnInit {
     )
     console.log("los usuariossss");
     console.log(this.listaUsuarios);
-   }
+   }//
 
    marcar(idTipo: number, idUsuario: number){
     //  pintar fila y cambiar iconos
-    $('#id' + idTipo + idUsuario).toggleClass('text-primary');
+    $('#id' + idTipo + idUsuario).toggleClass('text-primary').toggleClass("text-muted");
     $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
     $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
     $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
