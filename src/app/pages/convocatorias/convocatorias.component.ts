@@ -93,6 +93,12 @@ export class ConvocatoriasComponent implements OnInit {
     this.listaConvocatoria = listaAuxiliar;
   }
 
+
+  habilitar(item){
+    console.log("++++++++++++++++++++++++++++++++++")
+    console.log();
+  }
+
   editar(item: Convocatoria) {
     this.formCrearConv.reset();
     this.formCrearConv.get('titulo').setErrors(null);

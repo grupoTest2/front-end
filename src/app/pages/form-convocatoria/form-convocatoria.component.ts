@@ -24,6 +24,8 @@ import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-se
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 declare var $: any;
 declare var swal: any;
+declare var tata: any;
+
 
 @Component({
   selector: 'app-form-convocatoria',
@@ -40,7 +42,6 @@ export class FormConvocatoriaComponent implements OnInit {
   @ViewChild('datosRotulo') datosRotulo: DatosRotuloComponent;
   @Input() titulo: string = '';
   @Input() gestion: string = '';
-
 
   // lista de los datos de los diferentes componentes
   listaDatosRequerimientos: Requerimiento[] = [];
@@ -64,7 +65,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-    
+
   }
   ngOnInit(): void {
     this.blockUI.start("cargando");
@@ -72,9 +73,9 @@ export class FormConvocatoriaComponent implements OnInit {
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-    $(window).bind('beforeunload', function(){
+    $(window).bind('beforeunload', function () {
       return confirm("Do you really want to refresh?");
-  });
+    });
   }
 
   alertEliminar(): void {
@@ -104,11 +105,11 @@ export class FormConvocatoriaComponent implements OnInit {
     })
   }
 
-  estaHabilitado(){
+  estaHabilitado() {
     return this.requerimiento.estaHabilitado();
   }
   // modificando la lsta de codigos de la componente calificaciones
-  setListaRequerimientos(listaRequerimientos:Requerimiento[]) {
+  setListaRequerimientos(listaRequerimientos: Requerimiento[]) {
     console.log(listaRequerimientos);
     console.log(this.calificacionConocimiento);
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
@@ -128,6 +129,49 @@ export class FormConvocatoriaComponent implements OnInit {
     console.log(this.listaDatosRotulo);
   }
 
+
+
+  habilitar() {
+    let mensaje=" campo de: "
+    if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado() && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado() && this.datosRotulo.estaHabilitado()) {
+      this.lanzarConvocatoria();
+    }
+    else{
+      if (!this.requerimiento.estaHabilitado()){
+        mensaje+="requerimiento, "
+      }
+      if(!this.requisitos.estaHabilitado()){
+        mensaje+="campo de requerimiento, "
+      }if(!this.documentosPresentar.estaHabilitado()){
+        mensaje+="campo de documentos a presentar, "
+      }if(!this.merito.estaHabilitado()){
+        mensaje+="campo de meritos, "      
+      }if(this.calificacionConocimiento.estaHabilitado()){
+        mensaje+="campo de calificacion conocimiento, "
+      }if(!this.eventos.estaHabilitado()){
+        mensaje+="campo de eventos, "
+      }if(!this.datosRotulo.estaHabilitado()) {
+        mensaje+="campo de datos rotulo, "
+      }
+      this.mensajeToastErrorBD(mensaje+"a llenar faltantes!"); 
+    }
+
+  }
+
+  //metodo para lanzar convocatoria
+  lanzarConvocatoria() {
+    this.mensajeToastExito("la convocatoria esta habilitada");
+
+  }
+
+  mensajeToastErrorBD(mensaje) {
+    tata.error("Error", mensaje);
+
+  }
+  mensajeToastExito(mensaje) {
+    tata.success("Registro Exitoso", mensaje);
+  }
+
   agregarBD() {
     this.recuperarLosDatosDeLosComponentes();
     this.agregarRequerimientos();
@@ -137,11 +181,11 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarMeritos();
     this.agregarEventos();
     this.agregarDatosRotulo();
-    this.alertEliminar()
+    this.alertEliminar();
   }
-  agregarRequerimientos(){
+  agregarRequerimientos() {
     console.log(this.listaRequerimientos);
-    if (this.listaRequerimientos.length !== 0){
+    if (this.listaRequerimientos.length !== 0) {
       //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
         respuesta => {
@@ -184,11 +228,11 @@ export class FormConvocatoriaComponent implements OnInit {
   /**
    * revisar la impresion del metodo
    */
-  agregarCalificaciones(){
-    let resp:boolean=false;
+  agregarCalificaciones() {
+    let resp: boolean = false;
     console.log(JSON.stringify(this.listaItemsConCalificaciones));
-    for(let i in this.listaItemsConCalificaciones){
-      let listaTem=this.listaItemsConCalificaciones[i].getListaTematica();
+    for (let i in this.listaItemsConCalificaciones) {
+      let listaTem = this.listaItemsConCalificaciones[i].getListaTematica();
       console.log("las tematicasssss");
       console.log(JSON.stringify(listaTem));
       if (listaTem.length !== 0) {
@@ -236,9 +280,9 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
   }
- 
 
-  agregarDatosRotulo(){
+
+  agregarDatosRotulo() {
     console.log(JSON.stringify(this.listaDatosRotulo));
     if (this.listaDatosRotulo.length !== 0) {
       this.apiPHP.agregarDatosRotulo(this.listaDatosRotulo).subscribe(

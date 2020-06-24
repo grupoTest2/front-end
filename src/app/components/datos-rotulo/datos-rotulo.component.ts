@@ -24,7 +24,7 @@ export class DatosRotuloComponent implements OnInit {
 
   seleccion: SeleccionTipoDatoRotulo;
   contador: number = 0;
-  numeroDeEnLista:number=0;
+  numeroDeEnLista:number=0;  
   constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp) {
     this.getTipoDatosRotulo();
     this.getTipoDatosRotuloBD();
@@ -125,7 +125,8 @@ export class DatosRotuloComponent implements OnInit {
    *indica si la convocatoria es apta para ser lanzada 
    */
   estaHabilitado(){
-    return this.seleccion.estaHabilitado();
+    return this.seleccion.cantDatosEnLista() > 0;
+    
   }
 
   /**
