@@ -36,4 +36,9 @@ export class EditarConvocatoriaServicePhp {
   public getConvocatorias(idDep: number) {
     return this.http.get(`${this.URL}obtenerConvocatorias.php?idDep=${idDep}`);
   }
+
+  public getConvocatoriasEncurso(idDep: number) {
+    return this.http.get(`${this.URL}obtenerConvocatoriasCurso.php?idDep=${idDep}`);
+  }
+  
 }
