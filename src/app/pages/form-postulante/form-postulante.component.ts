@@ -293,7 +293,7 @@ export class FormPostulanteComponent implements OnInit {
     console.log(listaItemsSeleccionados)
     this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,this.listaDatosPostulante)
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(this.postulante);
+    console.log(JSON.stringify(this.postulante));
     this.registrarPostulanteBD();
   }
 
@@ -311,7 +311,7 @@ export class FormPostulanteComponent implements OnInit {
    * metodos que interactuan con la base de datos
    */
   getItemsBD() {
-    let idConv: number = 5;
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.servicePostulante.getItems(idConv).subscribe(
       (resultado: Item) => {
         let item: Item;
@@ -324,7 +324,7 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   getDatosRotuloConvBD() {
-    let idConv: number = 5;
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_siss"))
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
@@ -342,7 +342,15 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   registrarPostulanteBD() {
-
+    this.servicePostulante.agregarPostulante(this.postulante).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          console.log("el postulante se registro correctamente");
+        }else{
+          console.log("error al registrar el postulante");
+        }
+      }
+    )
   }
 
 
