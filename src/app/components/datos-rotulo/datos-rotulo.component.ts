@@ -27,7 +27,7 @@ export class DatosRotuloComponent implements OnInit {
   numeroDeEnLista:number=0;
   constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp) {
     this.getTipoDatosRotulo();
-    this.getTipoDatosRotuloBD()
+    this.getTipoDatosRotuloBD();
   }
   ngOnInit(): void {
     $('.switch').click(function () {
@@ -35,12 +35,8 @@ export class DatosRotuloComponent implements OnInit {
     });
   }
   
-
   cambioBandera(index: number): void {
-    console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
-
     if (this.bandera && this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
-      console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
       this.bandera = false;
       this.seleccionTodo = true;
       $('.switch').click();
@@ -56,6 +52,12 @@ export class DatosRotuloComponent implements OnInit {
       this.bandera = true;
       this.seleccionTodo = true;
       $('.switch').click();
+    }
+  }
+
+  limppiar(){
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+      this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
     }
   }
 
@@ -137,7 +139,7 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));sss
       }
     );
   }

@@ -34,32 +34,6 @@ export class ComisionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  anadirUsuarios() {/*
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'lucia','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'lucia','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'josue','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'janne','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'kewin','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'chiquiotin','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'elena','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'maria','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'erick','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'bety','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'caro','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));
-    this.listaUsuarios.push(new Usuario(12,'pepe','lopes','gomez','pepeLopez@gmail.com',12,"12"));*/
-  }
 
   /*aniadirUsuario(tipoComision:string,usuario:Usuario){
     if(tipoComision===this.comision1.getTipoComision()){

@@ -37,6 +37,10 @@ export class ConvocatoriasComponent implements OnInit {
     private cargarDatos:PhpServeConvocatoria) {
     this.buildForm();
     
+    localStorage.setItem('tituloConvocatoria', "");
+    localStorage.setItem('gestionConvocatoria', "");
+    localStorage.setItem('idTipo',"");
+    localStorage.setItem("idConv","");
     console.log("mi lista");
     console.log(this.listaConvocatoria);
     console.log("mis estados");
@@ -62,7 +66,7 @@ export class ConvocatoriasComponent implements OnInit {
 
   cambiar(id: string){
     $('#id2'+id).toggleClass('color');
-    $('#id2'+id).toggleClass('shadow').toggleClass('rounded');
+    $('#id2'+id).toggleClass('shadow-sm').toggleClass('rounded');
     $('#idIcono'+id).toggleClass('fa-angle-right');
     $('#idIcono'+id).toggleClass('fa-angle-down');
     console.log("iddddd", '#id2'+id)
@@ -95,6 +99,10 @@ export class ConvocatoriasComponent implements OnInit {
     this.formCrearConv.get('gestion').setErrors(null);
     $('#tituloConvocatoria').val(item.getTitulo());
     $('#seleccionGestion').val(item.getGestion());
+    localStorage.setItem('tituloConvocatoria', item.getTitulo());
+    localStorage.setItem('gestionConvocatoria',item.getGestion());
+    localStorage.setItem('idTipo',item.getIdTipoConv()+"");
+    localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
   loading() {
