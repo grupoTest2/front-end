@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
 import { ConvocatoriasComponent } from './pages/convocatorias/convocatorias.component';
+import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent },
   { path: 'crearConvocatoria/formulario', component: FormConvocatoriaComponent },
   { path: 'editarConvocatoria/formulario', component: FormConvocatoriaComponent },
+  { path: 'convocatoriasEnCurso', component: ConvocatoriasEnCursoComponent },
   { path: 'editar/convocatorias', component: ConvocatoriasComponent },
   { path: 'formularioRegistro', component: FormPostulanteComponent },
   { path: 'formularioMiembro', component: FormRegistroComponent},
