@@ -34,6 +34,7 @@ import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/ed
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     LoadingSpinnerComponent,
     ComisionesComponent,
     FormRegistroComponent,
-    FormPostulanteComponent
+    FormPostulanteComponent,
+    ConvocatoriasEnCursoComponent
     ],
   imports: [
     BrowserModule,

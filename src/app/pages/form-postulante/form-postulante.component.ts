@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { from } from 'rxjs';
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
@@ -8,6 +8,7 @@ import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 
 declare var $: any;
+declare var tata: any;
 
 @Component({
   selector: 'app-form-postulante',
@@ -19,10 +20,8 @@ export class FormPostulanteComponent implements OnInit {
   listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
-
   listaDatosRotulo: TipoDatoRotulo[] = [];
   bandera = true;
-
   msjErrorNumericoVacio = "datos incorrectos"
   msjErrorNumericoIncorrecto = "campo numerico contiene caracteres incorrectos";
   msjErrorNumericoCorto = "campo numerico corto"
@@ -34,7 +33,6 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailIncorrecto = "correo incorrecto";
 
   constructor(private servicePostulante: PostulanteServicePhp) {
-    this.cargarDatos();
     this.getItemsBD();
     this.getDatosRotuloConvBD();
   }
@@ -44,154 +42,32 @@ export class FormPostulanteComponent implements OnInit {
       $(this).toggleClass("switchOn");
     });
   }
-  cargarDatos() {
-    this.listaDatosRotulo.push(new TipoDatoRotulo("nombre", true, true, "text"));
-    this.listaDatosRotulo.push(new TipoDatoRotulo("correo", true, true, "email"));
-    this.listaDatosRotulo.push(new TipoDatoRotulo("telefono", true, true, "number"));
-    this.listaDatosRotulo.push(new TipoDatoRotulo("edad", true, true, "number"));
-    this.listaDatosRotulo.push(new TipoDatoRotulo("correo2", true, true, "email"));
-    this.listaDatosRotulo.push(new TipoDatoRotulo("codigosis", true, true, "number"));
-    let segundo = 1;
-    if (this.bandera) {
-      setInterval(() => {
-        if (segundo % 2 == 0 && this.bandera) {
-          this.validarDato();
-          this.bandera = false;
-          console.log("rarp")
-
-        }
-        else {
-          if (this.bandera) {
-            segundo++;
-            console.log("rarp")
-          }
-        }
-      }, 1000);
-    }
-  }
-
-  verifcarDatos() {
-    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-      let iden = "#" + this.listaDatosRotulo[index].getNombre();
-      let res = $(iden).val();
-    }
-  }
-
 
   validarDato() {
-    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-      let id = this.listaDatosPostulante[index].getNombreDato();
-      let aux = document.getElementById(id);
-      let inputTipe = $("#" + id).attr('type');
-      aux.addEventListener("blur", function (event) {
-        let value = $("#" + id).val();
-        var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-
-        //inputs tipo number
-        if (inputTipe == "number") {
-          value = $("#" + id).val();
-          if (value.length == 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "11").css('display', 'block');
-            $("#" + id + "12").css('display', 'none');
-            $("#" + id + "13").css('display', 'none');
-          }
-          if (value.length < 1 && value.length > 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "11").css('display', 'none');
-            $("#" + id + "12").css('display', 'block');
-            $("#" + id + "13").css('display', 'none');
-          }
-          if (value.length >= 1) {
-            $("#" + id).removeClass("is-invalid");
-            $("#" + id).addClass("is-valid");
-            $("#" + id + "11").css('display', 'none');
-            $("#" + id + "12").css('display', 'none');
-            $("#" + id + "13").css('display', 'none');
-          }
-          if (value.includes('.') || value.includes('e')) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "11").css('display', 'none');
-            $("#" + id + "12").css('display', 'none');
-            $("#" + id + "13").css('display', 'block');
-          }
-        }
-
-        //input tipo texto
-        if (inputTipe == "text") {
-          value = $("#" + id).val();
-          if (value.length == 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "21").css('display', 'block');
-            $("#" + id + "22").css('display', 'none');
-          }
-          if (value.length < 2 && value.length > 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "21").css('display', 'none');
-            $("#" + id + "22").css('display', 'block');
-          }
-          if (value.length >= 2) {
-            $("#" + id).removeClass("is-invalid");
-            $("#" + id).addClass("is-valid");
-            $("#" + id + "21").css('display', 'none');
-            $("#" + id + "22").css('display', 'none');
-          }
-          if (value.includes('.')) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "21").css('display', 'none');
-            $("#" + id + "22").css('display', 'none');
-            $("#" + id + "23").css('display', 'block');
-          }
-        }
-
-        //input tipo gmail
-        if (inputTipe == "email") {
-          value = $("#" + id).val();
-          if (value.length == 0) {
-            $("#" + id).removeClass("is-valid");
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "31").css('display', 'block');
-            $("#" + id + "32").css('display', 'none');
-            $("#" + id + "33").css('display', 'none');
-          }
-          if (value.length < 5 && value.length > 0) {
-            $("#" + id).removeClass("is-valid");
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "31").css('display', 'none');
-            $("#" + id + "32").css('display', 'block');
-            $("#" + id + "33").css('display', 'none');
-          }
-          if (value.length >= 4) {
-            if (!pattern.test(value)) {
-              $("#" + id).addClass("is-invalid");
-              $("#" + id + "31").css('display', 'none');
-              $("#" + id + "32").css('display', 'none');
-              $("#" + id + "33").css('display', 'block');
-            }
-            if (pattern.test(value)) {
-              $("#" + id).removeClass("is-invalid");
-              $("#" + id).addClass("is-valid");
-              $("#" + id + "31").css('display', 'none');
-              $("#" + id + "32").css('display', 'none');
-              $("#" + id + "33").css('display', 'none');
-            }
-          }
-        }
-
-      }, true);
-
-      $("#" + id).keydown(function () {
-        let value = $("#" + id).val();
-        if (inputTipe == "text") {
-          if (value.length >= 2) {
-            $("#" + id).removeClass("is-invalid");
-            $("#" + id).addClass("is-valid");
-            $("#" + id + "21").css('display', 'none');
-            $("#" + id + "22").css('display', 'none');
-          }
-        } else {
+    if (this.bandera) {
+      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+        let id = this.listaDatosPostulante[index].getNombreDato();
+        let aux = document.getElementById(id);
+        let inputTipe = $("#" + id).attr('type');
+        aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
-          if (inputTipe == "number") {
+          var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+          //inputs tipo number
+          /*if (inputTipe == "number") {
+            value = $("#" + id).val();
+            if (value.length == 0) {
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "11").css('display', 'block');
+              $("#" + id + "12").css('display', 'none');
+              $("#" + id + "13").css('display', 'none');
+            }
+            if (value.length < 1 && value.length > 0) {
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "11").css('display', 'none');
+              $("#" + id + "12").css('display', 'block');
+              $("#" + id + "13").css('display', 'none');
+            }
             if (value.length >= 1) {
               $("#" + id).removeClass("is-invalid");
               $("#" + id).addClass("is-valid");
@@ -199,23 +75,112 @@ export class FormPostulanteComponent implements OnInit {
               $("#" + id + "12").css('display', 'none');
               $("#" + id + "13").css('display', 'none');
             }
-          } else {
-            let value = $("#" + id).val();
-            if (inputTipe == "email") {
-              var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-              if (value.length >= 4) {
-                if (pattern.test(value)) {
-                  $("#" + id).removeClass("is-invalid");
+            if (value.includes('.') || value.includes('e')) {
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "11").css('display', 'none');
+              $("#" + id + "12").css('display', 'none');
+              $("#" + id + "13").css('display', 'block');
+            }
+          }*/
+          //input tipo texto
+          if (inputTipe == "text") {
+            value = $("#" + id).val();
+            if (value.length == 0) {
+              console.log("ingreso a tamano d value 0");
+              $("#" + id).removeClass("is-valid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "21").css('display', 'block');
+              $("#" + id + "22").css('display', 'none');
+            } else {
+              if (value.length <= 2) {
+                $("#" + id).removeClass("is-valid");
+                $("#" + id).addClass("is-invalid");
+                $("#" + id + "21").css('display', 'none');
+                $("#" + id + "22").css('display', 'block');
+              }
+              else {
+                if (value.length > 2) {
                   $("#" + id).addClass("is-valid");
-                  $("#" + id + "31").css('display', 'none');
-                  $("#" + id + "32").css('display', 'none');
-                  $("#" + id + "33").css('display', 'none');
+                  $("#" + id + "21").css('display', 'none');
+                  $("#" + id + "22").css('display', 'none');
                 }
               }
             }
+            if (value.includes('.')) {
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "21").css('display', 'none');
+              $("#" + id + "22").css('display', 'none');
+              $("#" + id + "23").css('display', 'block');
+            }
           }
-        }
-      })
+          //input tipo gmail
+          /*if (inputTipe == "email") {
+            value = $("#" + id).val();
+            if (value.length == 0) {
+              $("#" + id).removeClass("is-valid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "31").css('display', 'block');
+              $("#" + id + "32").css('display', 'none');
+              $("#" + id + "33").css('display', 'none');
+            }
+            if (value.length < 5 && value.length > 0) {
+              $("#" + id).removeClass("is-valid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "31").css('display', 'none');
+              $("#" + id + "32").css('display', 'block');
+              $("#" + id + "33").css('display', 'none');
+            }
+            if (value.length >= 4) {
+              if (!pattern.test(value)) {
+                $("#" + id).addClass("is-invalid");
+                $("#" + id + "31").css('display', 'none');
+                $("#" + id + "32").css('display', 'none');
+                $("#" + id + "33").css('display', 'block');
+              }
+              if (pattern.test(value)) {
+                $("#" + id).removeClass("is-invalid");
+                $("#" + id).addClass("is-valid");
+                $("#" + id + "31").css('display', 'none');
+                $("#" + id + "32").css('display', 'none');
+                $("#" + id + "33").css('display', 'none');
+              }
+            }
+          }*/
+        }, true);
+        let contador = 0;
+        $("#" + id).keydown(function (e) {
+          if (e.which == 8) {
+            if (contador != 0) {
+              contador -= 1;
+            }
+            if (contador == 0) {
+              $("#" + id).removeClass("is-valid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "21").css('display', 'block');
+              $("#" + id + "22").css('display', 'none');
+            }
+            if (contador < 3 && contador >= 1) {
+              $("#" + id).removeClass("is-valid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "21").css('display', 'none');
+              $("#" + id + "22").css('display', 'block');
+
+            }
+            //console.log("#######################"+e.which)
+          } else {
+            contador += 1
+            if (inputTipe == "text") {
+              if (contador >= 3) {
+                $("#" + id).removeClass("is-invalid");
+                $("#" + id).addClass("is-valid");
+                $("#" + id + "21").css('display', 'none');
+                $("#" + id + "22").css('display', 'none');
+              }
+            }
+          }
+        })
+      }
+      this.bandera = false
     }
   }
 
@@ -228,14 +193,14 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  cambio(){
-    this.presionandoSwitch(false) 
+  cambio() {
+    this.presionandoSwitch(false)
   }
 
   presionandoSwitch(bandera) {
-    if(bandera){
-    console.log("presiono el switch ---------------------------")
-    $('.switch').click();
+    if (bandera) {
+      console.log("presiono el switch ---------------------------")
+      $('.switch').click();
     }
   }
 
@@ -243,25 +208,51 @@ export class FormPostulanteComponent implements OnInit {
 
 
   guardarDatos() {
+    console.log("ingreso para guardar")
     let contador = 0;
-    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-      let id = this.listaDatosRotulo[index].getNombre();
+
+    //recorremos la lista de los datos rotulo para ver si sus campos son validos
+    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+      let id = this.listaDatosPostulante[index].getNombreDato();
       if ($("#" + id).hasClass("is-valid")) {
-        console.log("si tien la clase:->" + id)
         contador += 1
       }
     }
-    if (contador == this.listaDatosRotulo.length) {
+
+    //rrecorremos la lista de items a los que se puede postular
+    let bandera = false;
+    for (let index = 0; index < this.listaItems.length; index++) {
+      if (this.listaItems[index].getSeleccionado()) {
+        bandera = true;
+      }
+    }
+
+    if (!bandera) {
+      this.mensajeToastError();
+    }
+    if (contador == this.listaDatosPostulante.length && bandera) {
+      this.mensajeToastExito();
+      this.recuperarDatos();
       console.log("puede guardar sus datos");
     }
     else {
-      for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-        let id = this.listaDatosRotulo[index].getNombre();
+      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+        let id = this.listaDatosPostulante[index].getNombreDato();
         let inputTipe = $("#" + id).attr('type');
         let value = $("#" + id).val();
-        if (inputTipe == "text" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "21").css('display', 'block');
+        if (inputTipe == "text") {
+          if (value.length == 0) {
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "22").css('display', 'none');
+            $("#" + id + "21").css('display', 'block');
+          }
+          else {
+            if (value.length <= 2) {
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "21").css('display', 'none');
+              $("#" + id + "22").css('display', 'block');
+            }
+          }
         }
         if (inputTipe == "number" && value.length == 0) {
           $("#" + id).addClass("is-invalid");
@@ -273,6 +264,47 @@ export class FormPostulanteComponent implements OnInit {
         }
       }
     }
+  }
+
+
+  //metodo para rrecuperar datos de los imputs y checks
+  recuperarDatos() {
+    let codigoSis:number=0;
+    let listaDatosInputs: DatosPostulante[] = [];
+    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+      let id = this.listaDatosPostulante[index].getNombreDato();
+      let value = $("#" + id).val();
+      if (id == "codigo_siss") {
+        codigoSis=parseInt(value);
+      }
+      else {
+        this.listaDatosPostulante[index].setValorDato(value);
+        listaDatosInputs.push(this.listaDatosPostulante[index]);
+      }
+    }
+
+    let listaItemsSeleccionados: Item[] = [];
+    for (let index = 0; index < this.listaItems.length; index++) {
+      if (this.listaItems[index].getSeleccionado()) {
+        listaItemsSeleccionados.push(this.listaItems[index]);
+      }
+    }
+    console.log(listaDatosInputs)
+    console.log(listaItemsSeleccionados)
+    this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,this.listaDatosPostulante)
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(this.postulante);
+    this.registrarPostulanteBD();
+  }
+
+
+  mensajeToastError() {
+    tata.error("Error", "Debe De Seleccionar Almenos Un Item");
+
+  }
+
+  mensajeToastExito() {
+    tata.success("Registro Exitoso", "Se Guardaron Sus Datos Correctamente");
   }
 
   /**
@@ -293,6 +325,7 @@ export class FormPostulanteComponent implements OnInit {
 
   getDatosRotuloConvBD() {
     let idConv: number = 5;
+    this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_siss"))
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
         let datoP: DatosPostulante;
@@ -308,5 +341,40 @@ export class FormPostulanteComponent implements OnInit {
 
   }
 
+  registrarPostulanteBD() {
+
+  }
+
+
+  /*
+let value = $("#" + id).val();
+          /*if (inputTipe == "number") {
+            if (value.length >= 1) {
+              $("#" + id).removeClass("is-invalid");
+              $("#" + id).addClass("is-valid");
+              $("#" + id + "11").css('display', 'none');
+              $("#" + id + "12").css('display', 'none');
+              $("#" + id + "13").css('display', 'none');
+            }
+          } *//*else {
+let value = $("#" + id).val();
+if (inputTipe == "email") {
+var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+if (value.length >= 4) {
+if (pattern.test(value)) {
+$("#" + id).removeClass("is-invalid");
+$("#" + id).addClass("is-valid");
+$("#" + id + "31").css('display', 'none');
+$("#" + id + "32").css('display', 'none');
+$("#" + id + "33").css('display', 'none');
 }
+}
+}
+}
+*/
+
+}
+
+
+
 
