@@ -80,9 +80,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
   // modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerimientos:Requerimiento[]) {
-    console.log("jhon putito");
     console.log(listaRequerimientos);
-    console.log("xdxdxdxdxdxdxdxd");
     console.log(this.calificacionConocimiento);
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
     this.listaRequerimientos = listaRequerimientos;

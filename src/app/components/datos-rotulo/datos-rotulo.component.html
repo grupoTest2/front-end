@@ -43,13 +43,13 @@
         </button>
       </div>
       <div class="modal-body" id="modalRequisitos">
-        <div class="d-flex ">
+        <!--<div class="d-flex ">
           <label>
             <input type="checkbox" name="checkboxName" class="checkbox" (click)="presionando()" checked='true' />
             <div class="switch"></div>
           </label>
           <span class="mb-4 h5" (click)="presionando()">&nbsp;&nbsp;Seleccionar Todos</span>
-        </div>
+        </div>-->
         <hr>
         <div *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i">
           <button *ngIf="!item.getEnLista()"
@@ -57,7 +57,7 @@
             [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="cambioBandera(i)"
             style="font-size: 1rem;">
             <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
-            <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue;"> </i>&nbsp;
+            <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue"> </i>&nbsp;
             &nbsp;{{item.getNombre() | titlecase}} </button>
         </div>
 
