@@ -55,6 +55,12 @@ export class DatosRotuloComponent implements OnInit {
     }
   }
 
+  limppiar(){
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+      this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
+    }
+  }
+
   cambio() {
     if (this.bandera) {
       this.contador = 0;
