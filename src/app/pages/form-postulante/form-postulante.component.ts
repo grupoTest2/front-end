@@ -8,6 +8,7 @@ import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 
 declare var $: any;
+declare var tata:any;
 
 @Component({
   selector: 'app-form-postulante',
@@ -226,7 +227,11 @@ export class FormPostulanteComponent implements OnInit {
       }
     }
 
+    if(!bandera){
+      this.mensajeToastError();
+    }
     if (contador == this.listaDatosPostulante.length && bandera) {
+      this.mensajeToastExito();
       this.recuperarDatos();
       console.log("puede guardar sus datos");
     }
@@ -283,6 +288,14 @@ export class FormPostulanteComponent implements OnInit {
   }
 
 
+  mensajeToastError(){
+    tata.error("Error","Debe De Seleccionar Almenos Un Item");
+    
+  }
+
+  mensajeToastExito(){
+    tata.success("Registro Exitoso","Se Guardaron Sus Datos Correctamente");
+  }
 
   /**
    * metodos que interactuan con la base de datos
@@ -302,6 +315,7 @@ export class FormPostulanteComponent implements OnInit {
 
   getDatosRotuloConvBD() {
     let idConv: number = 5;
+    this.listaDatosPostulante.push(new DatosPostulante(1,"codigo_siss"))
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
         let datoP: DatosPostulante;
