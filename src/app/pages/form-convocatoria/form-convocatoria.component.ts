@@ -110,6 +110,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarDatosRotulo();
   }
   agregarRequerimientos(){
+    console.log(this.listaRequerimientos);
     if (this.listaRequerimientos.length !== 0){
       //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
