@@ -30,6 +30,10 @@ export class CrearConvocatoriaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria,
     private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
+      localStorage.setItem('tituloConvocatoria', "");
+      localStorage.setItem('gestionConvocatoria', "");
+      localStorage.setItem('idTipo',"");
+      localStorage.setItem("idConv","");
     this.buildForm();
     this.getTipoConvocatoriaBD();
   }
@@ -38,6 +42,7 @@ export class CrearConvocatoriaComponent implements OnInit {
   }
 
   establecerDatos(): void {
+
     let convocatoria: Convocatoria;
     this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
     this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
