@@ -20,10 +20,10 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
 
   recuperarDatos(){
     this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 1","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 2","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 3","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 4","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
-    this.listaConvocatorias.push(new Convocatoria(1,"convocatoria 5","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
+    this.listaConvocatorias.push(new Convocatoria(2,"convocatoria 2","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
+    this.listaConvocatorias.push(new Convocatoria(3,"convocatoria 3","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
+    this.listaConvocatorias.push(new Convocatoria(4,"convocatoria 4","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
+    this.listaConvocatorias.push(new Convocatoria(5,"convocatoria 5","2020","habiliado",new TipoConvocatoria(1,'Docencia')));
   }
 
   setearLocalStore(id:number){
