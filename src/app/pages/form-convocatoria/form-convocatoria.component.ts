@@ -23,6 +23,7 @@ import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-se
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 declare var $: any;
+declare var swal: any;
 
 @Component({
   selector: 'app-form-convocatoria',
@@ -56,9 +57,7 @@ export class FormConvocatoriaComponent implements OnInit {
   gestionConvocatoria: string = '';
   idTipo: string = '';
   bandera: boolean;
-
   @BlockUI() blockUI: NgBlockUI;
-  blockTemplate =LoadingSpinnerComponent;
 
   constructor(private datosConvocatoria: DatosConvocatoriaService, private apiPHP: PhpServeConvocatoria) {
     this.tituloConvocatoria = localStorage.getItem('tituloConvocatoria');
@@ -73,6 +72,36 @@ export class FormConvocatoriaComponent implements OnInit {
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
+    $(window).bind('beforeunload', function(){
+      return '>>>>>Before You Go<<<<<<<< \n Guardar cambios?';
+  });
+  }
+
+  alertEliminar(): void {
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar los datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        swal.fire(
+          'Exitoso!',
+          'Se guardaron los cambios de la convocatoria.',
+          'success'
+        )
+      } else {
+        swal.fire(
+          'Cancelado!',
+          '!.',
+          'error'
+        )
+      }
+    })
   }
 
   estaHabilitado(){
@@ -110,6 +139,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarMeritos();
     this.agregarEventos();
     this.agregarDatosRotulo();
+    this.alertEliminar()
   }
   agregarRequerimientos(){
     if (this.listaRequerimientos.length !== 0){
