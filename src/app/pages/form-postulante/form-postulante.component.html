@@ -10,7 +10,7 @@
           <label for="exampleInputpwd2">{{item.getNombreDato()}}</label>
           <div class="input-group">
             <input type="text" class="form-control" id="{{item.getNombreDato()}}"
-              placeholder="Ingrese su {{item.getNombreDato()}}"><!--{{item.getTipo()}}-->
+              placeholder="Ingrese su {{item.getNombreDato()}}" (click)="validarDato()"><!--{{item.getTipo()}}-->
           </div><!--
           <small class="inline-block text-danger" id="{{item.getNombre()}}11"
             style="display: none;">{{msjErrorNumericoVacio}}&nbsp;<small
@@ -63,7 +63,7 @@
       </form>
       <div class="form-group">
         <div class="d-flex justify-content-end mt-5">
-          <button class="btn btn-outline-dark" type="button">Guardar </button>
+          <button class="btn btn-outline-dark" type="button" (click)="guardarDatos()">Registrarme </button>
         </div>
       </div>
       <br>
