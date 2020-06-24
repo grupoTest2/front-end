@@ -12,7 +12,7 @@
                     <th class="text-center" scope="col">Cantidad De Items</th>
                     <th class="text-center" scope="col">Hrs/mes</th>
                     <th class="text-center" scope="col">Nombre Item</th>
-                    <th  class="text-center" scope="col">Codigo Auxiliatura</th>
+                    <th class="text-center" scope="col">Codigo Auxiliatura</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -24,7 +24,7 @@
                     <td>{{requerimiento.getCodigoAuxiliatura()}}</td>
                     <td class="text-center">
                         <div class="btn btn-group" role="group">
-                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos" (click)="editar(i)">
                                 <i class="fa fa-pencil"></i>
                             </button>
                             <button class="btn btn-outline-danger" (click)="alertEliminar()" type="button">

@@ -50,6 +50,12 @@ export class DocumentosPresentarComponent implements OnInit {
     }
   }
 
+  editar(i: number): void{
+    this.formDocumentos.get('detalle').setErrors(null);
+    this.formDocumentos.markAllAsTouched();
+    $('#descripcionDocumento').val(this.listaDocumentos[i].getDescripcion());
+  }
+
   getindice(indice:number):string{
     let caracter:string=String.fromCharCode(indice+65).toLocaleLowerCase()+") ";
     return caracter;

@@ -72,7 +72,7 @@ export class FormConvocatoriaComponent implements OnInit {
 
     setTimeout(() => {
       this.blockUI.stop();
-    }, 3500);
+    }, 500);
   }
 
   estaHabilitado(){

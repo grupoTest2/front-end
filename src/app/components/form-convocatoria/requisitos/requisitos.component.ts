@@ -48,12 +48,18 @@ export class RequisitosComponent implements OnInit {
     this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
     console.log(this.listaRequisitos);
     tata.success('Agregado.', 'Se agregó con exito.');
-    // this.formRequisitos.reset();
+    this.formRequisitos.reset();
     $('#tablaRequisitos').modal('hide');
     }
     else{
       this.ErrorAlInsertarRequisito(respuesta);
     }
+  }
+
+  editar(i: number): void{
+    this.formRequisitos.get('detalle').setErrors(null);
+    this.formRequisitos.markAllAsTouched();
+    $('#descripcionRequisito').val(this.listaRequisitos[i].getDescripcion());
   }
   
   formValido(): void{

@@ -121,6 +121,19 @@ export class RequerimientosComponent implements OnInit {
     $('#tablaRequerimientos').modal('hide');
   }
 
+  // editar modal
+  editar(i: number): void{
+    this.formRequerimientos.get('items').setErrors(null);
+    this.formRequerimientos.get('horasMes').setErrors(null);
+    this.formRequerimientos.get('materia').setErrors(null);
+    console.log(this.requerimientosSeleccionados[i])
+    $('#itemRequerimiento').val(this.requerimientosSeleccionados[i].getCantidadItem());
+    $('#horasMesRequerimiento').val(this.requerimientosSeleccionados[i].getHrsAcademicas());
+    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());
+    console.log(this.requerimientosSeleccionados[i].getnombreMateria())
+  }
+
+
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Requerimiento[] {
     return this.requerimientosSeleccionados;

@@ -33,6 +33,7 @@ import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { EditarConvocatoriaServicePhp } from './servicios/editar-convocatoria/editar-convocatoria.service';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
@@ -74,6 +76,7 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
     EditarConvocatoriaServicePhp,
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],

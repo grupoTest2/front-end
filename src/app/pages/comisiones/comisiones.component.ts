@@ -4,6 +4,10 @@ import { Comision} from 'src/app/models/clases/comision/comision';
 import { TipoComision } from 'src/app/models/clases/comision/tipo-comision';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 
+import {FormControl} from '@angular/forms';
+
+declare var $: any;
+
 @Component({
   selector: 'app-comisiones',
   templateUrl: './comisiones.component.html',
@@ -15,6 +19,8 @@ export class ComisionesComponent implements OnInit {
   comision2:Comision;
   listaTipoComision: TipoComision[]=[];
   listaUsuarios:Usuario[]=[];
+  tabs = ['First', 'Second', 'Third'];
+  selected = new FormControl(0);
   constructor(private comisionServ:ComisionesServicePhp) { 
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
@@ -92,5 +98,16 @@ export class ComisionesComponent implements OnInit {
     )
     console.log("los usuariossss");
     console.log(this.listaUsuarios);
+   }
+
+   marcar(idTipo: number, idUsuario: number){
+    //  pintar fila y cambiar iconos
+    $('#id' + idTipo + idUsuario).toggleClass('text-primary');
+    $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
+    $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
+    $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
+
+    console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
+    
    }
 }
