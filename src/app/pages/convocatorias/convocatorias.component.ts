@@ -62,7 +62,7 @@ export class ConvocatoriasComponent implements OnInit {
 
   cambiar(id: string){
     $('#id2'+id).toggleClass('color');
-    $('#id2'+id).toggleClass('shadow').toggleClass('rounded');
+    $('#id2'+id).toggleClass('shadow-sm').toggleClass('rounded');
     $('#idIcono'+id).toggleClass('fa-angle-right');
     $('#idIcono'+id).toggleClass('fa-angle-down');
     console.log("iddddd", '#id2'+id)

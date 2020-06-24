@@ -35,12 +35,8 @@ export class DatosRotuloComponent implements OnInit {
     });
   }
   
-
   cambioBandera(index: number): void {
-    console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
-
     if (this.bandera && this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
-      console.log(this.contador + "-----deiferencia----" + this.seleccion.getListaTiposDatosRotulo().length);
       this.bandera = false;
       this.seleccionTodo = true;
       $('.switch').click();
