@@ -285,6 +285,8 @@ export class FormPostulanteComponent implements OnInit {
     }
     console.log(listaDatosInputs)
     console.log(listaItemsSeleccionados)
+    //crear postulante
+    this.registrarPostulanteBD();
   }
 
 
@@ -329,6 +331,10 @@ export class FormPostulanteComponent implements OnInit {
     console.log("la lista de datos rotulo desde la base de datos");
     console.log(this.listaDatosPostulante);
 
+  }
+
+  registrarPostulanteBD(){
+    
   }
 
 
