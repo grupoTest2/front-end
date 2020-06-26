@@ -117,12 +117,12 @@ export class ConvocatoriasComponent implements OnInit {
     localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
-  loading() {
+  /*loading() {
     $.fakeLoader({
       bgColor: '#2ecc71',
       spinner: "spinner3"
     });
-  }
+  }*/
 
   // Validaciones -------------------------------------------------------------------------
   private buildForm(): void {
