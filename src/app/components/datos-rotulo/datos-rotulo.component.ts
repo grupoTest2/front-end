@@ -27,6 +27,9 @@ export class DatosRotuloComponent implements OnInit {
   contador: number = 0;
   numeroDeEnLista:number=0;
   href: string = '';
+
+  banderaAuxiliar =false;
+  
   constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
     this.getTipoDatosRotuloBD();
@@ -110,11 +113,13 @@ export class DatosRotuloComponent implements OnInit {
 
   ocultarBtnGuardar(){
     let bandera3=true;
+    if(this.banderaAuxiliar){
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       if(!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
         bandera3=false;
       }
      }
+    }
      return bandera3;
   }
 
@@ -167,6 +172,7 @@ export class DatosRotuloComponent implements OnInit {
           console.log(resultado[i]);
           this.seleccion.setDatoRotulo(resultado[i].nombre);
         }
+        this.banderaAuxiliar=true;
       }
     )
   }
