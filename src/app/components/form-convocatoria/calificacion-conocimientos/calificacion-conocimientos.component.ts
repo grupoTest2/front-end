@@ -59,8 +59,6 @@ export class CalificacionConocimientosComponent implements OnInit {
 
 
   setListaRequerimiento(listaRequeriminetos:Requerimiento[]): void {
-    console.log("----------------------xd");
-    console.log(listaRequeriminetos);
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
@@ -264,9 +262,7 @@ export class CalificacionConocimientosComponent implements OnInit {
           for(let j in listaAux2){
             tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota,listaAux2[j].idTematica);
             listaTem.push(tem);
-            if(bandera){  
-              console.log("lista tematicas XD");
-              console.log(listaTem);
+            if(bandera){ 
               this.listaTematicas.push(tem.getNombre());
             }
           }

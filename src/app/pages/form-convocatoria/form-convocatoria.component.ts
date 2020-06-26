@@ -125,8 +125,6 @@ export class FormConvocatoriaComponent implements OnInit {
   }
   // modificando la lsta de codigos de la componente calificaciones
   setListaRequerimientos(listaRequerimientos: Requerimiento[]) {
-    console.log(listaRequerimientos);
-    console.log(this.calificacionConocimiento);
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
     this.listaRequerimientos = listaRequerimientos;
   }
@@ -138,10 +136,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosMerito = this.merito.getDatos();
     this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
-
     this.listaDatosRotulo = this.datosRotulo.getDatos();
-    console.log("-----------------------------------------------------------------");
-    console.log(this.listaDatosRotulo);
   }
 
 
@@ -210,7 +205,6 @@ export class FormConvocatoriaComponent implements OnInit {
     this.agregarDatosRotulo();
   }
   agregarRequerimientos() {
-    console.log(this.listaRequerimientos);
     if (this.listaRequerimientos.length !== 0) {
       //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(

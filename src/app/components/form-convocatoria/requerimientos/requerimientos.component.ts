@@ -136,11 +136,9 @@ export class RequerimientosComponent implements OnInit {
     this.formRequerimientos.get('items').setErrors(null);
     this.formRequerimientos.get('horasMes').setErrors(null);
     this.formRequerimientos.get('materia').setErrors(null);
-    console.log(this.requerimientosSeleccionados[i])
     $('#itemRequerimiento').val(this.requerimientosSeleccionados[i].getCantidadItem());
     $('#horasMesRequerimiento').val(this.requerimientosSeleccionados[i].getHrsAcademicas());
     $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());
-    console.log(this.requerimientosSeleccionados[i].getnombreMateria())
   }
 
 
@@ -168,7 +166,6 @@ export class RequerimientosComponent implements OnInit {
 
   save(event: Event): void {
     event.preventDefault();
-    console.log(this.formRequerimientos.value+"11111111111111111111111111111111");
     if (this.formRequerimientos.valid) {
       const value = this.formRequerimientos.value;
     } else {
@@ -249,7 +246,6 @@ export class RequerimientosComponent implements OnInit {
 
   getRequerimientosBD(): void {
     let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.bandera = true;
     this.editarConv.getRequerimientos(idConv).subscribe(
       resultado => {
         let req: Requerimiento;
@@ -271,16 +267,13 @@ export class RequerimientosComponent implements OnInit {
           this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
 
         }
+        this.bandera = true;
         this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
         this.bandera2 = true;
-        console.log(this.requerimientosSeleccionados);
         this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
         this.enviarLista();
         if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
           this.bandera = false;
-        }
-        else {
-          this.bandera = true;
         }
       }
     )

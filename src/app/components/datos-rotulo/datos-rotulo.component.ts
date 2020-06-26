@@ -15,9 +15,6 @@ declare var $: any;
   styleUrls: ['./datos-rotulo.component.css']
 })
 export class DatosRotuloComponent implements OnInit {
-
-  listaAseleccionarr: string[] = ['codigo sis', 'nombre', 'apellido paterno', 'apellido materno', 'correo electronico', 'carrera', 'edad']
-
   seleccionTodo: boolean = true;
 
   bandera: boolean = true;
@@ -69,6 +66,9 @@ export class DatosRotuloComponent implements OnInit {
     }
   }
 
+
+
+
   limppiar(){
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
@@ -107,7 +107,6 @@ export class DatosRotuloComponent implements OnInit {
       conteoEnLista+=1;
      }
     }
-    console.log(this.seleccion.getListaTiposDatosRotulo());
     this. numeroDeEnLista=this.seleccion.getListaTiposDatosRotulo().length-conteoEnLista;
   }
 
@@ -118,13 +117,15 @@ export class DatosRotuloComponent implements OnInit {
       if(!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
         bandera3=false;
       }
-     }
     }
-     return bandera3;
+    }
+    return bandera3;
   }
 
-  presionando(){
+  presionando(bandera){
+    if(bandera){
     $('.switch').click();
+    }
   }
 
   getDatos(){
@@ -156,10 +157,11 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));sss
+        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
       }
     );
   }
+
   /**
    * recupera la configuracion de una convocatoria
    */
@@ -168,11 +170,11 @@ export class DatosRotuloComponent implements OnInit {
     this.editarConv.getDatosRotulo(idConv).subscribe(
       resultado=>{
         for(let i in resultado){
-          console.log("------------------------lista datos");
-          console.log(resultado[i]);
           this.seleccion.setDatoRotulo(resultado[i].nombre);
+          //console.log(resultado[i].nombre)
         }
         this.banderaAuxiliar=true;
+       // console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
       }
     )
   }
