@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between align-items-end">
         <label>1.- Requerimientos</label>
-        <button [disabled]="!seleccionRequerimiento.hayMateriasDisponibles() || ruta()" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos" (click)="resetForm()">
+        <button [disabled]="!bandera || ruta()" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#tablaRequerimientos" (click)="resetForm()">
             <i class="fa fa-plus"></i> Añadir
         </button>
     </div>
@@ -29,7 +29,7 @@
                             </button>
                             <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
                                 <i class="fa fa-trash-alt"></i>
-                            </button>
+                            </button>   
                         </div>
                     </td>
                 </tr>
@@ -50,7 +50,7 @@
           </button>
             </div>
             <div class="modal-body" id="modalRequerimientos">
-                <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                <form [formGroup]="formRequerimientos" (ngSubmit)="save($event)"  novalidate autocomplete="off">
                     <div class="form-group">
                         <label for="items" class="col-form-label">Cantidad De Items: </label>
                         <input placeholder="Cant. de items" type="number" class="form-control" [class.is-invalid]="itemIsInvalid" [class.is-valid]="itemIsValid" id="itemRequerimiento" formControlName="items">
