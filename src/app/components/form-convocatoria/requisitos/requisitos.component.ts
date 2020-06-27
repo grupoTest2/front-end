@@ -138,17 +138,20 @@ export class RequisitosComponent implements OnInit {
    */
 
   getRequisitosBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getRequisitos(idConv).subscribe(
-      resultado => {
-        for (let i in resultado) {
-          this.requisito = new Requisito(resultado[i].descripcion, resultado[i].idRequisito);
-          this.seleccionRequisitos.agregarRequisito(this.requisito);
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en los requisitos");
+    }else{
+      let idConv: number = parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getRequisitos(idConv).subscribe(
+        resultado => {
+          for (let i in resultado) {
+            this.requisito = new Requisito(resultado[i].descripcion, resultado[i].idRequisito);
+            this.seleccionRequisitos.agregarRequisito(this.requisito);
+          }
+          this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
         }
-        this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
-      }
-    )
-
+      )
+    }
   }
 
 }
