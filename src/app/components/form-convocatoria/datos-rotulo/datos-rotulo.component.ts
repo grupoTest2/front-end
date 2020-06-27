@@ -154,15 +154,22 @@ export class DatosRotuloComponent implements OnInit {
 
    // recupera la configuracion de una convocatoria
   getTipoDatosRotuloBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getDatosRotulo(idConv).subscribe(
-      resultado => {
-        for (let i in resultado) {
-          this.seleccion.setDatoRotulo(resultado[i].nombre);
+    //console.log("el valor de mi local storage");
+    //console.log(localStorage.getItem("idConv"));
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en los rotulos");
+    }else{
+      let idConv: number = parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getDatosRotulo(idConv).subscribe(
+        resultado => {
+          for (let i in resultado) {
+            this.seleccion.setDatoRotulo(resultado[i].nombre);
+          }
+          //console.log(this.seleccion.getListaTiposDatosRotulo())
+          this.banderaAuxiliar = true;
         }
-        //console.log(this.seleccion.getListaTiposDatosRotulo())
-        this.banderaAuxiliar = true;
-      }
-    )
+      )
+    }
+    
   }
 }

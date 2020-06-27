@@ -272,39 +272,41 @@ export class RequerimientosComponent implements OnInit {
     );
   }
 
-  async getRequerimientosBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getRequerimientos(idConv).subscribe(
-      resultado => {
-        let req: Requerimiento;
-        let tem: Tematica;
-        let listaTem: Tematica[];
-        for (let i in resultado) {
-          let listaAux2 = resultado[i].listaTematicas;
-          listaTem = [];
-          for (let j in listaAux2) {
-            tem = new Tematica(listaAux2[j].nombre, listaAux2[j].nota, listaAux2[j].idTematica);
-            listaTem.push(tem);
+  getRequerimientosBD() {
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en los requerimientos");
+    }else{
+      let idConv: number = parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getRequerimientos(idConv).subscribe(
+        resultado => {
+          let req: Requerimiento;
+          let tem: Tematica;
+          let listaTem: Tematica[];
+          for (let i in resultado) {
+            let listaAux2 = resultado[i].listaTematicas;
+            listaTem = [];
+            for (let j in listaAux2) {
+              tem = new Tematica(listaAux2[j].nombre, listaAux2[j].nota, listaAux2[j].idTematica);
+              listaTem.push(tem);
+            }
+            req = new Requerimiento(resultado[i].cantidadItem,
+              resultado[i].hrsAcademicas,
+              resultado[i].nombreItem,
+              listaTem,
+              resultado[i].codigoItem);
+            req.setIdMat(resultado[i].idItem);
+            this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
+
           }
-          req = new Requerimiento(resultado[i].cantidadItem,
-            resultado[i].hrsAcademicas,
-            resultado[i].nombreItem,
-            listaTem,
-            resultado[i].codigoItem);
-          req.setIdMat(resultado[i].idItem);
-          this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
+          this.bandera = true;
 
+          this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
+          this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+          this.cambioBandera();
+          this.enviarLista();
         }
-        this.bandera = true;
-
-        this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-        this.cambioBandera();
-        this.enviarLista();
-      }
-    )
-    console.log("antes de la promesa")
-    return true;
+      )
+    }
   }
 
 }

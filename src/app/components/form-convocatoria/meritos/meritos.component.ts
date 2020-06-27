@@ -265,42 +265,46 @@ export class MeritosComponent implements OnInit {
    * metodos que interaccuan con la base de datos
    */
   getMeritosBD(){
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getMeritos(idConv).subscribe(
-      resultado=>{
-        let me1: Merito;
-        for(let i in resultado){
-          me1=new Merito(resultado[i].titulo,
-            resultado[i].descripcion,
-            parseInt(resultado[i].porcentaje),
-            [],
-            resultado[i].idMerito);
-            this.seleccionMerito.agregarMerito(me1);
-            let listaMeritos1=resultado[i].listaMeritos;
-            let me2: Merito;
-            for(let j in listaMeritos1){
-              me2=new Merito(listaMeritos1[j].titulo,
-                listaMeritos1[j].descripcion,
-                parseInt(listaMeritos1[j].porcentaje),
-                [],
-                listaMeritos1[j].idMerito);
-              this.seleccionMerito.agregarSubMerito(me2,parseInt(i));
-              let listaMeritos2=listaMeritos1[j].listaMeritos;
-              let me3: Merito;
-              for(let k in listaMeritos2){
-                me3=new Merito(listaMeritos2[k].titulo,
-                  listaMeritos2[k].descripcion,
-                  parseInt(listaMeritos2[k].porcentaje),
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en los rotulos");
+    }else{
+      let idConv: number = parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getMeritos(idConv).subscribe(
+        resultado=>{
+          let me1: Merito;
+          for(let i in resultado){
+            me1=new Merito(resultado[i].titulo,
+              resultado[i].descripcion,
+              parseInt(resultado[i].porcentaje),
+              [],
+              resultado[i].idMerito);
+              this.seleccionMerito.agregarMerito(me1);
+              let listaMeritos1=resultado[i].listaMeritos;
+              let me2: Merito;
+              for(let j in listaMeritos1){
+                me2=new Merito(listaMeritos1[j].titulo,
+                  listaMeritos1[j].descripcion,
+                  parseInt(listaMeritos1[j].porcentaje),
                   [],
-                  listaMeritos2[k].idMerito);
-                this.seleccionMerito.agregarSubSubMerito(me3,parseInt(i),parseInt(j));
+                  listaMeritos1[j].idMerito);
+                this.seleccionMerito.agregarSubMerito(me2,parseInt(i));
+                let listaMeritos2=listaMeritos1[j].listaMeritos;
+                let me3: Merito;
+                for(let k in listaMeritos2){
+                  me3=new Merito(listaMeritos2[k].titulo,
+                    listaMeritos2[k].descripcion,
+                    parseInt(listaMeritos2[k].porcentaje),
+                    [],
+                    listaMeritos2[k].idMerito);
+                  this.seleccionMerito.agregarSubSubMerito(me3,parseInt(i),parseInt(j));
+                }
               }
-            }
+          }
+          //console.log(this.seleccionMerito.getTablaMeritos());
+          this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
         }
-        //console.log(this.seleccionMerito.getTablaMeritos());
-        this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
-      }
-    )
+      )
+    }
   }
 }
 
