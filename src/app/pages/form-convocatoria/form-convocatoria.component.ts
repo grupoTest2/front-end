@@ -91,7 +91,6 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
     this.href = this.router.url;
 
     $(window).bind('load', function () {
-      @ViewChild('requisitos') requisitos: RequisitosComponent;
       let x:Requisito = new Requisito("hola XDEXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDD",1);
       console.log(x.getDescripcion())
       
