@@ -33,7 +33,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   listaItems: Requerimiento[] = [];
   constructor(private router: Router, private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
-    this.getRequerimientosBD()
+    this.getRequerimientosBD;
   }
 
   ngOnInit(): void {
@@ -247,7 +247,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   /**
    * metodos que interactuan con la base de datos
    */
-  getRequerimientosBD(): void {
+  getRequerimientosBD(){
     let bandera=true;
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.getRequerimientos(idConv).subscribe(
@@ -278,5 +278,6 @@ export class CalificacionConocimientosComponent implements OnInit {
         this.setListaRequerimiento(listaAux);
       }
     )
+    return true;
   }
 }

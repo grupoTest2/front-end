@@ -33,7 +33,7 @@ declare var $: any;
 export class RequerimientosComponent implements OnInit {
 
   formRequerimientos: FormGroup;
-  seleccionRequerimiento: SeleccionRequerimiento;
+  seleccionRequerimiento: SeleccionRequerimiento=new SeleccionRequerimiento([]);
   requerimientosSeleccionados: Requerimiento[] = [];
   listaMateriasDisponibles: String[];
   requerimiento: Requerimiento;
@@ -47,8 +47,7 @@ export class RequerimientosComponent implements OnInit {
   //variable para enviar la lista de requerimientos
   @Output() listaRequerimientos = new EventEmitter();
 
-  bandera2 = false;
-  bandera = false;
+  bandera = true;
   constructor(private formBuilder: FormBuilder,
     private apiPHP: PhpServeConvocatoria,
     private router: Router,
@@ -56,12 +55,33 @@ export class RequerimientosComponent implements OnInit {
     private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
     this.getNombreItems();
-    this.getRequerimientosBD();
-
+    /*.then(() => {
+      if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
+        this.bandera = false;
+      }
+      else{
+        this.bandera=true;
+      }
+      console.log("despues de la promesa")
+    })
+      .catch(error => console.error(error));
+*/
   }
 
   ngOnInit(): void {
+    this.getRequerimientosBD();
+
     this.href = this.router.url;
+  }
+
+   async cambioBandera(){
+    if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
+      this.bandera = false;
+    }
+    else{
+      this.bandera=true;
+    }
+    console.log("despues de la promesa")
   }
 
   ruta() {
@@ -184,6 +204,14 @@ export class RequerimientosComponent implements OnInit {
     }
   }
   resetForm(): void {
+
+    if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
+      $('#btnAniadir').click(function () {
+        $(this).removeAttr('data-target');
+       // $(this).attr('data-target', '#carousel');
+        //$(".active").attr('data-target', '');
+    });
+    }
     this.buildForm();
   }
 
@@ -244,7 +272,7 @@ export class RequerimientosComponent implements OnInit {
     );
   }
 
-  getRequerimientosBD(): void {
+  async getRequerimientosBD() {
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.getRequerimientos(idConv).subscribe(
       resultado => {
@@ -268,15 +296,15 @@ export class RequerimientosComponent implements OnInit {
 
         }
         this.bandera = true;
+
         this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-        this.bandera2 = true;
         this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        this.cambioBandera();
         this.enviarLista();
-        if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
-          this.bandera = false;
-        }
       }
     )
+    console.log("antes de la promesa")
+    return true;
   }
 
 }
