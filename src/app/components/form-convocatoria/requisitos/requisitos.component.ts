@@ -22,9 +22,9 @@ declare var $: any;
 
 export class RequisitosComponent implements OnInit {
   formRequisitos: FormGroup;
-  requisito:Requisito;
-  listaRequisitos:Requisito[]=[];
-  seleccionRequisitos:SeleccionRequisito= new SeleccionRequisito();
+  requisito: Requisito;
+  listaRequisitos: Requisito[] = [];
+  seleccionRequisitos: SeleccionRequisito = new SeleccionRequisito();
   href: string = '';
 
 
@@ -32,63 +32,67 @@ export class RequisitosComponent implements OnInit {
     this.buildForm();
     this.getRequisitosBD();
   }
-  
+
   ngOnInit(): void {
     this.href = this.router.url;
 
   }
 
-  ruta(){
+  ruta() {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
- 
+
+  mostrarMensaje() {
+    console.log("mostrando mensaje");
+  }
+
   //enviando los datos al com[ponente formulario
-  getDatos(): Requisito[]{
+  getDatos(): Requisito[] {
     return this.listaRequisitos;
   }
 
-  agregarRequisito(): void{
+  agregarRequisito(): void {
     let descripcionRequisito = $('#descripcionRequisito').val();
     this.requisito = new Requisito(descripcionRequisito);
     this.requisito.setAccion("insertar");
-    let respuesta =this.seleccionRequisitos.agregarRequisito(this.requisito);
-    if(respuesta==='exito'){
-    this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
-    console.log(this.listaRequisitos);
-    tata.success('Agregado.', 'Se agregó con exito.');
-    this.formRequisitos.reset();
-    $('#tablaRequisitos').modal('hide');
+    let respuesta = this.seleccionRequisitos.agregarRequisito(this.requisito);
+    if (respuesta === 'exito') {
+      this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
+      console.log(this.listaRequisitos);
+      tata.success('Agregado.', 'Se agregó con exito.');
+      this.formRequisitos.reset();
+      $('#tablaRequisitos').modal('hide');
     }
-    else{
+    else {
       this.ErrorAlInsertarRequisito(respuesta);
     }
   }
 
-  editar(i: number): void{
+  editar(i: number): void {
     this.formRequisitos.get('detalle').setErrors(null);
     this.formRequisitos.markAllAsTouched();
     $('#descripcionRequisito').val(this.listaRequisitos[i].getDescripcion());
   }
-  
-  formValido(): void{
-    if(this.formRequisitos.valid){
+
+  formValido(): void {
+    if (this.formRequisitos.valid) {
       this.agregarRequisito();
-    }else{
+    } else {
       this.ErrorAlInsertarRequisito();
     }
   }
 
-  ErrorAlInsertarRequisito(mensaje:string='Formulario invalido'){
+  ErrorAlInsertarRequisito(mensaje: string = 'Formulario invalido') {
     this.formRequisitos.markAllAsTouched();
-      tata.error('Error', mensaje);
+    tata.error('Error', mensaje);
   }
 
-  getindice(indice:number): string{
-    let caracter: string = String.fromCharCode(indice + 97)+")     ";
+  getindice(indice: number): string {
+    let caracter: string = String.fromCharCode(indice + 97) + ")     ";
     return caracter;
   }
 
@@ -98,7 +102,7 @@ export class RequisitosComponent implements OnInit {
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
     });
   }
-  
+
   save(event: Event): void {
     event.preventDefault();
     if (this.formRequisitos.valid) {
@@ -108,7 +112,7 @@ export class RequisitosComponent implements OnInit {
     }
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.buildForm();
   }
 
@@ -125,26 +129,26 @@ export class RequisitosComponent implements OnInit {
   /**
    *indica si la convocatoria es apta para ser lanzada 
    */
-  estaHabilitado(){
-    return this.listaRequisitos.length>0;
+  estaHabilitado() {
+    return this.listaRequisitos.length > 0;
   }
-  
+
   /**
    * metodos que interactuan con el servidor php y la base de datos
    */
 
-   getRequisitosBD(){
-     let idConv: number= parseInt(localStorage.getItem("idConv"));
-     this.editarConv.getRequisitos(idConv).subscribe(
-      resultado=>{
-        for(let i in resultado){
-          this.requisito=new Requisito(resultado[i].descripcion,resultado[i].idRequisito);
+  getRequisitosBD() {
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.editarConv.getRequisitos(idConv).subscribe(
+      resultado => {
+        for (let i in resultado) {
+          this.requisito = new Requisito(resultado[i].descripcion, resultado[i].idRequisito);
           this.seleccionRequisitos.agregarRequisito(this.requisito);
         }
-        this.listaRequisitos=this.seleccionRequisitos.getListaRequisitosSeleccionados();
+        this.listaRequisitos = this.seleccionRequisitos.getListaRequisitosSeleccionados();
       }
-     )
+    )
 
-   }
+  }
 
 }

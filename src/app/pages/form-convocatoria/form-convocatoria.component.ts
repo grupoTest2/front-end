@@ -91,11 +91,14 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
     this.href = this.router.url;
 
     $(window).bind('load', function () {
-
-      //alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
+      @ViewChild('requisitos') requisitos: RequisitosComponent;
+      let x:Requisito = new Requisito("hola XDEXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDD",1);
+      console.log(x.getDescripcion())
+      
+      // alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
       //this.blockUI.start("cargando");
       //return 'are you sure you want to leave?';
-      this.alertAgregar();
+      //this.alertAgregar();
 
     });
 
@@ -134,15 +137,15 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
 
       }
     }))
-   // this.blockUI.start("cargando");
+    // this.blockUI.start("cargando");
 
 
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-    //   $(window).bind('beforeunload', function(){
-    //     return confirm("Do you really want to refresh?");
-    // });
+    $(window).bind('beforeunload', function () {
+      return confirm("Do you really want to refresh?");
+    });
   }
 
   alertAgregar(): void {
