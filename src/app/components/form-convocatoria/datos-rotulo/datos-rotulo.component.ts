@@ -118,7 +118,6 @@ export class DatosRotuloComponent implements OnInit {
         this.banderaSitch = false;
       }
     }
-
     if (bandera && !this.banderaSeleccion) {
       $('.switch').click();
     }
@@ -137,7 +136,6 @@ export class DatosRotuloComponent implements OnInit {
   //indica si la convocatoria es apta para ser lanzada    
   estaHabilitado() {
     return this.seleccion.cantDatosEnLista() > 0;
-
   }
 
    // metodos que interactuan con la base de datos
@@ -146,6 +144,8 @@ export class DatosRotuloComponent implements OnInit {
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
         for (let i in resultado) {
+          //resultado[i].setEnLista(true)
+          //resultado[i].setSeleccionado(true)
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
