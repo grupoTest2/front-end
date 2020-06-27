@@ -33,7 +33,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   listaItems: Requerimiento[] = [];
   constructor(private router: Router, private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
-    this.getRequerimientosBD;
+    this.getRequerimientosBD();
   }
 
   ngOnInit(): void {
@@ -249,35 +249,38 @@ export class CalificacionConocimientosComponent implements OnInit {
    */
   getRequerimientosBD(){
     let bandera=true;
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getRequerimientos(idConv).subscribe(
-      resultado=>{
-        let req: Requerimiento;
-        let listaAux: Requerimiento[]=[];
-        let tem: Tematica;
-        let listaTem : Tematica[];
-        for(let i in resultado){
-          let listaAux2=resultado[i].listaTematicas;
-          listaTem=[];
-          for(let j in listaAux2){
-            tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota,listaAux2[j].idTematica);
-            listaTem.push(tem);
-            if(bandera){ 
-              this.listaTematicas.push(tem.getNombre());
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en las calif");
+    }else{
+      let idConv: number = parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getRequerimientos(idConv).subscribe(
+        resultado=>{
+          let req: Requerimiento;
+          let listaAux: Requerimiento[]=[];
+          let tem: Tematica;
+          let listaTem : Tematica[];
+          for(let i in resultado){
+            let listaAux2=resultado[i].listaTematicas;
+            listaTem=[];
+            for(let j in listaAux2){
+              tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota,listaAux2[j].idTematica);
+              listaTem.push(tem);
+              if(bandera){ 
+                this.listaTematicas.push(tem.getNombre());
+              }
             }
+            bandera=false;
+            req=new Requerimiento(resultado[i].cantidadItem,
+              resultado[i].hrsAcademicas, 
+              resultado[i].nombreItem,
+              listaTem,
+              resultado[i].codigoItem);
+            req.setIdMat(resultado[i].idItem);
+            listaAux.push(req);
           }
-          bandera=false;
-          req=new Requerimiento(resultado[i].cantidadItem,
-            resultado[i].hrsAcademicas, 
-            resultado[i].nombreItem,
-            listaTem,
-            resultado[i].codigoItem);
-          req.setIdMat(resultado[i].idItem);
-          listaAux.push(req);
+          this.setListaRequerimiento(listaAux);
         }
-        this.setListaRequerimiento(listaAux);
-      }
-    )
-    return true;
+      )
+    }
   }
 }

@@ -180,24 +180,28 @@ export class FechasComponent implements OnInit {
   * metodos que interactuan con la base de datos
   */
   getEventosBD(){
-    let idConv: number =  parseInt(localStorage.getItem("idConv"));
-    this.editarConv.getEventos(idConv).subscribe(
-      resultado=>{
-        for(let i in resultado){
-          this.evento=new Evento(
-            resultado[i].nombre,
-            resultado[i].fechaFin,
-            resultado[i].horaFin,
-            resultado[i].horaInicio,
-            resultado[i].idEvento
-          );
-          //this.evento.setFechaIniString(resultado[i].fechaInicio);
-          //this.evento.setFechaFinString(resultado[i].fechaFin)
-          this.seleccionEventos.agregarEvento(this.evento);
+    if(localStorage.getItem("idConv")===""){
+      console.log("esta vacio en los eventos");
+    }else{
+      let idConv: number =  parseInt(localStorage.getItem("idConv"));
+      this.editarConv.getEventos(idConv).subscribe(
+        resultado=>{
+          for(let i in resultado){
+            this.evento=new Evento(
+              resultado[i].nombre,
+              resultado[i].fechaFin,
+              resultado[i].horaFin,
+              resultado[i].horaInicio,
+              resultado[i].idEvento
+            );
+            //this.evento.setFechaIniString(resultado[i].fechaInicio);
+            //this.evento.setFechaFinString(resultado[i].fechaFin)
+            this.seleccionEventos.agregarEvento(this.evento);
+          }
+          //console.log(this.seleccionEventos.getListaEventosSeleccionados());
+          this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
         }
-        //console.log(this.seleccionEventos.getListaEventosSeleccionados());
-        this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
-      }
-    )
+      )
+    }
   }
 }

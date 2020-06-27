@@ -135,15 +135,19 @@ export class DocumentosPresentarComponent implements OnInit {
      */
 
     getDocumentosPresentar(){
-      let idConv: number = parseInt(localStorage.getItem('idConv'));
-      this.editarConv.getDocumentos(idConv).subscribe(
-        resultado=>{
-          for(let i in resultado){
-            this.documento=new DocumentoPresentar(resultado[i].descripcion,resultado[i].idDocumento);
-            this.seleccionDocumento.agregarDocumento(this.documento);
+      if(localStorage.getItem("idConv")===""){
+        console.log("esta vacio en los documentos");
+      }else{
+        let idConv: number = parseInt(localStorage.getItem('idConv'));
+        this.editarConv.getDocumentos(idConv).subscribe(
+          resultado=>{
+            for(let i in resultado){
+              this.documento=new DocumentoPresentar(resultado[i].descripcion,resultado[i].idDocumento);
+              this.seleccionDocumento.agregarDocumento(this.documento);
+            }
+            this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
           }
-          this.listaDocumentos=this.seleccionDocumento.getDocumentosSeleccionados();
-        }
-      )
-    }
+        )
+      }
+  }
 }
