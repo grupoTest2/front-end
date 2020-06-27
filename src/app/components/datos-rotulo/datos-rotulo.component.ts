@@ -14,20 +14,21 @@ declare var $: any;
   templateUrl: './datos-rotulo.component.html',
   styleUrls: ['./datos-rotulo.component.css']
 })
+
 export class DatosRotuloComponent implements OnInit {
   seleccionTodo: boolean = true;
-
-  bandera: boolean = true;
-  bandera2: boolean = true;
-
   seleccion: SeleccionTipoDatoRotulo;
-  contador: number = 0;
-  numeroDeEnLista:number=0;
   href: string = '';
 
-  banderaAuxiliar =false;
-  
-  constructor(private apiPHP: PhpServeConvocatoria,private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
+  //bandera para que no genere error en  la peticion http
+  banderaAuxiliar = false;
+
+  //verficar switch y posible marcacion
+  banderaSitch = false;
+  banderaSeleccion = false;
+
+
+  constructor(private apiPHP: PhpServeConvocatoria, private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
     this.getTipoDatosRotuloBD();
   }
@@ -38,146 +39,130 @@ export class DatosRotuloComponent implements OnInit {
     });
   }
 
-  ruta(){
+  ruta() {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-  
-  cambioBandera(index: number): void {
-    if (this.bandera && this.contador == this.seleccion.getListaTiposDatosRotulo().length) {
-      this.bandera = false;
-      this.seleccionTodo = true;
-      $('.switch').click();
-    }
+
+//meotodo cuando presiona un dato rotulo
+  seleccionado(index: number): void {
+    let bandera = true;
     if (this.seleccion.getListaTiposDatosRotulo()[index].getSeleccionado()) {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(false);
-      this.contador -= 1;
-    } else {
+    }
+    else {
       this.seleccion.getListaTiposDatosRotulo()[index].setSeleccionado(true);
-      this.contador += 1;
     }
-    if (this.contador == this.seleccion.getListaTiposDatosRotulo().length||this.contador ==this.numeroDeEnLista) {
-      this.bandera = true;
-      this.seleccionTodo = true;
+    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+      if (!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista() && !this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
+        bandera = false;
+      }
+    }
+    if (bandera && !this.banderaSitch) {
+      this.banderaSeleccion = true;
       $('.switch').click();
+      this.banderaSitch = true;
+      this.banderaSeleccion = false;
+    }
+    if (!bandera && this.banderaSitch) {
+      this.banderaSeleccion = true;
+      $('.switch').click();
+      this.banderaSitch = false;
+      this.banderaSeleccion = false;
+
     }
   }
 
-
-
-
-  limppiar(){
+  //metodo cuando presiona guardar
+  enlistar() {
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-      this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
+      if (this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
+        this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
+      }
     }
+    this.banderaSitch = false;
+    this.banderaSeleccion = false;
   }
 
-  cambio() {
-    if (this.bandera) {
-      this.contador = 0;
-      if (this.seleccionTodo) {
-        for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-          this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(true);
-          this.contador += 1;
+  ocultarBtnGuardar() {
+    let bandera3 = true;
+    if (this.banderaAuxiliar) {
+      for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+        if (!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()) {
+          bandera3 = false;
         }
-        this.seleccionTodo = false;
       }
-      else {
-        for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-          this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
-        }
-        this.seleccionTodo = true;
-      }
-    }
-    this.bandera = true;
-  }
-
-  guardar() {
-    this.contador = 0;
-    this.bandera = true;
-    this.bandera2 = true;
-    let conteoEnLista=0;
-    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-     if(this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()){
-      this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
-      this.seleccion.getListaTiposDatosRotulo()[i].setAccion("insertar");
-      conteoEnLista+=1;
-     }
-    }
-    this. numeroDeEnLista=this.seleccion.getListaTiposDatosRotulo().length-conteoEnLista;
-  }
-
-  ocultarBtnGuardar(){
-    let bandera3=true;
-    if(this.banderaAuxiliar){
-    for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-      if(!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
-        bandera3=false;
-      }
-    }
     }
     return bandera3;
   }
 
-  presionando(bandera){
-    if(bandera){
-    $('.switch').click();
+  presionando(bandera) {
+    if (!bandera && !this.banderaSeleccion) {
+      if (!this.banderaSitch) {
+        for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+          if (!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista() && !this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
+            this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(true);
+          }
+        }
+        this.banderaSitch = true;
+      }
+      else {
+        for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
+          if (!this.seleccion.getListaTiposDatosRotulo()[i].getEnLista() && this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
+            this.seleccion.getListaTiposDatosRotulo()[i].setSeleccionado(false);
+          }
+        }
+        this.banderaSitch = false;
+      }
+    }
+
+    if (bandera && !this.banderaSeleccion) {
+      $('.switch').click();
     }
   }
 
-  getDatos(){
-    let   listaDatosR: TipoDatoRotulo[] = [];
+  getDatos() {
+    let listaDatosR: TipoDatoRotulo[] = [];
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
-          if(this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()){
-            listaDatosR.push(this.seleccion.getListaTiposDatosRotulo()[i]);
-          }      
+      if (this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()) {
+        listaDatosR.push(this.seleccion.getListaTiposDatosRotulo()[i]);
+      }
     }
     return listaDatosR;
   }
-  
-  /**
-   *indica si la convocatoria es apta para ser lanzada 
-   */
-  estaHabilitado(){
+
+  //indica si la convocatoria es apta para ser lanzada    
+  estaHabilitado() {
     return this.seleccion.cantDatosEnLista() > 0;
-    
+
   }
 
-  /**
-   * metodos que interactuan con la base de datos
-   */
+   // metodos que interactuan con la base de datos
   getTipoDatosRotulo() {
-    let listaTipos: object[] = new Array();
+    let listaTipos: object[] =[]// new Array();
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
         for (let i in resultado) {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        //console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
       }
     );
   }
 
-  /**
-   * recupera la configuracion de una convocatoria
-   */
-  getTipoDatosRotuloBD(){
-    let idConv: number= parseInt(localStorage.getItem("idConv"));
+   // recupera la configuracion de una convocatoria
+  getTipoDatosRotuloBD() {
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.getDatosRotulo(idConv).subscribe(
-      resultado=>{
-        for(let i in resultado){
+      resultado => {
+        for (let i in resultado) {
           this.seleccion.setDatoRotulo(resultado[i].nombre);
-          //console.log(resultado[i].nombre)
         }
-        this.banderaAuxiliar=true;
-       // console.log(JSON.stringify(this.seleccion.getListaTiposDatosRotulo()));
+        this.banderaAuxiliar = true;
       }
     )
   }
-
-
 }
