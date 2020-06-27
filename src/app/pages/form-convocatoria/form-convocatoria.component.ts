@@ -15,7 +15,7 @@ import { DocumentosPresentarComponent } from 'src/app/components/form-convocator
 import { MeritosComponent } from 'src/app/components/form-convocatoria/meritos/meritos.component';
 import { FechasComponent } from 'src/app/components/form-convocatoria/fechas/fechas.component';
 import { CalificacionConocimientosComponent } from 'src/app/components/form-convocatoria/calificacion-conocimientos/calificacion-conocimientos.component';
-import { DatosRotuloComponent } from 'src/app/components/datos-rotulo/datos-rotulo.component';
+import { DatosRotuloComponent } from 'src/app/components/form-convocatoria/datos-rotulo/datos-rotulo.component';
 import { LoadingSpinnerComponent } from 'src/app/components/loading-spinner/loading-spinner.component';
 // servicios
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';

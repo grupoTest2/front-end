@@ -22,7 +22,7 @@ import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
 import { FormConvocatoriaComponent } from './pages/form-convocatoria/form-convocatoria.component';
-import { DatosRotuloComponent } from './components/datos-rotulo/datos-rotulo.component';
+import { DatosRotuloComponent } from './components/form-convocatoria/datos-rotulo/datos-rotulo.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ConvocatoriasComponent } from './pages/convocatorias/convocatorias.component';
 import { HomeComponent } from './pages/home/home.component';
