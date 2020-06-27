@@ -35,6 +35,7 @@ import { FormRegistroComponent } from './pages/form-registro/form-registro.compo
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
+import { AlertasComponent } from './components/alertas/alertas.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/co
     ComisionesComponent,
     FormRegistroComponent,
     FormPostulanteComponent,
-    ConvocatoriasEnCursoComponent
+    ConvocatoriasEnCursoComponent,
+    AlertasComponent
     ],
   imports: [
     BrowserModule,

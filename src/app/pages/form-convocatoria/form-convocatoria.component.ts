@@ -17,6 +17,8 @@ import { FechasComponent } from 'src/app/components/form-convocatoria/fechas/fec
 import { CalificacionConocimientosComponent } from 'src/app/components/form-convocatoria/calificacion-conocimientos/calificacion-conocimientos.component';
 import { DatosRotuloComponent } from 'src/app/components/form-convocatoria/datos-rotulo/datos-rotulo.component';
 import { LoadingSpinnerComponent } from 'src/app/components/loading-spinner/loading-spinner.component';
+import { AlertasComponent } from 'src/app/components/alertas/alertas.component';
+
 // servicios
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
@@ -77,9 +79,21 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationStart) {
         browserRefresh = !router
-        alert("me  la pelas");
+        //alert("me  la pelas");
       }
     });
+
+    //window.onpopstate = function (e) { window.history.forward(); }
+    //window.onpopstate;
+
+    $(window).on('beforeunload', function (event) {
+      let mensajes = new AlertasComponent();
+        mensajes.refresh();
+        
+      return alert('actualiuzando');
+      //mensajes.refresh();
+    });
+
   }
 
 
@@ -89,17 +103,34 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.href = this.router.url;
+   
+          //cuando presione el reload
+    /* $(window).bind('load', function () {
+       let mensajes=new AlertasComponent();
+       mensajes.refresh();
+       return false
+       // alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
+       //this.blockUI.start("cargando");
+       //return 'are you sure you want to leave?';
+       //this.alertAgregar();
+ 
+     });*/
 
-    $(window).bind('load', function () {
-      let x:Requisito = new Requisito("hola XDEXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDD",1);
-      console.log(x.getDescripcion())
-      
-      // alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
-      //this.blockUI.start("cargando");
-      //return 'are you sure you want to leave?';
-      //this.alertAgregar();
+    /*window.onbeforeunload = function() {
+      //this.preventDefault();
+      let mensajes=new AlertasComponent();
+      mensajes.refresh();
+      return mensajes.refresh();//false //"¿Desea recargar la página web?";
+    };*///
 
-    });
+
+
+    /*window.addEventListener('load',function(e){
+      e.preventDefault();
+      let mensajes=new AlertasComponent();
+      mensajes.refresh();
+      //return false
+    });*/
 
     window.addEventListener('keydown', (function (e) {
       /*if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
@@ -107,33 +138,9 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
         e.preventDefault();*/
       if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) {
         e.preventDefault();
-        //alert("me la pelas bety")
-        swal.fire({
-          title: 'Guardar Datos',
-          text: "¿Está seguro de guardar los datos?",
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Confirmar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.value) {
-            swal.fire(
-              'Exitoso!',
-              'Se guardaron los cambios de la convocatoria.',
-              'success'
-            )
-          } else {
-            swal.fire(
-              'Cancelado!',
-              'Los datos no fueron guardados.',
-              'error'
-            )
-          }
-        })
+        let mensajes = new AlertasComponent();
+        mensajes.refresh();
         //console.log("#######################"+e.which)
-
       }
     }))
     // this.blockUI.start("cargando");
@@ -142,36 +149,9 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-    $(window).bind('beforeunload', function () {
-      return confirm("Do you really want to refresh?");
-    });
-  }
-
-  alertAgregar(): void {
-    swal.fire({
-      title: 'Guardar Datos',
-      text: "¿Está seguro de guardar los datos?",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.value) {
-        swal.fire(
-          'Exitoso!',
-          'Se guardaron los cambios de la convocatoria.',
-          'success'
-        )
-      } else {
-        swal.fire(
-          'Cancelado!',
-          'Los datos no fueron guardados.',
-          'error'
-        )
-      }
-    })
+    /* $(window).bind('beforeunload', function () {
+       return confirm("Do you really want to refresh?");
+     });*/
   }
 
   ruta() {
@@ -256,7 +236,7 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
   }
 
   agregarBD() {
-    this.alertAgregar();
+    //this.alertAgregar();
     this.recuperarLosDatosDeLosComponentes();
     this.agregarRequerimientos();
     this.agregarRequisitos();
