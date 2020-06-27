@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 // models
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
 import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
@@ -22,19 +22,20 @@ import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.ser
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 declare var $: any;
 declare var swal: any;
 declare var tata: any;
 
+export let browserRefresh = false;
 
 @Component({
   selector: 'app-form-convocatoria',
   templateUrl: './form-convocatoria.component.html',
   styleUrls: ['./form-convocatoria.component.css']
 })
-export class FormConvocatoriaComponent implements OnInit {
+export class FormConvocatoriaComponent implements OnInit, OnDestroy {
   @ViewChild('requerimiento') requerimiento: RequerimientosComponent;
   @ViewChild('requisitos') requisitos: RequisitosComponent;
   @ViewChild('documentosPresentar') documentosPresentar: DocumentosPresentarComponent;
@@ -62,9 +63,9 @@ export class FormConvocatoriaComponent implements OnInit {
   bandera: boolean;
   href: string = '';
   @BlockUI() blockUI: NgBlockUI;
-
-  constructor(private datosConvocatoria: DatosConvocatoriaService, 
-    private apiPHP: PhpServeConvocatoria, 
+  subscription: Subscription;
+  constructor(private datosConvocatoria: DatosConvocatoriaService,
+    private apiPHP: PhpServeConvocatoria,
     private router: Router,
     private editarConv: EditarConvocatoriaServicePhp) {
     this.tituloConvocatoria = localStorage.getItem('tituloConvocatoria');
@@ -72,17 +73,76 @@ export class FormConvocatoriaComponent implements OnInit {
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
 
+    this.subscription = router.events.subscribe((event) => {
+
+      if (event instanceof NavigationStart) {
+        browserRefresh = !router
+        alert("me  la pelas");
+      }
+    });
   }
+
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.href = this.router.url;
-    this.blockUI.start("cargando");
+
+    $(window).bind('load', function () {
+
+      //alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
+      //this.blockUI.start("cargando");
+      //return 'are you sure you want to leave?';
+      this.alertAgregar();
+
+    });
+
+    window.addEventListener('keydown', (function (e) {
+      /*if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
+        // Pressing F5 or Ctrl+R
+        e.preventDefault();*/
+      if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) {
+        e.preventDefault();
+        //alert("me la pelas bety")
+        swal.fire({
+          title: 'Guardar Datos',
+          text: "¿Está seguro de guardar los datos?",
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.value) {
+            swal.fire(
+              'Exitoso!',
+              'Se guardaron los cambios de la convocatoria.',
+              'success'
+            )
+          } else {
+            swal.fire(
+              'Cancelado!',
+              'Los datos no fueron guardados.',
+              'error'
+            )
+          }
+        })
+        //console.log("#######################"+e.which)
+
+      }
+    }))
+   // this.blockUI.start("cargando");
+
 
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-  //   $(window).bind('beforeunload', function(){
-  //     return confirm("Do you really want to refresh?");
-  // });
+    //   $(window).bind('beforeunload', function(){
+    //     return confirm("Do you really want to refresh?");
+    // });
   }
 
   alertAgregar(): void {
@@ -112,15 +172,15 @@ export class FormConvocatoriaComponent implements OnInit {
     })
   }
 
-  ruta(){
+  ruta() {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  estaHabilitado(){
+  estaHabilitado() {
     return this.requerimiento.estaHabilitado();
   }
   // modificando la lsta de codigos de la componente calificaciones
@@ -142,40 +202,40 @@ export class FormConvocatoriaComponent implements OnInit {
 
 
   habilitar() {
-    let mensaje=""
+    let mensaje = ""
     if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado() && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado() && this.datosRotulo.estaHabilitado()) {
       this.lanzarConvocatoria();
     }
-    else{
-      if (!this.requerimiento.estaHabilitado()){
-        mensaje+="Campo Requerimiento, "
+    else {
+      if (!this.requerimiento.estaHabilitado()) {
+        mensaje += "Campo Requerimiento, "
       }
-      if(!this.requisitos.estaHabilitado()){
-        mensaje+="</br>Campo requisitos, "
-      }if(!this.documentosPresentar.estaHabilitado()){
-        mensaje+="</br>Campo documentos a presentar, "
-      }if(!this.merito.estaHabilitado()){
-        mensaje+="</br>Campo meritos, "      
-      }if(this.calificacionConocimiento.estaHabilitado()){
-        mensaje+="</br>Campo calificacion conocimiento, "
-      }if(!this.eventos.estaHabilitado()){
-        mensaje+="</br>Campo eventos, "
-      }if(!this.datosRotulo.estaHabilitado()) {
-        mensaje+="</br>Campo datos rotulo, "
+      if (!this.requisitos.estaHabilitado()) {
+        mensaje += "</br>Campo requisitos, "
+      } if (!this.documentosPresentar.estaHabilitado()) {
+        mensaje += "</br>Campo documentos a presentar, "
+      } if (!this.merito.estaHabilitado()) {
+        mensaje += "</br>Campo meritos, "
+      } if (this.calificacionConocimiento.estaHabilitado()) {
+        mensaje += "</br>Campo calificacion conocimiento, "
+      } if (!this.eventos.estaHabilitado()) {
+        mensaje += "</br>Campo eventos, "
+      } if (!this.datosRotulo.estaHabilitado()) {
+        mensaje += "</br>Campo datos rotulo, "
       }
-      this.mensajeToastErrorBD(mensaje+ "</br>A llenar faltantes!"); 
+      this.mensajeToastErrorBD(mensaje + "</br>A llenar faltantes!");
     }
 
   }
 
   //metodo para lanzar convocatoria
   lanzarConvocatoria() {
-    let idConv:number = parseInt(localStorage.getItem("idConv"));
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.habilitarConvocatoria(idConv).subscribe(
-      resultado=>{
-        if(resultado['resultado']=='correcto'){
+      resultado => {
+        if (resultado['resultado'] == 'correcto') {
           this.mensajeToastExito("la convocatoria esta habilitada");
-        }else{
+        } else {
           this.mensajeToastErrorBD("no se pudo habilitar la convocatoria");
         }
       }

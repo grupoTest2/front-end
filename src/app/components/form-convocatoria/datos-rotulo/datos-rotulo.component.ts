@@ -81,6 +81,7 @@ export class DatosRotuloComponent implements OnInit {
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       if (this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
         this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
+        this.seleccion.getListaTiposDatosRotulo()[i].setAccion('insertar');
       }
     }
     this.banderaSitch = false;
@@ -144,8 +145,6 @@ export class DatosRotuloComponent implements OnInit {
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
         for (let i in resultado) {
-          //resultado[i].setEnLista(true)
-          //resultado[i].setSeleccionado(true)
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
@@ -161,6 +160,7 @@ export class DatosRotuloComponent implements OnInit {
         for (let i in resultado) {
           this.seleccion.setDatoRotulo(resultado[i].nombre);
         }
+        //console.log(this.seleccion.getListaTiposDatosRotulo())
         this.banderaAuxiliar = true;
       }
     )
