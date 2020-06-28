@@ -1,6 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { from } from 'rxjs';
-import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
+import { DatoRotulo } from 'src/app/models/clases/convocatoria/dato-rotulo';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { DatosPostulante } from 'src/app/models/clases/postulante/datos-postulante';
 import { Item } from 'src/app/models/clases/postulante/item';
@@ -20,7 +20,7 @@ export class FormPostulanteComponent implements OnInit {
   listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
-  listaDatosRotulo: TipoDatoRotulo[] = [];
+  listaDatosRotulo: DatoRotulo[] = [];
   bandera = true;
   msjErrorNumericoVacio = "datos incorrectos"
   msjErrorNumericoIncorrecto = "campo numerico contiene caracteres incorrectos";
@@ -52,7 +52,6 @@ export class FormPostulanteComponent implements OnInit {
         aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-
           //inputs tipo number
           /*if (inputTipe == "number") {
             value = $("#" + id).val();
@@ -164,7 +163,6 @@ export class FormPostulanteComponent implements OnInit {
               $("#" + id).addClass("is-invalid");
               $("#" + id + "21").css('display', 'none');
               $("#" + id + "22").css('display', 'block');
-
             }
             //console.log("#######################"+e.which)
           } else {

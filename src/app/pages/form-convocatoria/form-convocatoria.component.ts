@@ -6,7 +6,7 @@ import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { Merito } from 'src/app/models/clases/convocatoria/merito';
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
-import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
+import { DatoRotulo } from 'src/app/models/clases/convocatoria/dato-rotulo';
 
 // componentes
 import { RequerimientosComponent } from 'src/app/components/form-convocatoria/requerimientos/requerimientos.component';
@@ -54,7 +54,7 @@ export class FormConvocatoriaComponent implements OnInit {
   listaDatosMerito: Merito[] = [];
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
-  listaDatosRotulo: TipoDatoRotulo[] = [];
+  listaDatosRotulo: DatoRotulo[] = [];
   listaJhon: Requerimiento[];
   // lista de los requerimientos
   listaRequerimientos: any = [];
@@ -139,9 +139,9 @@ export class FormConvocatoriaComponent implements OnInit {
         mensaje += "</br>Campo calificacion conocimiento, "
       } if (!this.eventos.estaHabilitado()) {
         mensaje += "</br>Campo eventos, "
-      } if (!this.datosRotulo.estaHabilitado()) {
+      } /*if (!this.datosRotulo.estaHabilitado()) {
         mensaje += "</br>Campo datos rotulo, "
-      }
+      }*/
       this.mensajeToastErrorBD(mensaje + "</br>A llenar faltantes!");
     }
 
