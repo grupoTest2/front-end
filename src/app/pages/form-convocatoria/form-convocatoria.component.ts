@@ -66,7 +66,6 @@ export class FormConvocatoriaComponent implements OnInit {
   href: string = '';
   @BlockUI() blockUI: NgBlockUI;
   subscription: Subscription;
-  
 
   // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
   //   console.log("Processing beforeunload...");
@@ -101,7 +100,10 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    window.onbeforeunload = function() {
+      console.log("entraaaaaaaaa refresh")
+      return "Leaving this page will reset the wizard";
+  };
     this.href = this.router.url;
    
           //cuando presione el reload
