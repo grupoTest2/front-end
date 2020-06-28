@@ -1,5 +1,6 @@
 import { DatoRotulo } from '../clases/convocatoria/dato-rotulo';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+import { TipoDatoRotulo } from '../clases/convocatoria/tipo-dato-rotulo';
 
 export class SeleccionTipoDatoRotulo {
     private listaTiposDatosRotulo: DatoRotulo[];
@@ -11,12 +12,13 @@ export class SeleccionTipoDatoRotulo {
     }
 
     private cargarListaTiposDatosRotulo():void{
-        /*for(let i in this.tiposDatosRotulo){
-            let objAux:any=this.tiposDatosRotulo[i]; 
-            let tipoDato:DatoRotulo=new DatoRotulo(objAux.nombre,objAux.seleccionado);
-            tipoDato.setIdDato(objAux.idTipo);
-            this.listaTiposDatosRotulo.push(tipoDato);
-        }*/
+        for(let i in this.tiposDatosRotulo){
+            let objAux:any=this.tiposDatosRotulo[i];
+            let tipoAux=objAux.tipoDatoRotulo;
+            let tipoDato:TipoDatoRotulo= new TipoDatoRotulo(tipoAux.nombre,tipoAux.tipoDato,tipoAux.minimo); 
+            let datoRotulo:DatoRotulo=new DatoRotulo(objAux.idTipo,tipoDato);
+            this.listaTiposDatosRotulo.push(datoRotulo);
+        }
     }
 
     public getListaTiposDatosRotulo():DatoRotulo[]{

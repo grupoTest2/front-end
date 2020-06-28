@@ -7,15 +7,15 @@ export class DatoRotulo {
     private enLista: boolean;
     private accion: string;
     private tipoDato: TipoDatoRotulo;
-    public constructor(seleccionado: boolean,enLista:boolean=false,tipoDato:TipoDatoRotulo) {
+    public constructor(idDato:number,tipoDato:TipoDatoRotulo,seleccionado: boolean=false,enLista:boolean=false) {
         this.idConv = parseInt(localStorage.getItem("idConv"));
+        this.idDato=idDato;
         this.seleccionado = seleccionado;
         this.enLista = enLista;
         this.tipoDato=tipoDato;
         this.accion ="nada";
     }
     
-
     public setIdDato(idDato:number){
         this.idDato=idDato;
     }
@@ -43,5 +43,12 @@ export class DatoRotulo {
 
     public getAccion(accion:string): string{
         return this.accion;
+    }
+    public setTipoDato(tipo:TipoDatoRotulo): void{
+        this.tipoDato=tipo;
+    }
+
+    public getTipoDato(): TipoDatoRotulo{
+        return this.tipoDato;
     }
 }

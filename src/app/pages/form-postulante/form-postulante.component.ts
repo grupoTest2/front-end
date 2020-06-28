@@ -6,6 +6,7 @@ import { DatosPostulante } from 'src/app/models/clases/postulante/datos-postulan
 import { Item } from 'src/app/models/clases/postulante/item';
 import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
+import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 
 declare var $: any;
 declare var tata: any;
@@ -17,24 +18,26 @@ declare var tata: any;
 })
 export class FormPostulanteComponent implements OnInit {
 
-  listaDatosPostulante: DatosPostulante[] = [];
+  //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
   listaDatosRotulo: DatoRotulo[] = [];
   bandera = true;
-  msjErrorNumericoVacio = "datos incorrectos"
-  msjErrorNumericoIncorrecto = "campo numerico contiene caracteres incorrectos";
+
+
+  msjErrorNumericoVacio = "campo numerico vacio"
   msjErrorNumericoCorto = "campo numerico corto"
+  msjErrorNumericoIncorrecto = "numerico incorrectos";
   msjTextoVacio = "campo de texto vacio"
   msjTextocorto = "texto demasiado corto"
   msjTextoIncorrecto = "texto incorrecto"
   msjErrorEmailVacio = "campo de correo vacio"
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
-
   constructor(private servicePostulante: PostulanteServicePhp) {
-    this.getItemsBD();
-    this.getDatosRotuloConvBD();
+    this.datosPrueba();
+    //this.getItemsBD();
+    //this.getDatosRotuloConvBD();
   }
 
   ngOnInit(): void {
@@ -43,12 +46,25 @@ export class FormPostulanteComponent implements OnInit {
     });
   }
 
+  datosPrueba() {
+    /*let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
+    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
+    let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
+    let datoRotulo1: DatoRotulo = new DatoRotulo(true, true, tipoDato1);
+    let datoRotulo2: DatoRotulo = new DatoRotulo(true, true, tipoDato2);
+    let datoRotulo3: DatoRotulo = new DatoRotulo(true, true, tipoDato3);
+    this.listaDatosRotulo.push(datoRotulo1);
+    this.listaDatosRotulo.push(datoRotulo2);
+    this.listaDatosRotulo.push(datoRotulo3);*/
+
+  }
+
   validarDato() {
     if (this.bandera) {
-      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-        let id = this.listaDatosPostulante[index].getNombreDato();
-        let aux = document.getElementById(id);
+      for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+        let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
         let inputTipe = $("#" + id).attr('type');
+        let aux = document.getElementById(id);
         aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
@@ -148,6 +164,7 @@ export class FormPostulanteComponent implements OnInit {
         }, true);
         let contador = 0;
         $("#" + id).keydown(function (e) {
+          let tipoDatoRotulo: TipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
           if (e.which == 8) {
             if (contador != 0) {
               contador -= 1;
@@ -155,24 +172,30 @@ export class FormPostulanteComponent implements OnInit {
             if (contador == 0) {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'block');
-              $("#" + id + "22").css('display', 'none');
+              if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                $("#" + id + "21").css('display', 'block');
+                $("#" + id + "22").css('display', 'none');
+              }
             }
-            if (contador < 3 && contador >= 1) {
+            if (contador < tipoDatoRotulo.getTamanioMinimo() && contador >= 1) {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'none');
-              $("#" + id + "22").css('display', 'block');
+              if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                $("#" + id + "21").css('display', 'none');
+                $("#" + id + "22").css('display', 'block');
+              }
             }
             //console.log("#######################"+e.which)
           } else {
             contador += 1
             if (inputTipe == "text") {
-              if (contador >= 3) {
+              if (contador >=tipoDatoRotulo.getTamanioMinimo() ) {
                 $("#" + id).removeClass("is-invalid");
                 $("#" + id).addClass("is-valid");
-                $("#" + id + "21").css('display', 'none');
-                $("#" + id + "22").css('display', 'none');
+                if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                  $("#" + id + "21").css('display', 'none');
+                  $("#" + id + "22").css('display', 'none');
+                }
               }
             }
           }
@@ -204,97 +227,100 @@ export class FormPostulanteComponent implements OnInit {
 
 
 
-
   guardarDatos() {
-    console.log("ingreso para guardar")
-    let contador = 0;
 
-    //recorremos la lista de los datos rotulo para ver si sus campos son validos
-    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-      let id = this.listaDatosPostulante[index].getNombreDato();
-      if ($("#" + id).hasClass("is-valid")) {
-        contador += 1
-      }
-    }
-
-    //rrecorremos la lista de items a los que se puede postular
-    let bandera = false;
-    for (let index = 0; index < this.listaItems.length; index++) {
-      if (this.listaItems[index].getSeleccionado()) {
-        bandera = true;
-      }
-    }
-
-    if (!bandera) {
-      this.mensajeToastError();
-    }
-    if (contador == this.listaDatosPostulante.length && bandera) {
-      //this.mensajeToastExito();
-      this.recuperarDatos();
-      console.log("puede guardar sus datos");
-    }
-    else {
-      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-        let id = this.listaDatosPostulante[index].getNombreDato();
-        let inputTipe = $("#" + id).attr('type');
-        let value = $("#" + id).val();
-        if (inputTipe == "text") {
-          if (value.length == 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "22").css('display', 'none');
-            $("#" + id + "21").css('display', 'block');
-          }
-          else {
-            if (value.length <= 2) {
-              $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'none');
-              $("#" + id + "22").css('display', 'block');
-            }
-          }
-        }
-        if (inputTipe == "number" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-        if (inputTipe == "email" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-      }
-    }
   }
+  /* guardarDatos() {
+     console.log("ingreso para guardar")
+     let contador = 0;
+ 
+     //recorremos la lista de los datos rotulo para ver si sus campos son validos
+     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+       let id = this.listaDatosPostulante[index].getNombreDato();
+       if ($("#" + id).hasClass("is-valid")) {
+         contador += 1
+       }
+     }
+ 
+     //rrecorremos la lista de items a los que se puede postular
+     let bandera = false;
+     for (let index = 0; index < this.listaItems.length; index++) {
+       if (this.listaItems[index].getSeleccionado()) {
+         bandera = true;
+       }
+     }
+ 
+     if (!bandera) {
+       this.mensajeToastError();
+     }
+     if (contador == this.listaDatosPostulante.length && bandera) {
+       //this.mensajeToastExito();
+       this.recuperarDatos();
+       console.log("puede guardar sus datos");
+     }
+     else {
+       for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+         let id = this.listaDatosPostulante[index].getNombreDato();
+         let inputTipe = $("#" + id).attr('type');
+         let value = $("#" + id).val();
+         if (inputTipe == "text") {
+           if (value.length == 0) {
+             $("#" + id).addClass("is-invalid");
+             $("#" + id + "22").css('display', 'none');
+             $("#" + id + "21").css('display', 'block');
+           }
+           else {
+             if (value.length <= 2) {
+               $("#" + id).addClass("is-invalid");
+               $("#" + id + "21").css('display', 'none');
+               $("#" + id + "22").css('display', 'block');
+             }
+           }
+         }
+         if (inputTipe == "number" && value.length == 0) {
+           $("#" + id).addClass("is-invalid");
+           $("#" + id + "31").css('display', 'block');
+         }
+         if (inputTipe == "email" && value.length == 0) {
+           $("#" + id).addClass("is-invalid");
+           $("#" + id + "31").css('display', 'block');
+         }
+       }
+     }
+   }*/
 
 
   //metodo para rrecuperar datos de los imputs y checks
-  recuperarDatos() {
-    let codigoSis:number=0;
-    let listaDatosInputs: DatosPostulante[] = [];
-    for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-      let id = this.listaDatosPostulante[index].getNombreDato();
-      let value = $("#" + id).val();
-      if (id === "codigo_sis") {
-        codigoSis=parseInt(value);
-      }
-      else {
-        this.listaDatosPostulante[index].setValorDato(value);
-        listaDatosInputs.push(this.listaDatosPostulante[index]);
-      }
-    }
-
-    let listaItemsSeleccionados: Item[] = [];
-    for (let index = 0; index < this.listaItems.length; index++) {
-      if (this.listaItems[index].getSeleccionado()) {
-        listaItemsSeleccionados.push(this.listaItems[index]);
-      }
-    }
-    console.log(listaDatosInputs)
-    console.log(listaItemsSeleccionados)
-    this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,listaDatosInputs);
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(JSON.stringify(this.postulante));
-    this.registrarPostulanteBD();
-  }
-
+  /* recuperarDatos() {
+     let codigoSis:number=0;
+     let listaDatosInputs: DatosPostulante[] = [];
+     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
+       let id = this.listaDatosPostulante[index].getNombreDato();
+       let value = $("#" + id).val();
+       if (id === "codigo_sis") {
+         codigoSis=parseInt(value);
+       }
+       else {
+         this.listaDatosPostulante[index].setValorDato(value);
+         listaDatosInputs.push(this.listaDatosPostulante[index]);
+       }
+     }
+ 
+     let listaItemsSeleccionados: Item[] = [];
+     for (let index = 0; index < this.listaItems.length; index++) {
+       if (this.listaItems[index].getSeleccionado()) {
+         listaItemsSeleccionados.push(this.listaItems[index]);
+       }
+     }
+     console.log(listaDatosInputs)
+     console.log(listaItemsSeleccionados)
+     this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,listaDatosInputs);
+     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+     console.log(JSON.stringify(this.postulante));
+     this.registrarPostulanteBD();
+   }
+ 
+   */
 
   mensajeToastError() {
     tata.error("Error", "Debe De Seleccionar Almenos Un Item");
@@ -311,52 +337,52 @@ export class FormPostulanteComponent implements OnInit {
   /**
    * metodos que interactuan con la base de datos
    */
-  getItemsBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.servicePostulante.getItems(idConv).subscribe(
-      (resultado: Item) => {
-        let item: Item;
-        for (let i in resultado) {
-          item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
-          this.listaItems.push(item);
-        }
-      }
-    )
-  }
-
+  /* getItemsBD() {
+     let idConv: number = parseInt(localStorage.getItem("idConv"));
+     this.servicePostulante.getItems(idConv).subscribe(
+       (resultado: Item) => {
+         let item: Item;
+         for (let i in resultado) {
+           item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
+           this.listaItems.push(item);
+         }
+       }
+     )
+   }
+ 
   getDatosRotuloConvBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_sis"))
-    this.servicePostulante.getDatosPostulante(idConv).subscribe(
-      resultado => {
-        let datoP: DatosPostulante;
-        for (let i in resultado) {
-          datoP = new DatosPostulante(resultado[i].idTipo, resultado[i].nombre);
-          this.listaDatosPostulante.push(datoP);
-        }
-      }
-    )
-
-    console.log("la lista de datos rotulo desde la base de datos");
-    console.log(this.listaDatosPostulante);
-
-  }
-
-  registrarPostulanteBD() {
-    this.servicePostulante.agregarPostulante(this.postulante).subscribe(
-      resultado=>{
-        if(resultado['resultado']=='correcto'){
-          this.mensajeToastExito("datos registrados correctamente");
-          console.log("el postulante se registro correctamente");
-        }else{
-          console.log("error al registrar el postulante");
-          this.mensajeToastErrorBD("error al registrar el postulante");
-        }
-      }
-    )
-  }
-
-
+     let idConv: number = parseInt(localStorage.getItem("idConv"));
+     this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_sis"))
+     this.servicePostulante.getDatosPostulante(idConv).subscribe(
+       resultado => {
+         let datoP: DatosPostulante;
+         for (let i in resultado) {
+           datoP = new DatosPostulante(resultado[i].idTipo, resultado[i].nombre);
+           this.listaDatosPostulante.push(datoP);
+         }
+       }
+     )
+ 
+     console.log("la lista de datos rotulo desde la base de datos");
+     console.log(this.listaDatosPostulante);
+ 
+   }
+ 
+   registrarPostulanteBD() {
+     this.servicePostulante.agregarPostulante(this.postulante).subscribe(
+       resultado=>{
+         if(resultado['resultado']=='correcto'){
+           this.mensajeToastExito("datos registrados correctamente");
+           console.log("el postulante se registro correctamente");
+         }else{
+           console.log("error al registrar el postulante");
+           this.mensajeToastErrorBD("error al registrar el postulante");
+         }
+       }
+     )
+   }
+ 
+ */
   /*
 let value = $("#" + id).val();
           /*if (inputTipe == "number") {

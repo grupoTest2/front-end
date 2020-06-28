@@ -148,6 +148,7 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
+        console.log(this.seleccion.getListaTiposDatosRotulo());      
       }
     );
   }

@@ -26,7 +26,7 @@ export class PhpServeConvocatoria {
   }
 
   public getTipoDatosRotulo(){
-    return this.http.get(`${this.URL}obtenerTipoDatoRotulo.php`);
+    return this.http.get(`${this.URL}obtenerDatosRotulo.php`);
   }
 
   public getEstadosConv():any{
