@@ -17,7 +17,7 @@ declare var $: any;
 
 export class DatosRotuloComponent implements OnInit {
   seleccionTodo: boolean = true;
-  seleccion: SeleccionTipoDatoRotulo;
+  seleccion: SeleccionTipoDatoRotulo=new SeleccionTipoDatoRotulo([]);
   href: string = '';
 
   //bandera para que no genere error en  la peticion http

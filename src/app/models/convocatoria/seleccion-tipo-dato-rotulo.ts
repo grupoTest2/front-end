@@ -5,8 +5,7 @@ import { TipoDatoRotulo } from '../clases/convocatoria/tipo-dato-rotulo';
 export class SeleccionTipoDatoRotulo {
     private listaTiposDatosRotulo: DatoRotulo[];
     private tiposDatosRotulo:object[];
-    public constructor(listaTipos:object[]) {
-        this.listaTiposDatosRotulo = new Array();
+    public constructor(listaTipos:object[]) {       this.listaTiposDatosRotulo = new Array();
         this.tiposDatosRotulo=listaTipos;
         this.cargarListaTiposDatosRotulo();
     }
