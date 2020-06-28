@@ -9,8 +9,9 @@
         <div class="form-group" *ngFor="let item of listaDatosRotulo">
           <label for="exampleInputpwd2">{{item.getTipoDato().getNombre()}}</label>
           <div class="input-group">
-            <input type="item.getTipoDato().getTipoDeDato()" class="form-control" id="{{item.getTipoDato().getNombre()}}"
-              placeholder="Ingrese su {{item.getTipoDato().getNombre()}}" (click)="validarDato()">
+            <input type="{{item.getTipoDato().getTipoDeDato()}}" class="form-control"
+              id="{{item.getTipoDato().getNombre()}}" placeholder="Ingrese su {{item.getTipoDato().getNombre()}}"
+              (click)="validarDato()">
           </div>
           <div *ngIf="item.getTipoDato().getTipoDeDato()== 'text'">
             <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}21"
