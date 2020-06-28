@@ -17,7 +17,6 @@ import { FechasComponent } from 'src/app/components/form-convocatoria/fechas/fec
 import { CalificacionConocimientosComponent } from 'src/app/components/form-convocatoria/calificacion-conocimientos/calificacion-conocimientos.component';
 import { DatosRotuloComponent } from 'src/app/components/form-convocatoria/datos-rotulo/datos-rotulo.component';
 import { LoadingSpinnerComponent } from 'src/app/components/loading-spinner/loading-spinner.component';
-import { AlertasComponent } from 'src/app/components/alertas/alertas.component';
 
 // servicios
 import { DatosConvocatoriaService } from '../../servicios/datos-convocatoria.service';
@@ -173,18 +172,52 @@ export class FormConvocatoriaComponent implements OnInit {
     tata.success("Registro Exitoso", mensaje);
   }
 
-  agregarBD() {
-    //this.alertAgregar();
-    this.recuperarLosDatosDeLosComponentes();
-    this.agregarRequerimientos();
-    this.agregarRequisitos();
-    this.agregarDocumentosPresentar();
-    this.agregarCalificaciones();
-    this.agregarMeritos();
-    this.agregarEventos();
-    this.agregarDatosRotulo();
+  alertAgregar(): void {
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar los datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        if(this.agregarBD()){
+        swal.fire(
+          'Exitoso!',
+          'Se guardaron los cambios de la convocatoria.',
+          'success'
+        )
+        }else{
+          swal.fire(
+            'Error!',
+            'Error al guardar los datos.',
+            'error'
+          )
+        }
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'Los datos no fueron guardados.',
+          'error'
+        )
+      }
+    })
   }
-  agregarRequerimientos() {
+
+  agregarBD() {
+    let agregar = false;
+    this.recuperarLosDatosDeLosComponentes();
+    if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
+    this.agregarCalificaciones() && this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
+      agregar = true;
+    }
+    return agregar;
+  }
+  agregarRequerimientos(): boolean {
+    let agregar: boolean = true;
     if (this.listaRequerimientos.length !== 0) {
       //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
@@ -193,12 +226,15 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los requerimientos');
           } else {
             console.log('error con los requerimientos');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
   }
-  agregarRequisitos() {
+  agregarRequisitos(): boolean {
+    let agregar: boolean = true;
     if (this.listaDatosRequisitos.length !== 0) {
       this.apiPHP.agregarRequisitos(this.listaDatosRequisitos).subscribe(
         respuesta => {
@@ -206,12 +242,15 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los requisitos');
           } else {
             console.log('error con los requisitos');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
   }
   agregarDocumentosPresentar() {
+    let agregar: boolean = true;
     if (this.listaDatosDocumentosPresentar.length !== 0) {
       this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
         respuesta => {
@@ -219,16 +258,20 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los documentos');
           } else {
             console.log('error con los documentos');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
+
   }
 
   /**
    * revisar la impresion del metodo
    */
   agregarCalificaciones() {
+    let agregar: boolean = true;
     let resp: boolean = false;
     console.log(JSON.stringify(this.listaItemsConCalificaciones));
     for (let i in this.listaItemsConCalificaciones) {
@@ -239,7 +282,7 @@ export class FormConvocatoriaComponent implements OnInit {
         resp = true;
         break;
       }
-    }
+    }    
     if (resp) {
       this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
         respuesta => {
@@ -247,13 +290,17 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con las calificaciones');
           } else {
             console.log('error con las calificaciones');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
+
   }
 
   agregarMeritos() {
+    let agregar: boolean = true;
     if (this.listaDatosMerito.length !== 0) {
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
         respuesta => {
@@ -261,13 +308,17 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los meritos');
           } else {
             console.log('error con los meritos');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
+
   }
 
   agregarEventos() {
+    let agregar: boolean = true;
     if (this.listaDatosEventos.length !== 0) {
       this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
         respuesta => {
@@ -275,14 +326,18 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los eventos');
           } else {
             console.log('error con los eventos');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
+
   }
 
 
   agregarDatosRotulo() {
+    let agregar: boolean = true;
     console.log(JSON.stringify(this.listaDatosRotulo));
     if (this.listaDatosRotulo.length !== 0) {
       this.apiPHP.agregarDatosRotulo(this.listaDatosRotulo).subscribe(
@@ -291,9 +346,12 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los datos rotulo');
           } else {
             console.log('error con los datos rotulo');
+            agregar = false;
           }
         }
       );
     }
+    return agregar;
+
   }
 }

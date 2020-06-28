@@ -35,7 +35,6 @@ import { FormRegistroComponent } from './pages/form-registro/form-registro.compo
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
-import { AlertasComponent } from './components/alertas/alertas.component';
 //convertir pdf
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
@@ -66,8 +65,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ComisionesComponent,
     FormRegistroComponent,
     FormPostulanteComponent,
-    ConvocatoriasEnCursoComponent,
-    AlertasComponent
+    ConvocatoriasEnCursoComponent
     ],
   imports: [
     BrowserModule,
