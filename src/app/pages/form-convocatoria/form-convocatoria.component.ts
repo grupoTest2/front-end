@@ -145,7 +145,6 @@ export class FormConvocatoriaComponent implements OnInit {
       }*/
       this.mensajeToastErrorBD(mensaje + "</br>A llenar faltantes!");
     }
-
   }
 
   //metodo para lanzar convocatoria
