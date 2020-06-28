@@ -67,10 +67,10 @@ export class FormConvocatoriaComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   subscription: Subscription;
 
-  // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-  //   console.log("Processing beforeunload...");
-  //   event.returnValue = false;
-  // }
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    console.log("Processing beforeunload...");
+    event.returnValue = false;
+  }
 
   // @HostListener('window:popstate', ['$event']) onPopState(event: Event) {
   //   console.log('Back button pressed');
@@ -100,10 +100,10 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.onbeforeunload = function() {
-      console.log("entraaaaaaaaa refresh")
-      return "Leaving this page will reset the wizard";
-  };
+  //   window.onbeforeunload = function() {
+  //     console.log("entraaaaaaaaa refresh")
+  //     return "Leaving this page will reset the wizard";
+  // };
     this.href = this.router.url;
    
           //cuando presione el reload
