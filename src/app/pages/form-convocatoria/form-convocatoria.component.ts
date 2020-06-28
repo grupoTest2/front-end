@@ -72,19 +72,6 @@ export class FormConvocatoriaComponent implements OnInit {
     event.returnValue = false;
   }
 
-  // @HostListener('window:popstate', ['$event']) onPopState(event: Event) {
-  //   console.log('Back button pressed');
-  //   var mensaje;
-  //   var opcion = confirm("Clicka en Aceptar o Cancelar");
-  //   if (opcion == true) {
-  //       mensaje = "Has clickado OK";
-	// } else {
-  //     mensaje = "Has clickado Cancelar";
-  //     event.cancelable 
-	// }
-
-  // }
-
   constructor(private datosConvocatoria: DatosConvocatoriaService,
     private apiPHP: PhpServeConvocatoria,
     private router: Router,
@@ -93,67 +80,16 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-    
-
-    
-
   }
 
   ngOnInit(): void {
-  //   window.onbeforeunload = function() {
-  //     console.log("entraaaaaaaaa refresh")
-  //     return "Leaving this page will reset the wizard";
-  // };
     this.href = this.router.url;
-   
-          //cuando presione el reload
-    /* $(window).bind('load', function () {
-       let mensajes=new AlertasComponent();
-       mensajes.refresh();
-       return false
-       // alert("ojjjjjjjjjjjjjjjjjjjjjjjjj");
-       //this.blockUI.start("cargando");
-       //return 'are you sure you want to leave?';
-       //this.alertAgregar();
- 
-     });*/
-
-    /*window.onbeforeunload = function() {
-      //this.preventDefault();
-      let mensajes=new AlertasComponent();
-      mensajes.refresh();
-      return mensajes.refresh();//false //"¿Desea recargar la página web?";
-    };*///
-
-
-
-    /*window.addEventListener('load',function(e){
-      e.preventDefault();
-      let mensajes=new AlertasComponent();
-      mensajes.refresh();
-      //return false
-    });*/
-
-    window.addEventListener('keydown', (function (e) {
-      /*if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
-        // Pressing F5 or Ctrl+R
-        e.preventDefault();*/
-      if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) {
-        e.preventDefault();
-        let mensajes = new AlertasComponent();
-        mensajes.refresh();
-        //console.log("#######################"+e.which)
-      }
-    }))
     // this.blockUI.start("cargando");
 
 
     setTimeout(() => {
       this.blockUI.stop();
     }, 500);
-    /* $(window).bind('beforeunload', function () {
-       return confirm("Do you really want to refresh?");
-     });*/
   }
 
   ruta() {
