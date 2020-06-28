@@ -36,6 +36,13 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
 import {MatTabsModule} from '@angular/material/tabs';
 import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 import { AlertasComponent } from './components/alertas/alertas.component';
+//convertir pdf
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+ 
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
+
 @NgModule({
   declarations: [
     AppComponent,
