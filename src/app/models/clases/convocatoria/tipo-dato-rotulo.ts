@@ -1,50 +1,37 @@
 export class TipoDatoRotulo {
-    private idConv: number;
-    private idDato: number;
     private nombre: string;
-    private seleccionado: boolean;
-    private enLista: boolean;
-    private accion: string;
-    private tipo: any;
-    public constructor(nombre: string, seleccionado: boolean,enLista:boolean=false, tipo:string="-") {
-        this.idConv        = parseInt(localStorage.getItem("idConv"));
+    private tipoDeDato: string;
+    private tamanioMinimo: number;
+    private tamanioMaximo: number;
+    constructor(nombre: string, tipoDato: string, tamanioMinimo: number, tamanioMaximo: number) {
         this.nombre = nombre;
-        this.seleccionado = seleccionado;
-        this.enLista = enLista;
-        this.tipo=tipo;
-        this.accion ="nada";
+        this.tipoDeDato = tipoDato;
+        this.tamanioMinimo = tamanioMinimo;
+        this.tamanioMaximo = tamanioMaximo;
     }
 
     public getNombre(): string {
         return this.nombre;
     }
-
-    public getSeleccionado(): boolean {
-        return this.seleccionado;
+    public setNombre(value: string) {
+        this.nombre = value;
     }
-
-    public setIdDato(idDato:number){
-        this.idDato=idDato;
+    public getTipoDeDato(): string {
+        return this.tipoDeDato;
     }
-    public setNombre(nombre: string): void {
-        this.nombre = nombre;
+    public setTipoDeDato(value: string) {
+        this.tipoDeDato = value;
     }
-
-    public setSeleccionado(seleccionado: boolean) {
-        this.seleccionado = seleccionado;
+    public getTamanioMinimo(): number {
+        return this.tamanioMinimo;
     }
-
-    public setEnLista(bandera:boolean){
-        this.enLista=bandera;
+    public setTamanioMinimo(value: number) {
+        this.tamanioMinimo = value;
     }
-
-    public setAccion(accion:string): void{
-        this.accion=accion;
+    public getTamanioMaximo(): number {
+        return this.tamanioMinimo;
     }
-    public getEnLista(){
-        return this.enLista;
-    }
-    public getTipo(){
-        return this.tipo;
+    public setTamanioMaximo(value: number) {
+        this.tamanioMinimo = value;
     }
 }

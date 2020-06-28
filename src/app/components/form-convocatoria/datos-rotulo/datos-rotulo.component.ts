@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
-import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
+import { DatoRotulo } from 'src/app/models/clases/convocatoria/dato-rotulo';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 import { logging } from 'protractor';
 import { MatSlideToggleModule, MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -125,7 +125,7 @@ export class DatosRotuloComponent implements OnInit {
   }
 
   getDatos() {
-    let listaDatosR: TipoDatoRotulo[] = [];
+    let listaDatosR: DatoRotulo[] = [];
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       if (this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()) {
         listaDatosR.push(this.seleccion.getListaTiposDatosRotulo()[i]);

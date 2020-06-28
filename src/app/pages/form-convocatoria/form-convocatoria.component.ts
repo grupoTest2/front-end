@@ -6,7 +6,7 @@ import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { Merito } from 'src/app/models/clases/convocatoria/merito';
 import { DocumentoPresentar } from 'src/app/models/clases/convocatoria/documento-presentar';
-import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
+import { DatoRotulo } from 'src/app/models/clases/convocatoria/dato-rotulo';
 
 // componentes
 import { RequerimientosComponent } from 'src/app/components/form-convocatoria/requerimientos/requerimientos.component';
@@ -55,7 +55,7 @@ export class FormConvocatoriaComponent implements OnInit {
   listaDatosMerito: Merito[] = [];
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
-  listaDatosRotulo: TipoDatoRotulo[] = [];
+  listaDatosRotulo: DatoRotulo[] = [];
   listaJhon: Requerimiento[];
   // lista de los requerimientos
   listaRequerimientos: any = [];
@@ -78,10 +78,10 @@ export class FormConvocatoriaComponent implements OnInit {
   //   var opcion = confirm("Clicka en Aceptar o Cancelar");
   //   if (opcion == true) {
   //       mensaje = "Has clickado OK";
-	// } else {
+  // } else {
   //     mensaje = "Has clickado Cancelar";
   //     event.cancelable 
-	// }
+  // }
 
   // }
 
@@ -93,20 +93,20 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-    
 
-    
+
+
 
   }
 
   ngOnInit(): void {
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
       console.log("entraaaaaaaaa refresh")
       return "Leaving this page will reset the wizard";
-  };
+    };
     this.href = this.router.url;
-   
-          //cuando presione el reload
+
+    //cuando presione el reload
     /* $(window).bind('load', function () {
        let mensajes=new AlertasComponent();
        mensajes.refresh();
@@ -204,9 +204,9 @@ export class FormConvocatoriaComponent implements OnInit {
         mensaje += "</br>Campo calificacion conocimiento, "
       } if (!this.eventos.estaHabilitado()) {
         mensaje += "</br>Campo eventos, "
-      } if (!this.datosRotulo.estaHabilitado()) {
+      } /*if (!this.datosRotulo.estaHabilitado()) {
         mensaje += "</br>Campo datos rotulo, "
-      }
+      }*/
       this.mensajeToastErrorBD(mensaje + "</br>A llenar faltantes!");
     }
 
