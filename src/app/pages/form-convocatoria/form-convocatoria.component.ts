@@ -79,16 +79,13 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
+
+    
   }
+
 
   ngOnInit(): void {
     this.href = this.router.url;
-    // this.blockUI.start("cargando");
-
-
-    setTimeout(() => {
-      this.blockUI.stop();
-    }, 500);
   }
 
   ruta() {
@@ -120,42 +117,50 @@ export class FormConvocatoriaComponent implements OnInit {
 
 
 
-  habilitar() {
-    let mensaje = ""
-    if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado() && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado() && this.datosRotulo.estaHabilitado()) {
+  habilitar(): boolean {
+    let habilitar = false;
+    let mensaje = '';
+    if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado()
+        && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado()
+        && this.datosRotulo.estaHabilitado()) {
       this.lanzarConvocatoria();
+      habilitar = true;
     }
     else {
       if (!this.requerimiento.estaHabilitado()) {
-        mensaje += "Campo Requerimiento, "
+        mensaje += 'Campo Requerimiento, ';
       }
       if (!this.requisitos.estaHabilitado()) {
-        mensaje += "</br>Campo requisitos, "
-      } if (!this.documentosPresentar.estaHabilitado()) {
-        mensaje += "</br>Campo documentos a presentar, "
-      } if (!this.merito.estaHabilitado()) {
-        mensaje += "</br>Campo meritos, "
-      } if (this.calificacionConocimiento.estaHabilitado()) {
-        mensaje += "</br>Campo calificacion conocimiento, "
-      } if (!this.eventos.estaHabilitado()) {
-        mensaje += "</br>Campo eventos, "
+        mensaje += '</br>Campo requisitos, ';
+      }
+      if (!this.documentosPresentar.estaHabilitado()) {
+        mensaje += '</br>Campo documentos a presentar, ';
+      }
+      if (!this.merito.estaHabilitado()) {
+        mensaje += '</br>Campo meritos, ';
+      }
+      if (this.calificacionConocimiento.estaHabilitado()) {
+        mensaje += '</br>Campo calificacion conocimiento, ';
+      }
+      if (!this.eventos.estaHabilitado()) {
+        mensaje += '</br>Campo eventos, ';
       } /*if (!this.datosRotulo.estaHabilitado()) {
         mensaje += "</br>Campo datos rotulo, "
       }*/
-      this.mensajeToastErrorBD(mensaje + "</br>A llenar faltantes!");
+      this.mensajeToastErrorBD(mensaje + '<hr>A llenar faltantes!');
     }
-
+    return habilitar;
   }
 
-  //metodo para lanzar convocatoria
+  // metodo para lanzar convocatoria
   lanzarConvocatoria() {
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.habilitarConvocatoria(idConv).subscribe(
       resultado => {
-        if (resultado['resultado'] == 'correcto') {
-          this.mensajeToastExito("la convocatoria esta habilitada");
+        if (resultado['resultado'] === 'correcto') {
+          this.mensajeToastExito('la convocatoria esta habilitada');
         } else {
-          this.mensajeToastErrorBD("no se pudo habilitar la convocatoria");
+          this.mensajeToastErrorBD('no se pudo habilitar la convocatoria');
         }
       }
     )
@@ -163,13 +168,13 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
   mensajeToastErrorBD(mensaje) {
-    tata.error("Error", mensaje, {
+    tata.error('Error', mensaje, {
       duration: 3000
     });
 
   }
   mensajeToastExito(mensaje) {
-    tata.success("Registro Exitoso", mensaje);
+    tata.success('Registro Exitoso', mensaje);
   }
 
   alertAgregar(): void {
@@ -185,11 +190,20 @@ export class FormConvocatoriaComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         if(this.agregarBD()){
-        swal.fire(
-          'Exitoso!',
-          'Se guardaron los cambios de la convocatoria.',
-          'success'
-        )
+          swal.fire(
+            {title: 'Exitoso',
+            text: "¿Desea habilitar la convocatoria?",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ir a habilitar',
+            cancelButtonText: 'Cancelar'}
+          ).then((result) => {
+            if (result.value) {
+              this.router.navigate(['/habilitarConvocatoria/formulario']);
+            }
+          });
         }else{
           swal.fire(
             'Error!',
@@ -202,9 +216,57 @@ export class FormConvocatoriaComponent implements OnInit {
           'Cancelado!',
           'Los datos no fueron guardados.',
           'error'
-        )
+        );
       }
-    })
+    });
+  }
+
+  alertHabilitar(): void {
+    swal.fire({
+      title: 'Habilitar convocatoria',
+      text: '¿Está seguro de habilitar la convocatoria?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        if(this.habilitar()){
+          swal.fire(
+            'Exitoso!',
+            'La convactoria fue habilitada correctamente',
+            'success'
+          );
+          }else{
+            swal.fire(
+              {title: 'Editar convocatoria',
+              text: "¿Desea completar los datos faltantes?",
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ir a editar',
+              cancelButtonText: 'Cancelar'}
+            ).then((result) => {
+              if (result.value) {
+                this.router.navigate(['/editarConvocatoria/formulario']);
+              }
+            });
+          }
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'La convocatoria no fue habilitada.',
+          'error'
+        );
+      }
+    });
+  }
+
+  prueba(){
+    console.log("okkkk 2do")
   }
 
   agregarBD() {
