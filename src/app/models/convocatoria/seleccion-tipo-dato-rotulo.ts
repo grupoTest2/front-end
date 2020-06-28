@@ -25,28 +25,15 @@ export class SeleccionTipoDatoRotulo {
     }
 
     public setDatoRotulo(nombreDato:string){
-/*        for(let i in this.listaTiposDatosRotulo){
-            if(this.listaTiposDatosRotulo[i].getNombre()===nombreDato){
+        for(let i in this.listaTiposDatosRotulo){
+            if(this.listaTiposDatosRotulo[i].getTipoDato().getNombre()===nombreDato){
                 this.listaTiposDatosRotulo[i].setEnLista(true);
                 break;
             }
-        }*/
+        }
     }
 
-    public estaHabilitado(){
-        let res: boolean=false;
-       /* for(let i in this.listaTiposDatosRotulo){
-            if(this.listaTiposDatosRotulo[i].getNombre()=="Nombre"||this.listaTiposDatosRotulo[i].getNombre()=="Apellido"){
-                if(this.listaTiposDatosRotulo[i].getEnLista()){
-                    res=true;
-                }else{
-                    res=false;
-                    break;
-                }
-            }
-        }*/
-        return res;
-    }
+ 
     public cantDatosEnLista(): number{
         let cont: number=0;
         for(let i in this.listaTiposDatosRotulo){

@@ -61,6 +61,6 @@ export class PhpServeConvocatoria {
   }
 
   public agregarDatosRotulo(listaDatos){
-    return this.http.post(`${this.URL}establecerTipoDatosRotulo.php`, JSON.stringify(listaDatos));
+    return this.http.post(`${this.URL}establecerDatosRotulo.php`, JSON.stringify(listaDatos));
   }
 }
