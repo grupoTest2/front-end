@@ -1,5 +1,5 @@
 <!-- <block-ui> -->
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5" id="form">
     <form>
         <div class="form-group">
             <p class="text-center"> {{tituloConvocatoria | uppercase}} <br>==========<br> GESTIÓN {{gestionConvocatoria | uppercase}} </p>
@@ -38,7 +38,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-end mt-5">
                 <button *ngIf="!ruta()" class="btn btn-outline-dark" type="button" (click)="alertAgregar()">Guardar </button>
-                <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="habilitar()">Habilitar </button>
+                <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="alertHabilitar()">Habilitar </button>
             </div>
         </div>
         <br>

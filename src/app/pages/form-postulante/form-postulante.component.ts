@@ -48,16 +48,15 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   datosPrueba() {
-    this.listaDatosRotulo = [];
-    let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
-    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 8);
+    /*let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
+    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
     let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
     let datoRotulo1: DatoRotulo = new DatoRotulo(true, true, tipoDato1);
     let datoRotulo2: DatoRotulo = new DatoRotulo(true, true, tipoDato2);
     let datoRotulo3: DatoRotulo = new DatoRotulo(true, true, tipoDato3);
     this.listaDatosRotulo.push(datoRotulo1);
     this.listaDatosRotulo.push(datoRotulo2);
-    this.listaDatosRotulo.push(datoRotulo3);
+    this.listaDatosRotulo.push(datoRotulo3);*/
 
   }
 

@@ -7,8 +7,9 @@ export class DatoRotulo {
     private enLista: boolean;
     private accion: string;
     private tipoDato: TipoDatoRotulo;
-    public constructor(seleccionado: boolean,enLista:boolean=false,tipoDato:TipoDatoRotulo) {
+    public constructor(idDato:number,tipoDato:TipoDatoRotulo,seleccionado: boolean=false,enLista:boolean=false) {
         this.idConv = parseInt(localStorage.getItem("idConv"));
+        this.idDato=idDato;
         this.seleccionado = seleccionado;
         this.enLista = enLista;
         this.tipoDato=tipoDato;
