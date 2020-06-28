@@ -21,7 +21,7 @@ export class FormPostulanteComponent implements OnInit {
   //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
-  listaDatosRotulo: DatoRotulo[] = [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
+  listaDatosRotulo: DatoRotulo[] =[]// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
 
 

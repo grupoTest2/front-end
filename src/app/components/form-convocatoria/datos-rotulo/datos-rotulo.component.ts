@@ -21,7 +21,7 @@ export class DatosRotuloComponent implements OnInit {
   href: string = '';
 
   //bandera para que no genere error en  la peticion http
-  banderaAuxiliar = false;
+  banderaAuxiliar = true;
 
   //verficar switch y posible marcacion
   banderaSitch = false;

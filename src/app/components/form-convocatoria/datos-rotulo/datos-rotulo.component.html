@@ -16,7 +16,7 @@
       </thead>
       <tbody *ngIf="banderaAuxiliar">
         <tr *ngFor="let item of seleccion.getListaTiposDatosRotulo(); index as i">
-          <td *ngIf="item.getEnLista()" scope="row"> {{item.getNombre() | titlecase }}</td>
+          <td *ngIf="item.getEnLista()" scope="row"> {{item.getTipoDato().getNombre() | titlecase }}</td>
           <td *ngIf="item.getEnLista()" class="text-right">
             <div class="btn btn-group" role="group">
               <button [disabled]="ruta()" class="btn btn-outline-danger" type="button">
@@ -59,7 +59,7 @@
               style="font-size: 1rem;">
               <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
               <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue"> </i>&nbsp;
-              &nbsp;{{item.getNombre() | titlecase}} </button>
+              &nbsp;{{item.getTipoDato().getNombre() | titlecase}} </button>
           </div>
         </div>
 
