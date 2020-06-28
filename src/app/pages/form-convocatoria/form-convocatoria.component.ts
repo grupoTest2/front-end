@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 // models
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
@@ -37,7 +37,7 @@ export let browserRefresh = false;
   templateUrl: './form-convocatoria.component.html',
   styleUrls: ['./form-convocatoria.component.css']
 })
-export class FormConvocatoriaComponent implements OnInit, OnDestroy {
+export class FormConvocatoriaComponent implements OnInit {
   @ViewChild('requerimiento') requerimiento: RequerimientosComponent;
   @ViewChild('requisitos') requisitos: RequisitosComponent;
   @ViewChild('documentosPresentar') documentosPresentar: DocumentosPresentarComponent;
@@ -66,6 +66,26 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
   href: string = '';
   @BlockUI() blockUI: NgBlockUI;
   subscription: Subscription;
+  
+
+  // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+  //   console.log("Processing beforeunload...");
+  //   event.returnValue = false;
+  // }
+
+  // @HostListener('window:popstate', ['$event']) onPopState(event: Event) {
+  //   console.log('Back button pressed');
+  //   var mensaje;
+  //   var opcion = confirm("Clicka en Aceptar o Cancelar");
+  //   if (opcion == true) {
+  //       mensaje = "Has clickado OK";
+	// } else {
+  //     mensaje = "Has clickado Cancelar";
+  //     event.cancelable 
+	// }
+
+  // }
+
   constructor(private datosConvocatoria: DatosConvocatoriaService,
     private apiPHP: PhpServeConvocatoria,
     private router: Router,
@@ -74,34 +94,14 @@ export class FormConvocatoriaComponent implements OnInit, OnDestroy {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
+    
 
-    this.subscription = router.events.subscribe((event) => {
+    
 
-      if (event instanceof NavigationStart) {
-        browserRefresh = !router
-        //alert("me  la pelas");
-      }
-    });
-
-    //window.onpopstate = function (e) { window.history.forward(); }
-    //window.onpopstate;
-
-    $(window).on('beforeunload', function (event) {
-      let mensajes = new AlertasComponent();
-        mensajes.refresh();
-        
-      return alert('actualiuzando');
-      //mensajes.refresh();
-    });
-
-  }
-
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
+    
     this.href = this.router.url;
    
           //cuando presione el reload
