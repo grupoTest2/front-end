@@ -15,7 +15,6 @@ export class DatoRotulo {
         this.accion ="nada";
     }
     
-
     public setIdDato(idDato:number){
         this.idDato=idDato;
     }
@@ -43,5 +42,12 @@ export class DatoRotulo {
 
     public getAccion(accion:string): string{
         return this.accion;
+    }
+    public setTipoDato(tipo:TipoDatoRotulo): void{
+        this.tipoDato=tipo;
+    }
+
+    public getTipoDato(): TipoDatoRotulo{
+        return this.tipoDato;
     }
 }
