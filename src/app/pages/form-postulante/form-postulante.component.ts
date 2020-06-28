@@ -295,7 +295,7 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   guardarDatos() {
-    console.log("ingreso para guardar")
+   /* console.log("ingreso para guardar")
     let contador = 0;
 
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
@@ -350,7 +350,7 @@ export class FormPostulanteComponent implements OnInit {
           $("#" + id + "31").css('display', 'block');
         }
       }
-    }
+    }*/
   }
 
 
