@@ -1,48 +1,48 @@
-<block-ui>
-    <div class="container mt-5 mb-5">
-        <form>
-            <div class="form-group">
-                <p class="text-center"> {{tituloConvocatoria | uppercase}} <br>==========<br> GESTIÓN {{gestionConvocatoria | uppercase}} </p>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-requerimientos #requerimiento (listaRequerimientos)="setListaRequerimientos($event)"></app-requerimientos>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-requisitos #requisitos></app-requisitos>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-documentos-presentar #documentosPresentar></app-documentos-presentar>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-meritos #merito></app-meritos>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-calificacion-conocimientos #calificacionConocimiento></app-calificacion-conocimientos>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-fechas #eventos></app-fechas>
-            </div>
-            <br>
-            <div class="form-group">
-                <app-datos-rotulo #datosRotulo></app-datos-rotulo>
-            </div>
-            <br>
-            <br>
-            <hr>
-            <div class="form-group">
-                <div class="d-flex justify-content-end mt-5">
-                    <button *ngIf="!ruta()" class="btn btn-outline-dark" type="button" (click)="agregarBD()">Guardar </button>
-                    <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="habilitar()">Habilitar </button>
-                </div>
-            </div>
-            <br>
-        </form>
+<!-- <block-ui> -->
+<div class="container mt-5 mb-5">
+    <form>
+        <div class="form-group">
+            <p class="text-center"> {{tituloConvocatoria | uppercase}} <br>==========<br> GESTIÓN {{gestionConvocatoria | uppercase}} </p>
+        </div>
         <br>
-    </div>
-</block-ui>
+        <div class="form-group">
+            <app-requerimientos #requerimiento (listaRequerimientos)="setListaRequerimientos($event)"></app-requerimientos>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-requisitos #requisitos></app-requisitos>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-documentos-presentar #documentosPresentar></app-documentos-presentar>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-meritos #merito></app-meritos>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-calificacion-conocimientos #calificacionConocimiento></app-calificacion-conocimientos>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-fechas #eventos></app-fechas>
+        </div>
+        <br>
+        <div class="form-group">
+            <app-datos-rotulo #datosRotulo></app-datos-rotulo>
+        </div>
+        <br>
+        <br>
+        <hr>
+        <div class="form-group">
+            <div class="d-flex justify-content-end mt-5">
+                <button *ngIf="!ruta()" class="btn btn-outline-dark" type="button" (click)="alertAgregar()">Guardar </button>
+                <button *ngIf="ruta()" class="btn btn-outline-dark" type="button" (click)="habilitar()">Habilitar </button>
+            </div>
+        </div>
+        <br>
+    </form>
+    <br>
+</div>
+<!-- </block-ui> -->
