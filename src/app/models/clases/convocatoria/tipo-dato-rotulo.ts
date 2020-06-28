@@ -2,12 +2,12 @@ export class TipoDatoRotulo {
     private nombre: string;
     private tipoDeDato: string;
     private tamanioMinimo: number;
-    private tamanioMaximo: number;
-    constructor(nombre: string, tipoDato: string, tamanioMinimo: number, tamanioMaximo: number) {
+    private valor: string;
+    constructor(nombre: string, tipoDato: string, tamanioMinimo: number) {
         this.nombre = nombre;
         this.tipoDeDato = tipoDato;
         this.tamanioMinimo = tamanioMinimo;
-        this.tamanioMaximo = tamanioMaximo;
+        this.valor=""
     }
 
     public getNombre(): string {
@@ -28,10 +28,10 @@ export class TipoDatoRotulo {
     public setTamanioMinimo(value: number) {
         this.tamanioMinimo = value;
     }
-    public getTamanioMaximo(): number {
-        return this.tamanioMinimo;
+    public getValor(): string {
+        return this.valor;
     }
-    public setTamanioMaximo(value: number) {
-        this.tamanioMinimo = value;
+    public setValor(value: string) {
+        this.valor = value;
     }
 }

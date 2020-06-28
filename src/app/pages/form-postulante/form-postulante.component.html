@@ -22,24 +22,24 @@
                 class="fal fa-exclamation-triangle"></small></small>
           </div>
           <div *ngIf="item.getTipoDato().getTipoDeDato()== 'number'">
-            <small class="inline-block text-danger" id="{{item.getNombre()}}11"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}11"
               style="display: none;">{{msjErrorNumericoVacio}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
-            <small class="inline-block text-danger" id="{{item.getNombre()}}12"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}12"
               style="display: none;">{{msjErrorNumericoCorto}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
-            <small class="inline-block text-danger" id="{{item.getNombre()}}13"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}13"
               style="display: none;">{{msjErrorNumericoIncorrecto}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
           </div>
           <div *ngIf="item.getTipoDato().getTipoDeDato() == 'email'">
-            <small class="inline-block text-danger" id="{{item.getNombre()}}31"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}31"
               style="display: none;">{{msjErrorEmailVacio}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
-            <small class="inline-block text-danger" id="{{item.getNombre()}}32"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}32"
               style="display: none;">{{msjErrorEmailCorto}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
-            <small class="inline-block text-danger" id="{{item.getNombre()}}33"
+            <small class="inline-block text-danger" id="{{item.getTipoDato().getNombre()}}33"
               style="display: none;">{{msjErrorEmailIncorrecto}}&nbsp;<small
                 class="fal fa-exclamation-triangle"></small></small>
           </div>

@@ -46,16 +46,16 @@ export class FormPostulanteComponent implements OnInit {
     });
   }
 
-  datosPrueba(){
-    let tipoDato1:TipoDatoRotulo=new TipoDatoRotulo("nombre","text",3,15);
-    let tipoDato2:TipoDatoRotulo=new TipoDatoRotulo("codigo_sis","number",3,15);
-    let tipoDato3:TipoDatoRotulo=new TipoDatoRotulo("correo_Electronico","email",3,15);
-    let datoRotulo1:DatoRotulo=new DatoRotulo(true,true,tipoDato1);
-    let datoRotulo2:DatoRotulo=new DatoRotulo(true,true,tipoDato2);
-    let datoRotulo3:DatoRotulo=new DatoRotulo(true,true,tipoDato3);
-   this.listaDatosRotulo.push(datoRotulo1);
-   this.listaDatosRotulo.push(datoRotulo2);
-   this.listaDatosRotulo.push(datoRotulo3);
+  datosPrueba() {
+    let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
+    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
+    let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
+    let datoRotulo1: DatoRotulo = new DatoRotulo(true, true, tipoDato1);
+    let datoRotulo2: DatoRotulo = new DatoRotulo(true, true, tipoDato2);
+    let datoRotulo3: DatoRotulo = new DatoRotulo(true, true, tipoDato3);
+    this.listaDatosRotulo.push(datoRotulo1);
+    this.listaDatosRotulo.push(datoRotulo2);
+    this.listaDatosRotulo.push(datoRotulo3);
 
   }
 
@@ -63,9 +63,9 @@ export class FormPostulanteComponent implements OnInit {
     if (this.bandera) {
       for (let index = 0; index < this.listaDatosRotulo.length; index++) {
         let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-        let aux = document.getElementById(id);
         let inputTipe = $("#" + id).attr('type');
-         aux.addEventListener("blur", function (event) {
+        let aux = document.getElementById(id);
+        aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
           //inputs tipo number
@@ -164,6 +164,7 @@ export class FormPostulanteComponent implements OnInit {
         }, true);
         let contador = 0;
         $("#" + id).keydown(function (e) {
+          let tipoDatoRotulo: TipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
           if (e.which == 8) {
             if (contador != 0) {
               contador -= 1;
@@ -171,24 +172,30 @@ export class FormPostulanteComponent implements OnInit {
             if (contador == 0) {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'block');
-              $("#" + id + "22").css('display', 'none');
+              if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                $("#" + id + "21").css('display', 'block');
+                $("#" + id + "22").css('display', 'none');
+              }
             }
-            if (contador < 3 && contador >= 1) {
+            if (contador < tipoDatoRotulo.getTamanioMinimo() && contador >= 1) {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'none');
-              $("#" + id + "22").css('display', 'block');
+              if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                $("#" + id + "21").css('display', 'none');
+                $("#" + id + "22").css('display', 'block');
+              }
             }
             //console.log("#######################"+e.which)
           } else {
             contador += 1
             if (inputTipe == "text") {
-              if (contador >= 3) {
+              if (contador >=tipoDatoRotulo.getTamanioMinimo() ) {
                 $("#" + id).removeClass("is-invalid");
                 $("#" + id).addClass("is-valid");
-                $("#" + id + "21").css('display', 'none');
-                $("#" + id + "22").css('display', 'none');
+                if (tipoDatoRotulo.getTipoDeDato() == 'text'){
+                  $("#" + id + "21").css('display', 'none');
+                  $("#" + id + "22").css('display', 'none');
+                }
               }
             }
           }
