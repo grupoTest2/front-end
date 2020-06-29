@@ -259,7 +259,7 @@ export class MeritosComponent implements OnInit {
    *indica si la convocatoria es apta para ser lanzada 
    */
   estaHabilitado(){
-    return this.seleccionMerito.getPorcentajeDisponible()==0;
+    return this.seleccionMerito.getPorcentajeDisponible() === 0;
   }
   /**
    * metodos que interaccuan con la base de datos
