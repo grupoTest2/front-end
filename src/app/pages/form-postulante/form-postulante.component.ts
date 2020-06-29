@@ -7,6 +7,7 @@ import { Item } from 'src/app/models/clases/postulante/item';
 import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
+import { combineAll } from 'rxjs/operators';
 
 declare var $: any;
 declare var tata: any;
@@ -49,7 +50,7 @@ export class FormPostulanteComponent implements OnInit {
 
   datosPrueba() {
     let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
-    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
+    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 5);
     let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
     let datoRotulo1: DatoRotulo = new DatoRotulo(1, tipoDato1);
     let datoRotulo2: DatoRotulo = new DatoRotulo(1, tipoDato2);
@@ -309,13 +310,16 @@ export class FormPostulanteComponent implements OnInit {
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-      if ($("#" + id).hasClass("is-valid")||$("#" + id).val().length==0) {
+      if ($("#" + id).hasClass("is-invalid") || $("#" + id).val().length == 0) {
+        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre())
         banderaDatosRotulo = false;
       }
     }
     if (banderaDatosRotulo == false) {
       this.remarcarInputsInvalidos();
     }
+     console.log(banderaItems+"items")
+     console.log(banderaDatosRotulo+"datosR")
 
     return banderaItems && banderaDatosRotulo;
   }
@@ -330,31 +334,26 @@ export class FormPostulanteComponent implements OnInit {
       if (inputTipe == "text") {
         if (value.length == 0) {
           $("#" + id).addClass("is-invalid");
-          $("#" + id + "22").css('display', 'none');
           $("#" + id + "21").css('display', 'block');
         }
+      } else {
+        if (inputTipe == "number" && value.length == 0) {
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "11").css('display', 'block');
+        }
         else {
-          if (value.length <= 2) {
+          if (inputTipe == "email" && value.length == 0) {
             $("#" + id).addClass("is-invalid");
-            $("#" + id + "21").css('display', 'none');
-            $("#" + id + "22").css('display', 'block');
+            $("#" + id + "31").css('display', 'block');
           }
         }
       }
-      if (inputTipe == "number") {
-        $("#" + id).addClass("is-invalid");
-        $("#" + id + "11").css('display', 'block');
-      }
-      if (inputTipe == "email" && value.length == 0) {
-        $("#" + id).addClass("is-invalid");
-        $("#" + id + "31").css('display', 'block');
-      }
-
     }
   }
 
   guardarDatos() {
     if (this.datosValidos()) {
+      console.log("todo valido !!!!!!!!!!!!!!!!");
       let valor;
       let datosPostulante: DatosPostulante[] = [];
       let dato: TipoDatoRotulo;
@@ -362,9 +361,9 @@ export class FormPostulanteComponent implements OnInit {
       for (let index = 0; index < this.listaDatosRotulo.length; index++) {
         dato = this.listaDatosRotulo[index].getTipoDato();
         let id = dato.getNombre();
-        let value = $("#" + id).val();
+        let valor = $("#" + id).val();
         if (dato.getTipoDeDato() == 'number') {
-          valor = parseInt(value);
+          valor = parseInt(valor);
         }
         if (dato.getNombre() == 'codigo_sis') {
           codigoSis = valor;
