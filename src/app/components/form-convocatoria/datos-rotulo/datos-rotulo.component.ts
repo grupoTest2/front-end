@@ -17,7 +17,7 @@ declare var $: any;
 
 export class DatosRotuloComponent implements OnInit {
   seleccionTodo: boolean = true;
-  seleccion: SeleccionTipoDatoRotulo=new SeleccionTipoDatoRotulo([]);
+  seleccion: SeleccionTipoDatoRotulo = new SeleccionTipoDatoRotulo([]);
   href: string = '';
 
   //bandera para que no genere error en  la peticion http
@@ -27,16 +27,19 @@ export class DatosRotuloComponent implements OnInit {
   banderaSitch = false;
   banderaSeleccion = false;
 
-
+  banderaFormCheck = true;
+  rotuloParaConvocatoria = true;
   constructor(private apiPHP: PhpServeConvocatoria, private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
     this.getTipoDatosRotuloBD();
+
   }
   ngOnInit(): void {
     this.href = this.router.url;
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });
+    this.seleccionRotulo(this.banderaFormCheck);
   }
 
   ruta() {
@@ -47,7 +50,26 @@ export class DatosRotuloComponent implements OnInit {
     }
   }
 
-//meotodo cuando presiona un dato rotulo
+  seleccionRotulo(turn) {
+    if (this.banderaFormCheck) {
+      $("#checkRotuloForm").click();
+      this.banderaFormCheck = false;
+      this.rotuloParaConvocatoria = true
+    }
+  }
+  seleccionRotulo2(turn) {
+    if (this.rotuloParaConvocatoria) {
+      this.rotuloParaConvocatoria = false;
+    }
+    else {
+      this.rotuloParaConvocatoria = true;
+    }
+
+
+    console.log("rotulo para convocatoria --->" + this.rotuloParaConvocatoria)
+  }
+
+  //meotodo cuando presiona un dato rotulo
   seleccionado(index: number): void {
     let bandera = true;
     if (this.seleccion.getListaTiposDatosRotulo()[index].getSeleccionado()) {
@@ -139,27 +161,27 @@ export class DatosRotuloComponent implements OnInit {
     return this.seleccion.cantDatosEnLista() > 0;
   }
 
-   // metodos que interactuan con la base de datos
+  // metodos que interactuan con la base de datos
   getTipoDatosRotulo() {
-    let listaTipos: object[] =[]// new Array();
+    let listaTipos: object[] = []// new Array();
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
         for (let i in resultado) {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        console.log(this.seleccion.getListaTiposDatosRotulo());      
+        console.log(this.seleccion.getListaTiposDatosRotulo());
       }
     );
   }
 
-   // recupera la configuracion de una convocatoria
+  // recupera la configuracion de una convocatoria
   getTipoDatosRotuloBD() {
     //console.log("el valor de mi local storage");
     //console.log(localStorage.getItem("idConv"));
-    if(localStorage.getItem("idConv")===""){
+    if (localStorage.getItem("idConv") === "") {
       console.log("esta vacio en los rotulos");
-    }else{
+    } else {
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getDatosRotulo(idConv).subscribe(
         resultado => {
@@ -171,6 +193,6 @@ export class DatosRotuloComponent implements OnInit {
         }
       )
     }
-    
+
   }
 }

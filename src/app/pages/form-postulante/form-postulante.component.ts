@@ -21,7 +21,7 @@ export class FormPostulanteComponent implements OnInit {
   //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
-  listaDatosRotulo: DatoRotulo[] =[]// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
+  listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
 
 
@@ -37,7 +37,7 @@ export class FormPostulanteComponent implements OnInit {
   constructor(private servicePostulante: PostulanteServicePhp) {
     this.datosPrueba();
     this.getItemsBD();
-    //this.getDatosRotuloConvBD();
+    //  this.getDatosRotuloConvBD();
 
   }
 
@@ -48,15 +48,15 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   datosPrueba() {
-    /*let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
+    let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
     let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
     let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
-    let datoRotulo1: DatoRotulo = new DatoRotulo(true, true, tipoDato1);
-    let datoRotulo2: DatoRotulo = new DatoRotulo(true, true, tipoDato2);
-    let datoRotulo3: DatoRotulo = new DatoRotulo(true, true, tipoDato3);
+    let datoRotulo1: DatoRotulo = new DatoRotulo(1, tipoDato1);
+    let datoRotulo2: DatoRotulo = new DatoRotulo(1, tipoDato2);
+    let datoRotulo3: DatoRotulo = new DatoRotulo(1, tipoDato3);
     this.listaDatosRotulo.push(datoRotulo1);
     this.listaDatosRotulo.push(datoRotulo2);
-    this.listaDatosRotulo.push(datoRotulo3);*/
+    this.listaDatosRotulo.push(datoRotulo3);
 
   }
 
@@ -294,7 +294,7 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   guardarDatos() {
-   /* console.log("ingreso para guardar")
+    console.log("ingreso para guardar")
     let contador = 0;
 
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
@@ -313,7 +313,7 @@ export class FormPostulanteComponent implements OnInit {
       }
     }
 
-    if (!bandera) {
+   /* if (!bandera) {
       this.mensajeToastError();
     }
     if (contador == this.listaDatosPostulante.length && bandera) {
@@ -348,70 +348,76 @@ export class FormPostulanteComponent implements OnInit {
           $("#" + id).addClass("is-invalid");
           $("#" + id + "31").css('display', 'block');
         }
+
       }
     }*/
   }
 
-
   //metodo para rrecuperar datos de los imputs y checks
-  /* recuperarDatos() {
-     let codigoSis:number=0;
-     let listaDatosInputs: DatosPostulante[] = [];
-     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-       let id = this.listaDatosPostulante[index].getNombreDato();
-       let value = $("#" + id).val();
-       if (id === "codigo_sis") {
-         codigoSis=parseInt(value);
-       }
-       else {
-         this.listaDatosPostulante[index].setValorDato(value);
-         listaDatosInputs.push(this.listaDatosPostulante[index]);
-       }
-     }
-   
-     let listaItemsSeleccionados: Item[] = [];
-     for (let index = 0; index < this.listaItems.length; index++) {
-       if (this.listaItems[index].getSeleccionado()) {
-         listaItemsSeleccionados.push(this.listaItems[index]);
-       }
-     }
-     console.log(listaDatosInputs)
-     console.log(listaItemsSeleccionados)
-     this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,listaDatosInputs);
-     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-     console.log(JSON.stringify(this.postulante));
-     this.registrarPostulanteBD();
-   }
-   
-   */
-
-  mensajeToastError() {
-    tata.error("Error", "Debe De Seleccionar Almenos Un Item");
-
-  }
-  mensajeToastErrorBD(mensaje) {
-    tata.error("Error", mensaje);
-
-  }
-  mensajeToastExito(mensaje) {
-    tata.success("Registro Exitoso", mensaje);
-  }
-
-  /**
-   * metodos que interactuan con la base de datos
-   */
-  getItemsBD() {
-    let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.servicePostulante.getItems(idConv).subscribe(
-      (resultado: Item) => {
-        let item: Item;
-        for (let i in resultado) {
-          item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
-          this.listaItems.push(item);
-        }
+  recuperarDatos() {
+    let valor;
+    let datosPostulante: DatosPostulante[] = [];
+    let dato: TipoDatoRotulo;
+    let codigoSis: number = 0;
+    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+      dato = this.listaDatosRotulo[index].getTipoDato();
+      let id = dato.getNombre();
+      let value = $("#" + id).val();
+      if (dato.getTipoDeDato() == 'number') {
+        valor = parseInt(value);
       }
-    )
+      if (dato.getNombre() == 'codigo_sis') {
+        codigoSis = valor;
+      }
+      else {
+        datosPostulante.push(new DatosPostulante(1, id, valor));
+      }
+    }
+
+  }/*
+
+    let listaItems: Item[] = [];
+for (let index = 0; index < this.listaItems.length; index++) {
+  if (this.listaItems[index].getSeleccionado()) {
+    listaItems.push(this.listaItems[index]);
   }
+}
+console.log(datosPostulante)
+console.log("------------------------------------------")
+console.log(listaItems)
+this.postulante = new Postulante(codigoSis, listaItems, datosPostulante);
+console.log(JSON.stringify(this.postulante));
+    //this.registrarPostulanteBD();
+  }*/
+
+
+mensajeToastError() {
+  tata.error("Error", "Debe De Seleccionar Almenos Un Item");
+
+}
+mensajeToastErrorBD(mensaje) {
+  tata.error("Error", mensaje);
+
+}
+mensajeToastExito(mensaje) {
+  tata.success("Registro Exitoso", mensaje);
+}
+
+/**
+ * metodos que interactuan con la base de datos
+ */
+getItemsBD() {
+  let idConv: number = parseInt(localStorage.getItem("idConv"));
+  this.servicePostulante.getItems(idConv).subscribe(
+    (resultado: Item) => {
+      let item: Item;
+      for (let i in resultado) {
+        item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
+        this.listaItems.push(item);
+      }
+    }
+  )
+}
   /*
   getDatosRotuloConvBD() {
      let idConv: number = parseInt(localStorage.getItem("idConv"));
