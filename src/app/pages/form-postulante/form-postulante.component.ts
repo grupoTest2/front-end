@@ -293,131 +293,127 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  guardarDatos() {
-    console.log("ingreso para guardar")
-    let contador = 0;
+  datosValidos() {
+    let banderaItems = false;
+    //rrecorremos la lista de items a los que se puede postular
+    for (let index = 0; index < this.listaItems.length; index++) {
+      if (this.listaItems[index].getSeleccionado()) {
+        banderaItems = true;
+      }
+    }
+    if (banderaItems == false) {
+      this.mensajeToastError();//para que seleccione almenos un item
+    }
 
+    let banderaDatosRotulo = true;
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-      if ($("#" + id).hasClass("is-valid")) {
-        contador += 1
+      if ($("#" + id).hasClass("is-valid")||$("#" + id).val().length==0) {
+        banderaDatosRotulo = false;
       }
     }
-
-    //rrecorremos la lista de items a los que se puede postular
-    let bandera = false;
-    for (let index = 0; index < this.listaItems.length; index++) {
-      if (this.listaItems[index].getSeleccionado()) {
-        bandera = true;
-      }
+    if (banderaDatosRotulo == false) {
+      this.remarcarInputsInvalidos();
     }
 
-   /* if (!bandera) {
-      this.mensajeToastError();
-    }
-    if (contador == this.listaDatosPostulante.length && bandera) {
-      //this.mensajeToastExito();
-      this.recuperarDatos();
-      console.log("puede guardar sus datos");
-    }
-    else {
-      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-        let id = this.listaDatosPostulante[index].getNombreDato();
-        let inputTipe = $("#" + id).attr('type');
-        let value = $("#" + id).val();
-        if (inputTipe == "text") {
-          if (value.length == 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "22").css('display', 'none');
-            $("#" + id + "21").css('display', 'block');
-          }
-          else {
-            if (value.length <= 2) {
-              $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'none');
-              $("#" + id + "22").css('display', 'block');
-            }
-          }
-        }
-        if (inputTipe == "number" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-        if (inputTipe == "email" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-
-      }
-    }*/
+    return banderaItems && banderaDatosRotulo;
   }
 
-  //metodo para rrecuperar datos de los imputs y checks
-  recuperarDatos() {
-    let valor;
-    let datosPostulante: DatosPostulante[] = [];
-    let dato: TipoDatoRotulo;
-    let codigoSis: number = 0;
+  //marcar los datos que estan  vacios
+  remarcarInputsInvalidos() {
+    console.log("ingreso!!!!!!!!!!!!!!!!");
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-      dato = this.listaDatosRotulo[index].getTipoDato();
-      let id = dato.getNombre();
+      let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
+      let inputTipe = $("#" + id).attr('type');
       let value = $("#" + id).val();
-      if (dato.getTipoDeDato() == 'number') {
-        valor = parseInt(value);
+      if (inputTipe == "text") {
+        if (value.length == 0) {
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "22").css('display', 'none');
+          $("#" + id + "21").css('display', 'block');
+        }
+        else {
+          if (value.length <= 2) {
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "21").css('display', 'none');
+            $("#" + id + "22").css('display', 'block');
+          }
+        }
       }
-      if (dato.getNombre() == 'codigo_sis') {
-        codigoSis = valor;
+      if (inputTipe == "number") {
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "11").css('display', 'block');
       }
-      else {
-        datosPostulante.push(new DatosPostulante(1, id, valor));
+      if (inputTipe == "email" && value.length == 0) {
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "31").css('display', 'block');
       }
+
     }
-
-  }/*
-
-    let listaItems: Item[] = [];
-for (let index = 0; index < this.listaItems.length; index++) {
-  if (this.listaItems[index].getSeleccionado()) {
-    listaItems.push(this.listaItems[index]);
   }
-}
-console.log(datosPostulante)
-console.log("------------------------------------------")
-console.log(listaItems)
-this.postulante = new Postulante(codigoSis, listaItems, datosPostulante);
-console.log(JSON.stringify(this.postulante));
-    //this.registrarPostulanteBD();
-  }*/
 
-
-mensajeToastError() {
-  tata.error("Error", "Debe De Seleccionar Almenos Un Item");
-
-}
-mensajeToastErrorBD(mensaje) {
-  tata.error("Error", mensaje);
-
-}
-mensajeToastExito(mensaje) {
-  tata.success("Registro Exitoso", mensaje);
-}
-
-/**
- * metodos que interactuan con la base de datos
- */
-getItemsBD() {
-  let idConv: number = parseInt(localStorage.getItem("idConv"));
-  this.servicePostulante.getItems(idConv).subscribe(
-    (resultado: Item) => {
-      let item: Item;
-      for (let i in resultado) {
-        item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
-        this.listaItems.push(item);
+  guardarDatos() {
+    if (this.datosValidos()) {
+      let valor;
+      let datosPostulante: DatosPostulante[] = [];
+      let dato: TipoDatoRotulo;
+      let codigoSis: number = 0;
+      for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+        dato = this.listaDatosRotulo[index].getTipoDato();
+        let id = dato.getNombre();
+        let value = $("#" + id).val();
+        if (dato.getTipoDeDato() == 'number') {
+          valor = parseInt(value);
+        }
+        if (dato.getNombre() == 'codigo_sis') {
+          codigoSis = valor;
+        }
+        else {
+          datosPostulante.push(new DatosPostulante(1, id, valor));
+        }
       }
+      let listItems: Item[] = [];
+      for (let index = 0; index < this.listaItems.length; index++) {
+        if (this.listaItems[index].getSeleccionado()) {
+          listItems.push(this.listaItems[index]);
+        }
+
+      }
+      this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
+      console.log(this.postulante);
     }
-  )
-}
+
+  }
+
+
+  mensajeToastError() {
+    tata.error("Error", "Debe De Seleccionar Almenos Un Item");
+
+  }
+  mensajeToastErrorBD(mensaje) {
+    tata.error("Error", mensaje);
+
+  }
+  mensajeToastExito(mensaje) {
+    tata.success("Registro Exitoso", mensaje);
+  }
+
+  /**
+   * metodos que interactuan con la base de datos
+   */
+  getItemsBD() {
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.servicePostulante.getItems(idConv).subscribe(
+      (resultado: Item) => {
+        let item: Item;
+        for (let i in resultado) {
+          item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
+          this.listaItems.push(item);
+        }
+      }
+    )
+  }
   /*
   getDatosRotuloConvBD() {
      let idConv: number = parseInt(localStorage.getItem("idConv"));
