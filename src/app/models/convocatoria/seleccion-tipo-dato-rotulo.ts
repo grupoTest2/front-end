@@ -24,9 +24,9 @@ export class SeleccionTipoDatoRotulo {
         return this.listaTiposDatosRotulo;
     }
 
-    public setDatoRotulo(nombreDato:string){
+    public setDatoRotulo(idDato:number){
         for(let i in this.listaTiposDatosRotulo){
-            if(this.listaTiposDatosRotulo[i].getTipoDato().getNombre()===nombreDato){
+            if(this.listaTiposDatosRotulo[i].getIdDato()===idDato){
                 this.listaTiposDatosRotulo[i].setEnLista(true);
                 break;
             }

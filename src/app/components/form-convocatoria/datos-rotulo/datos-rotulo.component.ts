@@ -164,7 +164,7 @@ export class DatosRotuloComponent implements OnInit {
       this.editarConv.getDatosRotulo(idConv).subscribe(
         resultado => {
           for (let i in resultado) {
-            this.seleccion.setDatoRotulo(resultado[i].nombre);
+            this.seleccion.setDatoRotulo(resultado[i].idTipo);
           }
           //console.log(this.seleccion.getListaTiposDatosRotulo())
           this.banderaAuxiliar = true;
