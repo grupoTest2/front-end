@@ -24,7 +24,7 @@ export class FormPostulanteComponent implements OnInit {
   postulante: Postulante;
   listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
-
+  banderaMostrar=false;
 
   msjErrorNumericoVacio = "campo numerico vacio"
   msjErrorNumericoCorto = "campo numerico corto"
@@ -36,16 +36,15 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
   constructor(private servicePostulante: PostulanteServicePhp) {
-    this.datosPrueba();
-    this.getItemsBD();
-    //  this.getDatosRotuloConvBD();
-
+    // this.datosPrueba();
   }
 
   ngOnInit(): void {
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });
+    this.getItemsBD();
+    this.getDatosRotuloConvBD();
   }
 
   datosPrueba() {
@@ -58,7 +57,6 @@ export class FormPostulanteComponent implements OnInit {
     this.listaDatosRotulo.push(datoRotulo1);
     this.listaDatosRotulo.push(datoRotulo2);
     this.listaDatosRotulo.push(datoRotulo3);
-
   }
 
   validarDato() {
@@ -67,22 +65,30 @@ export class FormPostulanteComponent implements OnInit {
         let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
         let inputTipe = this.listaDatosRotulo[index].getTipoDato().getTipoDeDato();
         let aux = document.getElementById(id);
+        console.log(id);
+
         let tipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
         var form = document.getElementById(id);
+        var value = $("#" + id).val();
+        console.log(aux);
+        //let tamanio=value.length;
+        console.log(aux);
         aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
+          //let tamanio=value.length;
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
           //inputs tipo number
           if (inputTipe == "number") {
-            value = $("#" + id).val();
-            if (value.length == 0) {
-              console.log("ingreso a tamano d value 0");
+            //value = $("#" + id).val();
+            let value= (<HTMLInputElement>document.getElementById(id)).value;
+            //console.log($("#" + id).val());
+            if (value=="") {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
               $("#" + id + "11").css('display', 'block');
               $("#" + id + "12").css('display', 'none');
             } else {
-              if (value.length < tipoDatoRotulo.getTamanioMinimo()) {
+              if (((<HTMLInputElement>document.getElementById(id)).value).length < tipoDatoRotulo.getTamanioMinimo()) {
                 $("#" + id).removeClass("is-valid");
                 $("#" + id).addClass("is-invalid");
                 $("#" + id + "11").css('display', 'none');
@@ -307,19 +313,23 @@ export class FormPostulanteComponent implements OnInit {
     }
 
     let banderaDatosRotulo = true;
+    console.log("sssssssssssssssssssssssssssssssss")
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+      console.log("sssssssssssssssssssssssssssssssss!!!!!!!!!!")
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-      if ($("#" + id).hasClass("is-invalid") || $("#" + id).val().length == 0) {
-        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre())
+      console.log(id+"----------------------------------------")
+      console.log($("#" + id).val()+"!!!!!!!!! raro");
+      if ($("#" + id).hasClass("is-invalid")||$("#" + id).val()=="") {
+        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre()+" notiene un dato")
         banderaDatosRotulo = false;
       }
     }
     if (banderaDatosRotulo == false) {
       this.remarcarInputsInvalidos();
     }
-     console.log(banderaItems+"items")
-     console.log(banderaDatosRotulo+"datosR")
+    console.log(banderaItems + "items")
+    console.log(banderaDatosRotulo + "datosR")
 
     return banderaItems && banderaDatosRotulo;
   }
@@ -352,6 +362,8 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   guardarDatos() {
+    console.log("ingreso para guardar !!!!!!!!!!!!!!!!");
+
     if (this.datosValidos()) {
       console.log("todo valido !!!!!!!!!!!!!!!!");
       let valor;
@@ -413,43 +425,48 @@ export class FormPostulanteComponent implements OnInit {
       }
     )
   }
-  
+
   getDatosRotuloConvBD() {
-     let idConv: number = parseInt(localStorage.getItem("idConv"));
-     this.listaDatosRotulo.push(new DatoRotulo(0,new TipoDatoRotulo("codigo sis","number", 5)));
-     this.servicePostulante.getDatosPostulante(idConv).subscribe(
-       resultado => {
-         let tipoDato:TipoDatoRotulo;
-         let datoRotulo: DatoRotulo;
-         for (let i in resultado) {
-          let objAux:any=resultado[i];
-          let tipoAux=objAux.tipoDatoRotulo;
-          tipoDato= new TipoDatoRotulo(tipoAux.nombre,tipoAux.tipoDato,tipoAux.minimo); 
-          datoRotulo=new DatoRotulo(objAux.idTipo,tipoDato);
-           this.listaDatosRotulo.push(datoRotulo);
-         }
-       }
-     )
- 
-     console.log("la lista de datos rotulo desde la base de datos");
-     console.log(this.listaDatosRotulo);
- 
-   }
- /*
-   registrarPostulanteBD() {
-     this.servicePostulante.agregarPostulante(this.postulante).subscribe(
-       resultado=>{
-         if(resultado['resultado']=='correcto'){
-           this.mensajeToastExito("datos registrados correctamente");
-           console.log("el postulante se registro correctamente");
-         }else{
-           console.log("error al registrar el postulante");
-           this.mensajeToastErrorBD("error al registrar el postulante");
-         }
-       }
-     )
-   }
- }*/
+    let idConv: number = parseInt(localStorage.getItem("idConv"));
+    this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo sis", "number", 5)));
+    let letListaAux: DatoRotulo[] = [];
+    this.servicePostulante.getDatosPostulante(idConv).subscribe(
+      resultado => {
+        let tipoDato: TipoDatoRotulo;
+        let datoRotulo: DatoRotulo;
+        for (let i in resultado) {
+          let objAux: any = resultado[i];
+          let tipoAux = objAux.tipoDatoRotulo;
+          tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
+          datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
+          this.listaDatosRotulo.push(datoRotulo);
+          this.banderaMostrar=true
+          setInterval(() => {
+            this.banderaMostrar=true;
+            }, 2000);
+        }
+      }
+    )
+
+    console.log("la lista de datos rotulo desde la base de datos");
+    console.log(this.listaDatosRotulo);
+  }
+
+  /*
+    registrarPostulanteBD() {
+      this.servicePostulante.agregarPostulante(this.postulante).subscribe(
+        resultado=>{
+          if(resultado['resultado']=='correcto'){
+            this.mensajeToastExito("datos registrados correctamente");
+            console.log("el postulante se registro correctamente");
+          }else{
+            console.log("error al registrar el postulante");
+            this.mensajeToastErrorBD("error al registrar el postulante");
+          }
+        }
+      )
+    }
+  }*/
 
 }
 
