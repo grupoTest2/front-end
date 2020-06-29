@@ -414,25 +414,29 @@ export class FormPostulanteComponent implements OnInit {
       }
     )
   }
-  /*
+  
   getDatosRotuloConvBD() {
      let idConv: number = parseInt(localStorage.getItem("idConv"));
-     this.listaDatosPostulante.push(new DatosPostulante(1, "codigo_sis"))
+     this.listaDatosRotulo.push(new DatoRotulo(0,new TipoDatoRotulo("codigo sis","number", 5)));
      this.servicePostulante.getDatosPostulante(idConv).subscribe(
        resultado => {
-         let datoP: DatosPostulante;
+         let tipoDato:TipoDatoRotulo;
+         let datoRotulo: DatoRotulo;
          for (let i in resultado) {
-           datoP = new DatosPostulante(resultado[i].idTipo, resultado[i].nombre);
-           this.listaDatosPostulante.push(datoP);
+          let objAux:any=resultado[i];
+          let tipoAux=objAux.tipoDatoRotulo;
+          tipoDato= new TipoDatoRotulo(tipoAux.nombre,tipoAux.tipoDato,tipoAux.minimo); 
+          datoRotulo=new DatoRotulo(objAux.idTipo,tipoDato);
+           this.listaDatosRotulo.push(datoRotulo);
          }
        }
      )
  
      console.log("la lista de datos rotulo desde la base de datos");
-     console.log(this.listaDatosPostulante);
+     console.log(this.listaDatosRotulo);
  
    }
- 
+ /*
    registrarPostulanteBD() {
      this.servicePostulante.agregarPostulante(this.postulante).subscribe(
        resultado=>{
