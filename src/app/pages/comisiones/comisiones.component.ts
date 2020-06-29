@@ -43,11 +43,13 @@ export class ComisionesComponent implements OnInit {
       this.comision2.getListaUsuarios().push(usuario);
     }
   }*/
-  agregarUsuarioComison(idUsuario, idTipoComision) {
+  //se añadio idTipoUsuario como parametro para agregar un miembro a una comision
+  agregarUsuarioComison(idUsuario, idTipoComision, idTipoUsuario) {
     for (let i in this.listaComision) {
       let objCom: Comision = this.listaComision[i];
       if (objCom.getIdTipoComision() === idTipoComision) {
         let usuarioCom = new UsuarioComision(idUsuario, "insertar", objCom.getIdConv());
+        usuarioCom.setIdTipoUsuario(idTipoUsuario);
         objCom.agregarUsuarioComision(usuarioCom);
       }
     }
@@ -87,7 +89,9 @@ export class ComisionesComponent implements OnInit {
     $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
 
     console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
-    this.agregarUsuarioComison(idUsuario, idTipo);
+    //this.agregarUsuarioComison(idUsuario, idTipo);
+    //la linea de abajo esta hardcodeado para que no de errores al compilar
+    this.agregarUsuarioComison(idUsuario, idTipo,5);
    }
 
   /**

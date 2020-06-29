@@ -1,11 +1,16 @@
 export class UsuarioComision{
     private idConv: number;
     private idUsuario: number;
+    private idTipoUsuario: number;
     private accion: string;
     constructor(idUsuario: number, accion: string, idConv:number) {
         this.idUsuario = idUsuario;
         this.accion=accion;
         this.idConv=idConv;
+    }
+    
+    public setIdTipoUsuario(idTipoUsuario: number): void{
+        this.idTipoUsuario=idTipoUsuario;
     }
 
     public getIdUsuario(): number {
