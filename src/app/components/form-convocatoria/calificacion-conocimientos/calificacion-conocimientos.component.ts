@@ -233,6 +233,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     let res: boolean=true;
     if(this.listaTematicas.length>0){
       for(let i in this.listaItems){
+        console.log(this.listaItems[i].getNotaDisponible())
         res=this.listaItems[i].getNotaDisponible()==0;
         if(!res){
           break;
@@ -263,7 +264,7 @@ export class CalificacionConocimientosComponent implements OnInit {
             let listaAux2=resultado[i].listaTematicas;
             listaTem=[];
             for(let j in listaAux2){
-              tem=new Tematica(listaAux2[j].nombre,listaAux2[j].nota,listaAux2[j].idTematica);
+              tem=new Tematica(listaAux2[j].nombre,parseInt(listaAux2[j].nota),listaAux2[j].idTematica);
               listaTem.push(tem);
               if(bandera){ 
                 this.listaTematicas.push(tem.getNombre());

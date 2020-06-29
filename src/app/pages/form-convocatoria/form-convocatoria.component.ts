@@ -118,13 +118,15 @@ export class FormConvocatoriaComponent implements OnInit {
 
 
   habilitar(): boolean {
-    let habilitar = false;
-    let mensaje = '';
+    let habilitar = true;
+    let mensaje = 'Error';
     if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado()
         && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado()
-        && this.datosRotulo.estaHabilitado()) {
+        && this.datosRotulo.estaHabilitado()
+        ) {
       this.lanzarConvocatoria();
       habilitar = true;
+      console.log("habilita bien")
     }
     else {
       if (!this.requerimiento.estaHabilitado()) {
@@ -139,15 +141,18 @@ export class FormConvocatoriaComponent implements OnInit {
       if (!this.merito.estaHabilitado()) {
         mensaje += '</br>Campo meritos, ';
       }
-      if (this.calificacionConocimiento.estaHabilitado()) {
+      if (!this.calificacionConocimiento.estaHabilitado()) {
         mensaje += '</br>Campo calificacion conocimiento, ';
       }
       if (!this.eventos.estaHabilitado()) {
         mensaje += '</br>Campo eventos, ';
-      } /*if (!this.datosRotulo.estaHabilitado()) {
+      }
+      if (!this.datosRotulo.estaHabilitado()) {
         mensaje += "</br>Campo datos rotulo, "
-      }*/
+      }
+      habilitar = false
       this.mensajeToastErrorBD(mensaje + '<hr>A llenar faltantes!');
+      console.log("Falla algo")
     }
     return habilitar;
   }

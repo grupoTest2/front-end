@@ -286,7 +286,7 @@ export class RequerimientosComponent implements OnInit {
             let listaAux2 = resultado[i].listaTematicas;
             listaTem = [];
             for (let j in listaAux2) {
-              tem = new Tematica(listaAux2[j].nombre, listaAux2[j].nota, listaAux2[j].idTematica);
+              tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
               listaTem.push(tem);
             }
             req = new Requerimiento(resultado[i].cantidadItem,
