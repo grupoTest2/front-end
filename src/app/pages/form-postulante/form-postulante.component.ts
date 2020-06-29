@@ -21,7 +21,7 @@ export class FormPostulanteComponent implements OnInit {
   //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
   postulante: Postulante;
-  listaDatosRotulo: DatoRotulo[] =[]// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
+  listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
 
 
@@ -37,7 +37,7 @@ export class FormPostulanteComponent implements OnInit {
   constructor(private servicePostulante: PostulanteServicePhp) {
     this.datosPrueba();
     this.getItemsBD();
-    //this.getDatosRotuloConvBD();
+    //  this.getDatosRotuloConvBD();
 
   }
 
@@ -48,15 +48,15 @@ export class FormPostulanteComponent implements OnInit {
   }
 
   datosPrueba() {
-    /*let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
+    let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
     let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 3);
     let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
-    let datoRotulo1: DatoRotulo = new DatoRotulo(true, true, tipoDato1);
-    let datoRotulo2: DatoRotulo = new DatoRotulo(true, true, tipoDato2);
-    let datoRotulo3: DatoRotulo = new DatoRotulo(true, true, tipoDato3);
+    let datoRotulo1: DatoRotulo = new DatoRotulo(1, tipoDato1);
+    let datoRotulo2: DatoRotulo = new DatoRotulo(1, tipoDato2);
+    let datoRotulo3: DatoRotulo = new DatoRotulo(1, tipoDato3);
     this.listaDatosRotulo.push(datoRotulo1);
     this.listaDatosRotulo.push(datoRotulo2);
-    this.listaDatosRotulo.push(datoRotulo3);*/
+    this.listaDatosRotulo.push(datoRotulo3);
 
   }
 
@@ -293,97 +293,99 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  guardarDatos() {
-   /* console.log("ingreso para guardar")
-    let contador = 0;
+  datosValidos() {
+    let banderaItems = false;
+    //rrecorremos la lista de items a los que se puede postular
+    for (let index = 0; index < this.listaItems.length; index++) {
+      if (this.listaItems[index].getSeleccionado()) {
+        banderaItems = true;
+      }
+    }
+    if (banderaItems == false) {
+      this.mensajeToastError();//para que seleccione almenos un item
+    }
 
+    let banderaDatosRotulo = true;
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-      if ($("#" + id).hasClass("is-valid")) {
-        contador += 1
+      if ($("#" + id).hasClass("is-valid")||$("#" + id).val().length==0) {
+        banderaDatosRotulo = false;
       }
+    }
+    if (banderaDatosRotulo == false) {
+      this.remarcarInputsInvalidos();
     }
 
-    //rrecorremos la lista de items a los que se puede postular
-    let bandera = false;
-    for (let index = 0; index < this.listaItems.length; index++) {
-      if (this.listaItems[index].getSeleccionado()) {
-        bandera = true;
-      }
-    }
-
-    if (!bandera) {
-      this.mensajeToastError();
-    }
-    if (contador == this.listaDatosPostulante.length && bandera) {
-      //this.mensajeToastExito();
-      this.recuperarDatos();
-      console.log("puede guardar sus datos");
-    }
-    else {
-      for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-        let id = this.listaDatosPostulante[index].getNombreDato();
-        let inputTipe = $("#" + id).attr('type');
-        let value = $("#" + id).val();
-        if (inputTipe == "text") {
-          if (value.length == 0) {
-            $("#" + id).addClass("is-invalid");
-            $("#" + id + "22").css('display', 'none');
-            $("#" + id + "21").css('display', 'block');
-          }
-          else {
-            if (value.length <= 2) {
-              $("#" + id).addClass("is-invalid");
-              $("#" + id + "21").css('display', 'none');
-              $("#" + id + "22").css('display', 'block');
-            }
-          }
-        }
-        if (inputTipe == "number" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-        if (inputTipe == "email" && value.length == 0) {
-          $("#" + id).addClass("is-invalid");
-          $("#" + id + "31").css('display', 'block');
-        }
-      }
-    }*/
+    return banderaItems && banderaDatosRotulo;
   }
 
+  //marcar los datos que estan  vacios
+  remarcarInputsInvalidos() {
+    console.log("ingreso!!!!!!!!!!!!!!!!");
+    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+      let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
+      let inputTipe = $("#" + id).attr('type');
+      let value = $("#" + id).val();
+      if (inputTipe == "text") {
+        if (value.length == 0) {
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "22").css('display', 'none');
+          $("#" + id + "21").css('display', 'block');
+        }
+        else {
+          if (value.length <= 2) {
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "21").css('display', 'none');
+            $("#" + id + "22").css('display', 'block');
+          }
+        }
+      }
+      if (inputTipe == "number") {
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "11").css('display', 'block');
+      }
+      if (inputTipe == "email" && value.length == 0) {
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "31").css('display', 'block');
+      }
 
-  //metodo para rrecuperar datos de los imputs y checks
-  /* recuperarDatos() {
-     let codigoSis:number=0;
-     let listaDatosInputs: DatosPostulante[] = [];
-     for (let index = 0; index < this.listaDatosPostulante.length; index++) {
-       let id = this.listaDatosPostulante[index].getNombreDato();
-       let value = $("#" + id).val();
-       if (id === "codigo_sis") {
-         codigoSis=parseInt(value);
-       }
-       else {
-         this.listaDatosPostulante[index].setValorDato(value);
-         listaDatosInputs.push(this.listaDatosPostulante[index]);
-       }
-     }
-   
-     let listaItemsSeleccionados: Item[] = [];
-     for (let index = 0; index < this.listaItems.length; index++) {
-       if (this.listaItems[index].getSeleccionado()) {
-         listaItemsSeleccionados.push(this.listaItems[index]);
-       }
-     }
-     console.log(listaDatosInputs)
-     console.log(listaItemsSeleccionados)
-     this.postulante=new Postulante(codigoSis,listaItemsSeleccionados,listaDatosInputs);
-     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-     console.log(JSON.stringify(this.postulante));
-     this.registrarPostulanteBD();
-   }
-   
-   */
+    }
+  }
+
+  guardarDatos() {
+    if (this.datosValidos()) {
+      let valor;
+      let datosPostulante: DatosPostulante[] = [];
+      let dato: TipoDatoRotulo;
+      let codigoSis: number = 0;
+      for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+        dato = this.listaDatosRotulo[index].getTipoDato();
+        let id = dato.getNombre();
+        let value = $("#" + id).val();
+        if (dato.getTipoDeDato() == 'number') {
+          valor = parseInt(value);
+        }
+        if (dato.getNombre() == 'codigo_sis') {
+          codigoSis = valor;
+        }
+        else {
+          datosPostulante.push(new DatosPostulante(1, id, valor));
+        }
+      }
+      let listItems: Item[] = [];
+      for (let index = 0; index < this.listaItems.length; index++) {
+        if (this.listaItems[index].getSeleccionado()) {
+          listItems.push(this.listaItems[index]);
+        }
+
+      }
+      this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
+      console.log(this.postulante);
+    }
+
+  }
+
 
   mensajeToastError() {
     tata.error("Error", "Debe De Seleccionar Almenos Un Item");

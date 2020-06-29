@@ -16,5 +16,8 @@ export class DatosPostulante{
     public setValorDato(valorDato): void{
         this.valorDato=valorDato;
     }
+    public getValorDato():any{
+        return this.valorDato;
+    }
     
 }
