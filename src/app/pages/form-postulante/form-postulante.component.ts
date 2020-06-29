@@ -428,7 +428,6 @@ export class FormPostulanteComponent implements OnInit {
 
   getDatosRotuloConvBD() {
     let idConv: number = parseInt(localStorage.getItem("idConv"));
-    this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo sis", "number", 5)));
     let letListaAux: DatoRotulo[] = [];
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
       resultado => {
@@ -439,11 +438,15 @@ export class FormPostulanteComponent implements OnInit {
           let tipoAux = objAux.tipoDatoRotulo;
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
+          if(!this.banderaMostrar){
+            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
+          }
           this.listaDatosRotulo.push(datoRotulo);
+          
           this.banderaMostrar=true
-          setInterval(() => {
+          /*setInterval(() => {
             this.banderaMostrar=true;
-            }, 2000);
+            }, 2000);*/
         }
       }
     )
