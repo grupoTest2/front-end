@@ -4,15 +4,13 @@ import { UsuarioComision } from './usuario-comision';
 
 export class Comision {
     private idConv: number;
-    private idComision: number;
     private idTipoComision: number;
     private listaUsuarios: UsuarioComision[];
 
-	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[],idComision: number=-1) {
+	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[]) {
         this.idConv= parseInt(localStorage.getItem("idConv"));
         this.idTipoComision=idTipoComision;
         this.listaUsuarios=listaUsuarios;
-        this.idComision=idComision;
 	}
 
     public getListaUsuarios(): UsuarioComision[] {

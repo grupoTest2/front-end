@@ -6,6 +6,7 @@ import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.se
 import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 
 import {FormControl} from '@angular/forms';
+import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
 
 declare var $: any;
 
@@ -43,11 +44,12 @@ export class ComisionesComponent implements OnInit {
       this.comision2.getListaUsuarios().push(usuario);
     }
   }*/
-  agregarUsuarioComison(idUsuario, idTipoComision) {
+  //se añadio idTipoUsuario como parametro para agregar un miembro a una comision
+  agregarUsuarioComison(idUsuario, idTipoComision, idTipoUsuario) {
     for (let i in this.listaComision) {
       let objCom: Comision = this.listaComision[i];
       if (objCom.getIdTipoComision() === idTipoComision) {
-        let usuarioCom = new UsuarioComision(idUsuario, "insertar", objCom.getIdConv());
+        let usuarioCom = new UsuarioComision(idUsuario, "insertar",idTipoUsuario);
         objCom.agregarUsuarioComision(usuarioCom);
       }
     }
@@ -70,8 +72,8 @@ export class ComisionesComponent implements OnInit {
       com = new Comision(objAux.getIdTipoComision());
       this.listaComision.push(com);
     }
-    console.log("las comisiones");
-    console.log(this.listaComision);
+    //console.log("las comisiones");
+    //console.log(this.listaComision);
   }
 
   lista(){
@@ -87,7 +89,9 @@ export class ComisionesComponent implements OnInit {
     $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
 
     console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
-    this.agregarUsuarioComison(idUsuario, idTipo);
+    //this.agregarUsuarioComison(idUsuario, idTipo);
+    //la linea de abajo esta hardcodeado para que no de errores al compilar
+    this.agregarUsuarioComison(idUsuario, idTipo,5);
    }
 
   /**
@@ -98,8 +102,15 @@ export class ComisionesComponent implements OnInit {
     this.comisionServ.getTiposComision().subscribe(
       resultado => {
         let tipoCom: TipoComision;
+        let tipoUsuario:TipoUsuario;
         for (let i in resultado) {
-          tipoCom = new TipoComision(resultado[i].idTipoComision, resultado[i].nombre);
+          let tiposUsuario: TipoUsuario[]=[];
+          let objAux=resultado[i].tipoUsuario;
+          for(let j in objAux){
+            tipoUsuario=new TipoUsuario(objAux[j].idTipoUsuario,objAux[j].nombre);
+            tiposUsuario.push(tipoUsuario);
+          }
+          tipoCom = new TipoComision(resultado[i].idTipoComision, resultado[i].nombre,tiposUsuario);
           this.listaTipoComision.push(tipoCom);
         }
         this.crearComisiones();
@@ -121,8 +132,8 @@ export class ComisionesComponent implements OnInit {
         }
       }
     )
-    console.log("los usuariossss");
-    console.log(this.listaUsuarios);
+    //console.log("los usuariossss");
+    //console.log(this.listaUsuarios);
    }
 
    agregarUsuarioComisionBD(){
