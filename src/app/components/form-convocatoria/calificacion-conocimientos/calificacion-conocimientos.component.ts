@@ -7,12 +7,13 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 //servicios
-import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service'; 
+import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 
 // model
 import { Tematica } from '../../../models/clases/convocatoria/tematica';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+import { TipoEvaluacion } from 'src/app/models/clases/convocatoria/tipo-de-evaluacion';
 
 // jquery y toast
 declare var tata: any;
@@ -31,19 +32,53 @@ export class CalificacionConocimientosComponent implements OnInit {
   href: string = '';
   listaTematicas: string[] = [];
   listaItems: Requerimiento[] = [];
-  constructor(private router: Router, private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp) {
+
+  //
+  listaTiposEvaluacion: TipoEvaluacion[] = [];
+  listaTematica: Tematica[] = [];
+  listaTiposDatos: TipoEvaluacion[] = [];
+  banderaTematica = false;
+  constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
     this.getRequerimientosBD();
+    this.cargarListaTematicas();
   }
 
   ngOnInit(): void {
     this.href = this.router.url;
   }
-  ruta(){
+  ruta() {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
-    }else{
+    } else {
       return false;
+    }
+  }
+
+  cargarListaTematicas() {
+    this.listaTiposEvaluacion.push(new TipoEvaluacion(1, 'escrito'));
+    this.listaTiposEvaluacion.push(new TipoEvaluacion(1, 'oral'));
+    let tematica1: Tematica = new Tematica("introProgra", 100, 1);
+    let tematica2: Tematica = new Tematica("elementos", 100, 1);
+    let tematica3: Tematica = new Tematica("fisica", 100, 1);
+    tematica1.setListaTipoEvaluacion((this.listaTiposEvaluacion));
+    tematica2.setListaTipoEvaluacion((this.listaTiposEvaluacion));
+    tematica3.setListaTipoEvaluacion((this.listaTiposEvaluacion));
+    this.listaTematica.push(tematica1);
+    this.listaTematica.push(tematica2);
+    this.listaTematica.push(tematica3);
+  }
+  seleccionoTematica() {
+    var valor = $("#nombreTematica option:selected").val();
+    valor.toString();
+    if (valor != "Seleccione una tematica") {
+      console.log("slecciono una tematica ---" + valor);
+      for (let i = 0; i < this.listaTematica.length; i++) {
+        if (this.listaTematica[i].getNombre() == valor) {
+          this.listaTiposDatos = this.listaTematica[i].getListaTipoEvaluacion();
+          this.banderaTematica = true;
+        }
+      }
     }
   }
 
@@ -58,7 +93,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
 
-  setListaRequerimiento(listaRequeriminetos:Requerimiento[]): void {
+  setListaRequerimiento(listaRequeriminetos: Requerimiento[]): void {
     this.listaItems = listaRequeriminetos;
     for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematica().length == 0) {
@@ -70,7 +105,8 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   agregarTematica(): void {
-    var nombreTematica = $('#nombreTematica').val();
+    var nombreTematica = $("#nombreTematica option:selected").val();
+    nombreTematica.toString();
     if (!this.existeTematica(nombreTematica)) {
       this.listaTematicas.push(nombreTematica);
       var aux = 0;
@@ -85,13 +121,13 @@ export class CalificacionConocimientosComponent implements OnInit {
             nota = 0;
             aux++;
           }
-          let tematica: Tematica = new Tematica(this.listaTematicas[this.listaTematicas.length-1], nota);
+          let tematica: Tematica = new Tematica(this.listaTematicas[this.listaTematicas.length - 1], nota);
           tematica.setAccion("insertar");
           this.listaItems[i].getListaTematica().push(tematica);
         }
         else {
           for (let j = 0; j < this.listaTematicas.length; j++) {
-            if (this.listaItems[i].getListaTematica().length <= j){
+            if (this.listaItems[i].getListaTematica().length <= j) {
               let tem: Tematica = new Tematica(this.listaTematicas[j], 0);
               tem.setAccion("insertar");
               this.listaItems[i].getListaTematica().push(tem);
@@ -99,7 +135,7 @@ export class CalificacionConocimientosComponent implements OnInit {
           }
         }
       }
-      
+
       (<HTMLInputElement>document.getElementById(idInput)).classList.remove("is-invalid");
       tata.success('Agregado.', 'Se agregó la tematica con exito.');
       this.formCalificacion.reset();
@@ -154,6 +190,9 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   resetForm(): void {
+    this.banderaTematica = false;
+    this.listaTiposDatos = [];
+    $("#nombreTematica").val("porDefecto");
     $('input').removeClass('is-invalid');
     this.buildForm();
   }
@@ -196,12 +235,12 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   formValido(): void {
-    if (this.formCalificacion.valid) {
+   // if (this.formCalificacion.valid) {
       this.validarNota();
-    } else {
-      this.formCalificacion.markAllAsTouched();
-      tata.error('Error', 'Formulario invalido');
-    }
+    //} else {
+      //this.formCalificacion.markAllAsTouched();
+      //tata.error('Error', 'Formulario invalido');
+    //}
   }
 
   get detalle() {
@@ -225,22 +264,22 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
   // fin validaciones
 
-  
+
   /**
    *indica si la convocatoria es apta para ser lanzada 
    */
-  estaHabilitado(){
-    let res: boolean=true;
-    if(this.listaTematicas.length>0){
-      for(let i in this.listaItems){
+  estaHabilitado() {
+    let res: boolean = true;
+    if (this.listaTematicas.length > 0) {
+      for (let i in this.listaItems) {
         console.log(this.listaItems[i].getNotaDisponible())
-        res=this.listaItems[i].getNotaDisponible()==0;
-        if(!res){
+        res = this.listaItems[i].getNotaDisponible() == 0;
+        if (!res) {
           break;
         }
       }
-    }else{
-      res=false;
+    } else {
+      res = false;
     }
     return res;
   }
@@ -248,31 +287,31 @@ export class CalificacionConocimientosComponent implements OnInit {
   /**
    * metodos que interactuan con la base de datos
    */
-  getRequerimientosBD(){
-    let bandera=true;
-    if(localStorage.getItem("idConv")===""){
+  getRequerimientosBD() {
+    let bandera = true;
+    if (localStorage.getItem("idConv") === "") {
       console.log("esta vacio en las calif");
-    }else{
+    } else {
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequerimientos(idConv).subscribe(
-        resultado=>{
+        resultado => {
           let req: Requerimiento;
-          let listaAux: Requerimiento[]=[];
+          let listaAux: Requerimiento[] = [];
           let tem: Tematica;
-          let listaTem : Tematica[];
-          for(let i in resultado){
-            let listaAux2=resultado[i].listaTematicas;
-            listaTem=[];
-            for(let j in listaAux2){
-              tem=new Tematica(listaAux2[j].nombre,parseInt(listaAux2[j].nota),listaAux2[j].idTematica);
+          let listaTem: Tematica[];
+          for (let i in resultado) {
+            let listaAux2 = resultado[i].listaTematicas;
+            listaTem = [];
+            for (let j in listaAux2) {
+              tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
               listaTem.push(tem);
-              if(bandera){ 
+              if (bandera) {
                 this.listaTematicas.push(tem.getNombre());
               }
             }
-            bandera=false;
-            req=new Requerimiento(resultado[i].cantidadItem,
-              resultado[i].hrsAcademicas, 
+            bandera = false;
+            req = new Requerimiento(resultado[i].cantidadItem,
+              resultado[i].hrsAcademicas,
               resultado[i].nombreItem,
               listaTem,
               resultado[i].codigoItem);
