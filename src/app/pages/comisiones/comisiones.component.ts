@@ -5,11 +5,11 @@ import { TipoComision } from 'src/app/models/clases/comision/tipo-comision';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
 
 declare var $: any;
-
+declare var tata: any;
 @Component({
   selector: 'app-comisiones',
   templateUrl: './comisiones.component.html',
@@ -17,6 +17,7 @@ declare var $: any;
 })
 export class ComisionesComponent implements OnInit {
 
+  formTipoUsuario: FormGroup;
   comision1:Comision;
   comision2:Comision;
   listaTipoComision: TipoComision[]=[];
@@ -24,11 +25,18 @@ export class ComisionesComponent implements OnInit {
   tabs = ['First', 'Second', 'Third'];
   selected = new FormControl(0);
   listaComision: Comision[] = [];
-  constructor(private comisionServ:ComisionesServicePhp) { 
+  listaAux = [];
+  idComisionAux;
+  idUsuarioAux;
+  idTipoUsuarioAux;
+  indice;
+  constructor(private comisionServ:ComisionesServicePhp,
+    private formBuilder: FormBuilder,) { 
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
     this.getTipoComisionesBD();
     this.getUsuariosBD();
+    this.buildForm();
 
   }
 
@@ -81,17 +89,80 @@ export class ComisionesComponent implements OnInit {
     console.log(JSON.stringify(this.listaComision));
   }
 
-  marcar(idTipo: number, idUsuario: number){
-    //  pintar fila y cambiar iconos
-    $('#id' + idTipo + idUsuario).toggleClass('text-primary').toggleClass("text-muted");
-    $('#id' + idTipo + idUsuario).toggleClass('shadow-sm');
-    $('#check' + idTipo + idUsuario).toggleClass('fa-user-times').toggleClass('fa-user-check');
-    $('#boton' + idTipo + idUsuario).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
+  modal(indice1: number, idTipoComision: number, idUsuario: number){
+    this.idComisionAux = idTipoComision;
+    this.idUsuarioAux = idUsuario;
+    this.indice = indice1;
+    console.log(this.idComisionAux, idUsuario,"valoreeeeeees");
+    this.resetForm();
+    this.listaAux = [];
+    for (const tipo of this.listaTipoComision[indice1].getListaTipoUsuario()) {
+      this.listaAux.push(tipo.getNombre());
+    }
+  }
 
-    console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
+  // validacion ------------------------------------------------------------------------
+  private buildForm(): void {
+    this.formTipoUsuario = this.formBuilder.group({
+      tipo: ['', [Validators.required]],
+    });
+
+    this.formTipoUsuario.valueChanges
+      .subscribe(value => {
+      });
+  }
+
+  save(event: Event): void {
+    event.preventDefault();
+    if (this.formTipoUsuario.valid) {
+      const value = this.formTipoUsuario.value;
+    } else {
+      this.formTipoUsuario.markAllAsTouched();
+    }
+  }
+
+  formValido(): void {
+    if (this.formTipoUsuario.valid) {
+      $('#tablaTipo').modal('hide');
+      tata.success('Agregado.', 'Se agregó al usuario.');
+      this.idTipoUsuarioAux = this.listaTipoComision[this.indice].getListaTipoUsuario()[parseInt($('#seleccionaTipo').val())].getIdTipoUsuario();
+      $('#nombreTipo'+this.idUsuarioAux).text(this.listaAux[parseInt($('#seleccionaTipo').val())]);
+      console.log(this.idComisionAux, this.idUsuarioAux, this.idTipoUsuarioAux);
+      this.marcar();
+      this.agregarUsuarioComison(this.idUsuarioAux, this.idComisionAux, this.idTipoUsuarioAux);
+    } else {
+      tata.error('Error', 'Formulario invalido');
+    }
+  }
+  resetForm(): void {
+    this.formTipoUsuario.reset();
+    this.buildForm();
+  }
+
+  get tipoForm() {
+    return this.formTipoUsuario.get('tipo');
+  }
+
+  get tipoFormIsValid() {
+    return this.tipoForm.touched && this.tipoForm.valid;
+  }
+
+  get tipoFormIsInvalid() {
+    return this.tipoForm.touched && this.tipoForm.invalid;
+  }
+
+
+  marcar(){
+    //  pintar fila y cambiar iconos
+    $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('text-primary').toggleClass("text-muted");
+    $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('shadow-sm');
+    $('#check' + this.idComisionAux + this.idUsuarioAux).toggleClass('fa-user-times').toggleClass('fa-user-check');
+    $('#boton' + this.idComisionAux + this.idUsuarioAux).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
+
+    // console.log(idUsuario, '-idUsuario', idTipo, '-idTipo');
     //this.agregarUsuarioComison(idUsuario, idTipo);
     //la linea de abajo esta hardcodeado para que no de errores al compilar
-    this.agregarUsuarioComison(idUsuario, idTipo,5);
+    // this.agregarUsuarioComison(idUsuario, idTipo,5);
    }
 
   /**

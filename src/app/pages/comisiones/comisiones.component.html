@@ -6,7 +6,7 @@
         </div>
     </div>
     <mat-tab-group animationDuration="1200ms">
-        <mat-tab label="{{tipo.getNombre() | titlecase}}" *ngFor="let tipo of listaTipoComision">
+        <mat-tab label="{{tipo.getNombre() | titlecase}}" *ngFor="let tipo of listaTipoComision; let j=index">
             <div class="tab-content" id="tabla{{tipo.getIdTipoComision()}}">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="form-group">
@@ -16,19 +16,21 @@
                                     <tr>
                                         <th class="text-center" scope="col">Apellidos y Nombres</th>
                                         <th class="text-center" scope="col">Correo Electronico</th>
+                                        <th class="text-center" scope="col">Tipo de Usuario</th>
                                         <th class="text-center" scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" (click)="marcar(tipo.getIdTipoComision(), usuario.getIdUsuario())">
+                                    <tr class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
                                         <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
-                                        <td>{{usuario.getCorreo()}}</td>
+                                        <td class="text-center">{{usuario.getCorreo()}}</td>
+                                        <td class="text-center text-capitalize" id="nombreTipo{{usuario.getIdUsuario()}}">---</td>
                                         <td class="text-center">
                                             <div class="btn btn-group" role="group">
                                                 <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
                                                     <i class="fas fa-book-user"></i>
                                             </button>
-                                                <button class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
+                                                <button (click)="modal(j, tipo.getIdTipoComision(), usuario.getIdUsuario())" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
                                                 <i class="fas fa-user-times" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
                                             </button>
                                             </div>
@@ -47,4 +49,39 @@
             </div>
         </mat-tab>
     </mat-tab-group>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="tablaTipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Agregar usuario a la comision</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" id="modalComisiones">
+                <form [formGroup]="formTipoUsuario" (ngSubmit)="save($event)" novalidate autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tipo de usuario: </label>
+                        <select aria-placeholder="Seleccione" class="custom-select" [class.is-invalid]="tipoFormIsInvalid" [class.is-valid]="tipoFormIsValid" formControlName="tipo" id="seleccionaTipo">
+                                <option *ngFor="let tipo of listaAux; let i = index" [value]="i" >{{tipo | titlecase}}</option>
+                            </select>
+                        <div *ngIf="tipoFormIsInvalid">
+                            <small class="text-danger" *ngIf="tipoForm.hasError('required')">
+                                    Seleccione un tipo  <small class="fal fa-exclamation-triangle"></small>
+                            </small>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="form-group d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" (click)="formValido();">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
