@@ -1,14 +1,21 @@
+import {TipoEvaluacion} from './tipo-de-evaluacion'
 export class Tematica {
 
     private nombre: string;
-    private nota: number;
+    private nota: number; //////////////
     private idTematica: number;
     private accion:string;
+   
+    ///////////////
+    private listaTiposEvaluacioin:TipoEvaluacion[];
+    seleccionado:boolean;
     public constructor(nombre: string, nota: number = 0,idTematica: number=-1) {
         this.nombre = nombre;
         this.nota   = nota;
         this.idTematica=idTematica;
         this.accion="nada";
+        this.listaTiposEvaluacioin=[];
+        this.seleccionado=false;
     }
 
     public getNombre(): string {
@@ -29,4 +36,18 @@ export class Tematica {
     public setAccion(accion: string): void{
         this.accion=accion;
     }
+    public setListaTipoEvaluacion(lista: TipoEvaluacion[]): void {
+        this.listaTiposEvaluacioin=lista;
+    }
+    public getListaTipoEvaluacion() :TipoEvaluacion []{
+        return this.listaTiposEvaluacioin;
+    }
+    public getSeleccionado(): boolean {
+        return this.seleccionado;
+    }
+
+    public setSeleccionado(value: boolean): void {
+        this.seleccionado = value;
+    }
+
 }

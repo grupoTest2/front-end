@@ -24,7 +24,7 @@ export class FormPostulanteComponent implements OnInit {
   postulante: Postulante;
   listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
-  banderaMostrar=false;
+  banderaMostrar = false;
 
   msjErrorNumericoVacio = "campo numerico vacio"
   msjErrorNumericoCorto = "campo numerico corto"
@@ -65,14 +65,10 @@ export class FormPostulanteComponent implements OnInit {
         let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
         let inputTipe = this.listaDatosRotulo[index].getTipoDato().getTipoDeDato();
         let aux = document.getElementById(id);
-        console.log(id);
-
         let tipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
         var form = document.getElementById(id);
         var value = $("#" + id).val();
-        console.log(aux);
-        //let tamanio=value.length;
-        console.log(aux);
+
         aux.addEventListener("blur", function (event) {
           let value = $("#" + id).val();
           //let tamanio=value.length;
@@ -80,9 +76,9 @@ export class FormPostulanteComponent implements OnInit {
           //inputs tipo number
           if (inputTipe == "number") {
             //value = $("#" + id).val();
-            let value= (<HTMLInputElement>document.getElementById(id)).value;
+            let value = (<HTMLInputElement>document.getElementById(id)).value;
             //console.log($("#" + id).val());
-            if (value=="") {
+            if (value == "") {
               $("#" + id).removeClass("is-valid");
               $("#" + id).addClass("is-invalid");
               $("#" + id + "11").css('display', 'block');
@@ -148,14 +144,14 @@ export class FormPostulanteComponent implements OnInit {
                   $("#" + id + "32").css('display', 'none');
                   $("#" + id + "33").css('display', 'none');
                 }
-                if (value.length < 5 && value.length > 0) {
+                if (value.length < tipoDatoRotulo.getTamanioMinimo() && value.length > 0) {
                   $("#" + id).removeClass("is-valid");
                   $("#" + id).addClass("is-invalid");
                   $("#" + id + "31").css('display', 'none');
                   $("#" + id + "32").css('display', 'block');
                   $("#" + id + "33").css('display', 'none');
                 }
-                if (value.length >= 4) {
+                if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
                   if (!pattern.test(value)) {
                     $("#" + id).addClass("is-invalid");
                     $("#" + id + "31").css('display', 'none');
@@ -176,10 +172,14 @@ export class FormPostulanteComponent implements OnInit {
         }, true);
 
         let contador = 0;
+        let contadorNumerico = 0;
         $("#" + id).keydown(function (e) {
           if (e.which == 8) {
             if (contador > 0) {
               contador -= 1;
+            }
+            if (contadorNumerico > 0) {
+              contadorNumerico -= 1;
             }
             if (contador == 0) {
               $("#" + id).removeClass("is-valid");
@@ -203,11 +203,13 @@ export class FormPostulanteComponent implements OnInit {
               }
             }
             else {
-              if (tipoDatoRotulo.getTipoDeDato() == "number" && ($("#" + id).val().length + 1) < tipoDatoRotulo.getTamanioMinimo()) {
-                $("#" + id).removeClass("is-valid");
-                $("#" + id).addClass("is-invalid");
-                $("#" + id + "11").css('display', 'none');
-                $("#" + id + "12").css('display', 'block');
+              if (tipoDatoRotulo.getTipoDeDato() == "number") {
+                if (contadorNumerico < tipoDatoRotulo.getTamanioMinimo()) {
+                  $("#" + id).removeClass("is-valid");
+                  $("#" + id).addClass("is-invalid");
+                  $("#" + id + "11").css('display', 'none');
+                  $("#" + id + "12").css('display', 'block');
+                }
               }
               else {
                 if (contador < tipoDatoRotulo.getTamanioMinimo()) {
@@ -225,44 +227,48 @@ export class FormPostulanteComponent implements OnInit {
                   }
                 }
               }
-
-              //console.log("#######################"+e.which)
-
             }
           } else {
-            contador += 1
-            if (inputTipe == "text") {
-              if (contador >= tipoDatoRotulo.getTamanioMinimo()) {
-                $("#" + id).removeClass("is-invalid");
-                $("#" + id).addClass("is-valid");
-                if (tipoDatoRotulo.getTipoDeDato() == 'text') {
-                  $("#" + id + "21").css('display', 'none');
-                  $("#" + id + "22").css('display', 'none');
-                  $("#" + id + "23").css('display', 'none');
-                }
+            if (e.which == 32 && contador == 0) {
+              return false;
+            } else {
+              contador += 1
+              if (e.which != 32) {
+                contadorNumerico += 1;
               }
-            }
-            else {
-              if (inputTipe == "number") {
-                if (($("#" + id).val().length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
+              if (inputTipe == "text") {
+                if (contador >= tipoDatoRotulo.getTamanioMinimo()) {
                   $("#" + id).removeClass("is-invalid");
                   $("#" + id).addClass("is-valid");
-                  if (tipoDatoRotulo.getTipoDeDato() == 'number') {
-                    $("#" + id + "11").css('display', 'none');
-                    $("#" + id + "12").css('display', 'none');
-                    $("#" + id + "13").css('display', 'none');
+                  if (tipoDatoRotulo.getTipoDeDato() == 'text') {
+                    $("#" + id + "21").css('display', 'none');
+                    $("#" + id + "22").css('display', 'none');
+                    $("#" + id + "23").css('display', 'none');
                   }
                 }
               }
               else {
-                if (inputTipe == "email") {
+                if (inputTipe == "number") {
                   if (($("#" + id).val().length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
                     $("#" + id).removeClass("is-invalid");
                     $("#" + id).addClass("is-valid");
-                    if (tipoDatoRotulo.getTipoDeDato() == 'email') {
-                      $("#" + id + "31").css('display', 'none');
-                      $("#" + id + "32").css('display', 'none');
-                      $("#" + id + "33").css('display', 'none');
+                    if (tipoDatoRotulo.getTipoDeDato() == 'number') {
+                      $("#" + id + "11").css('display', 'none');
+                      $("#" + id + "12").css('display', 'none');
+                      $("#" + id + "13").css('display', 'none');
+                    }
+                  }
+                }
+                else {
+                  if (inputTipe == "email") {
+                    if (($("#" + id).val().length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
+                      $("#" + id).removeClass("is-invalid");
+                      $("#" + id).addClass("is-valid");
+                      if (tipoDatoRotulo.getTipoDeDato() == 'email') {
+                        $("#" + id + "31").css('display', 'none');
+                        $("#" + id + "32").css('display', 'none');
+                        $("#" + id + "33").css('display', 'none');
+                      }
                     }
                   }
                 }
@@ -308,35 +314,42 @@ export class FormPostulanteComponent implements OnInit {
         banderaItems = true;
       }
     }
-    if (banderaItems == false) {
-      this.mensajeToastError();//para que seleccione almenos un item
-    }
 
     let banderaDatosRotulo = true;
-    console.log("sssssssssssssssssssssssssssssssss")
     //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-      console.log("sssssssssssssssssssssssssssssssss!!!!!!!!!!")
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
-      console.log(id+"----------------------------------------")
-      console.log($("#" + id).val()+"!!!!!!!!! raro");
-      if ($("#" + id).hasClass("is-invalid")||$("#" + id).val()=="") {
-        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre()+" notiene un dato")
+      if ($("#" + id).hasClass("is-invalid") || $("#" + id).val() == "") {
+        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre() + " notiene un dato")
         banderaDatosRotulo = false;
       }
     }
+
     if (banderaDatosRotulo == false) {
       this.remarcarInputsInvalidos();
     }
     console.log(banderaItems + "items")
     console.log(banderaDatosRotulo + "datosR")
 
+    if (banderaDatosRotulo == false && banderaItems == false) {
+      this.mensajeToastError(`Debe seleccionar almennos un item <br> Debe llenar todos los campos`);
+    } else {
+      if (banderaItems == false) {
+        this.mensajeToastError('Debe seleccionar almennos un item');//para que seleccione almenos un item
+      }
+      else {
+        if (banderaDatosRotulo == false) {
+          this.mensajeToastError('Debe llenar todos los campos');
+        }
+      }
+    }
+
+
     return banderaItems && banderaDatosRotulo;
   }
 
   //marcar los datos que estan  vacios
   remarcarInputsInvalidos() {
-    console.log("ingreso!!!!!!!!!!!!!!!!");
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
       let inputTipe = $("#" + id).attr('type');
@@ -398,8 +411,8 @@ export class FormPostulanteComponent implements OnInit {
   }
 
 
-  mensajeToastError() {
-    tata.error("Error", "Debe De Seleccionar Almenos Un Item");
+  mensajeToastError(mensaje: string): void {
+    tata.error("Error", mensaje);
 
   }
   mensajeToastErrorBD(mensaje) {
@@ -438,12 +451,12 @@ export class FormPostulanteComponent implements OnInit {
           let tipoAux = objAux.tipoDatoRotulo;
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
-          if(!this.banderaMostrar){
-            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
+          if (!this.banderaMostrar) {
+            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "email", 5)));
           }
           this.listaDatosRotulo.push(datoRotulo);
-          
-          this.banderaMostrar=true
+
+          this.banderaMostrar = true
           /*setInterval(() => {
             this.banderaMostrar=true;
             }, 2000);*/
