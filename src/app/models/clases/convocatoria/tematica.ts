@@ -8,12 +8,14 @@ export class Tematica {
    
     ///////////////
     private listaTiposEvaluacioin:TipoEvaluacion[];
+    seleccionado:boolean;
     public constructor(nombre: string, nota: number = 0,idTematica: number=-1) {
         this.nombre = nombre;
         this.nota   = nota;
         this.idTematica=idTematica;
         this.accion="nada";
         this.listaTiposEvaluacioin=[];
+        this.seleccionado=false;
     }
 
     public getNombre(): string {
@@ -39,6 +41,13 @@ export class Tematica {
     }
     public getListaTipoEvaluacion() :TipoEvaluacion []{
         return this.listaTiposEvaluacioin;
+    }
+    public getSeleccionado(): boolean {
+        return this.seleccionado;
+    }
+
+    public setSeleccionado(value: boolean): void {
+        this.seleccionado = value;
     }
 
 }

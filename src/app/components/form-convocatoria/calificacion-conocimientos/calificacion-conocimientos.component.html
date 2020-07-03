@@ -13,7 +13,7 @@
         <tr>
           <th class="text-center" scope="col">Prueba/Tematica</th>
           <th *ngFor="let requerimiento of listaItems; index as i" class="text-center" scope="col">
-            {{requerimiento.getCodigoAuxiliatura()}}</th>
+            {{requerimiento.getnombreMateria()}}</th>
           <th class="text-center" scope="col">Acciones</th>
         </tr>
       </thead>
@@ -30,11 +30,41 @@
               <button [disabled]="ruta()" class="btn btn-outline-danger" type="button">
                 <i class="fa fa-trash-alt"></i>
               </button>
+              <button class="btn btn-outline-info ml-1" type="button" data-toggle="modal"
+                data-target="#modalTipoEvaluacion" data-placement="top" title="Ver detalles de tipos de evaluacion"
+                (click)="getDatosTipoEvaluacion(tematica)">
+                <i class="fas fa-info"></i>
+              </button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="modal fade" id="modalTipoEvaluacion" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Porcentaje de los tipos de evaluacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalTiposEvaluacion">
+        <form [formGroup]="formCalificacion" (ngSubmit)="save($event)" novalidate autocomplete="off">
+          <div class="form-group">
+            <p class="p-4">
+              {{detalleTipoEvaluacion}}
+            </p>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Revisado</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -52,11 +82,13 @@
         <form [formGroup]="formCalificacion" (ngSubmit)="save($event)" novalidate autocomplete="off">
           <div class="form-group">
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label" >Seleccione una tematica:</label>
+              <label for="recipient-name" class="col-form-label">Seleccione una tematica:</label>
               <select class="custom-select" id="seleccionTematica" (click)="seleccionoTematica()" id="nombreTematica">
                 <option selected disabled value="porDefecto"> Seleccione una tematica</option>
-                <option *ngFor="let tematica of listaTematica; let i = index" [value]="tematica.getNombre()">
-                  {{tematica.getNombre()}}</option>
+                  <ng-container *ngFor="let tematica of listaTematica; let i = index">
+                    <option *ngIf="!tematica.getSeleccionado()" [value]="tematica.getNombre()">
+                      {{tematica.getNombre()}}</option>
+                  </ng-container>
               </select>
               <br>
               <div *ngIf="banderaTematica">
@@ -76,13 +108,13 @@
                 <div *ngFor="let codigo of listaItems; index as i" class="form-group">
                   <label *ngIf="codigo.getNotaDisponible() > 0" for="recipient-name"
                     class="col-form-label">{{codigo.getnombreMateria()}} </label>
-                    <div class="row"> 
-                        <div class="offset-1"></div>
-                  <input *ngIf="codigo.getNotaDisponible() > 0" type="number" min="0" class="form-control"
-                    id="{{codigo.getnombreMateria()}}" [class.is-invalid]="notaIsInvalid" formControlName="nota" class="col-6">
-                    <small class="text-muted col-5">nota disponible:
-                        {{codigo.getNotaDisponible()}}%</small><small class="text-danger">(*)</small>
-                    </div>
+                  <div class="row">
+                    <input *ngIf="codigo.getNotaDisponible() > 0" type="number" min="0"
+                      class="form-control col-sm-7 col-6 ml-4" id="{{codigo.getnombreMateria()}}"
+                      [class.is-invalid]="notaIsInvalid" formControlName="nota">
+                    <small class="text-muted col pt-2">nota disponible:
+                      {{codigo.getNotaDisponible()}}%<small class="text-danger">(*)</small></small>
+                  </div>
                   <div *ngIf="notaIsInvalid">
                     <small class="text-danger" *ngIf="nota.hasError('min')">
                       Asigne una nota valida por favor <small class="fal fa-exclamation-triangle"></small>
@@ -96,8 +128,8 @@
                   </div>
                 </div>
               </div>
-              </div>
             </div>
+          </div>
         </form>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -106,3 +138,4 @@
       </div>
     </div>
   </div>
+</div>
