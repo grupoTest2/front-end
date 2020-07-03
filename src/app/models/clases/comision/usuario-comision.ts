@@ -1,15 +1,22 @@
+import { Tematica } from '../convocatoria/tematica';
+
 export class UsuarioComision{
     private idUsuario: number;
     private idTipoUsuario: number;
     private accion: string;
-    constructor(idUsuario: number, accion: string,idTipoUsuario:number) {
+    private listaTematicas:Tematica[];
+    constructor(idUsuario: number, accion: string,idTipoUsuario:number,listaTematicas:Tematica[]=[]) {
         this.idUsuario = idUsuario;
         this.accion=accion;
         this.idTipoUsuario=idTipoUsuario;
+        this.listaTematicas=listaTematicas;
     }
     
     public setIdTipoUsuario(idTipoUsuario: number): void{
         this.idTipoUsuario=idTipoUsuario;
+    }
+    public getIdTipoUsuario(): number{
+        return this.idTipoUsuario;
     }
 
     public getIdUsuario(): number {

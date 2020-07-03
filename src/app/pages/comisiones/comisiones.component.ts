@@ -30,6 +30,7 @@ export class ComisionesComponent implements OnInit {
   idUsuarioAux;
   idTipoUsuarioAux;
   indice;
+  //
   banderaConocimiento=false;
   constructor(private comisionServ:ComisionesServicePhp,
     private formBuilder: FormBuilder,) { 
