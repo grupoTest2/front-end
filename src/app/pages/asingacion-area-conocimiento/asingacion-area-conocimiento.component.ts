@@ -92,6 +92,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
       }
     }
   }
+  //
 
   seleccionado(index: number): void {
     if (this.listaTematicas[index].getSeleccionado())
@@ -140,10 +141,15 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
 
 //minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
 verificarSeleccionTematicas(){
-
+      let banderaValidador=true;
+      let contador=0;
+      for (let index = 0; index < this.listaTematicas.length; index++) {
+          
+      }
 }
 
 
+//modificado
 
 
 
