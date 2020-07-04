@@ -12,12 +12,13 @@ import { DatosConvocatoriaService } from '../../../servicios/datos-convocatoria.
 
 //models
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-requerimientos';
-import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2';
 import { debounceTime } from 'rxjs/operators';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
 import { async } from 'rxjs/internal/scheduler/async';
+import { Item } from 'src/app/models/clases/convocatoria/item';
 
 //jquery, toast, alertas
 declare var swal: any;
@@ -31,18 +32,16 @@ declare var $: any;
 })
 
 export class RequerimientosComponent implements OnInit {
-
+  listaRequerimientosX:Requerimiento[]=[];
+  listaItems:Item[]=[];
+  itemSeleccionado:Item;
   formRequerimientos: FormGroup;
-  seleccionRequerimiento: SeleccionRequerimiento=new SeleccionRequerimiento([]);
-  requerimientosSeleccionados: Requerimiento[] = [];
-  listaMateriasDisponibles: String[];
+  //seleccionRequerimiento: SeleccionRequerimiento=new SeleccionRequerimiento([]);
   requerimiento: Requerimiento;
 
   /*----- M para envio de datos ------------*/
   href: string = "";
 
-  /* lista de reuqerimientos de laborratorios */
-  listaRequeriminetos: Requerimiento[] = [];
 
   //variable para enviar la lista de requerimientos
   @Output() listaRequerimientos = new EventEmitter();
@@ -54,7 +53,9 @@ export class RequerimientosComponent implements OnInit {
     private datosConvocatoria: DatosConvocatoriaService,
     private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
-    this.getNombreItems();
+    this.getItems();
+    this.getRequerimientosBD();
+
     /*.then(() => {
       if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
         this.bandera = false;
@@ -69,13 +70,34 @@ export class RequerimientosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRequerimientosBD();
-
     this.href = this.router.url;
   }
+  seleccionoItem(){
+    var valor = $("#seleccionaMateria option:selected").val();
+    if(valor != undefined){
+      valor.toString();
+      console.log("recuperando "+valor);
+      for(let i=0;i<this.listaItems.length;i++){
+        if(this.listaItems[i].getNombreItem()==valor){
+          this.itemSeleccionado=this.listaItems[i];
+          break;
+        }
+      }
+    }else{
+      console.log("esta wea es undefined");
+    }
+    
+  }
 
+  hayItemDisponible(): boolean{
+    let bandera=false;
+     for(let i=0;i<this.listaItems.length&&!bandera;i++){
+      bandera=!this.listaItems[i].getSeleccionado();
+     }
+     return bandera;
+  }
    async cambioBandera(){
-    if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
+    if (!this.hayItemDisponible()) {
       this.bandera = false;
     }
     else{
@@ -138,37 +160,36 @@ export class RequerimientosComponent implements OnInit {
   guardarRequerimientos(): void {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
-    let nombreMateria = $('#seleccionaMateria').val()
-    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    //let nombreMateria = $('#seleccionaMateria').val()
+    console.log("el item seleccionado");
+    console.log(this.itemSeleccionado);
+    this.itemSeleccionado.setSeleccionado(true);
+    this.requerimiento=new Requerimiento(horasM,numeroItems,this.itemSeleccionado);
     this.requerimiento.setAccion("insertar");
-    this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
-    this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-    this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-    //llamando al metodo que enviara la actualizacion de la lista de requerimientos a la comp. calificaciones//
-    this.enviarLista();
-    if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
-      this.bandera = false;
-    }
+    this.listaRequerimientosX.push(this.requerimiento);
+    console.log("lista pro");
+    console.log(this.listaRequerimientosX);
+    
   }
 
   // editar modal
   editar(i: number): void {
-    this.formRequerimientos.get('items').setErrors(null);
+    /*this.formRequerimientos.get('items').setErrors(null);
     this.formRequerimientos.get('horasMes').setErrors(null);
     this.formRequerimientos.get('materia').setErrors(null);
     $('#itemRequerimiento').val(this.requerimientosSeleccionados[i].getCantidadItem());
     $('#horasMesRequerimiento').val(this.requerimientosSeleccionados[i].getHrsAcademicas());
-    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());
+    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());*/
   }
 
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Requerimiento[] {
-    return this.requerimientosSeleccionados;
+    return this.listaRequerimientosX;
   }
 
   enviarLista(): void {
-    this.listaRequerimientos.emit(this.requerimientosSeleccionados);
+    this.listaRequerimientos.emit(this.listaRequerimientosX);
   }
 
   // validacion ------------------------------------------------------------------------
@@ -204,8 +225,7 @@ export class RequerimientosComponent implements OnInit {
     }
   }
   resetForm(): void {
-
-    if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
+    if (!this.hayItemDisponible()) {
       $('#btnAniadir').click(function () {
         $(this).removeAttr('data-target');
        // $(this).attr('data-target', '#carousel');
@@ -255,19 +275,28 @@ export class RequerimientosComponent implements OnInit {
    * verificar si es apto para que la convocatoria sea lanzada
    */
   estaHabilitado() {
-    return this.requerimientosSeleccionados.length > 0;
+    return this.listaRequerimientosX.length > 0;
+  }
+
+  seleccionarItem(idItem){
+    for(let i in this.listaItems){
+      if(this.listaItems[i].getIdItem()===idItem){
+        this.listaItems[i].setSeleccionado(true);
+        break;
+      }
+    }
   }
   /*-------------interaccion con la base de datos---------------------*/
-  getNombreItems(): void {
+  getItems(): void {
     let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
-    let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
       result => {
         for (let i in result) {
-          listaItems.push(result[i]);
+          this.listaItems.push(new Item(result[i].idItem,result[i].codigoItem,result[i].nombreItem));
         }
-        this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
-        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        
+        //this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
+        //this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
       }
     );
   }
@@ -279,34 +308,23 @@ export class RequerimientosComponent implements OnInit {
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequerimientos(idConv).subscribe(
         resultado => {
-          let req: Requerimiento;
-          let tem: Tematica;
-          let listaTem: Tematica[];
-          for (let i in resultado) {
-            let listaAux2 = resultado[i].listaTematicas;
-            listaTem = [];
-            for (let j in listaAux2) {
-              tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
-              listaTem.push(tem);
+          let item:Item;
+            for(let i in resultado){
+              item=new Item(resultado[i].item['idItem'],resultado[i].item['codigoItem'],resultado[i].item['nombreItem'],true);
+              this.seleccionarItem(resultado[i].item['idItem']);
+              this.listaRequerimientosX.push(new Requerimiento(
+                                            resultado[i].hrsAcademicas,
+                                            resultado[i].cantidadItem,
+                                            item));
             }
-            req = new Requerimiento(resultado[i].cantidadItem,
-              resultado[i].hrsAcademicas,
-              resultado[i].nombreItem,
-              listaTem,
-              resultado[i].codigoItem);
-            req.setIdMat(resultado[i].idItem);
-            this.seleccionRequerimiento.agregarRequerimientoSeleccionado(req);
-
+            console.log("recuperado de la base de datos");
+            console.log(this.listaRequerimientosX);
           }
-          this.bandera = true;
-
-          this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
-          this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-          this.cambioBandera();
-          this.enviarLista();
-        }
-      )
+          
+        
+      );
     }
-  }
+    }
+  
 
 }

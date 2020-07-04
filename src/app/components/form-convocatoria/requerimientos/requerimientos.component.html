@@ -1,7 +1,7 @@
 <div class="form-group">
   <div class="d-flex justify-content-between align-items-end">
     <label>1.- Requerimientos</label>
-    <button [disabled]="!bandera || ruta()" type="button" class="btn btn-outline-info" data-toggle="modal"
+    <button [disabled]="!hayItemDisponible() || ruta()" type="button" class="btn btn-outline-info" data-toggle="modal"
       data-target="#tablaRequerimientos" (click)="resetForm()" id="btnAniadir">
       <i class="fa fa-plus"></i> Añadir
     </button>
@@ -18,11 +18,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let requerimiento of requerimientosSeleccionados; index as i">
+        <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
           <td>{{requerimiento.getCantidadItem()}}</td>
           <td>{{requerimiento.getHrsAcademicas()}}</td>
-          <td>{{requerimiento.getnombreMateria()}}</td>
-          <td>{{requerimiento.getCodigoAuxiliatura()}}</td>
+          <td>{{requerimiento.getNombreItem()}}</td>
+          <td>{{requerimiento.getCodigoItem()}}</td>
           <td class="text-center">
             <div class="btn btn-group" role="group">
               <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
@@ -90,8 +90,12 @@
             <div>
               <label for="recipient-name" class="col-form-label">Nombre item: </label>
               <select aria-placeholder="Seleccione" class="custom-select" [class.is-invalid]="materiaFormIsInvalid"
-                [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
-                <option *ngFor="let mat of listaMateriasDisponibles; let i = index" [value]="mat">{{mat}}</option>
+                [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria" (click)="seleccionoItem()">
+                <option selected disabled value="por defecto">Seleccione un item</option>
+                  <ng-container *ngFor="let item of listaItems; let i = index">
+                    <option *ngIf="!item.getSeleccionado()">
+                      {{item.getNombreItem()}}</option>
+                  </ng-container>
               </select>
             </div>
             <div *ngIf="materiaFormIsInvalid">
@@ -110,3 +114,10 @@
     </div>
   </div>
 </div>
+<!--<select class="custom-select" id="seleccionTematica" (click)="seleccionoTematica()" id="nombreTematica">
+  <option selected disabled value="porDefecto"> Seleccione una tematica</option>
+    <ng-container *ngFor="let tematica of listaTematica; let i = index">
+      <option *ngIf="!tematica.getSeleccionado()" [value]="tematica.getNombre()">
+        {{tematica.getNombre()}}</option>
+    </ng-container>
+</select>-->
