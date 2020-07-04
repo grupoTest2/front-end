@@ -37,7 +37,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/convocatorias-en-curso.component';
 //convertir pdf
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { AsingacionAreaConocimientoComponent } from './pages/asingacion-area-conocimiento/asingacion-area-conocimiento.component'; // fonts provided for pdfmake
  
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
@@ -65,7 +66,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ComisionesComponent,
     FormRegistroComponent,
     FormPostulanteComponent,
-    ConvocatoriasEnCursoComponent
+    ConvocatoriasEnCursoComponent,
+    AsingacionAreaConocimientoComponent
     ],
   imports: [
     BrowserModule,

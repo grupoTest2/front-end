@@ -11,7 +11,7 @@ import { combineAll } from 'rxjs/operators';
 
 declare var $: any;
 declare var tata: any;
-
+declare var swal: any;
 @Component({
   selector: 'app-form-postulante',
   templateUrl: './form-postulante.component.html',
@@ -332,10 +332,10 @@ export class FormPostulanteComponent implements OnInit {
     console.log(banderaDatosRotulo + "datosR")
 
     if (banderaDatosRotulo == false && banderaItems == false) {
-      this.mensajeToastError(`Debe seleccionar almennos un item <br> Debe llenar todos los campos`);
+      this.mensajeToastError(`Seleccione un item por favor <br> Debe llenar todos los campos`);
     } else {
       if (banderaItems == false) {
-        this.mensajeToastError('Debe seleccionar almennos un item');//para que seleccione almenos un item
+        this.mensajeToastError('Seleccione un item por favor');//para que seleccione almenos un item
       }
       else {
         if (banderaDatosRotulo == false) {
@@ -406,6 +406,7 @@ export class FormPostulanteComponent implements OnInit {
       }
       this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
       console.log(this.postulante);
+      this.mensajeToastExito('Registro exítoso')
     }
 
   }
@@ -423,6 +424,35 @@ export class FormPostulanteComponent implements OnInit {
     tata.success("Registro Exitoso", mensaje);
   }
 
+  alertRegistrar(): void {
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        // swal.fire(
+        //   'Exitoso!',
+        //   'El campo fue eliminado.',
+        //   'success'
+        // )
+        this.guardarDatos();
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'El campo no fue eliminado.',
+          'error'
+        )
+      }
+    })
+  }
+
+
   /**
    * metodos que interactuan con la base de datos
    */
@@ -438,6 +468,8 @@ export class FormPostulanteComponent implements OnInit {
       }
     )
   }
+
+
 
   getDatosRotuloConvBD() {
     let idConv: number = parseInt(localStorage.getItem("idConv"));

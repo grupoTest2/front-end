@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="w-100">
+    <h3 for="requisitos">Asignar Areas De Conocimiento</h3>
+    <hr class="border border-secondary bg-secondary">
+    <br>
+  </div>
+  <div class="form-group">
+    <div class="table-responsive mt-3">
+      <table class="table align-middle" id="requerimientos">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center" scope="col">Apellidos y Nombres</th>
+            <th class="text-center" scope="col">Correo Electronico</th>
+            <th class="text-center" scope="col">Tipo de Usuario</th>
+            <th class="text-center" scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let usuario of listaUsuarios; let i=index">
+          <tr [ngClass]="{text_muted: !usuario.getSeleccionado(), text_info :usuario.getSeleccionado()}" >
+            <td (click)="mostrarMensaje(i)">
+              {{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}
+            </td>
+            <td (click)="mostrarMensaje(i)" class="text-center">{{usuario.getCorreo()}}</td>
+            <td (click)="mostrarMensaje(i)" class="text-center text-capitalize"
+              id="nombreTipo{{usuario.getIdUsuario()}}">{{getTipoUsuario(i)}}</td>
+            <td class="text-center">
+              <div class="btn btn-group" role="group">
+                <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal"
+                  data-target="#tablaRequerimientos">
+                  <i class="fas fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="fa fa-info"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal para agregar tematicas a a los usuarios -->
+<div class="modal fade" id="tablaDatosSeleccionables" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Seleccionar Tematicas A Evaluar</h5> &nbsp;
+        <h5 class="modal-title">{{tituloActual | titlecase}} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalSeleccionable">
+        <!--<div class="d-flex ">
+          <label>
+            <input type="checkbox" name="checkboxName" class="checkbox"checked='true' />
+            <div class="switch"></div>
+          </label>
+          <span class="mb-4 h5">&nbsp;&nbsp;Seleccionar Todos</span>
+        </div>-->
+        <hr>
+         <div *ngFor="let item of listaTematicas; index as i">
+            <button class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg" data-toggle="button"
+              [ngClass]="{opaco: !item.getSeleccionado(), negro:item.getSeleccionado()}" (click)="seleccionado(i)"
+              style="font-size: 1rem;">
+              <i *ngIf="item.getSeleccionado()" class="fa fa-check"> </i>
+              <i *ngIf="!item.getSeleccionado()" class="fa fa-square" style="color: aliceblue"> </i>&nbsp;
+              &nbsp;{{item.getNombre() | titlecase}} </button>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class=" btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="agregarTematicasEvaluar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

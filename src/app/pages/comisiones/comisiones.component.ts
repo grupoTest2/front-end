@@ -30,6 +30,8 @@ export class ComisionesComponent implements OnInit {
   idUsuarioAux;
   idTipoUsuarioAux;
   indice;
+  //
+  banderaConocimiento=false;
   constructor(private comisionServ:ComisionesServicePhp,
     private formBuilder: FormBuilder,) { 
     //this.comision1=new Comision("revisora");
@@ -89,8 +91,8 @@ export class ComisionesComponent implements OnInit {
   lista(){
     //this.agregarUsuarioComisionBD();
     console.log(JSON.stringify(this.listaComision));
+    this.banderaConocimiento=true;
     this.agregarUsuarioComisionBD();
-
   }
 
   modal(indice1: number, idTipoComision: number, idUsuario: number){

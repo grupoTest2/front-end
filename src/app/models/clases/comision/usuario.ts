@@ -6,12 +6,15 @@ export class Usuario {
     private telefono: number;
     private usuario: string;
     private correo:string;
+
+    private seleccionado:boolean;
     constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo=correo;
+        this.seleccionado=false;
     }
 
     public getIdUsuario(): number {
@@ -52,6 +55,14 @@ export class Usuario {
     
     public getCorreo(): string{
         return this.correo;
+    }
+
+    public getSeleccionado(): boolean {
+        return this.seleccionado;
+    }
+
+    public setSeleccionado(value: boolean): void {
+        this.seleccionado = value;
     }
 
 }
