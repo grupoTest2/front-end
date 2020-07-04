@@ -3,7 +3,7 @@ import { from } from 'rxjs';
 import { DatoRotulo } from 'src/app/models/clases/convocatoria/dato-rotulo';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { DatosPostulante } from 'src/app/models/clases/postulante/datos-postulante';
-import { Item } from 'src/app/models/clases/postulante/item';
+import { Item } from 'src/app/models/clases/convocatoria/item';
 import { Postulante } from 'src/app/models/clases/postulante/postulante';
 import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';

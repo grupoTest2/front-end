@@ -19,6 +19,17 @@ export class ComisionesServicePhp {
     return this.http.get(`${this.URL}obtenerTiposComisiones.php`);
   }
 
+  public getComisiones(objCom:any){
+    return this.http.post(`${this.URL}obtenerComisiones.php`, JSON.stringify(objCom));
+  }
+
+  public getTiposUsuario(idDep:number){
+    return this.http.get(`${this.URL}obtenerTiposUsuario.php?idDep=${idDep}`);
+  }
+
+  public getTematicas(idConv){
+    return this.http.get(`${this.URL}obtenerTematicasConv.php?idConv=${idConv}`);
+  }
   //enviar datos al servidor php
 
   public agregarUsuariosComision(listaComision:Comision[]){

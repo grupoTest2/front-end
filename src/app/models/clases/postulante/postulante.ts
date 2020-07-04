@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item } from '../convocatoria/item';
 import { DatosPostulante } from './datos-postulante';
 
 export class Postulante{

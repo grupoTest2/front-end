@@ -1,10 +1,10 @@
 export class Item{
     private idItem: number;
-    private codigoItem: number;
+    private codigoItem: string;
     private nombreItem: string;
     private seleccionado: boolean;
 
-    public constructor(idItem:number,codigoItem:number,nombreItem:string, seleccionado:boolean=false){
+    public constructor(idItem:number,codigoItem:string,nombreItem:string, seleccionado:boolean=false){
         this.idItem=idItem;
         this.codigoItem=codigoItem;
         this.nombreItem=nombreItem;
@@ -15,7 +15,7 @@ export class Item{
         return this.idItem;
     }
 
-    public getCodigoItem(): number{
+    public getCodigoItem(): string{
         return this.codigoItem;
     }
 
@@ -30,4 +30,5 @@ export class Item{
     public setSeleccionado(seleccionado){
         this.seleccionado=seleccionado;
     }
+
 }

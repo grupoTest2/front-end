@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 // models
-import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2';
 import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 import { Evento } from 'src/app/models/clases/convocatoria/evento';
 import { Merito } from 'src/app/models/clases/convocatoria/merito';
@@ -55,9 +55,9 @@ export class FormConvocatoriaComponent implements OnInit {
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
   listaDatosRotulo: DatoRotulo[] = [];
-  listaJhon: Requerimiento[];
+  //listaJhon: Requerimiento[];
   // lista de los requerimientos
-  listaRequerimientos: any = [];
+  listaRequerimientos: Requerimiento[] = [];
   tituloConvocatoria: string = '';
   gestionConvocatoria: string = '';
   idTipo: string = '';
@@ -110,7 +110,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosRequisitos = this.requisitos.getDatos();
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
     this.listaDatosMerito = this.merito.getDatos();
-    this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
+    //this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
     this.listaDatosRotulo = this.datosRotulo.getDatos();
   }
@@ -274,11 +274,20 @@ export class FormConvocatoriaComponent implements OnInit {
     console.log("okkkk 2do")
   }
 
-  agregarBD() {
+  /*agregarBD() {
     let agregar = false;
     this.recuperarLosDatosDeLosComponentes();
     if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
     this.agregarCalificaciones() && this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
+      agregar = true;
+    }
+    return agregar;
+  }*/
+  agregarBD() {
+    let agregar = false;
+    this.recuperarLosDatosDeLosComponentes();
+    if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
+   this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
       agregar = true;
     }
     return agregar;
@@ -337,7 +346,7 @@ export class FormConvocatoriaComponent implements OnInit {
   /**
    * revisar la impresion del metodo
    */
-  agregarCalificaciones() {
+  /*agregarCalificaciones() {
     let agregar: boolean = true;
     let resp: boolean = false;
     console.log(JSON.stringify(this.listaItemsConCalificaciones));
@@ -364,7 +373,7 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     return agregar;
 
-  }
+  }*/
 
   agregarMeritos() {
     let agregar: boolean = true;
