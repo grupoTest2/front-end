@@ -131,5 +131,27 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
       this.listaTematicas[index].setSeleccionado(false);
     }
   }
+
+   guardarDatos(){
+
+   }
+
+
+
+//minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
+verificarSeleccionTematicas(){
+
+}
+
+
+
+
+
+
+
+//////////////////////// aqui va la recuperacion de la base de datos:
+
+
+
 }
 
