@@ -21,6 +21,7 @@ export class PhpServeConvocatoria {
   public getEventos(idLanzConv) {
     return this.http.get(`${this.URL}obtenerEventos.php?idLanzConv=${idLanzConv}`);
   }
+  
   public getTipoConvocatoria(idDep) {
     return this.http.get(`${this.URL}obtenerTiposConvocatoria.php?idDep=${idDep}`);
   }
@@ -31,6 +32,14 @@ export class PhpServeConvocatoria {
 
   public getEstadosConv():any{
     return this.http.get(`${this.URL}obtenerEstadosConv.php`);
+  }
+
+  public getTematicas(idTipoConv){
+    return this.http.get(`${this.URL}obtenerTematicas.php?idTipoConv=${idTipoConv}`);
+  }
+
+  public getTiposEvaluacion(idDep){
+    return this.http.get(`${this.URL}obtenerTiposEvaluacion.php?idDep=${idDep}`);
   }
   //agregar a la base de datos
   public crearConvocatoria(conv: Convocatoria) {

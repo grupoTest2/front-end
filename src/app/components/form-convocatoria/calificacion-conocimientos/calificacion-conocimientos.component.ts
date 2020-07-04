@@ -14,6 +14,7 @@ import { Tematica } from '../../../models/clases/convocatoria/tematica';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
 import { TipoEvaluacion } from 'src/app/models/clases/convocatoria/tipo-de-evaluacion';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 
 // jquery y toast
 declare var tata: any;
@@ -40,10 +41,13 @@ export class CalificacionConocimientosComponent implements OnInit {
   listaTiposDatos: TipoEvaluacion[] = [];
   banderaTematica = false;
   detalleTipoEvaluacion = "";
-  constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp,
+    private crearConv:PhpServeConvocatoria) {
     this.buildForm();
     this.getRequerimientosBD();
-    this.cargarListaTematicas();
+    //this.cargarListaTematicas();
+    this.getTematicasBD();
+    this.getTiposEvaluacionBD();
   }
 
   ngOnInit(): void {
@@ -359,5 +363,32 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
       )
     }
+  }
+
+  getTematicasBD(){
+    let idTipoConv=parseInt(localStorage.getItem("idTipo"));
+    this.crearConv.getTematicas(idTipoConv).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.listaTematica.push(new Tematica(resultado[i].nombre,0,resultado[i].idTematica));
+        }
+        console.log("las tematicas desde la base de datos");
+        console.log(this.listaTematica);
+      }
+    );
+  }
+
+  getTiposEvaluacionBD(){
+    let idDep=1;
+    this.crearConv.getTiposEvaluacion(idDep).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.listaTiposEvaluacion.push(new TipoEvaluacion(resultado[i].idTipoEvaluacion,resultado[i].nombre));
+        }
+        console.log("los tipos de evaluacion de la base de datos");
+        console.log(this.listaTiposEvaluacion);
+      }
+    );
+
   }
 }
