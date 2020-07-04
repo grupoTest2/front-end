@@ -1,4 +1,5 @@
 import { Tematica } from '../convocatoria/tematica';
+import { TipoUsuario } from './tipo-usuario';
 
 export class UsuarioComision{
     private idUsuario: number;
@@ -40,6 +41,22 @@ export class UsuarioComision{
     public setAccion(accion): void{
         this.accion=accion;
     }
-
+    public existeTematica(idTematica):boolean{
+        let res:boolean=false;
+        for(let i=0;i<this.listaTematicas.length&&!res;i++){
+            res= this.listaTematicas[i].getIdTematica()==idTematica;
+        }
+        return res;
+    }
+    public getNombreTipoUsuario(listaTiposUsuario:TipoUsuario[]): string{
+        let res:string="";
+        for(let i=0;i<listaTiposUsuario.length;i++){
+            if(listaTiposUsuario[i].getIdTipoUsuario()===this.idTipoUsuario){
+                res=listaTiposUsuario[i].getNombre()
+                break;
+            }
+        }
+        return res;
+    }
 
 }

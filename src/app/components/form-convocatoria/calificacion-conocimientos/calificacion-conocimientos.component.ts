@@ -35,9 +35,9 @@ export class CalificacionConocimientosComponent implements OnInit {
   listaItems: Requerimiento[] = [];
 
   //
-  listaTiposEvaluacion: TipoEvaluacion[] = [];//pruevas
+  listaTiposEvaluacion: TipoEvaluacion[] = [];// ocupando de la bd
   listaTiposEvaluacion2: TipoEvaluacion[] = [];//pruevas
-  listaTematica: Tematica[] = [];
+  listaTematica: Tematica[] = []; //ocupando
   listaTiposDatos: TipoEvaluacion[] = [];
   banderaTematica = false;
   detalleTipoEvaluacion = "";

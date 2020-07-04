@@ -22,6 +22,9 @@ export class Tematica {
         return this.nombre;
     }
 
+    public getIdTematica(): number{
+        return this.idTematica;
+    }
     public setNombre(value: string): void {
         this.nombre = value;
     }

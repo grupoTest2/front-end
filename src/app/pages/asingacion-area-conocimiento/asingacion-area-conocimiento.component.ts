@@ -161,7 +161,8 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
 
 
   //minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
-  verificarSeleccionTematicas() {
+  
+  verificarSeleccionTematicas2() {
     let banderaValidador = true;
     let banderaContador = true;
     let contador = 0;
@@ -192,7 +193,23 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     }
     return banderaValidador
   }
-
+  
+  verificarSeleccionTematicas(){
+    let res=true;
+    for(let i=0; i<this.listaTematicas.length&&res;i++){
+      let bandera=false;
+      let usuariosComision=this.comision.getListaUsuarios();
+      for(let j=0;j<usuariosComision.length&&!bandera;j++){
+          if(usuariosComision[j].existeTematica(this.listaTematicas[i].getIdTematica())){
+            if(usuariosComision[j].getNombreTipoUsuario(this.listaTiposUsuario)==="evaluador"){
+              bandera=true;
+            }
+          }
+      }
+      res=bandera;
+    }
+    return res;
+  }
 
   //modificado
 
