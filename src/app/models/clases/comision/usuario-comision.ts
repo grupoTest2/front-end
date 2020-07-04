@@ -1,4 +1,4 @@
-import { Tematica } from '../convocatoria/tematica';
+import { Tematica } from '../convocatoria/tematica2';
 import { TipoUsuario } from './tipo-usuario';
 
 export class UsuarioComision{

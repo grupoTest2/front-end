@@ -419,7 +419,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.crearConv.getTematicas(idTipoConv).subscribe(
       resultado => {
         for (let i in resultado) {
-          this.listaTematica.push(new Tematica(resultado[i].nombre, 0, resultado[i].idTematica));
+          this.listaTematica.push(new Tematica( resultado[i].idTematica,resultado[i].nombre));
         }
         console.log("las tematicas desde la base de datos");
         console.log(this.listaTematica);

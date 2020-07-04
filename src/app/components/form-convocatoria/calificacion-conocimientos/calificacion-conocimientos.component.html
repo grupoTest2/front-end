@@ -21,7 +21,7 @@
         <tr *ngFor="let tematica of listaTematicas; index as i">
           <td scope="row">{{tematica}}</td>
           <td class="text-center" *ngFor="let calificacion of listaItems; index as j">
-            {{calificacion.getListaTematica()[i].getPorcentaje()}}</td>
+            {{calificacion.getListaTematicas()[i].getPorcentaje()}}</td>
           <td class="text-right">
             <div class="btn btn-group" role="group">
               <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button">

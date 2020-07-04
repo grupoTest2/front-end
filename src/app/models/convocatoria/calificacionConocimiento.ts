@@ -1,4 +1,4 @@
-import { Tematica } from '../clases/convocatoria/tematica';
+import { Tematica } from '../clases/convocatoria/tematica2';
 
 export class CalificacionConocimiento {
 

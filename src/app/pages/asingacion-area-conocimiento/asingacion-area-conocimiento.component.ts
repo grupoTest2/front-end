@@ -3,7 +3,7 @@ import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
 import { Comision } from 'src/app/models/clases/comision/comision';
-import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
+import { Tematica } from 'src/app/models/clases/convocatoria/tematica2';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 declare var $: any;
 declare var tata: any;
@@ -37,7 +37,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   ngOnInit(): void {
   }
   agragarUsuariosPrueba() {
-    this.listaUsuarios.push(new Usuario(1, "pepe", "gomes", "lopez", "pepe@gmail.com"));
+   /* this.listaUsuarios.push(new Usuario(1, "pepe", "gomes", "lopez", "pepe@gmail.com"));
     this.listaUsuarios.push(new Usuario(2, "jose", "gomes", "lopez", "pepe@gmail.com"));
     this.listaUsuarios.push(new Usuario(3, "kewin", "gomes", "lopez", "pepe@gmail.com"));
     this.listaUsuarios.push(new Usuario(4, "josue", "gomes", "lopez", "pepe@gmail.com"));
@@ -63,7 +63,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     this.listaTematicas.push(new Tematica("matematicas", 0, 0));
     this.listaTematicas.push(new Tematica("fisica", 0, 0));
     this.listaTematicas.push(new Tematica("tecnicas", 0, 0));
-    this.listaTematicas.push(new Tematica("tayjhutsu", 0, 0));
+    this.listaTematicas.push(new Tematica("tayjhutsu", 0, 0));*/
 
   }
 
@@ -274,7 +274,7 @@ getUsuariosBD() {
     this.comisionServ.getTematicas(idConv).subscribe(
       resultado=>{
         for(let i in resultado){
-          this.listaTematicas.push(new Tematica(resultado[i].nombre,0,resultado[i].idTematica));
+          this.listaTematicas.push(new Tematica(resultado[i].idTematica, resultado[i].nombre));
         }
         console.log("las tematicas");
         console.log(this.listaTematicas);

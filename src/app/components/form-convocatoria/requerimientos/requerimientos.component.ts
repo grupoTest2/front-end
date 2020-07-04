@@ -16,7 +16,7 @@ import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2
 import { debounceTime } from 'rxjs/operators';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
-import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
+import { Tematica } from 'src/app/models/clases/convocatoria/tematica2';
 import { async } from 'rxjs/internal/scheduler/async';
 import { Item } from 'src/app/models/clases/convocatoria/item';
 

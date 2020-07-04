@@ -1,4 +1,4 @@
-import { Requerimiento } from '../clases/convocatoria/requerimiento';
+import { Requerimiento } from '../clases/convocatoria/requerimiento2';
 
 export class SeleccionRequerimiento{
 
@@ -35,13 +35,13 @@ export class SeleccionRequerimiento{
     }
 
     public agregarRequerimientoSeleccionado(req: Requerimiento): string {
-        let idMateria = this.getIdMateria(req.getnombreMateria());
+        /*let idMateria = this.getIdMateria(req.getnombreMateria());
         if (idMateria !== -1) {
           req.setIdMat(idMateria);
           this.deshabilitarSeleccion(req.getnombreMateria());
           this.establecerCodigoAux(req,idMateria);
           this.materiasSeleccionadas.push(req);
-        }
+        }*/
         return "exito";
     }
 
@@ -75,7 +75,7 @@ export class SeleccionRequerimiento{
       for (let i in this.listaMaterias) {
         let mat: any = this.listaMaterias[i];
         if (mat.idItem == idItem) {
-          req.setCodigoAuxiliatura(mat.codigoItem);
+         // req.setCodigoAuxiliatura(mat.codigoItem);
         }
       }
     }
