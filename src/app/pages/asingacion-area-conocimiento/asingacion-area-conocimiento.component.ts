@@ -4,6 +4,7 @@ import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision
 import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
 import { Comision } from 'src/app/models/clases/comision/comision';
 import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
+import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 declare var $: any;
 
 @Component({
@@ -16,15 +17,20 @@ declare var $: any;
 export class AsingacionAreaConocimientoComponent implements OnInit {
 
 
-  comision: Comision = new Comision(0, []);  //	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[]) {
+  comision: Comision;  //	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[]) {
   listaUsuarios: Usuario[] = [];
   listaUsuariosComision: UsuarioComision[] = [];
   listaTiposUsuario: TipoUsuario[] = [];
   listaTematicas: Tematica[] = [];
   indiceActual = 0;
   tituloActual = "";
-  constructor() {
+  constructor(private comisionServ:ComisionesServicePhp) {
+    this.comision =new Comision(1);
     this.agragarUsuariosPrueba();
+    /*this.getUsuariosBD();
+    this.getComisionesBD();
+    this.getTiposUsuarioBD();
+    this.getTematicasBD();*/
   }
 
   ngOnInit(): void {
@@ -156,7 +162,66 @@ verificarSeleccionTematicas(){
 
 
 //////////////////////// aqui va la recuperacion de la base de datos:
+getUsuariosBD() {
+  this.comisionServ.getUsuarios().subscribe(
+    resultado => {
+      let usuario: Usuario;
+      for (let i in resultado) {
+        let objAux = resultado[i];
+        usuario = new Usuario(objAux.idUsuario, objAux.nombre, objAux.apellidoP, objAux.apellidoM, objAux.correo);
+        this.listaUsuarios.push(usuario);
+      }
+    }
+  )
+  console.log("los usuariossss");
+  console.log(this.listaUsuarios);
+ }
 
+ getComisionesBD(){
+    let objAux={
+       idConv:this.comision.getIdConv(),
+       idTipoComision:this.comision.getIdTipoComision()
+    }
+    this.comisionServ.getComisiones(objAux).subscribe(
+     resultado=>{
+         let misUsuarios=resultado['listaUsuarios'];
+         let usuariosAux: UsuarioComision[]=[];
+         for(let k in misUsuarios){
+           usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario,misUsuarios[k].accion,misUsuarios[k].idTipoUsuario));
+         }
+         this.comision.setListaUsuarios(usuariosAux);
+         console.log("los usuarios de la comision");
+         console.log(this.comision);
+       }
+       
+    );
+  }
+
+  getTiposUsuarioBD(){
+    let idDep=1;
+    this.comisionServ.getTiposUsuario(idDep).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.listaTiposUsuario.push(new TipoUsuario(resultado[i].idTipoUsuario,resultado[i].nombre));
+        }
+        console.log("los tipos de usuario");
+        console.log(this.listaTiposUsuario);
+      }
+    );
+  }
+
+  getTematicasBD(){
+    let idConv=parseInt(localStorage.getItem("idConv"));
+    this.comisionServ.getTematicas(idConv).subscribe(
+      resultado=>{
+        for(let i in resultado){
+          this.listaTematicas.push(new Tematica(resultado[i].nombre,0,resultado[i].idTematica));
+        }
+        console.log("las tematicas");
+        console.log(this.listaTematicas);
+      }
+    );
+  }
 
 
 }
