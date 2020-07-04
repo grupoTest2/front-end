@@ -12,7 +12,7 @@
             <th class="text-center" scope="col">Apellidos y Nombres</th>
             <th class="text-center" scope="col">Correo Electronico</th>
             <th class="text-center" scope="col">Tipo de Usuario</th>
-            <th class="text-center" scope="col">Acciones</th>
+            <th class="text-center" scope="col">Area Conocimiento</th>
           </tr>
         </thead>
         <tbody>
@@ -26,12 +26,12 @@
               id="nombreTipo{{usuario.getIdUsuario()}}">{{getTipoUsuario(i)}}</td>
             <td class="text-center">
               <div class="btn btn-group" role="group">
-                <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal"
+                <!--<button class="btn btn-outline-info mr-1" type="button" data-toggle="modal"
                   data-target="#tablaRequerimientos">
                   <i class="fas fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-outline-secondary" type="button">
-                  <i class="fa fa-info"></i>
+                </button>-->
+                <button class="btn" [class.btn-outline-secondary]= "!usuario.getSeleccionado()" [class.btn-outline-success]= "usuario.getSeleccionado()"  type="button" (click)="mostrarMensaje(i)">
+                  <i class="fa"  [class.fa-line]= "!usuario.getSeleccionado()" [class.fa-check]= "usuario.getSeleccionado()"></i>
                 </button>
               </div>
             </td>
@@ -42,8 +42,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="submit" class="btn btn-primary" id="guardar" >Guardar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver Atras</button>
+    <button type="submit" class="btn btn-primary" id="guardar" (click)="guardarDatos()">Guardar</button>
   </div>
 </div>
 
@@ -53,8 +53,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="">Seleccionar Tematicas A Evaluar</h5> &nbsp;
-        <h5 class="modal-title">{{tituloActual | titlecase}} </h5>
+        <h5 class="modal-title" id="">Seleccionar Tematicas A Evaluar &nbsp; {{tituloActual | titlecase}}</h5> 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

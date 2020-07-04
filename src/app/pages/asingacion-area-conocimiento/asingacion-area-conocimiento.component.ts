@@ -6,7 +6,7 @@ import { Comision } from 'src/app/models/clases/comision/comision';
 import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 declare var $: any;
-
+declare var tata: any;
 @Component({
   selector: 'app-asingacion-area-conocimiento',
   templateUrl: './asingacion-area-conocimiento.component.html',
@@ -111,23 +111,23 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   //metodo para agregar tematicas a evaluar para e usuario
   agregarTematicasEvaluar() {
     let listaTemporalTematica: Tematica[] = [];
-    let banderaSeleccionado=false;
+    let banderaSeleccionado = false;
     for (let i = 0; i < this.comision.getListaUsuarios().length; i++) {
       if (this.comision.getListaUsuarios()[i].getIdUsuario() == this.listaUsuarios[this.indiceActual].getIdUsuario()) {
         for (let index = 0; index < this.listaTematicas.length; index++) {
           if (this.listaTematicas[index].getSeleccionado()) {
             listaTemporalTematica.push(this.listaTematicas[index]);
-            banderaSeleccionado=true;
+            banderaSeleccionado = true;
           }
         }
         this.comision.getListaUsuarios()[i].setListaTematica(listaTemporalTematica);
       }
     }
     this.quitarSeleecionTematicas();
-    if(banderaSeleccionado){
+    if (banderaSeleccionado) {
       this.listaUsuarios[this.indiceActual].setSeleccionado(true);
     }
-    else{
+    else {
       this.listaUsuarios[this.indiceActual].setSeleccionado(false);
     }
   }
@@ -139,23 +139,61 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     }
   }
 
-   guardarDatos(){
-
+  guardarDatos() {
+   if(this.verificarSeleccionTematicas()){
+     console.log("todo salio bien !!!!");
+     console.log(this.comision);
+     this.mensajeToastExito("se guardaron los datos correctamete !");
    }
+   else{
+    this.mensajeToastError(`Debe De Asignar Por Lo Menos Un Usuario De Tipo Evaluador <br> A Cada Item`);
+   }
+  }
+  mensajeToastError(mensaje) {
+    tata.error("Error", mensaje);
+
+  }
+  mensajeToastExito(mensaje) {
+    tata.success("Registro Exitoso", mensaje);
+  }
 
 
 
-//minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
-verificarSeleccionTematicas(){
-      let banderaValidador=true;
-      let contador=0;
-      for (let index = 0; index < this.listaTematicas.length; index++) {
-          
+  //minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
+  verificarSeleccionTematicas() {
+    let banderaValidador = true;
+    let banderaContador = true;
+    let contador = 0;
+    for (let i = 0; i < this.listaTematicas.length; i++) {//--------------------------------recorro la lista de tematicas existentes
+      for (let j = 0; j < this.comision.getListaUsuarios().length; j++) {//----------------rrecorro a los ususarios que  tienen id del tipo de usuario y el id del ususario y la lista de tematicas
+        if (this.comision.getListaUsuarios()[j].getListaTematica().length > 0) {
+          for (let h = 0; h < this.listaTiposUsuario.length; h++) {//---------------------rrecorro la lista de tipos usuarios existentes tiene el id del ususuario y el nombre del tipo
+            if (this.comision.getListaUsuarios()[j].getIdTipoUsuario() == this.listaTiposUsuario[h].getIdTipoUsuario()) {   /// comparo los ids de los usuario
+              if (this.listaTiposUsuario[h].getNombre() == "evaluador") {
+                for (let index = 0; index < this.comision.getListaUsuarios()[j].getListaTematica().length; index++) {
+                  if (this.listaTematicas[i].getNombre() == this.comision.getListaUsuarios()[j].getListaTematica()[index].getNombre()) {
+                    if (banderaContador) {
+                      contador += 1;
+                      banderaContador = false;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
       }
-}
+      banderaContador = true;
+    }
+    if(contador!=this.listaTematicas.length){
+      banderaValidador=false;
+    }
+    return banderaValidador
+  }
 
 
-//modificado
+  //modificado
 
 
 
