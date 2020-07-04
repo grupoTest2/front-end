@@ -17,7 +17,7 @@
         </thead>
         <tbody>
             <ng-container *ngFor="let usuario of listaUsuarios; let i=index">
-          <tr [ngClass]="{text_muted: !usuario.getSeleccionado(), text_info :usuario.getSeleccionado()}" >
+          <tr [class.text-muted]= "!usuario.getSeleccionado()" [class.text-primary]= "usuario.getSeleccionado()" >
             <td (click)="mostrarMensaje(i)">
               {{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}
             </td>

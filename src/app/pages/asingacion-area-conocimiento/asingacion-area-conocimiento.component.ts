@@ -120,6 +120,9 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     if(banderaSeleccionado){
       this.listaUsuarios[this.indiceActual].setSeleccionado(true);
     }
+    else{
+      this.listaUsuarios[this.indiceActual].setSeleccionado(false);
+    }
   }
 
 
