@@ -11,7 +11,14 @@ export class UsuarioComision{
         this.idTipoUsuario=idTipoUsuario;
         this.listaTematicas=listaTematicas;
     }
-    
+   
+    public setListaTematica(lista:Tematica[]): void{
+        this.listaTematicas=lista;
+    }
+    public getListaTematica(): Tematica []{
+        return this.listaTematicas;
+    }
+
     public setIdTipoUsuario(idTipoUsuario: number): void{
         this.idTipoUsuario=idTipoUsuario;
     }
