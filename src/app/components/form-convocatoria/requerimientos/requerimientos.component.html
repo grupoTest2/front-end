@@ -91,7 +91,7 @@
               <label for="recipient-name" class="col-form-label">Nombre item: </label>
               <select aria-placeholder="Seleccione" class="custom-select" [class.is-invalid]="materiaFormIsInvalid"
                 [class.is-valid]="materiaFormIsValid" formControlName="materia" id="seleccionaMateria">
-                <option *ngFor="let mat of listaMateriasDisponibles; let i = index" [value]="mat">{{mat}}</option>
+                <option *ngFor="let item of listaItems; let i = index" [value]="mat">{{item.getNombreItem()}}</option>
               </select>
             </div>
             <div *ngIf="materiaFormIsInvalid">

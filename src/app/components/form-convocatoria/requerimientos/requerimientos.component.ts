@@ -12,12 +12,13 @@ import { DatosConvocatoriaService } from '../../../servicios/datos-convocatoria.
 
 //models
 import { SeleccionRequerimiento } from 'src/app/models/convocatoria/seleccion-requerimientos';
-import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento';
+import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2';
 import { debounceTime } from 'rxjs/operators';
 import { SeleccionTipoDatoRotulo } from 'src/app/models/convocatoria/seleccion-tipo-dato-rotulo';
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 import { Tematica } from 'src/app/models/clases/convocatoria/tematica';
 import { async } from 'rxjs/internal/scheduler/async';
+import { Item } from 'src/app/models/clases/convocatoria/item';
 
 //jquery, toast, alertas
 declare var swal: any;
@@ -31,7 +32,8 @@ declare var $: any;
 })
 
 export class RequerimientosComponent implements OnInit {
-
+  listaRequerimientosX:Requerimiento[]=[];
+  listaItems:Item[]=[];
   formRequerimientos: FormGroup;
   seleccionRequerimiento: SeleccionRequerimiento=new SeleccionRequerimiento([]);
   requerimientosSeleccionados: Requerimiento[] = [];
@@ -54,7 +56,7 @@ export class RequerimientosComponent implements OnInit {
     private datosConvocatoria: DatosConvocatoriaService,
     private editarConv: EditarConvocatoriaServicePhp) {
     this.buildForm();
-    this.getNombreItems();
+    this.getItems();
     /*.then(() => {
       if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
         this.bandera = false;
@@ -69,11 +71,18 @@ export class RequerimientosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRequerimientosBD();
+    //this.getRequerimientosBD();
 
     this.href = this.router.url;
   }
 
+  hayItemDisponible(): boolean{
+    let bandera=false;
+     for(let i=0;i<this.listaItems.length&&!bandera;i++){
+      bandera=this.listaItems[i].getSeleccionado();
+     }
+     return bandera;
+  }
    async cambioBandera(){
     if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
       this.bandera = false;
@@ -139,7 +148,7 @@ export class RequerimientosComponent implements OnInit {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
     let nombreMateria = $('#seleccionaMateria').val()
-    this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
+    /*this.requerimiento = new Requerimiento(numeroItems, horasM, nombreMateria);
     this.requerimiento.setAccion("insertar");
     this.seleccionRequerimiento.agregarRequerimientoSeleccionado(this.requerimiento);
     this.requerimientosSeleccionados = this.seleccionRequerimiento.getMateriasSeleccionadas();
@@ -148,17 +157,17 @@ export class RequerimientosComponent implements OnInit {
     this.enviarLista();
     if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
       this.bandera = false;
-    }
+    }*/
   }
 
   // editar modal
   editar(i: number): void {
-    this.formRequerimientos.get('items').setErrors(null);
+    /*this.formRequerimientos.get('items').setErrors(null);
     this.formRequerimientos.get('horasMes').setErrors(null);
     this.formRequerimientos.get('materia').setErrors(null);
     $('#itemRequerimiento').val(this.requerimientosSeleccionados[i].getCantidadItem());
     $('#horasMesRequerimiento').val(this.requerimientosSeleccionados[i].getHrsAcademicas());
-    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());
+    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());*/
   }
 
 
@@ -258,21 +267,22 @@ export class RequerimientosComponent implements OnInit {
     return this.requerimientosSeleccionados.length > 0;
   }
   /*-------------interaccion con la base de datos---------------------*/
-  getNombreItems(): void {
+  getItems(): void {
     let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
-    let listaItems: Object[] = new Array();
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
       result => {
         for (let i in result) {
-          listaItems.push(result[i]);
+          this.listaItems.push(new Item(result[i].idItem,result[i].codigoItem,result[i].nombreItem));
         }
-        this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
-        this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
+        console.log("los items desde la base de datos");
+        console.log(this.listaItems);
+        //this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
+        //this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
       }
     );
   }
 
-  getRequerimientosBD() {
+  /*getRequerimientosBD() {
     if(localStorage.getItem("idConv")===""){
       console.log("esta vacio en los requerimientos");
     }else{
@@ -307,6 +317,6 @@ export class RequerimientosComponent implements OnInit {
         }
       )
     }
-  }
+  }*/
 
 }
