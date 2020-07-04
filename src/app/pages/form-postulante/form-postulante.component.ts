@@ -9,6 +9,10 @@ import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulan
 import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rotulo';
 import { combineAll } from 'rxjs/operators';
 
+// para el pdf
+import { PdfMakeWrapper,Txt, Columns, Stack, Table, TextReference, PageReference, Img } from 'pdfmake-wrapper';
+
+
 declare var $: any;
 declare var tata: any;
 declare var swal: any;
@@ -35,8 +39,10 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailVacio = "campo de correo vacio"
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
+  pdf:PdfMakeWrapper;
   constructor(private servicePostulante: PostulanteServicePhp) {
     // this.datosPrueba();
+    this.pdf = new PdfMakeWrapper();
   }
 
   ngOnInit(): void {
@@ -445,8 +451,8 @@ export class FormPostulanteComponent implements OnInit {
       } else {
         swal.fire(
           'Cancelado!',
-          'El campo no fue eliminado.',
-          'error'
+          'Sus datos no fueron guardados.',
+          'warning'
         )
       }
     })
@@ -515,6 +521,50 @@ export class FormPostulanteComponent implements OnInit {
       )
     }
   }*/
+
+  descargarPDF(){
+    this.pdf.info({
+      title: 'Rotulo postulante',
+      author: 'huayraDevs'
+    });
+    //marca de agua
+    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.5, bold: false, italics: false } );
+
+    //la cabecera
+    this.pdf.add(new Txt('TITULO DE LA CONVOCATORIA y GESTION').alignment('center').fontSize(20).bold().end);
+    this.pdf.add(
+      this.pdf.ln(2)
+    );
+    //el pie de pagina
+    this.pdf.footer(new Txt('Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.8).alignment('center').end);
+  
+    for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
+      this.pdf.add(
+        new Table([
+          [ {text: this.postulante.getListaDatos()[index].getNombreDato(), fontSize: 18, bold: true}, 
+            {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 18, bold: false}]
+      ]).alignment('center').italics().layout('noBorders').end
+      );
+    }
+    //salto de lineas
+    this.pdf.add(
+      this.pdf.ln(3)
+    );
+    //datos de los items
+    this.pdf.add("codigo item: 2010003");
+    this.pdf.add("nombre item: intro a la progra");
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    this.pdf.add("codigo item: 20101405");
+    this.pdf.add("nombre item: elementos");
+
+    this.pdf.defaultStyle({
+      bold: true,
+      fontSize: 20
+    });
+    this.pdf.create().open()
+  }
 
 }
 
