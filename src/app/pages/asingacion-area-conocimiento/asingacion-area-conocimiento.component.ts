@@ -26,11 +26,12 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   tituloActual = "";
   constructor(private comisionServ:ComisionesServicePhp) {
     this.comision =new Comision(1);
-    this.agragarUsuariosPrueba();
-    /*this.getUsuariosBD();
-    this.getComisionesBD();
+    //this.agragarUsuariosPrueba();
+    
     this.getTiposUsuarioBD();
-    this.getTematicasBD();*/
+    this.getTematicasBD();
+    this.getComisionesBD();
+
   }
 
   ngOnInit(): void {
@@ -206,8 +207,10 @@ getUsuariosBD() {
       let usuario: Usuario;
       for (let i in resultado) {
         let objAux = resultado[i];
-        usuario = new Usuario(objAux.idUsuario, objAux.nombre, objAux.apellidoP, objAux.apellidoM, objAux.correo);
-        this.listaUsuarios.push(usuario);
+        if(this.comision.existeUsuario(objAux.idUsuario)){
+          usuario = new Usuario(objAux.idUsuario, objAux.nombre, objAux.apellidoP, objAux.apellidoM, objAux.correo);
+          this.listaUsuarios.push(usuario);
+        }
       }
     }
   )
@@ -230,6 +233,7 @@ getUsuariosBD() {
          this.comision.setListaUsuarios(usuariosAux);
          console.log("los usuarios de la comision");
          console.log(this.comision);
+         this.getUsuariosBD();
        }
        
     );
