@@ -13,7 +13,7 @@
         <tr>
           <th class="text-center" scope="col">Prueba/Tematica</th>
           <th *ngFor="let requerimiento of listaItems; index as i" class="text-center" scope="col">
-            {{requerimiento.getnombreMateria()}}</th>
+            {{requerimiento.getCodigoItem()}}</th>
           <th class="text-center" scope="col">Acciones</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
         <tr *ngFor="let tematica of listaTematicas; index as i">
           <td scope="row">{{tematica}}</td>
           <td class="text-center" *ngFor="let calificacion of listaItems; index as j">
-            {{calificacion.getListaTematica()[i].getNota()}}</td>
+            {{calificacion.getListaTematica()[i].getPorcentaje()}}</td>
           <td class="text-right">
             <div class="btn btn-group" role="group">
               <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button">
@@ -124,12 +124,12 @@
               <div *ngIf="banderaTematica">
                 <div *ngFor="let codigo of listaItems; index as i" class="form-group">
                   <label *ngIf="codigo.getNotaDisponible() > 0" for="recipient-name"
-                    class="col-form-label">{{codigo.getnombreMateria()}} </label>
+                    class="col-form-label">{{codigo.getNombreItem()}} </label>
                   <div class="row">
                     <small class="text-muted col pt-2">nota disponible:
                       {{codigo.getNotaDisponible()}}%<small class="text-danger">(*)</small></small>
                     <input *ngIf="codigo.getNotaDisponible() > 0" type="number" min="0"
-                      class="form-control col-sm-7 col-6 mr-3" id="{{codigo.getnombreMateria()}}"
+                      class="form-control col-sm-7 col-6 mr-3" id="{{codigo.getNombreItem()}}"
                       [class.is-invalid]="notaIsInvalid" formControlName="nota">
                   </div>
                   <div *ngIf="notaIsInvalid">

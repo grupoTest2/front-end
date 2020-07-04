@@ -169,6 +169,7 @@ export class RequerimientosComponent implements OnInit {
     this.listaRequerimientosX.push(this.requerimiento);
     console.log("lista pro");
     console.log(this.listaRequerimientosX);
+    this.enviarLista();
     
   }
 

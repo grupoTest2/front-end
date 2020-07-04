@@ -100,10 +100,10 @@ export class FormConvocatoriaComponent implements OnInit {
     return this.requerimiento.estaHabilitado();
   }
   // modificando la lsta de codigos de la componente calificaciones
-  /*setListaRequerimientos(listaRequerimientos: Requerimiento[]) {
+  setListaRequerimientos(listaRequerimientos: Requerimiento[]) {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
     this.listaRequerimientos = listaRequerimientos;
-  }*/
+  }
   // metodo que recu[era todos los datos
   recuperarLosDatosDeLosComponentes() {
     this.listaRequerimientos = this.requerimiento.getDatos();
