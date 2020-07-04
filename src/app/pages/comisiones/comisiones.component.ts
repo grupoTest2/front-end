@@ -82,6 +82,8 @@ export class ComisionesComponent implements OnInit {
       com = new Comision(objAux.getIdTipoComision());
       this.listaComision.push(com);
     }
+    
+    this.getComisionesBD();
     //console.log("las comisiones");
     //console.log(this.listaComision);
   }
@@ -90,6 +92,7 @@ export class ComisionesComponent implements OnInit {
     //this.agregarUsuarioComisionBD();
     console.log(JSON.stringify(this.listaComision));
     this.banderaConocimiento=true;
+    this.agregarUsuarioComisionBD();
   }
 
   modal(indice1: number, idTipoComision: number, idUsuario: number){
@@ -210,16 +213,54 @@ export class ComisionesComponent implements OnInit {
     //console.log(this.listaUsuarios);
    }
 
+   getComisionesBD(){
+     console.log("en el metodo pro");
+     console.log(this.listaComision.length);
+     for(let i in this.listaComision){
+       let objAux={
+          idConv:this.listaComision[i].getIdConv(),
+          idTipoComision:this.listaComision[i].getIdTipoComision()
+       }
+       this.comisionServ.getComisiones(objAux).subscribe(
+        resultado=>{
+            let misUsuarios=resultado['listaUsuarios'];
+            let usuariosAux: UsuarioComision[]=[];
+            for(let k in misUsuarios){
+              usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario,misUsuarios[k].accion,misUsuarios[k].idTipoUsuario));
+            }
+            this.listaComision[i].setListaUsuarios(usuariosAux);
+          }
+          
+          
+        
+       );
+     }
+     console.log("despues de la insercion");
+     console.log(this.listaComision);
+   }
+
    agregarUsuarioComisionBD(){
-    this.comisionServ.agregarUsuariosComision(this.listaComision).subscribe(
-      resultado=>{
-        if(resultado['resultado']=='correcto'){
-          console.log("miembros agregados correctamente");
-        }else{
-          console.log("error al agregar miembros");
-        }
+    let hayUsuarios:boolean=false; 
+    for(let i in this.listaComision){
+      hayUsuarios=this.listaComision[i].getListaUsuarios().length>0;
+      if(hayUsuarios){
+        break;
       }
-    )
+    }
+    if(hayUsuarios){
+      this.comisionServ.agregarUsuariosComision(this.listaComision).subscribe(
+        resultado=>{
+          if(resultado['resultado']=='correcto'){
+            console.log("miembros agregados correctamente");
+          }else{
+            console.log("error al agregar miembros");
+          }
+        }
+      )
+    }else{
+      console.log("no hay usuarios seleccionados");
+    }
+    
    }
   
 
