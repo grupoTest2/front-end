@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 
 // model
-import { Tematica } from '../../../models/clases/convocatoria/tematica';
+import { Tematica } from '../../../models/clases/convocatoria/tematica2';
 import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificacionConocimiento';
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2';
 import { TipoEvaluacion } from 'src/app/models/clases/convocatoria/tipo-de-evaluacion';
@@ -45,7 +45,6 @@ export class CalificacionConocimientosComponent implements OnInit {
     private crearConv: PhpServeConvocatoria) {
     this.buildForm();
     this.getRequerimientosBD();
-    //this.cargarListaTematicas();
     this.getTematicasBD();
     this.getTiposEvaluacionBD();
   }
@@ -61,25 +60,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  cargarListaTematicas() {
-    this.listaTiposEvaluacion.push(new TipoEvaluacion(1, 'escrito'));
-    this.listaTiposEvaluacion.push(new TipoEvaluacion(1, 'oral'));
-    this.listaTiposEvaluacion2.push(new TipoEvaluacion(1, 'fisico'));
-    this.listaTiposEvaluacion2.push(new TipoEvaluacion(1, 'verval'));
-    this.listaTiposEvaluacion2.push(new TipoEvaluacion(1, 'practico'));
-    let tematica1: Tematica = new Tematica("introProgra", 100, 1);
-    let tematica2: Tematica = new Tematica("elementos", 100, 1);
-    let tematica3: Tematica = new Tematica("fisica", 100, 1);
-    let tematica4: Tematica = new Tematica("psicologia", 100, 1);
-    tematica1.setListaTipoEvaluacion((this.listaTiposEvaluacion));
-    tematica2.setListaTipoEvaluacion((this.listaTiposEvaluacion));
-    tematica3.setListaTipoEvaluacion((this.listaTiposEvaluacion));
-    tematica4.setListaTipoEvaluacion((this.listaTiposEvaluacion2));
-    this.listaTematica.push(tematica1);
-    this.listaTematica.push(tematica2);
-    this.listaTematica.push(tematica3);
-    this.listaTematica.push(tematica4);
-  }
+  //metodo para seleccion de tematica
   seleccionoTematica() {
     var valor = $("#nombreTematica option:selected").val();
     valor.toString();
@@ -87,7 +68,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       console.log("slecciono una tematica ---" + valor);
       for (let i = 0; i < this.listaTematica.length; i++) {
         if (this.listaTematica[i].getNombre() == valor) {
-          this.listaTiposDatos = this.listaTematica[i].getListaTipoEvaluacion();
+          this.listaTiposDatos = this.listaTematica[i].getTiposEvaluacion();
           this.banderaTematica = true;
         }
       }
@@ -101,6 +82,7 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Requerimiento[] {
+    console.log(this.listaItems + "-------------------");
     return this.listaItems;
   }
 
@@ -108,13 +90,19 @@ export class CalificacionConocimientosComponent implements OnInit {
   setListaRequerimiento(listaRequeriminetos: Requerimiento[]): void {
     console.log(listaRequeriminetos)
     this.listaItems = listaRequeriminetos;
-    for (let i = 0; i < this.listaItems.length; i++) {
+    /*for (let i = 0; i < this.listaItems.length; i++) {
       if (this.listaItems[i].getListaTematicas().length == 0) {
         for (let j = 0; j < this.listaTematicas.length; j++) {
-          this.listaItems[i].getListaTematicas().push(new Tematica(this.listaTematicas[j], 0));
+          this.listaItems[i].getListaTematicas().push(new Tematica(1,this.listaTematicas[j]));
         }
       }
     }
+  }
+
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+      
+    }*/
   }
 
   getDatosTipoEvaluacion(nombre: string) {
@@ -123,8 +111,8 @@ export class CalificacionConocimientosComponent implements OnInit {
       console.log(this.listaTematica[i].getNombre() + "--------" + nombre);
       if (this.listaTematica[i].getNombre() == nombre) {
         this.detalleTipoEvaluacion += "Tematica " + this.listaTematica[i].getNombre() + ", porcentaje de sus tipos de evaluacion: \n\n\n";
-        for (let index = 0; index < this.listaTematica[i].getListaTipoEvaluacion().length; index++) {
-          this.detalleTipoEvaluacion += this.listaTematica[i].getListaTipoEvaluacion()[index].getNombre() + ":" + this.listaTematica[i].getListaTipoEvaluacion()[index].getPorcentaje() + " \n ";
+        for (let index = 0; index < this.listaTematica[i].getTiposEvaluacion().length; index++) {
+          this.detalleTipoEvaluacion += this.listaTematica[i].getTiposEvaluacion()[index].getNombre() + ":" + this.listaTematica[i].getTiposEvaluacion()[index].getPorcentaje() + " \n ";
         }
       }
     }
@@ -146,7 +134,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
       for (let index = 0; index < this.listaTematica.length; index++) {
         if (this.listaTematica[index].getNombre() == nombreTematica) {
-          this.listaTematica[index].setListaTipoEvaluacion(this.listaTiposDatos);
+          this.listaTematica[index].setTiposEvaluacion(this.listaTiposDatos);
           this.listaTematica[index].setSeleccionado(true);
           console.log("cambio el estado!!")
         }
@@ -160,18 +148,18 @@ export class CalificacionConocimientosComponent implements OnInit {
             nota = 0;
             aux++;
           }
-          let tematica: Tematica = new Tematica(this.listaTematicas[this.listaTematicas.length - 1], nota);
+          let tematica: Tematica = new Tematica(this.getIdTematica(this.listaTematicas[this.listaTematicas.length - 1]), this.listaTematicas[this.listaTematicas.length - 1]);
           tematica.setAccion("insertar");
-          tematica.setListaTipoEvaluacion(this.listaTiposDatos);
+          tematica.setTiposEvaluacion(this.listaTiposDatos);
           this.listaItems[i].getListaTematicas().push(tematica);
           console.log(tematica)
         }
         else {
           for (let j = 0; j < this.listaTematicas.length; j++) {
             if (this.listaItems[i].getListaTematicas().length <= j) {
-              let tem: Tematica = new Tematica(this.listaTematicas[j], 0);
+              let tem: Tematica = new Tematica(this.getIdTematica(this.listaTematicas[j]),this.listaTematicas[j]);
               tem.setAccion("insertar");
-              tem.setListaTipoEvaluacion(this.listaTiposDatos);
+              tem.setTiposEvaluacion(this.listaTiposDatos);
               this.listaItems[i].getListaTematicas().push(tem);
               console.log(tem)
             }
@@ -189,6 +177,23 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
     this.quitarSeleccionTiposEvaluacion();
   }
+
+  getIdTematica(nombre: string):number {
+    let id=0;
+    let bandera=true
+    for (let index = 0; index < this.listaTematica.length&&bandera; index++) {
+      if (this.listaTematica[index].getNombre()==nombre) {
+             id=this.listaTematica[index].getIdTematica();
+             bandera=false;
+      }
+    }
+    return id;
+  }
+
+  mensajeErrorDePorcentajesIngresados(mensaje: string) {
+    tata.error('Error', mensaje);
+  }
+
 
   quitarSeleccionTiposEvaluacion() {
     for (let index = 0; index < this.listaTiposEvaluacion.length; index++) {
@@ -273,7 +278,7 @@ export class CalificacionConocimientosComponent implements OnInit {
           if (nota > this.listaItems[i].getNotaDisponible()) {
             aux++;
             (<HTMLInputElement>document.getElementById(id)).classList.add('is-invalid');
-            codigo = this.listaItems[i].getCodigoItem();
+            codigo += this.listaItems[i].getNombreItem() + `<br>`;
             bandera = true;
           } else {
             (<HTMLInputElement>document.getElementById(id)).classList.remove('is-invalid');
@@ -296,16 +301,24 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     }
 
-    if (sumatoria != 100) {
-      tata.error('Error', 'La nota de os tipos de evaluacion exede el 100%');
-    }
-
-    if (aux === contador || bandera) {
+    if (aux === contador || bandera || sumatoria != 100) {
+      let mensaje = ``;
       if (bandera) {
-        tata.error('Error', 'La nota excede el porcentaje disponible en: ' + codigo);
-      } else {
-        tata.error('Error', 'La tematica debe tener minimo una nota asignada');
+        mensaje += `La nota excede el porcentaje disponible en:  ${codigo} <br>`;
+      } if (sumatoria > 100) {
+        mensaje += `La nota de los tipos de evaluacion exede el 100% <br>`;
       }
+      if (sumatoria < 100 && sumatoria > 0) {
+        mensaje += `La nota de los tipos de evaluacion no satisface el 100% requerido<br>`;
+      }
+      if (sumatoria == 0) {
+        mensaje += `Debe de seleccionar tipos de evaluacion para los Items<br>`;
+      }
+      if (aux === contador) {
+        mensaje += `La tematica debe tener minimo una nota asignada`;
+      }
+
+      this.mensajeErrorDePorcentajesIngresados(mensaje);
     } else {
       this.agregarTematica();
     }
@@ -365,40 +378,40 @@ export class CalificacionConocimientosComponent implements OnInit {
    * metodos que interactuan con la base de datos
    */
   getRequerimientosBD() {
-   /* let bandera = true;
-    if (localStorage.getItem("idConv") === "") {
-      console.log("esta vacio en las calif");
-    } else {
-      let idConv: number = parseInt(localStorage.getItem("idConv"));
-      this.editarConv.getRequerimientos(idConv).subscribe(
-        resultado => {
-          let req: Requerimiento;
-          let listaAux: Requerimiento[] = [];
-          let tem: Tematica;
-          let listaTem: Tematica[];
-          for (let i in resultado) {
-            let listaAux2 = resultado[i].listaTematicas;
-            listaTem = [];
-            for (let j in listaAux2) {
-              tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
-              listaTem.push(tem);
-              if (bandera) {
-                this.listaTematicas.push(tem.getNombre());
-              }
-            }
-            bandera = false;
-            req = new Requerimiento(resultado[i].cantidadItem,
-              resultado[i].hrsAcademicas,
-              resultado[i].nombreItem,
-              listaTem,
-              resultado[i].codigoItem);
-            req.setIdMat(resultado[i].idItem);
-            listaAux.push(req);
-          }
-          this.setListaRequerimiento(listaAux);
-        }
-      )
-    }*/
+    /* let bandera = true;
+     if (localStorage.getItem("idConv") === "") {
+       console.log("esta vacio en las calif");
+     } else {
+       let idConv: number = parseInt(localStorage.getItem("idConv"));
+       this.editarConv.getRequerimientos(idConv).subscribe(
+         resultado => {
+           let req: Requerimiento;
+           let listaAux: Requerimiento[] = [];
+           let tem: Tematica;
+           let listaTem: Tematica[];
+           for (let i in resultado) {
+             let listaAux2 = resultado[i].listaTematicas;
+             listaTem = [];
+             for (let j in listaAux2) {
+               tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
+               listaTem.push(tem);
+               if (bandera) {
+                 this.listaTematicas.push(tem.getNombre());
+               }
+             }
+             bandera = false;
+             req = new Requerimiento(resultado[i].cantidadItem,
+               resultado[i].hrsAcademicas,
+               resultado[i].nombreItem,
+               listaTem,
+               resultado[i].codigoItem);
+             req.setIdMat(resultado[i].idItem);
+             listaAux.push(req);
+           }
+           this.setListaRequerimiento(listaAux);
+         }
+       )
+     }*/
   }
 
   getTematicasBD() {

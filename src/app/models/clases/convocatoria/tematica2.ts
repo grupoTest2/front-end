@@ -32,6 +32,9 @@ export class Tematica{
     public getSeleccionado(): boolean{
         return this.seleccionado;
     }
+    public setSeleccionado(bandera:boolean):void{
+       this.seleccionado=bandera;
+    }
 
     public getTiposEvaluacion(): TipoEvaluacion[]{
         return this.tiposEvaluacion;
