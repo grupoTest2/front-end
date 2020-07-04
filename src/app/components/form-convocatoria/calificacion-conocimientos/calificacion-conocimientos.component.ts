@@ -42,7 +42,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   banderaTematica = false;
   detalleTipoEvaluacion = "";
   constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp,
-    private crearConv:PhpServeConvocatoria) {
+    private crearConv: PhpServeConvocatoria) {
     this.buildForm();
     this.getRequerimientosBD();
     //this.cargarListaTematicas();
@@ -185,12 +185,28 @@ export class CalificacionConocimientosComponent implements OnInit {
     else {
       this.ErrorAlInsertarDocumento(" ya existe una tematica con ese nombre!!")
     }
+    this.quitarSeleccionTiposEvaluacion();
   }
+
+  quitarSeleccionTiposEvaluacion() {
+    for (let index = 0; index < this.listaTiposEvaluacion.length; index++) {
+      this.listaTiposEvaluacion[index].setSeleccionado(false);
+    }
+  }
+
   ErrorAlInsertarDocumento(mensaje: string = 'Formulario invalido') {
     this.formCalificacion.markAllAsTouched();
     tata.error('Error', mensaje);
   }
 
+  seleccionado(index: number) {
+    if (this.listaTiposEvaluacion[index].getSeleccionado()) {
+      this.listaTiposEvaluacion[index].setSeleccionado(false)
+    }
+    else {
+      this.listaTiposEvaluacion[index].setSeleccionado(true)
+    }
+  }
   private existeTematica(nombre: string): boolean {
     let existe: boolean = false;
     for (let i in this.listaTematicas) {
@@ -264,6 +280,24 @@ export class CalificacionConocimientosComponent implements OnInit {
         contador++;
       }
     }
+
+    let sumatoria = 0;
+    for (let index = 0; index < this.listaTiposEvaluacion.length; index++) {
+      if (this.listaTiposEvaluacion[index].getSeleccionado()) {
+        let id: any = this.listaTiposEvaluacion[index].getNombre();
+        let value = (<HTMLInputElement>document.getElementById(id)).value;
+        if (value != "") {
+          console.log("tipo de evaluacion! " + id);
+          let nota = parseInt(value);
+          sumatoria += nota;
+        }
+      }
+    }
+
+    if (sumatoria != 100) {
+      tata.error('Error', 'La nota de os tipos de evaluacion exede el 100%');
+    }
+
     if (aux === contador || bandera) {
       if (bandera) {
         tata.error('Error', 'La nota excede el porcentaje disponible en: ' + codigo);
@@ -365,12 +399,12 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  getTematicasBD(){
-    let idTipoConv=parseInt(localStorage.getItem("idTipo"));
+  getTematicasBD() {
+    let idTipoConv = parseInt(localStorage.getItem("idTipo"));
     this.crearConv.getTematicas(idTipoConv).subscribe(
-      resultado=>{
-        for(let i in resultado){
-          this.listaTematica.push(new Tematica(resultado[i].nombre,0,resultado[i].idTematica));
+      resultado => {
+        for (let i in resultado) {
+          this.listaTematica.push(new Tematica(resultado[i].nombre, 0, resultado[i].idTematica));
         }
         console.log("las tematicas desde la base de datos");
         console.log(this.listaTematica);
@@ -378,12 +412,12 @@ export class CalificacionConocimientosComponent implements OnInit {
     );
   }
 
-  getTiposEvaluacionBD(){
-    let idDep=1;
+  getTiposEvaluacionBD() {
+    let idDep = 1;
     this.crearConv.getTiposEvaluacion(idDep).subscribe(
-      resultado=>{
-        for(let i in resultado){
-          this.listaTiposEvaluacion.push(new TipoEvaluacion(resultado[i].idTipoEvaluacion,resultado[i].nombre));
+      resultado => {
+        for (let i in resultado) {
+          this.listaTiposEvaluacion.push(new TipoEvaluacion(resultado[i].idTipoEvaluacion, resultado[i].nombre));
         }
         console.log("los tipos de evaluacion de la base de datos");
         console.log(this.listaTiposEvaluacion);

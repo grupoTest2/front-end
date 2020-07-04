@@ -85,35 +85,52 @@
               <label for="recipient-name" class="col-form-label">Seleccione una tematica:</label>
               <select class="custom-select" id="seleccionTematica" (click)="seleccionoTematica()" id="nombreTematica">
                 <option selected disabled value="porDefecto"> Seleccione una tematica</option>
-                  <ng-container *ngFor="let tematica of listaTematica; let i = index">
-                    <option *ngIf="!tematica.getSeleccionado()" [value]="tematica.getNombre()">
-                      {{tematica.getNombre()}}</option>
-                  </ng-container>
+                <ng-container *ngFor="let tematica of listaTematica; let i = index">
+                  <option *ngIf="!tematica.getSeleccionado()" [value]="tematica.getNombre()">
+                    {{tematica.getNombre()}}</option>
+                </ng-container>
               </select>
               <br>
               <div *ngIf="banderaTematica">
                 <hr class="border border-secondary bg-secondary">
-                <label for="recipient-name" class="col-form-label"> Indique el porcentaje para los tipos de evaluacion:
+                <label for="recipient-name" class="col-form-label"> Seleccione e indique el porcentaje para los tipos de evaluacion:
                 </label>
                 <br>
                 <div *ngFor="let tipoEvaluacion of listaTiposEvaluacion; index as i" class="form-group">
-                  <label>{{tipoEvaluacion.getNombre()}} </label>
+
+                  <button *ngIf="!tipoEvaluacion.getSeleccionado()"
+                    class="btn btn-block border border-none text-left mt-2 mb-2 p-2 rounded rounded-lg opaco"
+                    data-toggle="button" (click)="seleccionado(i)" style="font-size: 1rem;">
+                    <i class="fa fa-square" style="color: aliceblue"> </i>&nbsp;
+                    &nbsp;{{tipoEvaluacion.getNombre() | titlecase}} </button>
+
+                  <div class="row" *ngIf="tipoEvaluacion.getSeleccionado()">
+                    <button class="btn btn-block ml-3 col border border-none text-left  rounded rounded-lg  negro"
+                      data-toggle="button" (click)="seleccionado(i)" style="font-size: 1rem;">
+                      <i class="fa fa-check"> </i>
+                      &nbsp;{{tipoEvaluacion.getNombre() | titlecase}} </button>
+                    <input type="number" min="0" class="form-control col-sm-7 col-6 mr-3"
+                      id="{{tipoEvaluacion.getNombre()}}">
+                  </div>
+
+
+                  <!--<label>{{tipoEvaluacion.getNombre()}} </label>
                   <input type="number" min="0" class="form-control" id="{{tipoEvaluacion.getNombre()}}">
+                  -->
                 </div>
                 <hr class="border border-secondary bg-secondary">
                 <label for="recipient-name" class="col-form-label"> Indique el porcentaje para el item: </label>
-
               </div>
               <div *ngIf="banderaTematica">
                 <div *ngFor="let codigo of listaItems; index as i" class="form-group">
                   <label *ngIf="codigo.getNotaDisponible() > 0" for="recipient-name"
                     class="col-form-label">{{codigo.getnombreMateria()}} </label>
                   <div class="row">
-                    <input *ngIf="codigo.getNotaDisponible() > 0" type="number" min="0"
-                      class="form-control col-sm-7 col-6 ml-4" id="{{codigo.getnombreMateria()}}"
-                      [class.is-invalid]="notaIsInvalid" formControlName="nota">
                     <small class="text-muted col pt-2">nota disponible:
                       {{codigo.getNotaDisponible()}}%<small class="text-danger">(*)</small></small>
+                    <input *ngIf="codigo.getNotaDisponible() > 0" type="number" min="0"
+                      class="form-control col-sm-7 col-6 mr-3" id="{{codigo.getnombreMateria()}}"
+                      [class.is-invalid]="notaIsInvalid" formControlName="nota">
                   </div>
                   <div *ngIf="notaIsInvalid">
                     <small class="text-danger" *ngIf="nota.hasError('min')">

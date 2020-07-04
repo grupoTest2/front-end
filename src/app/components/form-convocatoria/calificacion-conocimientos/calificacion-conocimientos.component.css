@@ -1,0 +1,13 @@
+.opaco:hover{
+    /*background-color:#72c5fd;*/
+}
+.opaco{
+    background-color:whitesmoke;
+    color: rgb(0, 0, 0);
+
+}
+.negro{
+    background-color:#3498db;
+    color:white;
+    border-radius: 0.5rem;
+}
