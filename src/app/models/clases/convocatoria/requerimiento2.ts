@@ -1,5 +1,5 @@
 import { Item } from './item';
-import { Tematica } from './tematica';
+import { Tematica } from './tematica2';
 
 export class Requerimiento{
     private hrsAcademicas: number;
@@ -61,9 +61,9 @@ export class Requerimiento{
     }
     public agregarTematica(tem: Tematica):boolean{
         let res=false;
-        if(this.notaDisponible>=tem.getNota()){
+        if(this.notaDisponible>=tem.getPorcentaje()){
             this.listaTematicas.push(tem);
-            this.notaDisponible-=tem.getNota();
+            this.notaDisponible-=tem.getPorcentaje();
             res=true;
         }
         return res;
