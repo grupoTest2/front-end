@@ -8,8 +8,9 @@ export class Requerimiento{
     private listaTematicas: Tematica[];
     private notaDisponible: number;
     private accion: string;
-
+    private idConv:number;
     public constructor(hrsAcademicas:number,cantidadItem:number,item:Item,listaTematicas:Tematica[]=[]){
+        this.idConv = parseInt(localStorage.getItem("idConv"));
         this.hrsAcademicas=hrsAcademicas;
         this.cantidadItem=cantidadItem;
         this.item=item;
@@ -55,6 +56,9 @@ export class Requerimiento{
         this.accion=accion;
     }
 
+    public setIdConv(idConv): void{
+        this.idConv=idConv;
+    }
     public agregarTematica(tem: Tematica):boolean{
         let res=false;
         if(this.notaDisponible>=tem.getNota()){
