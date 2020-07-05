@@ -40,6 +40,7 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
   pdf:PdfMakeWrapper;
+  habilitarBotonRotulo: boolean = false;
   constructor(private servicePostulante: PostulanteServicePhp) {
     // this.datosPrueba();
     this.pdf = new PdfMakeWrapper();
@@ -412,7 +413,8 @@ export class FormPostulanteComponent implements OnInit {
       }
       this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
       console.log(this.postulante);
-      this.mensajeToastExito('Registro exítoso')
+      this.mensajeToastExito('Registro exítoso');
+      this.habilitarBotonRotulo = true;
     }
 
   }
@@ -523,47 +525,128 @@ export class FormPostulanteComponent implements OnInit {
   }*/
 
   descargarPDF(){
+    
+    this.pdf.pageMargins([ 50, 60 ]);
     this.pdf.info({
       title: 'Rotulo postulante',
       author: 'huayraDevs'
     });
     //marca de agua
-    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.5, bold: false, italics: false } );
+    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
 
     //la cabecera
-    this.pdf.add(new Txt('TITULO DE LA CONVOCATORIA y GESTION').alignment('center').fontSize(20).bold().end);
+    this.pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
     this.pdf.add(
-      this.pdf.ln(2)
+      this.pdf.ln(1)
     );
     //el pie de pagina
-    this.pdf.footer(new Txt('Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.8).alignment('center').end);
-  
+    this.pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
+    this.pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    this.pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
     for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
       this.pdf.add(
-        new Table([
-          [ {text: this.postulante.getListaDatos()[index].getNombreDato(), fontSize: 18, bold: true}, 
-            {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 18, bold: false}]
-      ]).alignment('center').italics().layout('noBorders').end
-      );
+        new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
+        {text: ':', fontSize: 15, bold: true, width: 15},
+        {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
     }
     //salto de lineas
     this.pdf.add(
       this.pdf.ln(3)
     );
-    //datos de los items
-    this.pdf.add("codigo item: 2010003");
-    this.pdf.add("nombre item: intro a la progra");
+    this.pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
     this.pdf.add(
       this.pdf.ln(1)
     );
-    this.pdf.add("codigo item: 20101405");
-    this.pdf.add("nombre item: elementos");
+    //datos de los items
+    for (let index = 0; index < this.postulante.getListaItems().length; index++) {
+      this.pdf.add(
+        new Table([
+          [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
+            {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
+      ]).alignment('center').layout('noBorders').end
+      );
+    }
 
     this.pdf.defaultStyle({
       bold: true,
       fontSize: 20
     });
-    this.pdf.create().open()
+    this.pdf.add(
+      new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
+  );
+    this.pdf.create().open();
+  }
+
+  pdfPorItem(){
+    var aux = 1;
+    for (let index = 0; index < this.postulante.getListaItems().length; index++) {
+    this.pdf.pageMargins([ 50, 60 ]);
+    this.pdf.info({
+      title: 'Rotulo postulante',
+      author: 'huayraDevs'
+    });
+    //marca de agua
+    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
+
+    //la cabecera
+    this.pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    //el pie de pagina
+    this.pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
+    this.pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    this.pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
+      this.pdf.add(
+        new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
+        {text: ':', fontSize: 15, bold: true, width: 15},
+        {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
+    }
+    //salto de lineas
+    this.pdf.add(
+      this.pdf.ln(3)
+    );
+    this.pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
+    this.pdf.add(
+      this.pdf.ln(1)
+    );
+    //datos de los items
+      this.pdf.add(
+        new Table([
+          [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
+            {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
+      ]).alignment('center').layout('noBorders').end
+      );
+      
+      this.pdf.defaultStyle({
+        bold: true,
+        fontSize: 20
+      });
+      if(aux < this.postulante.getListaItems().length){
+        this.pdf.add(
+          new Txt('').pageBreak('after').end
+          );
+          aux++;
+      }
+      }
+    this.pdf.create().open();
+  }
+
+  capitalize(word) {
+    return word[0].toUpperCase() + word.slice(1);
   }
 
 }
