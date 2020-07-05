@@ -5,9 +5,10 @@ export class TipoEvaluacion {
     private porcentaje:number;
     ////
     private seleccionado: boolean;
-    constructor(idEvaluacion:number, nombre:string){
+    constructor(idEvaluacion:number, nombre:string,porcentaje: number=0){
         this.idEvaluacion=idEvaluacion;
         this.nombre=nombre;
+        this.porcentaje=porcentaje;
         this.seleccionado=false;
     }
 

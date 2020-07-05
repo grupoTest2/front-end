@@ -110,7 +110,7 @@ export class FormConvocatoriaComponent implements OnInit {
     this.listaDatosRequisitos = this.requisitos.getDatos();
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
     this.listaDatosMerito = this.merito.getDatos();
-    //this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
+    this.listaItemsConCalificaciones = this.calificacionConocimiento.getDatos();
     this.listaDatosEventos = this.eventos.getDatos();
     this.listaDatosRotulo = this.datosRotulo.getDatos();
   }
@@ -274,24 +274,16 @@ export class FormConvocatoriaComponent implements OnInit {
     console.log("okkkk 2do")
   }
 
-  /*agregarBD() {
-    let agregar = false;
-    this.recuperarLosDatosDeLosComponentes();
-    if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
-    this.agregarCalificaciones() && this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
-      agregar = true;
-    }
-    return agregar;
-  }*/
   agregarBD() {
     let agregar = false;
     this.recuperarLosDatosDeLosComponentes();
     if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
-   this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
+    this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
       agregar = true;
     }
     return agregar;
   }
+ 
   agregarRequerimientos(): boolean {
     let agregar: boolean = true;
     if (this.listaRequerimientos.length !== 0) {
@@ -300,6 +292,7 @@ export class FormConvocatoriaComponent implements OnInit {
         respuesta => {
           if (respuesta['resultado'] === 'correcto') {
             console.log('todo bien con los requerimientos');
+            this.agregarCalificaciones();
           } else {
             console.log('error con los requerimientos');
             agregar = false;
@@ -346,12 +339,12 @@ export class FormConvocatoriaComponent implements OnInit {
   /**
    * revisar la impresion del metodo
    */
-  /*agregarCalificaciones() {
+  agregarCalificaciones() {
     let agregar: boolean = true;
     let resp: boolean = false;
     console.log(JSON.stringify(this.listaItemsConCalificaciones));
     for (let i in this.listaItemsConCalificaciones) {
-      let listaTem = this.listaItemsConCalificaciones[i].getListaTematica();
+      let listaTem = this.listaItemsConCalificaciones[i].getListaTematicas();
       console.log("las tematicasssss");
       console.log(JSON.stringify(listaTem));
       if (listaTem.length !== 0) {
@@ -373,7 +366,7 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     return agregar;
 
-  }*/
+  }
 
   agregarMeritos() {
     let agregar: boolean = true;

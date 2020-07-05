@@ -19,6 +19,7 @@ import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocato
 import { Tematica } from 'src/app/models/clases/convocatoria/tematica2';
 import { async } from 'rxjs/internal/scheduler/async';
 import { Item } from 'src/app/models/clases/convocatoria/item';
+import { TipoEvaluacion } from 'src/app/models/clases/convocatoria/tipo-de-evaluacion';
 
 //jquery, toast, alertas
 declare var swal: any;
@@ -313,12 +314,25 @@ export class RequerimientosComponent implements OnInit {
             for(let i in resultado){
               item=new Item(resultado[i].item['idItem'],resultado[i].item['codigoItem'],resultado[i].item['nombreItem'],true);
               this.seleccionarItem(resultado[i].item['idItem']);
+              let listaTem:Tematica[]=[];
+              let tem:Tematica;
+              let listaTemAux=resultado[i].listaTematicas;
+              for(let j in listaTemAux){
+                let tiposEvAux=listaTemAux[j].tiposEvaluacion;
+                let tiposEvaluacion:TipoEvaluacion[]=[];
+                for(let k in tiposEvAux){
+                  tiposEvaluacion.push(new TipoEvaluacion(tiposEvAux[k].idTipoEvaluacion,tiposEvAux[k].nombre,parseInt(tiposEvAux[k].porcentaje)));
+                }
+                tem=new Tematica(listaTemAux[j].idTematica,listaTemAux[j].nombre,parseInt(listaTemAux[j].porcentaje),tiposEvaluacion);
+                listaTem.push(tem);
+              }
               this.listaRequerimientosX.push(new Requerimiento(
                                             resultado[i].hrsAcademicas,
                                             resultado[i].cantidadItem,
-                                            item));
+                                            item,
+                                            listaTem));
             }
-            console.log("recuperado de la base de datos");
+            console.log("recuperado de la base de datos xxxxxxxxxxxxxx");
             console.log(this.listaRequerimientosX);
           }
           
