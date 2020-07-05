@@ -7,7 +7,7 @@
             </div>
             <form class="form p-t-20" *ngIf="banderaMostrar">
                 <div class="form-group" *ngFor="let item of listaDatosRotulo">
-                    <label for="exampleInputpwd2">{{item.getTipoDato().getNombre()}}</label>
+                    <label for="exampleInputpwd2">{{item.getTipoDato().getNombre() | titlecase}}</label>
                     <div class="input-group">
                         <input type="{{item.getTipoDato().getTipoDeDato()}}" class="form-control" id="{{item.getTipoDato().getNombre()}}" placeholder="Ingrese su {{item.getTipoDato().getNombre()}}" (click)="validarDato()">
                     </div>
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <div class="d-flex justify-content-end mt-5">
                     <button class="btn btn-outline-dark" type="button" (click)="alertRegistrar()">Registrarme </button>
-                    <button class="btn btn-outline-dark" type="button" (click)="descargarPDF()">Generar Rotulo</button>
+                    <button [disabled]="!habilitarBotonRotulo" class="btn btn-outline-dark" type="button" (click)="pdfPorItem()">Generar Rotulo</button>
                 </div>
             </div>
             <br>
