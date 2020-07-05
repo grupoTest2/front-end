@@ -41,12 +41,12 @@ export class ConvocatoriasComponent implements OnInit {
     localStorage.setItem('gestionConvocatoria', "");
     localStorage.setItem('idTipo',"");
     localStorage.setItem("idConv","");
-    console.log("mi lista");
+    /*console.log("mi lista");
     console.log(this.listaConvocatoria);
     console.log("mis estados");
     console.log(this.listaEstados);
     console.log("mis tipos de convocatoria");
-    console.log(this.listaTiposConv);
+    console.log(this.listaTiposConv);*/
   }
 
   ngOnInit(): void {

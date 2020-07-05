@@ -1,12 +1,12 @@
 import { Item } from './item';
 import { Tematica } from './tematica2';
+import { TipoEvaluacion } from './tipo-de-evaluacion';
 
 export class Requerimiento {
     private hrsAcademicas: number;
     private cantidadItem: number;
     private item: Item;
     private listaTematicas: Tematica[];
-    private notaDisponible: number;
     private accion: string;
     private idConv: number;
     public constructor(hrsAcademicas: number, cantidadItem: number, item: Item, listaTematicas: Tematica[] = []) {
@@ -16,7 +16,6 @@ export class Requerimiento {
         this.item = item;
         this.listaTematicas = listaTematicas;
         this.accion = "nada";
-        this.notaDisponible = 100;
     }
 
     public getIdItem(): number {
@@ -40,7 +39,11 @@ export class Requerimiento {
     }
 
     public getNotaDisponible(): number {
-        return this.notaDisponible;
+        let suma=0;
+        for(let i in this.listaTematicas){
+            suma+=this.listaTematicas[i].getPorcentaje();
+        }
+        return 100-suma;
     }
 
     public getAccion(): string {
@@ -55,7 +58,15 @@ export class Requerimiento {
     public setListaTematicas(listaTematicas: Tematica[]): void {
         this.listaTematicas = listaTematicas;
     }
-
+    public getListaEvaluacion(tematica:Tematica): TipoEvaluacion[]{
+        let res:TipoEvaluacion[]=[];
+        for(let i in this.listaTematicas){
+            if(this.listaTematicas[i].getIdTematica()==tematica.getIdTematica()){
+                res=this.listaTematicas[i].getTiposEvaluacion();
+            }
+        }
+        return res;
+    }
     public setAccion(accion): void {
         this.accion = accion;
     }
@@ -65,9 +76,8 @@ export class Requerimiento {
     }
     public agregarTematica(tem: Tematica): boolean {
         let res = false;
-        if (this.notaDisponible >= tem.getPorcentaje()) {
+        if (this.getNotaDisponible() >= tem.getPorcentaje()) {
             this.listaTematicas.push(tem);
-            this.notaDisponible -= tem.getPorcentaje();
             res = true;
         }
         return res;

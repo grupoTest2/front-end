@@ -15,6 +15,7 @@ import { CalificacionConocimiento } from 'src/app/models/convocatoria/calificaci
 import { Requerimiento } from 'src/app/models/clases/convocatoria/requerimiento2';
 import { TipoEvaluacion } from 'src/app/models/clases/convocatoria/tipo-de-evaluacion';
 import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
+import { Item } from 'src/app/models/clases/convocatoria/item';
 
 // jquery y toast
 declare var tata: any;
@@ -43,9 +44,9 @@ export class CalificacionConocimientosComponent implements OnInit {
   constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp,
     private crearConv: PhpServeConvocatoria) {
     this.buildForm();
-    this.getRequerimientosBD();
     this.getTematicasBD();
     this.getTiposEvaluacionBD();
+    this.getRequerimientosBD();
   }
 
   ngOnInit(): void {
@@ -98,7 +99,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.detalleTipoEvaluacion += `La tematica ${tematica.getNombre()} tiene los tipos de evaluacion: `+mensaje;
     $("#mensaje").append('<br><b>'+this.detalleTipoEvaluacion+'</b><br>');
     for (let index = 0; index < tematica.getTiposEvaluacion().length; index++) {
-         mensaje=`${tematica.getTiposEvaluacion()[index].getNombre()} = ${tematica.getTiposEvaluacion()[index].getPorcentaje()} <br>`;   
+         mensaje=`${tematica.getTiposEvaluacion()[index].getNombre()} = ${tematica.getTiposEvaluacion()[index].getPorcentaje()} <br>`;
          $("#mensaje").append('<br>'+mensaje);            
     }
    // $('#mensaje').text(' me la pelas \n si si tu <br/> si cujudu tu');
@@ -119,10 +120,13 @@ export class CalificacionConocimientosComponent implements OnInit {
         if (this.listaItems[index].getNotaDisponible() > 0) {
           let value = (<HTMLInputElement>document.getElementById(id)).value;
           if (value != "") {
-            this.listaItems[index].agregarTematica(new Tematica(
+            let tem=new Tematica(
               this.tematicaActual.getIdTematica(),
               this.tematicaActual.getNombre(),
-              parseInt(value), this.tematicaActual.getTiposEvaluacion()));
+              parseInt(value), 
+              this.tematicaActual.getTiposEvaluacion());
+              tem.setAccion("insertar");
+            this.listaItems[index].agregarTematica(tem);
             console.log(id + "   los ids de los items con notas")
           }
         }
@@ -130,6 +134,8 @@ export class CalificacionConocimientosComponent implements OnInit {
       this.tematicaActual.setSeleccionado(true);
       console.log(this.tematicaActual);
       this.quitarSeleccionTiposEvaluacion();
+      console.log("prueba prooooooooooooooo xdxd");
+      console.log(this.listaItems);
       this.listaTiposEvaluacionSeleccionados = [];
       $('#modalConocimientoAux').modal('hide');
     }
@@ -138,7 +144,15 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-
+  seleccionarTematica(idTem:number,tiposEvaluacion:TipoEvaluacion[]){
+    for(let i in this.listaTematica){
+      if(this.listaTematica[i].getIdTematica()==idTem){
+        this.listaTematica[i].setSeleccionado(true);
+        this.listaTematica[i].setTiposEvaluacion(tiposEvaluacion);
+        break;
+      }
+    }
+  }
   hayTematicas() {
     let bandera = false;
     for (let index = 0; index < this.listaTematica.length; index++) {
@@ -338,40 +352,45 @@ export class CalificacionConocimientosComponent implements OnInit {
    * metodos que interactuan con la base de datos
    */
   getRequerimientosBD() {
-    /* let bandera = true;
-     if (localStorage.getItem("idConv") === "") {
-       console.log("esta vacio en las calif");
-     } else {
-       let idConv: number = parseInt(localStorage.getItem("idConv"));
-       this.editarConv.getRequerimientos(idConv).subscribe(
-         resultado => {
-           let req: Requerimiento;
-           let listaAux: Requerimiento[] = [];
-           let tem: Tematica;
-           let listaTem: Tematica[];
-           for (let i in resultado) {
-             let listaAux2 = resultado[i].listaTematicas;
-             listaTem = [];
-             for (let j in listaAux2) {
-               tem = new Tematica(listaAux2[j].nombre, parseInt(listaAux2[j].nota), listaAux2[j].idTematica);
-               listaTem.push(tem);
-               if (bandera) {
-                 this.listaTematicas.push(tem.getNombre());
-               }
-             }
-             bandera = false;
-             req = new Requerimiento(resultado[i].cantidadItem,
-               resultado[i].hrsAcademicas,
-               resultado[i].nombreItem,
-               listaTem,
-               resultado[i].codigoItem);
-             req.setIdMat(resultado[i].idItem);
-             listaAux.push(req);
-           }
-           this.setListaRequerimiento(listaAux);
-         }
-       )
-     }*/
+      if(localStorage.getItem("idConv")===""){
+        console.log("esta vacio en los requerimientos");
+      }else{
+        let idConv: number = parseInt(localStorage.getItem("idConv"));
+        this.editarConv.getRequerimientos(idConv).subscribe(
+          resultado => {
+            let item:Item;
+              for(let i in resultado){
+                item=new Item(resultado[i].item['idItem'],resultado[i].item['codigoItem'],resultado[i].item['nombreItem'],true);
+                //this.seleccionarItem(resultado[i].item['idItem']);
+                let listaTem:Tematica[]=[];
+                let tem:Tematica;
+                let listaTemAux=resultado[i].listaTematicas;
+                for(let j in listaTemAux){
+                  let tiposEvAux=listaTemAux[j].tiposEvaluacion;
+                  let tiposEvaluacion:TipoEvaluacion[]=[];
+                  for(let k in tiposEvAux){
+                    tiposEvaluacion.push(new TipoEvaluacion(tiposEvAux[k].idTipoEvaluacion,tiposEvAux[k].nombre,parseInt(tiposEvAux[k].porcentaje)));
+                  }
+                  this.seleccionarTematica(listaTemAux[j].idTematica,tiposEvaluacion);
+                  tem=new Tematica(listaTemAux[j].idTematica,listaTemAux[j].nombre,parseInt(listaTemAux[j].porcentaje),tiposEvaluacion);
+                  tem.setSeleccionado(true);
+                  listaTem.push(tem);
+                }
+                this.listaItems.push(new Requerimiento(
+                                              resultado[i].hrsAcademicas,
+                                              resultado[i].cantidadItem,
+                                              item,
+                                              listaTem));
+              }
+              console.log("recuperado de la base de datos yyyyyyyyyyy");
+              console.log(this.listaItems);
+            }
+            
+          
+        );
+      }
+      
+    
   }
 
   getTematicasBD() {
