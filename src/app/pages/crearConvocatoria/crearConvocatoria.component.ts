@@ -27,7 +27,8 @@ export class CrearConvocatoriaComponent implements OnInit {
 
   formCrearConv: FormGroup;
   listaTiposConvocatoria: TipoConvocatoria[] = [];
-
+  rotuloPorConvocatoria = true;
+  texto;
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria,
     private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
       localStorage.setItem('tituloConvocatoria', "");
@@ -39,6 +40,21 @@ export class CrearConvocatoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.rotuloPorConvocatoria){
+      this.texto = 'Rótulo por convocatorias';
+      }else{
+        this.texto = 'Rótulo por item';
+      }
+  }
+
+
+  cambiar(){
+    console.log(this.rotuloPorConvocatoria);
+    if(this.rotuloPorConvocatoria){
+    this.texto = 'Rótulo por convocatorias';
+    }else{
+      this.texto = 'Rótulo por item';
+    }
   }
 
   establecerDatos(): void {

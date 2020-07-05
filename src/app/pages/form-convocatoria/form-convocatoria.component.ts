@@ -207,6 +207,8 @@ export class FormConvocatoriaComponent implements OnInit {
           ).then((result) => {
             if (result.value) {
               this.router.navigate(['/habilitarConvocatoria/formulario']);
+            }else{
+              this.router.navigate(['/editar/convocatorias']);
             }
           });
         }else{
@@ -257,6 +259,8 @@ export class FormConvocatoriaComponent implements OnInit {
             ).then((result) => {
               if (result.value) {
                 this.router.navigate(['/editarConvocatoria/formulario']);
+              }else{
+                this.router.navigate(['/editar/convocatorias']);
               }
             });
           }
@@ -266,6 +270,7 @@ export class FormConvocatoriaComponent implements OnInit {
           'La convocatoria no fue habilitada.',
           'error'
         );
+        this.router.navigate(['/home']);
       }
     });
   }

@@ -39,11 +39,10 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailVacio = "campo de correo vacio"
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
-  pdf:PdfMakeWrapper;
+  
   habilitarBotonRotulo: boolean = false;
   constructor(private servicePostulante: PostulanteServicePhp) {
     // this.datosPrueba();
-    this.pdf = new PdfMakeWrapper();
   }
 
   ngOnInit(): void {
@@ -525,47 +524,48 @@ export class FormPostulanteComponent implements OnInit {
   }*/
 
   descargarPDF(){
+    var pdf = new PdfMakeWrapper();
     
-    this.pdf.pageMargins([ 50, 60 ]);
-    this.pdf.info({
+    pdf.pageMargins([ 50, 60 ]);
+    pdf.info({
       title: 'Rotulo postulante',
       author: 'huayraDevs'
     });
     //marca de agua
-    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
+    pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
 
     //la cabecera
-    this.pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     //el pie de pagina
-    this.pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
-    this.pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
+    pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+    pdf.add(
+      pdf.ln(1)
     );
-    this.pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
-      this.pdf.add(
+      pdf.add(
         new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
         {text: ':', fontSize: 15, bold: true, width: 15},
         {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
     }
     //salto de lineas
-    this.pdf.add(
-      this.pdf.ln(3)
+    pdf.add(
+      pdf.ln(3)
     );
-    this.pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     //datos de los items
     for (let index = 0; index < this.postulante.getListaItems().length; index++) {
-      this.pdf.add(
+      pdf.add(
         new Table([
           [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
             {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
@@ -573,76 +573,77 @@ export class FormPostulanteComponent implements OnInit {
       );
     }
 
-    this.pdf.defaultStyle({
+    pdf.defaultStyle({
       bold: true,
       fontSize: 20
     });
-    this.pdf.add(
+    pdf.add(
       new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
   );
-    this.pdf.create().open();
+    pdf.create().open();
   }
 
   pdfPorItem(){
+    var pdf = new PdfMakeWrapper();
     var aux = 1;
     for (let index = 0; index < this.postulante.getListaItems().length; index++) {
-    this.pdf.pageMargins([ 50, 60 ]);
-    this.pdf.info({
+    pdf.pageMargins([ 50, 60 ]);
+    pdf.info({
       title: 'Rotulo postulante',
       author: 'huayraDevs'
     });
     //marca de agua
-    this.pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
+    pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
 
     //la cabecera
-    this.pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     //el pie de pagina
-    this.pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
-    this.pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
+    pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+    pdf.add(
+      pdf.ln(1)
     );
-    this.pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
-      this.pdf.add(
+      pdf.add(
         new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
         {text: ':', fontSize: 15, bold: true, width: 15},
         {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
     }
     //salto de lineas
-    this.pdf.add(
-      this.pdf.ln(3)
+    pdf.add(
+      pdf.ln(3)
     );
-    this.pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
-    this.pdf.add(
-      this.pdf.ln(1)
+    pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
+    pdf.add(
+      pdf.ln(1)
     );
     //datos de los items
-      this.pdf.add(
+      pdf.add(
         new Table([
           [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
             {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
       ]).alignment('center').layout('noBorders').end
       );
       
-      this.pdf.defaultStyle({
+      pdf.defaultStyle({
         bold: true,
         fontSize: 20
       });
       if(aux < this.postulante.getListaItems().length){
-        this.pdf.add(
+        pdf.add(
           new Txt('').pageBreak('after').end
           );
           aux++;
       }
       }
-    this.pdf.create().open();
+    pdf.create().open();
   }
 
   capitalize(word) {
