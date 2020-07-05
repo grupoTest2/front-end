@@ -276,8 +276,8 @@ export class RequerimientosComponent implements OnInit {
   /**
    * verificar si es apto para que la convocatoria sea lanzada
    */
-  estaHabilitado() {
-    return this.listaRequerimientosX.length > 0;
+  estaHabilitado():string{
+    return this.listaRequerimientosX.length > 0?"bien":"establecer al menos un requerimiento!!";
   }
 
   seleccionarItem(idItem){

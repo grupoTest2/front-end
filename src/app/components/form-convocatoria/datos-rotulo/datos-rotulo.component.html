@@ -1,11 +1,7 @@
 <div class="form-group">
   <div class="d-flex justify-content-between align-items-end">
     <label for="documentos">9.- Documentos a presentar (Rotulo) </label> 
-      <label>
-        <input type="checkbox" name="checkboxNames" class="checkbox" (click)="seleccionRotulo2(true)" id="aux" />
-        <div class="switch" id="checkRotuloForm"></div>
-      </label>
-      <span class="mb-4 h5" >&nbsp;&nbsp; rotulo por convocatoria</span>
+      
     <button [disabled]="ocultarBtnGuardar() || ruta()" type="button" class="btn btn-outline-info" data-toggle="modal"
       data-target="#tablaDatosRotulo">
 

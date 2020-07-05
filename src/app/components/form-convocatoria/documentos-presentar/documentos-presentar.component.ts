@@ -128,7 +128,7 @@ export class DocumentosPresentarComponent implements OnInit {
      *indica si la convocatoria es apta para ser lanzada 
     */
     estaHabilitado(){
-      return this.listaDocumentos.length>0;
+      return this.listaDocumentos.length>0?"bien":"establecer al menos un documento a presentar!!";
     }
     /**
      * metodos que interactuan con la base de datos

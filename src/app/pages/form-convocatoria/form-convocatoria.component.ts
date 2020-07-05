@@ -119,39 +119,43 @@ export class FormConvocatoriaComponent implements OnInit {
 
   habilitar(): boolean {
     let habilitar = true;
-    let mensaje = 'Error';
-    if (this.requerimiento.estaHabilitado() && this.requisitos.estaHabilitado() && this.documentosPresentar.estaHabilitado()
-        && this.merito.estaHabilitado() && this.calificacionConocimiento.estaHabilitado() && this.eventos.estaHabilitado()
-        && this.datosRotulo.estaHabilitado()
-        ) {
+    let mensaje = '';
+    let req:string = this.requerimiento.estaHabilitado();
+    let requi:string = this.requisitos.estaHabilitado();
+    let doc: string =this.documentosPresentar.estaHabilitado();
+    let me: string =this.merito.estaHabilitado();
+    let calif: string =this.calificacionConocimiento.estaHabilitado();
+    let eventos: string=this.eventos.estaHabilitado();
+    let datos: string=this.datosRotulo.estaHabilitado();
+    if(req=="bien"&&requi=="bien"&&doc=="bien"&&me=="bien"&&calif=="bien"&&eventos=="bien"&&datos=="bien"){
       this.lanzarConvocatoria();
       habilitar = true;
       console.log("habilita bien")
-    }
-    else {
-      if (!this.requerimiento.estaHabilitado()) {
-        mensaje += 'Campo Requerimiento, ';
+    }else{
+      if (req!="bien") {
+        mensaje += '<hr>'+req;
       }
-      if (!this.requisitos.estaHabilitado()) {
-        mensaje += '</br>Campo requisitos, ';
+      if (requi!="bien") {
+        mensaje += '<hr>'+requi;
       }
-      if (!this.documentosPresentar.estaHabilitado()) {
-        mensaje += '</br>Campo documentos a presentar, ';
+      if (doc!="bien") {
+        mensaje += '<hr>'+doc;
       }
-      if (!this.merito.estaHabilitado()) {
-        mensaje += '</br>Campo meritos, ';
+      if (me!="bien") {
+        mensaje += '<hr>'+me;
       }
-      if (!this.calificacionConocimiento.estaHabilitado()) {
-        mensaje += '</br>Campo calificacion conocimiento, ';
+      if (calif!="bien") {
+        mensaje += '<hr>'+calif;
       }
-      if (!this.eventos.estaHabilitado()) {
-        mensaje += '</br>Campo eventos, ';
+      if (eventos!="bien") {
+        mensaje += '<hr>'+eventos;
       }
-      if (!this.datosRotulo.estaHabilitado()) {
-        mensaje += "</br>Campo datos rotulo, "
+      if (datos!="bien") {
+        mensaje += '<hr>'+datos;
       }
       habilitar = false
-      this.mensajeToastErrorBD(mensaje + '<hr>A llenar faltantes!');
+      //this.mensajeToastErrorBD(mensaje + '<hr>A llenar faltantes!');
+      this.mensajeToastErrorBD(mensaje);
       console.log("Falla algo")
     }
     return habilitar;
@@ -174,7 +178,7 @@ export class FormConvocatoriaComponent implements OnInit {
 
   mensajeToastErrorBD(mensaje) {
     tata.error('Error', mensaje, {
-      duration: 3000
+      duration: 10000
     });
 
   }

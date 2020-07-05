@@ -155,10 +155,8 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
   hayTematicas():boolean{
     let bandera = false;
-    for (let index = 0; index < this.listaTematica.length; index++) {
-      if (!this.listaTematica[index].getSeleccionado()) {
-        bandera = true;
-      }
+    for (let index = 0; index < this.listaTematica.length&&!bandera; index++) {
+      bandera=this.listaTematica[index].getSeleccionado();
     }
     return bandera;
   }
@@ -333,20 +331,19 @@ export class CalificacionConocimientosComponent implements OnInit {
     return this.nota.touched && this.nota.invalid;
   }
 
-  estaHabilitado() {
-    let res: boolean = true;
+  estaHabilitado(): string {
+    let res:string ="bien";
     if (this.hayTematicas()) {
       for (let i in this.listaItems) {
-        console.log(this.listaItems[i].getNotaDisponible())
-        res = this.listaItems[i].getNotaDisponible() == 0;
-        if (!res) {
+        if(this.listaItems[i].getNotaDisponible()> 0){
+          res="en tabla de calificaciones, la sumatoria para cada item debe ser 100 !!";
           break;
         }
       }
-    } else {
-      res = false;
+    }else {
+      res="tabla de calificaciones no puede estar vacia!!";
     }
-    return true;
+    return res;
   }
 
   /**
