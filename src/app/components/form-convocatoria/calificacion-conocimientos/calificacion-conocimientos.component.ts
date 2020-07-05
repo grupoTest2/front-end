@@ -153,14 +153,14 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     }
   }
-  hayTematicas() {
+  hayTematicas():boolean{
     let bandera = false;
     for (let index = 0; index < this.listaTematica.length; index++) {
       if (!this.listaTematica[index].getSeleccionado()) {
         bandera = true;
       }
-
     }
+    return bandera;
   }
 
   getIdTematica(nombre: string): number {
@@ -247,6 +247,7 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   validaNotasTiposEvaluacion(): boolean {
     let sumatoria = 0;
+    this.listaTiposEvaluacionSeleccionados=[];
     for (let index = 0; index < this.listaTiposEvaluacion.length; index++) {
       if (this.listaTiposEvaluacion[index].getSeleccionado()) {
         let id: any = this.getId(this.listaTiposEvaluacion[index].getNombre());
@@ -333,8 +334,8 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   estaHabilitado() {
-    /*let res: boolean = true;
-    if (this.listaTematicas.length > 0) {
+    let res: boolean = true;
+    if (this.hayTematicas()) {
       for (let i in this.listaItems) {
         console.log(this.listaItems[i].getNotaDisponible())
         res = this.listaItems[i].getNotaDisponible() == 0;
@@ -344,7 +345,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     } else {
       res = false;
-    }*/
+    }
     return true;
   }
 

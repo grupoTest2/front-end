@@ -231,8 +231,8 @@ getUsuariosBD() {
       }
     }
   )
-  console.log("los usuariossss");
-  console.log(this.listaUsuarios);
+ // console.log("los usuariossss");
+  //console.log(this.listaUsuarios);
  }
 
  getComisionesBD(){
@@ -248,8 +248,8 @@ getUsuariosBD() {
            usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario,misUsuarios[k].accion,misUsuarios[k].idTipoUsuario));
          }
          this.comision.setListaUsuarios(usuariosAux);
-         console.log("los usuarios de la comision");
-         console.log(this.comision);
+         //console.log("los usuarios de la comision");
+         //console.log(this.comision);
          this.getUsuariosBD();
        }
        
