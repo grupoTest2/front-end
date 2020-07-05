@@ -258,8 +258,14 @@ export class MeritosComponent implements OnInit {
     /**
    *indica si la convocatoria es apta para ser lanzada 
    */
-  estaHabilitado(){
-    return this.seleccionMerito.getPorcentajeDisponible() === 0;
+  estaHabilitado(): string{
+    let res="bien";
+    if(this.seleccionMerito.getTablaMeritos().length==0){
+      res="tabla de meritos no puede estar vacia!!";
+    }else if(this.seleccionMerito.getPorcentajeDisponible() > 0){
+      res="la sumatoria en los meritos de nivel superior debe ser 100%!!";
+    }
+    return res;
   }
   /**
    * metodos que interaccuan con la base de datos
