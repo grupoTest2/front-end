@@ -10,7 +10,7 @@ import { TipoDatoRotulo } from 'src/app/models/clases/convocatoria/tipo-dato-rot
 import { combineAll } from 'rxjs/operators';
 
 // para el pdf
-import { PdfMakeWrapper,Txt, Columns, Stack, Table, TextReference, PageReference, Img } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, Columns, Stack, Table, TextReference, PageReference, Img } from 'pdfmake-wrapper';
 
 
 declare var $: any;
@@ -39,10 +39,11 @@ export class FormPostulanteComponent implements OnInit {
   msjErrorEmailVacio = "campo de correo vacio"
   msjErrorEmailCorto = "campo de correo muy corto"
   msjErrorEmailIncorrecto = "correo incorrecto";
-  
+
   habilitarBotonRotulo: boolean = false;
+
+  banderaDatosCargados = true;
   constructor(private servicePostulante: PostulanteServicePhp) {
-    // this.datosPrueba();
   }
 
   ngOnInit(): void {
@@ -51,241 +52,264 @@ export class FormPostulanteComponent implements OnInit {
     });
     this.getItemsBD();
     this.getDatosRotuloConvBD();
+    //this.addListeners();
   }
 
-  datosPrueba() {
-    let tipoDato1: TipoDatoRotulo = new TipoDatoRotulo("nombre", "text", 3);
-    let tipoDato2: TipoDatoRotulo = new TipoDatoRotulo("codigo_sis", "number", 5);
-    let tipoDato3: TipoDatoRotulo = new TipoDatoRotulo("correo_Electronico", "email", 5);
-    let datoRotulo1: DatoRotulo = new DatoRotulo(1, tipoDato1);
-    let datoRotulo2: DatoRotulo = new DatoRotulo(1, tipoDato2);
-    let datoRotulo3: DatoRotulo = new DatoRotulo(1, tipoDato3);
-    this.listaDatosRotulo.push(datoRotulo1);
-    this.listaDatosRotulo.push(datoRotulo2);
-    this.listaDatosRotulo.push(datoRotulo3);
-  }
-
-  validarDato() {
-    if (this.bandera) {
+  //////refactorizando
+  addListeners() {
+    if (this.banderaDatosCargados) {
       for (let index = 0; index < this.listaDatosRotulo.length; index++) {
         let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
         let inputTipe = this.listaDatosRotulo[index].getTipoDato().getTipoDeDato();
-        let aux = document.getElementById(id);
         let tipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
-        var form = document.getElementById(id);
-        var value = $("#" + id).val();
-
-        aux.addEventListener("blur", function (event) {
-          let value = $("#" + id).val();
-          //let tamanio=value.length;
-          var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-          //inputs tipo number
-          if (inputTipe == "number") {
-            //value = $("#" + id).val();
-            let value = (<HTMLInputElement>document.getElementById(id)).value;
-            //console.log($("#" + id).val());
-            if (value == "") {
-              $("#" + id).removeClass("is-valid");
-              $("#" + id).addClass("is-invalid");
-              $("#" + id + "11").css('display', 'block');
-              $("#" + id + "12").css('display', 'none');
-            } else {
-              if (((<HTMLInputElement>document.getElementById(id)).value).length < tipoDatoRotulo.getTamanioMinimo()) {
-                $("#" + id).removeClass("is-valid");
-                $("#" + id).addClass("is-invalid");
-                $("#" + id + "11").css('display', 'none');
-                $("#" + id + "12").css('display', 'block');
-              }
-              else {
-                if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
-                  $("#" + id).addClass("is-valid");
-                  $("#" + id + "11").css('display', 'none');
-                  $("#" + id + "12").css('display', 'none');
-                }
-              }
-            }
-          } else
-
-          //input tipo texto
-          {
-            if (inputTipe == "text") {
-              value = $("#" + id).val();
-              if (value.length == 0) {
-                console.log("ingreso a tamano d value 0");
-                $("#" + id).removeClass("is-valid");
-                $("#" + id).addClass("is-invalid");
-                $("#" + id + "21").css('display', 'block');
-                $("#" + id + "22").css('display', 'none');
-              } else {
-                if (value.length <= 2) {
-                  $("#" + id).removeClass("is-valid");
-                  $("#" + id).addClass("is-invalid");
-                  $("#" + id + "21").css('display', 'none');
-                  $("#" + id + "22").css('display', 'block');
-                }
-                else {
-                  if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
-                    $("#" + id).addClass("is-valid");
-                    $("#" + id + "21").css('display', 'none');
-                    $("#" + id + "22").css('display', 'none');
-                  }
-                }
-              }
-              /* if (value.includes('.')) {
-                 $("#" + id).addClass("is-invalid");
-                 $("#" + id + "21").css('display', 'none');
-                 $("#" + id + "22").css('display', 'none');
-                 $("#" + id + "23").css('display', 'block');
-               }*/
-            }
-
-            //input tipo gmail
-            else {
-              if (inputTipe == "email") {
-                value = $("#" + id).val();
-                if (value.length == 0) {
-                  $("#" + id).removeClass("is-valid");
-                  $("#" + id).addClass("is-invalid");
-                  $("#" + id + "31").css('display', 'block');
-                  $("#" + id + "32").css('display', 'none');
-                  $("#" + id + "33").css('display', 'none');
-                }
-                if (value.length < tipoDatoRotulo.getTamanioMinimo() && value.length > 0) {
-                  $("#" + id).removeClass("is-valid");
-                  $("#" + id).addClass("is-invalid");
-                  $("#" + id + "31").css('display', 'none');
-                  $("#" + id + "32").css('display', 'block');
-                  $("#" + id + "33").css('display', 'none');
-                }
-                if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
-                  if (!pattern.test(value)) {
-                    $("#" + id).addClass("is-invalid");
-                    $("#" + id + "31").css('display', 'none');
-                    $("#" + id + "32").css('display', 'none');
-                    $("#" + id + "33").css('display', 'block');
-                  }
-                  if (pattern.test(value)) {
-                    $("#" + id).removeClass("is-invalid");
-                    $("#" + id).addClass("is-valid");
-                    $("#" + id + "31").css('display', 'none');
-                    $("#" + id + "32").css('display', 'none');
-                    $("#" + id + "33").css('display', 'none');
-                  }
-                }
-              }
-            }
-          }
-        }, true);
-
-        let contador = 0;
-        let contadorNumerico = 0;
-        $("#" + id).keydown(function (e) {
-          if (e.which == 8) {
-            if (contador > 0) {
-              contador -= 1;
-            }
-            if (contadorNumerico > 0) {
-              contadorNumerico -= 1;
-            }
-            if (contador == 0) {
-              $("#" + id).removeClass("is-valid");
-              $("#" + id).addClass("is-invalid");
-              if (tipoDatoRotulo.getTipoDeDato() == 'number') {
-                $("#" + id + "11").css('display', 'block');
-                $("#" + id + "12").css('display', 'none');
-              }
-              else {
-                if (tipoDatoRotulo.getTipoDeDato() == 'text') {
-                  $("#" + id + "21").css('display', 'block');
-                  $("#" + id + "22").css('display', 'none');
-                }
-                else {
-                  if (tipoDatoRotulo.getTipoDeDato() == 'email') {
-                    $("#" + id + "31").css('display', 'block');
-                    $("#" + id + "32").css('display', 'none');
-                    $("#" + id + "33").css('display', 'none');
-                  }
-                }
-              }
-            }
-            else {
-              if (tipoDatoRotulo.getTipoDeDato() == "number") {
-                if (contadorNumerico < tipoDatoRotulo.getTamanioMinimo()) {
-                  $("#" + id).removeClass("is-valid");
-                  $("#" + id).addClass("is-invalid");
-                  $("#" + id + "11").css('display', 'none');
-                  $("#" + id + "12").css('display', 'block');
-                }
-              }
-              else {
-                if (contador < tipoDatoRotulo.getTamanioMinimo()) {
-                  console.log("ingreso");
-                  $("#" + id).removeClass("is-valid");
-                  $("#" + id).addClass("is-invalid");
-                  if (tipoDatoRotulo.getTipoDeDato() == 'text') {
-                    $("#" + id + "21").css('display', 'none');
-                    $("#" + id + "22").css('display', 'block');
-                  } else {
-                    if (tipoDatoRotulo.getTipoDeDato() == 'email') {
-                      $("#" + id + "31").css('display', 'none');
-                      $("#" + id + "32").css('display', 'block');
-                    }
-                  }
-                }
-              }
-            }
+        if (inputTipe == 'number') {
+          console.log("presiono un number" + id);
+          this.cargarListenersTipoNumber(id, this.listaDatosRotulo[index].getTipoDato());
+        } else {
+          if (inputTipe == 'text') {
+            this.cargarListenersTipoText(id, this.listaDatosRotulo[index].getTipoDato());
+            console.log("presiono un text" + id)
           } else {
-            if (e.which == 32 && contador == 0) {
-              return false;
-            } else {
-              contador += 1
-              if (e.which != 32) {
-                contadorNumerico += 1;
-              }
-              if (inputTipe == "text") {
-                if (contador >= tipoDatoRotulo.getTamanioMinimo()) {
-                  $("#" + id).removeClass("is-invalid");
-                  $("#" + id).addClass("is-valid");
-                  if (tipoDatoRotulo.getTipoDeDato() == 'text') {
-                    $("#" + id + "21").css('display', 'none');
-                    $("#" + id + "22").css('display', 'none');
-                    $("#" + id + "23").css('display', 'none');
-                  }
-                }
-              }
-              else {
-                if (inputTipe == "number") {
-                  if (($("#" + id).val().length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
-                    $("#" + id).removeClass("is-invalid");
-                    $("#" + id).addClass("is-valid");
-                    if (tipoDatoRotulo.getTipoDeDato() == 'number') {
-                      $("#" + id + "11").css('display', 'none');
-                      $("#" + id + "12").css('display', 'none');
-                      $("#" + id + "13").css('display', 'none');
-                    }
-                  }
-                }
-                else {
-                  if (inputTipe == "email") {
-                    if (($("#" + id).val().length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
-                      $("#" + id).removeClass("is-invalid");
-                      $("#" + id).addClass("is-valid");
-                      if (tipoDatoRotulo.getTipoDeDato() == 'email') {
-                        $("#" + id + "31").css('display', 'none');
-                        $("#" + id + "32").css('display', 'none');
-                        $("#" + id + "33").css('display', 'none');
-                      }
-                    }
-                  }
-                }
-              }
+            if (inputTipe == 'email') {
+              console.log("presiono un number" + id)
             }
           }
-        })
+        }
       }
-      this.bandera = false
     }
+    this.banderaDatosCargados = false;
   }
+  //  validacion de datos de tipo number
+  cargarListenersTipoNumber(id: string, tipoDatoRotul: TipoDatoRotulo) {
+    let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
+    let form = document.getElementById(id);
+    form.addEventListener("blur", function (event) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      if (value == "") {
+        $("#" + id).removeClass("is-valid");
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "11").css('display', 'block');
+        $("#" + id + "12").css('display', 'none');
+      } else {
+        if (value.length < tipoDatoRotulo.getTamanioMinimo()) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "11").css('display', 'none');
+          $("#" + id + "12").css('display', 'block');
+        }
+        else {
+          if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).addClass("is-valid");
+            $("#" + id + "11").css('display', 'none');
+            $("#" + id + "12").css('display', 'none');
+          }
+        }
+      }
+    }, true);
+
+    //validando el tecleo del datos
+    let contador = 0;
+    $("#" + id).keydown(function (e) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      console.log("oresiono un btn")
+      if (e.which == 8) {
+        if (contador > 0) {
+          contador -= 1;
+        }
+        if (contador == 0) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "11").css('display', 'block');
+          $("#" + id + "12").css('display', 'none');
+        } else {
+          if (contador < tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-valid");
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "11").css('display', 'none');
+            $("#" + id + "12").css('display', 'block');
+          }
+          console.log("el contador esta en:" + contador + " tl tamano minimo es:" + tipoDatoRotulo.getTamanioMinimo() + " y el tamano del value es: " + (value.length));
+        }
+      }
+      else {
+        if (e.which == 32 && contador == 0) {//si presiona espacio
+          console.log("presiono el espacio");
+          return false;
+        }
+        else {
+          if (e.which != 32) {
+            contador += 1;
+          }
+          if ((value.length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).addClass("is-valid");
+            $("#" + id + "11").css('display', 'none');
+            $("#" + id + "12").css('display', 'none');
+            $("#" + id + "13").css('display', 'none');
+          }
+        }
+      }
+    });
+  }
+
+  cargarListenersTipoText(id: string, tipoDatoRotul: TipoDatoRotulo) {
+    let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
+    let form = document.getElementById(id);
+    form.addEventListener("blur", function (event) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      if (value.length == 0) {
+        console.log("ingreso a tamano d value 0");
+        $("#" + id).removeClass("is-valid");
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "21").css('display', 'block');
+        $("#" + id + "22").css('display', 'none');
+      } else {
+        if (value.length <= 2) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "21").css('display', 'none');
+          $("#" + id + "22").css('display', 'block');
+        }
+        else {
+          if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-valid");
+            $("#" + id).addClass("is-valid");
+            $("#" + id + "21").css('display', 'none');
+            $("#" + id + "22").css('display', 'none');
+          }
+        }
+      }
+    }, true);
+
+    //validando el tecleo del datos
+    let contador = 0;
+    $("#" + id).keydown(function (e) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      if (e.which == 8) {
+        if (contador > 0) {
+          contador -= 1;
+        }
+        console.log(contador + "el contador")
+        if (contador == 0) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "21").css('display', 'block');
+          $("#" + id + "22").css('display', 'none');
+          $("#" + id + "23").css('display', 'none');
+        } else {
+          if (contador < tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-valid");
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "21").css('display', 'none');
+            $("#" + id + "22").css('display', 'block');
+            $("#" + id + "23").css('display', 'none');
+          }
+        }
+      }
+      else {
+        if (e.which == 32 && contador == 0) {
+          return false;
+        }
+        else {
+          contador += 1;
+          if ((value.length + 1) >= tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).addClass("is-valid");
+            $("#" + id + "21").css('display', 'none');
+            $("#" + id + "22").css('display', 'none');
+            $("#" + id + "23").css('display', 'none');
+          }
+        }
+      }
+    });
+  }
+
+  cargarListenersTipoEmail(id: string, tipoDatoRotul: TipoDatoRotulo) {
+    let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
+    let form = document.getElementById(id);
+    form.addEventListener("blur", function (event) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+      if (value.length == 0) {
+        $("#" + id).removeClass("is-valid");
+        $("#" + id).addClass("is-invalid");
+        $("#" + id + "31").css('display', 'block');
+        $("#" + id + "32").css('display', 'none');
+        $("#" + id + "33").css('display', 'none');
+      } else {
+
+        if (value.length < tipoDatoRotulo.getTamanioMinimo() && value.length > 0) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "31").css('display', 'none');
+          $("#" + id + "32").css('display', 'block');
+          $("#" + id + "33").css('display', 'none');
+        }
+        else {
+          if (value.length >= tipoDatoRotulo.getTamanioMinimo()) {
+            if (!pattern.test(value)) {
+              $("#" + id).removeClass("is-invalid");
+              $("#" + id).addClass("is-invalid");
+              $("#" + id + "31").css('display', 'none');
+              $("#" + id + "32").css('display', 'none');
+              $("#" + id + "33").css('display', 'block');
+            }
+            if (pattern.test(value)) {
+              $("#" + id).removeClass("is-invalid");
+              $("#" + id).addClass("is-valid");
+              $("#" + id + "31").css('display', 'none');
+              $("#" + id + "32").css('display', 'none');
+              $("#" + id + "33").css('display', 'none');
+            }
+          }
+        }
+      }
+    }, true);
+
+    //-------------------------------------------
+    //validando el tecleo del datos
+    let contador = 0;
+    $("#" + id).keydown(function (e) {
+      let value = (<HTMLInputElement>document.getElementById(id)).value;
+      if (e.which == 8) {
+        if (contador > 0) {
+          contador -= 1;
+        }
+        if (contador == 0) {
+          $("#" + id).removeClass("is-valid");
+          $("#" + id).addClass("is-invalid");
+          $("#" + id + "31").css('display', 'block');
+          $("#" + id + "32").css('display', 'none');
+          $("#" + id + "33").css('display', 'none');
+        } else {
+          if (contador < tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-valid");
+            $("#" + id).addClass("is-invalid");
+            $("#" + id + "31").css('display', 'none');
+            $("#" + id + "32").css('display', 'block');
+            $("#" + id + "33").css('display', 'none');
+          }
+        }
+      }
+      else {
+        if (e.which == 32 && contador == 0) {
+          return false;
+        }
+        else {
+          contador += 1;
+          if (contador >= tipoDatoRotulo.getTamanioMinimo()) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).addClass("is-valid");
+            $("#" + id + "31").css('display', 'none');
+            $("#" + id + "32").css('display', 'none');
+            $("#" + id + "33").css('display', 'none');
+          }
+        }
+      }
+    });
+
+  }
+
 
   getId(dato: TipoDatoRotulo) {
     console.log(dato.getNombre());
@@ -349,9 +373,9 @@ export class FormPostulanteComponent implements OnInit {
         }
       }
     }
-
-
-    return banderaItems && banderaDatosRotulo;
+    if (banderaItems && banderaDatosRotulo) {
+      this.alertRegistrar();
+    }
   }
 
   //marcar los datos que estan  vacios
@@ -380,41 +404,40 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
+
   guardarDatos() {
     console.log("ingreso para guardar !!!!!!!!!!!!!!!!");
-
-    if (this.datosValidos()) {
-      console.log("todo valido !!!!!!!!!!!!!!!!");
-      let valor;
-      let datosPostulante: DatosPostulante[] = [];
-      let dato: TipoDatoRotulo;
-      let codigoSis: number = 0;
-      for (let index = 0; index < this.listaDatosRotulo.length; index++) {
-        dato = this.listaDatosRotulo[index].getTipoDato();
-        let id = dato.getNombre();
-        let valor = $("#" + id).val();
-        if (dato.getTipoDeDato() == 'number') {
-          valor = parseInt(valor);
-        }
-        if (dato.getNombre() == 'codigo_sis') {
-          codigoSis = valor;
-        }
-        else {
-          datosPostulante.push(new DatosPostulante(1, id, valor));
-        }
+    console.log("todo valido !!!!!!!!!!!!!!!!");
+    let valor;
+    let datosPostulante: DatosPostulante[] = [];
+    let dato: TipoDatoRotulo;
+    let codigoSis: number = 0;
+    for (let index = 0; index < this.listaDatosRotulo.length; index++) {
+      dato = this.listaDatosRotulo[index].getTipoDato();
+      let id = dato.getNombre();
+      let valor = $("#" + id).val();
+      if (dato.getTipoDeDato() == 'number') {
+        valor = parseInt(valor);
       }
-      let listItems: Item[] = [];
-      for (let index = 0; index < this.listaItems.length; index++) {
-        if (this.listaItems[index].getSeleccionado()) {
-          listItems.push(this.listaItems[index]);
-        }
-
+      if (dato.getNombre() == 'codigo_sis') {
+        codigoSis = valor;
       }
-      this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
-      console.log(this.postulante);
-      this.mensajeToastExito('Registro exítoso');
-      this.habilitarBotonRotulo = true;
+      else {
+        datosPostulante.push(new DatosPostulante(1, id, valor));
+      }
     }
+    let listItems: Item[] = [];
+    for (let index = 0; index < this.listaItems.length; index++) {
+      if (this.listaItems[index].getSeleccionado()) {
+        listItems.push(this.listaItems[index]);
+      }
+
+    }
+    this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
+    console.log(this.postulante);
+    this.mensajeToastExito('Registro exítoso');
+    this.habilitarBotonRotulo = true;
+
 
   }
 
@@ -491,7 +514,7 @@ export class FormPostulanteComponent implements OnInit {
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
           if (!this.banderaMostrar) {
-            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "email", 5)));
+            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
           }
           this.listaDatosRotulo.push(datoRotulo);
 
@@ -523,16 +546,16 @@ export class FormPostulanteComponent implements OnInit {
     }
   }*/
 
-  descargarPDF(){
+  descargarPDF() {
     var pdf = new PdfMakeWrapper();
-    
-    pdf.pageMargins([ 50, 60 ]);
+
+    pdf.pageMargins([50, 60]);
     pdf.info({
       title: 'Rotulo postulante',
       author: 'huayraDevs'
     });
     //marca de agua
-    pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
+    pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
     //la cabecera
     pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
@@ -551,9 +574,9 @@ export class FormPostulanteComponent implements OnInit {
     );
     for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
       pdf.add(
-        new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
-        {text: ':', fontSize: 15, bold: true, width: 15},
-        {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
+        new Columns([{ text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100 },
+        { text: ':', fontSize: 15, bold: true, width: 15 },
+        { text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false }]).end)
     }
     //salto de lineas
     pdf.add(
@@ -567,9 +590,9 @@ export class FormPostulanteComponent implements OnInit {
     for (let index = 0; index < this.postulante.getListaItems().length; index++) {
       pdf.add(
         new Table([
-          [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
-            {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
-      ]).alignment('center').layout('noBorders').end
+          [{ text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem()) + ' :', fontSize: 18, bold: true },
+          { text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false }]
+        ]).alignment('center').layout('noBorders').end
       );
     }
 
@@ -579,70 +602,70 @@ export class FormPostulanteComponent implements OnInit {
     });
     pdf.add(
       new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
-  );
+    );
     pdf.create().open();
   }
 
-  pdfPorItem(){
+  pdfPorItem() {
     var pdf = new PdfMakeWrapper();
     var aux = 1;
     for (let index = 0; index < this.postulante.getListaItems().length; index++) {
-    pdf.pageMargins([ 50, 60 ]);
-    pdf.info({
-      title: 'Rotulo postulante',
-      author: 'huayraDevs'
-    });
-    //marca de agua
-    pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true} );
+      pdf.pageMargins([50, 60]);
+      pdf.info({
+        title: 'Rotulo postulante',
+        author: 'huayraDevs'
+      });
+      //marca de agua
+      pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
-    //la cabecera
-    pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
-    pdf.add(
-      pdf.ln(1)
-    );
-    //el pie de pagina
-    pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
-    pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
-    pdf.add(
-      pdf.ln(1)
-    );
-    pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
-    pdf.add(
-      pdf.ln(1)
-    );
-    for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
+      //la cabecera
+      pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
       pdf.add(
-        new Columns([{text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100},
-        {text: ':', fontSize: 15, bold: true, width: 15},
-        {text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false}]).end)
-    }
-    //salto de lineas
-    pdf.add(
-      pdf.ln(3)
-    );
-    pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
-    pdf.add(
-      pdf.ln(1)
-    );
-    //datos de los items
+        pdf.ln(1)
+      );
+      //el pie de pagina
+      pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
+      pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+      pdf.add(
+        pdf.ln(1)
+      );
+      pdf.add(new Txt('1.- Datos personales postulante:').fontSize(20).bold().end);
+      pdf.add(
+        pdf.ln(1)
+      );
+      for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
+        pdf.add(
+          new Columns([{ text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100 },
+          { text: ':', fontSize: 15, bold: true, width: 15 },
+          { text: this.postulante.getListaDatos()[index].getValorDato(), fontSize: 20, bold: false }]).end)
+      }
+      //salto de lineas
+      pdf.add(
+        pdf.ln(3)
+      );
+      pdf.add(new Txt('2.- Items a postular:').fontSize(20).bold().end);
+      pdf.add(
+        pdf.ln(1)
+      );
+      //datos de los items
       pdf.add(
         new Table([
-          [ {text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem())+' :', fontSize: 18, bold: true}, 
-            {text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false}]
-      ]).alignment('center').layout('noBorders').end
+          [{ text: this.capitalize(this.postulante.getListaItems()[index].getCodigoItem()) + ' :', fontSize: 18, bold: true },
+          { text: this.capitalize(this.postulante.getListaItems()[index].getNombreItem()), fontSize: 18, bold: false }]
+        ]).alignment('center').layout('noBorders').end
       );
-      
+
       pdf.defaultStyle({
         bold: true,
         fontSize: 20
       });
-      if(aux < this.postulante.getListaItems().length){
+      if (aux < this.postulante.getListaItems().length) {
         pdf.add(
           new Txt('').pageBreak('after').end
-          );
-          aux++;
+        );
+        aux++;
       }
-      }
+    }
     pdf.create().open();
   }
 
