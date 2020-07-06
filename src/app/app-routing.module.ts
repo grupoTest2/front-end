@@ -9,6 +9,7 @@ import { ComisionesComponent } from './pages/comisiones/comisiones.component';
 import { FormRegistroComponent } from './pages/form-registro/form-registro.component';
 import { FormPostulanteComponent } from './pages/form-postulante/form-postulante.component';
 import { AsingacionAreaConocimientoComponent } from './pages/asingacion-area-conocimiento/asingacion-area-conocimiento.component';
+import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vitae.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'convocatorias', component: ConvocatoriasComponent },
   { path: 'comisiones', component: ComisionesComponent },
   { path: 'comisiones/asingnacion_area_conocimiento', component: AsingacionAreaConocimientoComponent },
+  { path: 'curriculumVitae', component: CurriculumVitaeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

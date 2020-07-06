@@ -6,8 +6,8 @@ export class Usuario {
     private telefono: number;
     private usuario: string;
     private correo:string;
-
     private seleccionado:boolean;
+
     constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;

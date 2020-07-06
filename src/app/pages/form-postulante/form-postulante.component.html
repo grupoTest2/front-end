@@ -5,7 +5,7 @@
             <div class="w-100">
                 <hr class="border border-secondary bg-secondary">
             </div>
-            <form class="form p-t-20" *ngIf="banderaMostrar">
+            <form class="form p-t-20" *ngIf="banderaMostrar" autocomplete="off">
                 <div class="form-group" *ngFor="let item of listaDatosRotulo">
                     <label for="exampleInputpwd2">{{item.getTipoDato().getNombre() | titlecase}}</label>
                     <div class="input-group">

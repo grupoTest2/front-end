@@ -21,7 +21,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
+                                    <tr [class.text-primary]="usuario.getSeleccionado()" class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
                                         <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
                                         <td class="text-center">{{usuario.getCorreo()}}</td>
                                         <td class="text-center text-capitalize" id="nombreTipo{{usuario.getIdUsuario()}}">---</td>
@@ -30,7 +30,7 @@
                                                 <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
                                                     <i class="fas fa-book-user"></i>
                                             </button>
-                                                <button (click)="modal(j, tipo.getIdTipoComision(), usuario.getIdUsuario())" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
+                                                <button (click)="modal(j, tipo.getIdTipoComision(), usuario)" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
                                                 <i class="fas fa-user-times" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
                                             </button>
                                             </div>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end mt-5">
-                        <a *ngIf="banderaConocimiento" class="btn btn-outline-dark mr-5" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active" >Asignar areas de conocimiento </a>
+                        <a *ngIf="banderaConocimiento" class="btn btn-outline-dark mr-5" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active">Asignar areas de conocimiento </a>
                         <button class="btn btn-outline-dark" type="button" (click)="lista()">Guardar </button>
                     </div>
                 </div>

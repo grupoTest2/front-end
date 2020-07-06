@@ -30,6 +30,7 @@ export class ComisionesComponent implements OnInit {
   idUsuarioAux;
   idTipoUsuarioAux;
   indice;
+  usuario: Usuario;
   //
   banderaConocimiento=false;
   constructor(private comisionServ:ComisionesServicePhp,
@@ -95,11 +96,11 @@ export class ComisionesComponent implements OnInit {
     this.agregarUsuarioComisionBD();
   }
 
-  modal(indice1: number, idTipoComision: number, idUsuario: number){
+  modal(indice1: number, idTipoComision: number, usuario: Usuario){
+    this.usuario = usuario;
     this.idComisionAux = idTipoComision;
-    this.idUsuarioAux = idUsuario;
+    this.idUsuarioAux = usuario.getIdUsuario();
     this.indice = indice1;
-    console.log(this.idComisionAux, idUsuario,"valoreeeeeees");
     this.resetForm();
     this.listaAux = [];
     for (const tipo of this.listaTipoComision[indice1].getListaTipoUsuario()) {
@@ -159,6 +160,8 @@ export class ComisionesComponent implements OnInit {
 
 
   marcar(){
+    this.usuario.setSeleccionado(true);
+    console.log(this.usuario)
     //  pintar fila y cambiar iconos
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('text-primary').toggleClass("text-muted");
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('shadow-sm');
@@ -211,6 +214,8 @@ export class ComisionesComponent implements OnInit {
     )
     //console.log("los usuariossss");
     //console.log(this.listaUsuarios);
+    console.log(this.listaUsuarios,"user")
+    
    }
 
    getComisionesBD(){
