@@ -59,13 +59,12 @@ export class ComisionesComponent implements OnInit {
     let bandera=true;
     for(let i=0;i<this.listaComision.length&&bandera;i++){
       if(this.listaComision[i].getIdTipoComision()==idTipoComision){
-        console.log("jhon putito");
-        console.log(idTipoComision+" "+idUsuario);
+        
         let idAux=this.listaComision[i].getIdTipoUsuario(idUsuario);
         if(idAux!=-1){
           for(let j=0;j<this.listaTipoComision.length;j++){
             if(this.listaTipoComision[j].getIdTipoComision()==idTipoComision){
-              console.log("xxx"+idAux);
+              
               res=this.listaTipoComision[j].getNombreTipoUsuario(idAux);
               bandera=false;
               break;
