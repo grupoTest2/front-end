@@ -43,7 +43,10 @@ export class FormPostulanteComponent implements OnInit {
   habilitarBotonRotulo: boolean = false;
 
   banderaDatosCargados = true;
+  lista:string[]=["1","2","3"];
+  listaTipos:string[]=["commision1","comision2"];
   constructor(private servicePostulante: PostulanteServicePhp) {
+    this.enviarDatos();
   }
 
   ngOnInit(): void {
@@ -54,6 +57,17 @@ export class FormPostulanteComponent implements OnInit {
     this.getDatosRotuloConvBD();
     //this.addListeners();
   }
+
+ cargarLista(nombreLista){
+     nombreLista=this.lista;
+     console.log(nombreLista+"--------------------");
+ }
+
+ enviarDatos(){
+   for (let index = 0; index < this.listaTipos.length; index++) {
+       this.cargarLista(this.listaTipos[index]);     
+   }
+ }
 
   //////refactorizando
   addListeners() {
