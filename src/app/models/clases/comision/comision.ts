@@ -48,4 +48,17 @@ export class Comision {
         }
         return res;
     }
+
+    public getIdTipoUsuario(idUsuario: number): number{
+        let res=-1;
+        for(let i in this.listaUsuarios){
+            let objAux:UsuarioComision=this.listaUsuarios[i];
+            if(objAux.getIdUsuario()===idUsuario){
+                res=objAux.getIdTipoUsuario();
+                break;
+            }
+
+        }
+        return res;
+    }
 }
