@@ -21,21 +21,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr [class.text-primary]="usuario.getSeleccionado()" class="text-muted" *ngFor="let usuario of listaUsuarios; let i=index" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
-                                        <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
-                                        <td class="text-center">{{usuario.getCorreo()}}</td>
-                                        <td class="text-center text-capitalize" id="nombreTipo{{usuario.getIdUsuario()}}">---</td>
-                                        <td class="text-center">
-                                            <div class="btn btn-group" role="group">
-                                                <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
-                                                    <i class="fas fa-book-user"></i>
-                                            </button>
-                                                <button (click)="modal(j, tipo.getIdTipoComision(), usuario)" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
-                                                <i class="fas fa-user-times" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
-                                            </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <ng-container *ngFor="let usuario of listaUsuarios; let i=index">
+                                        <tr [class.text-muted]="!existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.text-primary]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
+                                            <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
+                                            <td class="text-center">{{usuario.getCorreo()}}</td>
+                                            <td class="text-center text-capitalize" id="nombreTipo{{usuario.getIdUsuario()}}">{{getNombreTipoUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())}}</td>
+                                            <td class="text-center">
+                                                <div class="btn btn-group" role="group">
+                                                    <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
+                                                        <i class="fas fa-book-user"></i>
+                                                </button>
+                                                    <button (click)="modal(j, tipo.getIdTipoComision(), usuario.getIdUsuario())" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
+                                                    <i class="fas fa-user-times" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
+                                                </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+
                                 </tbody>
                             </table>
                         </div>

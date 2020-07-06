@@ -172,8 +172,8 @@ export class FechasComponent implements OnInit {
   /**
    *indica si la convocatoria es apta para ser lanzada 
    */
-  estaHabilitado(){
-    return this.listaEventosSeleccionados.length>1;
+  estaHabilitado(): string{
+    return this.listaEventosSeleccionados.length>1? "bien": "establecer al menos 2 eventos!!";
   }
 
  /**

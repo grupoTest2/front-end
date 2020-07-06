@@ -130,7 +130,7 @@ export class RequisitosComponent implements OnInit {
    *indica si la convocatoria es apta para ser lanzada 
    */
   estaHabilitado() {
-    return this.listaRequisitos.length > 0;
+    return this.listaRequisitos.length > 0?"bien":"establecer al menos un requisito!!";
   }
 
   /**

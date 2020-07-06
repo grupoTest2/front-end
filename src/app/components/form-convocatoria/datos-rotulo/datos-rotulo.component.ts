@@ -157,8 +157,8 @@ export class DatosRotuloComponent implements OnInit {
   }
 
   //indica si la convocatoria es apta para ser lanzada    
-  estaHabilitado() {
-    return this.seleccion.cantDatosEnLista() > 0;
+  estaHabilitado(): string{
+    return this.seleccion.cantDatosEnLista() > 0? "bien":"establecer al menos 1 dato para el rotulo";
   }
 
   // metodos que interactuan con la base de datos

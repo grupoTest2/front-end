@@ -46,7 +46,36 @@ export class ComisionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  existeUsuario(idTipoComision:number, idUsuario: number): boolean{
+    let res=false;
+    for(let i=0;i<this.listaComision.length&&!res;i++){
+      if(this.listaComision[i].getIdTipoComision()==idTipoComision){
+        res=this.listaComision[i].existeUsuario(idUsuario);
+      }
+    }
+    return res;
+  }
+  getNombreTipoUsuario(idTipoComision,idUsuario){
+    let res="----";
+    let bandera=true;
+    for(let i=0;i<this.listaComision.length&&bandera;i++){
+      if(this.listaComision[i].getIdTipoComision()==idTipoComision){
+        
+        let idAux=this.listaComision[i].getIdTipoUsuario(idUsuario);
+        if(idAux!=-1){
+          for(let j=0;j<this.listaTipoComision.length;j++){
+            if(this.listaTipoComision[j].getIdTipoComision()==idTipoComision){
+              
+              res=this.listaTipoComision[j].getNombreTipoUsuario(idAux);
+              bandera=false;
+              break;
+            }
+          }
+        }
+      }
+    }
+    return res;
+  }
   /*aniadirUsuario(tipoComision:string,usuario:Usuario){
     if(tipoComision===this.comision1.getTipoComision()){
       this.comision1.getListaUsuarios().push(usuario);
