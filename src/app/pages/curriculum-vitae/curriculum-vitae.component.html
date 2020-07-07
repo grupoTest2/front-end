@@ -272,24 +272,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
-                      <td>{{requerimiento.getCantidadItem()}}</td>
-                      <td>{{requerimiento.getHrsAcademicas()}}</td>
-                      <td>{{requerimiento.getNombreItem()}}</td>
-                      <td>{{requerimiento.getCodigoItem()}}</td>
-                      <td class="text-center">
-                        <div class="btn btn-group" role="group">
-                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
-                            data-target="#tablaRequerimientos" (click)="editar(i)">
-                            <i class="fa fa-pencil"></i>
-                          </button>
-                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                            <i class="fa fa-trash-alt"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>-->
-
                 </tbody>
               </table>
             </div>
@@ -302,8 +284,7 @@
         <div>
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">II. Formacion Academica</h4>
-            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
-            data-target="#modal2">
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal" data-target="#modal2">
               <i class="fa fa-plus"></i> Añadir
             </button>
           </div>
@@ -320,24 +301,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
-                      <td>{{requerimiento.getCantidadItem()}}</td>
-                      <td>{{requerimiento.getHrsAcademicas()}}</td>
-                      <td>{{requerimiento.getNombreItem()}}</td>
-                      <td>{{requerimiento.getCodigoItem()}}</td>
-                      <td class="text-center">
-                        <div class="btn btn-group" role="group">
-                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
-                            data-target="#tablaRequerimientos" (click)="editar(i)">
-                            <i class="fa fa-pencil"></i>
-                          </button>
-                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                            <i class="fa fa-trash-alt"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>-->
-
                 </tbody>
               </table>
             </div>
@@ -349,8 +312,8 @@
         <div>
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">III. Estudios Y Cursos Tomados</h4>
-            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
-            data-target="#modal2" id="btnAniadir">
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal" data-target="#modalEstudiosCursosTomados"
+              id="btnAniadir">
               <i class="fa fa-plus"></i> Añadir
             </button>
           </div>
@@ -367,23 +330,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
-                      <td>{{requerimiento.getCantidadItem()}}</td>
-                      <td>{{requerimiento.getHrsAcademicas()}}</td>
-                      <td>{{requerimiento.getNombreItem()}}</td>
-                      <td>{{requerimiento.getCodigoItem()}}</td>
-                      <td class="text-center">
-                        <div class="btn btn-group" role="group">
-                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
-                            data-target="#tablaRequerimientos" (click)="editar(i)">
-                            <i class="fa fa-pencil"></i>
-                          </button>
-                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                            <i class="fa fa-trash-alt"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>-->
 
                 </tbody>
               </table>
@@ -398,7 +344,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">IV. Experiencia Universitaria - Auxiliares Y Cursos Dictados</h4>
             <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
-              data-target="#tablaRequerimientos" id="btnAniadir">
+              data-target="#modalExperienciaUniversitaria" id="btnAniadir">
               <i class="fa fa-plus"></i> Añadir
             </button>
           </div>
@@ -449,7 +395,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">V. Experiencia Extra-Universitaria</h4>
             <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
-              data-target="#tablaRequerimientos" id="btnAniadir">
+              data-target="#modalExperienciaExtraUniversitaria" id="btnAniadir">
               <i class="fa fa-plus"></i> Añadir
             </button>
           </div>
@@ -467,24 +413,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
-               <td>{{requerimiento.getCantidadItem()}}</td>
-               <td>{{requerimiento.getHrsAcademicas()}}</td>
-               <td>{{requerimiento.getNombreItem()}}</td>
-               <td>{{requerimiento.getCodigoItem()}}</td>
-               <td class="text-center">
-                 <div class="btn btn-group" role="group">
-                   <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
-                     data-target="#tablaRequerimientos" (click)="editar(i)">
-                     <i class="fa fa-pencil"></i>
-                   </button>
-                   <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                     <i class="fa fa-trash-alt"></i>
-                   </button>
-                 </div>
-               </td>
-             </tr>-->
-
                 </tbody>
               </table>
             </div>
@@ -499,7 +427,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title">VI. Produccion (Investigacion, Publicacion, Articulos, Etc)</h4>
             <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
-              data-target="#tablaRequerimientos" id="btnAniadir">
+              data-target="#modalProduccion" id="btnAniadir">
               <i class="fa fa-plus"></i> Añadir
             </button>
           </div>
@@ -515,26 +443,9 @@
                     <th class="text-center" scope="col">Fecha De Coclusion Del Trabajo</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
-               <td>{{requerimiento.getCantidadItem()}}</td>
-               <td>{{requerimiento.getHrsAcademicas()}}</td>
-               <td>{{requerimiento.getNombreItem()}}</td>
-               <td>{{requerimiento.getCodigoItem()}}</td>
-               <td class="text-center">
-                 <div class="btn btn-group" role="group">
-                   <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
-                     data-target="#tablaRequerimientos" (click)="editar(i)">
-                     <i class="fa fa-pencil"></i>
-                   </button>
-                   <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
-                     <i class="fa fa-trash-alt"></i>
-                   </button>
-                 </div>
-               </td>
-             </tr>-->
 
-                </tbody>
+                <tbody>
+                  </tbody>
               </table>
             </div>
           </div>
@@ -560,10 +471,10 @@
       </div>
       <div class="modal-body" id="modalIdiomas">
         <form autocomplete="off">
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Idioma: </label>
-                <input id="tituloIdioma" class="form-control" type="text" placeholder="Ingrese el nomnre del idioma">
-            </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Idioma: </label>
+            <input id="tituloIdioma" class="form-control" type="text" placeholder="Ingrese el nomnre del idioma">
+          </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Habla: </label>
             <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
@@ -591,77 +502,299 @@
               <option>No</option>
             </select>
           </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-  </div>
-</div>
-
-<!--    modal idiomas    -->
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="">Idiomas</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        </form>
       </div>
-      <div class="modal-body" >
-        <form autocomplete="off">
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Idioma: </label>
-                <input class="form-control" type="text" placeholder="Ingrese el nomnre del idioma">
-            </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Habla: </label>
-            <select aria-placeholder="Seleccione" class="custom-select" >
-              <option selected disabled value="por defecto">Seleccione un opcion</option>
-              <option>Bien</option>
-              <option>Regular</option>
-              <option>No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Lee: </label>
-            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
-              <option selected disabled value="por defecto">Seleccione una opcion</option>
-              <option>Bien</option>
-              <option>Regular</option>
-              <option>No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Escribe: </label>
-            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
-              <option selected disabled value="por defecto">Seleccione una opcion</option>
-              <option>Bien</option>
-              <option>Regular</option>
-              <option>No</option>
-            </select>
-          </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
     </div>
   </div>
 </div>
 
-
-<!--
-    <div class="form-group">
-                <label class="col-form-label mr-1">Fecha:</label>
-                <div class="d-flex justify-content">
-                    <input [matDatepicker]="pickerm2" placeholder="Fecha:" >
-                    <mat-datepicker-toggle matSuffix [for]="pickerm2"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerm2></mat-datepicker>
-                </div>
+<!--           modal para la tabla de formacion academica               -->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Detalles De Formacion Academica</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
             </div>
+            <div class="modal-body" >
+                <form autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Grado: </label>
+                        <select aria-placeholder="Seleccione" class="custom-select" id="seleccionGrado">
+                          <option selected disabled value="por defecto">Seleccione un grado</option>
+                          <option>Tecnico medio</option>
+                          <option>Tecnico superior</option>
+                          <option>Otros</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Titulo: </label>
+                        <input id="tituloIdioma" class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Institucion donde obtuvo el grado: </label>
+                        <input id="tituloIdioma" class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Lugar donde obtuvo el grado: </label>
+                        <input id="tituloIdioma" class="form-control" type="text" >
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha titulo:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm1" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm1"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm1></mat-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
--->
+<!--           modal para la tabla de estudios y cursos tomados               -->
+<div class="modal fade" id="modalEstudiosCursosTomados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Detalles De Estudios Y Cursos Tomados</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" >
+                <form autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tipo de documento obtenido: </label>
+                        <select aria-placeholder="Seleccione" class="custom-select" id="seleccionGrado">
+                          <option selected disabled value="por defecto">Seleccione un tipo de documento obtenido</option>
+                          <option>Certificado</option>
+                          <option>Diploma</option>
+                          <option>Titulo</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Titulo del cocumento/mencion: </label>
+                        <input  class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Institucion donde obtuvo el documento: </label>
+                        <input class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Lugar donde obtuvo el documento: </label>
+                        <input  class="form-control" type="text" >
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha docuemento:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm2" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm2"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm2></mat-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--           modal para la tabla de experiencia universitaria               -->
+<div class="modal fade" id="modalExperienciaUniversitaria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Detalles De Experiencia Universitaria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" >
+                <form autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tipo de gestion: </label>
+                        <select aria-placeholder="Seleccione" class="custom-select" id="seleccionGrado">
+                          <option selected disabled value="por defecto">Seleccione un tipo de gestion</option>
+                          <option>Semestral</option>
+                          <option>Anual</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Facultad: </label>
+                        <input  class="form-control" type="text" >
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Carrera: </label>
+                        <input class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Materia: </label>
+                        <input  class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Carga horaria: </label>
+                        <input  class="form-control" type="number">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="inputEmail4">Titular?</label>
+                        <div class="input-group mt-2">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="radio1" name="radioTitular" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="radio1">Si </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="radio2" name="radioTitular" class="custom-control-input">
+                            <label class="custom-control-label" for="radio2">No </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha de inicio:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm3" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm3"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm3></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha de conclucion:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm4" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm4"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm4></mat-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--           modal para la tabla de experiencia extra universitaria               -->
+<div class="modal fade" id="modalExperienciaExtraUniversitaria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Detalles De Experiencia Extra-Universitaria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" >
+                <form autocomplete="off">
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre de intitucion/empresa: </label>
+                        <input  class="form-control" type="text" >
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre del Cargo/actividad: </label>
+                        <input class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Lugar(ciudad,Dpto.,pais): </label>
+                        <input  class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Duracion: </label>
+                        <input  class="form-control" type="number">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha de inicio:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm5" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm5"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm5></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha de conclucion:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm6" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm6"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm6></mat-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--           modal para la tabla de experiencia  produccion (investigacion, publicacion, articulos, etc)               -->
+<div class="modal fade" id="modalProduccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Detalles De Produccion (Investigacion, Publicacion, Articulos, Etc.)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" >
+                <form autocomplete="off">
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Titulo o Tema: </label>
+                        <input class="form-control" type="text">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tipo de difusion: </label>
+                        <select aria-placeholder="Seleccione" class="custom-select" id="seleccionGrado">
+                          <option selected disabled value="por defecto">Seleccione un tipo de gestion</option>
+                          <option>Publicado</option>
+                          <option>Difundido</option>
+                          <option>Ninguno</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Medio de publicacion o difusion: </label>
+                        <input  class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Institucion a la que se entrego el trabajo: </label>
+                        <input  class="form-control" type="text">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label mr-1">Fecha de conclusion del trabajo:</label>
+                        <div class="d-flex justify-content">
+                            <input  [matDatepicker]="pickerm7" class="form-control"  readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm7"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm7></mat-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
