@@ -27,7 +27,6 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   constructor(private comisionServ:ComisionesServicePhp) {
     this.comision =new Comision(1);
     //this.agragarUsuariosPrueba();
-    
     this.getTiposUsuarioBD();
     this.getTematicasBD();
     this.getComisionesBD();
@@ -117,6 +116,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
       if (this.comision.getListaUsuarios()[i].getIdUsuario() == this.listaUsuarios[this.indiceActual].getIdUsuario()) {
         for (let index = 0; index < this.listaTematicas.length; index++) {
           if (this.listaTematicas[index].getSeleccionado()) {
+            this.listaTematicas[index].setAccion("insertar");
             listaTemporalTematica.push(this.listaTematicas[index]);
             banderaSeleccionado = true;
           }
@@ -143,8 +143,8 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   guardarDatos() {
    if(this.verificarSeleccionTematicas()){
      console.log("todo salio bien !!!!");
-     console.log(this.comision);
-     this.mensajeToastExito("se guardaron los datos correctamete !");
+     this.guardarDatosBD();
+     //console.log(JSON.stringify(this.comision));
    }
    else{
     this.mensajeToastError(`Debe De Asignar Por Lo Menos Un Usuario De Tipo Evaluador <br> A Cada Item`);
@@ -263,8 +263,8 @@ getUsuariosBD() {
         for(let i in resultado){
           this.listaTiposUsuario.push(new TipoUsuario(resultado[i].idTipoUsuario,resultado[i].nombre));
         }
-        console.log("los tipos de usuario");
-        console.log(this.listaTiposUsuario);
+        //console.log("los tipos de usuario");
+        //console.log(this.listaTiposUsuario);
       }
     );
   }
@@ -276,8 +276,20 @@ getUsuariosBD() {
         for(let i in resultado){
           this.listaTematicas.push(new Tematica(resultado[i].idTematica, resultado[i].nombre));
         }
-        console.log("las tematicas");
-        console.log(this.listaTematicas);
+        //console.log("las tematicas");
+        //console.log(this.listaTematicas);
+      }
+    );
+  }
+
+  guardarDatosBD(){
+    this.comisionServ.agregarUsuarioTematica(this.comision).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          this.mensajeToastExito("se guardaron los datos correctamete !");
+        }else{
+          this.mensajeToastError(`ocurrio un error al agregar los datos`);
+        }
       }
     );
   }
