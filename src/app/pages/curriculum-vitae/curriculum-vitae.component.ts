@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, NgForm } from '@angular/forms';
+import { PaisService } from 'src/app/servicios/Paises/pais.service';
 declare var tata: any;
 declare var $: any;
 
@@ -17,69 +18,25 @@ export class CurriculumVitaeComponent implements OnInit {
   form: FormGroup
   formBuilder: any;
   data: any = {};
-  constructor() {
+
+  paises: any[] = [];
+  constructor(private paisService: PaisService) {
   }
-  ngOnInit(): void {
+  ngOnInit( ): void {
+    this.paisService.getPaises()
+      .subscribe( paises => {
+        this.paises = paises;
+
+        this.paises.unshift({
+          nombre: 'Seleccione un País',
+          codigo: ''
+        })
+
+        console.log( this.paises );
+      });
   }
 
-  // validaciones -----------------------------------------------------
-  private buildForm(): void {
-    this.formCurriculum = this.formBuilder.group({
-      apellidoM: ['', [Validators.required]],
-      apellidoP: ['', [Validators.required]],
-      nombres: ['', [Validators.required]],
-      ci: ['', [Validators.required]],
-      fechaNac: ['', [Validators.required]],
-      lugar: ['', [Validators.required]],
-      emision: ['', [Validators.required]],
-      pais: ['', [Validators.required]],
-      genero: ['', [Validators.required]],
-      estadoCivil: ['', [Validators.required]],
-
-
-
-      fecha: ['', [Validators.required]],
-    });
-  }
-
-  save(event: Event): void {
-    event.preventDefault();
-    if (this.formCurriculum.valid) {
-      const value = this.formCurriculum.value;
-    } else {
-      this.formCurriculum.markAllAsTouched();
-    }
-  }
-
-  get eventoForm() {
-    return this.formCurriculum.get('evento');
-  }
-  get eventoFormIsValid() {
-    return this.eventoForm.touched && this.eventoForm.valid;
-  }
-  get eventoFormIsInvalid() {
-    return this.eventoForm.touched && this.eventoForm.invalid;
-  }
-
-  get fechaForm() {
-    return this.formCurriculum.get('fecha');
-  }
-
-  get fechaIsValid() {
-    return this.fechaForm.touched && this.fechaForm.valid;
-  }
-
-  get fechaIsInvalid() {
-    return this.fechaForm.touched && this.fechaForm.invalid;
-  }
-
-  formValido() {
-    if (this.formCurriculum.valid) {
-    } else {
-      this.formCurriculum.markAllAsTouched();
-      tata.error('Error', 'Formulario invalido');
-    }
-  }
+  
 
   guardar( form: NgForm ){
     if(form.invalid){

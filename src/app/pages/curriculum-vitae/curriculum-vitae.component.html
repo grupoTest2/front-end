@@ -92,9 +92,11 @@
                     <div class="form-group col-md-6">
                         <label for="inputState">Pais de origen:</label>
                         <div class="input-group">
-                            <select aria-describedby="validatedInputGroupPrependu" id="inputState" class="custom-select" required name="pais" #pais="ngModel" ngModel [class.is-invalid]="pais.invalid && pais.touched" [class.is-valid]="pais.valid && pais.touched">
-                                <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione un país</option>
-                <option>...</option>
+                            <select [disabled]="paises.length === 0" aria-describedby="validatedInputGroupPrependu" id="inputState" class="custom-select" required name="pais" #pais="ngModel" ngModel [class.is-invalid]="pais.invalid && pais.touched" [class.is-valid]="pais.valid && pais.touched">
+                                <option *ngFor="let pais of paises"
+                [value]="pais.codigo">
+          {{ pais.nombre }}
+        </option>
               </select>
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-right" id="validatedInputGroupPrependu"><i
