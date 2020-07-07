@@ -3,14 +3,7 @@ import { FormGroup, Validators, NgForm } from '@angular/forms';
 declare var tata: any;
 declare var $: any;
 
-export interface FormObject {
-  email: string;
-  singleSelect: string;
-  multiSelect: string;
-  textarea: string;
-  radio: string;
-  checkbox: any;
-}
+
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -23,7 +16,6 @@ export class CurriculumVitaeComponent implements OnInit {
   formCurriculum: FormGroup
   form: FormGroup
   formBuilder: any;
-  model: FormObject
   data: any = {};
   constructor() {
   }
@@ -97,7 +89,10 @@ export class CurriculumVitaeComponent implements OnInit {
         }
       );
     }
+    // console.log()
     console.log(form.value);
+    console.log(form.controls['apellidoM'].value);
+
   }
 
   resetForm(): void {
