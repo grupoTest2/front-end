@@ -1,118 +1,667 @@
 <div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Registrar Datos personales</h4>
-            <div class="w-100">
-                <hr class="border border-light bg-secondary">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">I. Registrar Datos personales</h4>
+      <div class="w-100">
+        <hr class="border border-light  bg-dark" style="height: .1rem;">
+      </div>
+      <form class="form" autocomplete="off">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Apellido Paterno:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="far fa-user"></i></span>
+              </div>
             </div>
-            <form class="form">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Apellidos:</label>
-                        <div class="input-group">
-                            <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i class="far fa-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Nombres:</label>
-                        <div class="input-group">
-                            <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i class="far fa-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Fecha de nacimiento:</label>
-                        <div class="d-flex justify-content">
-                            <input [matDatepicker]="picker1" class="form-control" placeholder="Fecha:" id="fecha" readonly>
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                        </div>
-                        <!-- <div *ngIf="fechaIsInvalid">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Apellido Materno:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="far fa-user"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Nombres:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="far fa-user"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Fecha de nacimiento:</label>
+            <div class="d-flex justify-content">
+              <input [matDatepicker]="picker1" class="form-control rounded-0" id="fecha" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker1" style="background: #e9ecef;" class="rounded-right ">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </div>
+            <!-- <div *ngIf="fechaIsInvalid">
                             <small class="text-danger" *ngIf="fechaForm.hasError('required')">
                                         Seleccione una fecha por favor  <small class="fal fa-exclamation-triangle"></small>
                             </small>
                         </div> -->
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Lugar:</label>
-                        <div class="input-group">
-                            <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i class="far fa-map-marker-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Cédula de identidad:</label>
-                        <div class="input-group">
-                            <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
-                            <div class="input-group-addon">
-                                <select class="form-control">
-                                  <option selected>Cbba</option>
-                                  <option>mm</option>
-                                  <option>in</option>
-                                </select>
-                            </div>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i class="fal fa-address-card"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Lugar</label>
-                        <div class="input-group">
-                            <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i class="far fa-map-marker-alt"></i></span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
-                    </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                      Check me out
-                    </label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Lugar:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="far fa-map-marker-alt"></i></span>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Cédula de identidad:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-addon">
+                <select class="form-control">
+                  <option selected disabled>Emision</option>
+                  <option>mm</option>
+                  <option>in</option>
+                </select>
+              </div>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="fal fa-address-card"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Pais de origen:</label>
+            <div class="input-group">
+              <select aria-describedby="validatedInputGroupPrepend3" id="inputState" class="form-control">
+                <option selected>bolivia</option>
+                <option>...</option>
+              </select>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend3"><i
+                    class="far fa-flag"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputState">Genero:</label>
+            <div class="input-group">
+              <select aria-describedby="validatedInputGroupPrepend2" id="inputState" class="form-control">
+                <option selected>Masculino</option>
+                <option>...</option>
+              </select>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend2"><i
+                    class="fa fa-venus-mars" aria-hidden="true"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Estado civil:</label>
+            <div class="input-group">
+              <select aria-describedby="validatedInputGroupPrepend3" id="inputState" class="form-control">
+                <option selected>Soltero</option>
+                <option>...</option>
+              </select>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend3"><i
+                    class="fas fa-rings-wedding"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <label for="inputEmail4">Direccion:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4"
+                placeholder=" Avenida – Calle - Pasaje">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="far fa-map-marker-alt"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputEmail4">Numero De Domicilio:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="number" class="form-control" id="inputEmail4"
+                placeholder=" Avenida – Calle - Pasaje">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="fas fa-list-ol"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Telefono/Celular:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="number" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="fad fa-phone-plus"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Correo electronico:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="email" class="form-control" id="inputEmail4">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="fas fa-at"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Colegio de egreso:</label>
+            <div class="input-group">
+              <input aria-describedby="validatedInputGroupPrepend" type="text" class="form-control" id="inputEmail4">
+              <div class="input-group-addon">
+                <select class="form-control">
+                  <option selected disabled>publico</option>
+                  <option>mm</option>
+                  <option>in</option>
+                </select>
+              </div>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend"><i
+                    class="fas fa-graduation-cap"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Fecha de titulo de bachiller:</label>
+            <div class="d-flex justify-content">
+              <input [matDatepicker]="picker2" class="form-control rounded-0" placeholder="Fecha:" id="fecha" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker2" style="background: #e9ecef;" class="rounded-right ">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputState">Carrera actualmente inscrito:</label>
+            <div class="input-group">
+              <select aria-describedby="validatedInputGroupPrepend2" id="inputState" class="form-control">
+                <option selected>Ing. Civil</option>
+                <option>...</option>
+              </select>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend2"><i
+                    class="fas fa-university"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Semestre en curso:</label>
+            <div class="input-group">
+              <select aria-describedby="validatedInputGroupPrepend3" id="inputState" class="form-control">
+                <option selected>nivel A primer semestre</option>
+                <option>...</option>
+              </select>
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-right" id="validatedInputGroupPrepend3"><i
+                    class="fas fa-books"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Egresado?</label>
+            <div class="input-group mt-2">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline1">Si </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
+                  checked>
+                <label class="custom-control-label" for="customRadioInline2">No </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Fecha de egreso </label>
+            <div class="d-flex justify-content">
+              <input [matDatepicker]="picker3" class="form-control rounded-0" placeholder="Fecha:" id="fecha" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker3" style="background: #e9ecef;" class="rounded-right ">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h6 class="card-title">Idiomas <small class="text-muted">(ademas del espaniol)</small></h6>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal" data-target="#modalIdioms"
+              id="btnAniadir">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Idioma</th>
+                    <th class="text-center" scope="col"> Habla </th>
+                    <th class="text-center" scope="col">Lee</th>
+                    <th class="text-center" scope="col">Escribe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+                      <td>{{requerimiento.getCantidadItem()}}</td>
+                      <td>{{requerimiento.getHrsAcademicas()}}</td>
+                      <td>{{requerimiento.getNombreItem()}}</td>
+                      <td>{{requerimiento.getCodigoItem()}}</td>
+                      <td class="text-center">
+                        <div class="btn btn-group" role="group">
+                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                            data-target="#tablaRequerimientos" (click)="editar(i)">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <i class="fa fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--            formacion academica         -->
+        <br>
+        <hr>
+        <br>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">II. Formacion Academica</h4>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
+            data-target="#modal2">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Grado</th>
+                    <th class="text-center" scope="col"> Fecha Titulo </th>
+                    <th class="text-center" scope="col">Titulo</th>
+                    <th class="text-center" scope="col">Institucion</th>
+                    <th class="text-center" scope="col">Lugar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+                      <td>{{requerimiento.getCantidadItem()}}</td>
+                      <td>{{requerimiento.getHrsAcademicas()}}</td>
+                      <td>{{requerimiento.getNombreItem()}}</td>
+                      <td>{{requerimiento.getCodigoItem()}}</td>
+                      <td class="text-center">
+                        <div class="btn btn-group" role="group">
+                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                            data-target="#tablaRequerimientos" (click)="editar(i)">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <i class="fa fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!----------------------------->
+        <br>
+        <hr>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">III. Estudios Y Cursos Tomados</h4>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
+            data-target="#modal2" id="btnAniadir">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col"> Tipo Doc. </th>
+                    <th class="text-center" scope="col">Titulo Del Documento</th>
+                    <th class="text-center" scope="col">Institucion</th>
+                    <th class="text-center" scope="col">Lugar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+                      <td>{{requerimiento.getCantidadItem()}}</td>
+                      <td>{{requerimiento.getHrsAcademicas()}}</td>
+                      <td>{{requerimiento.getNombreItem()}}</td>
+                      <td>{{requerimiento.getCodigoItem()}}</td>
+                      <td class="text-center">
+                        <div class="btn btn-group" role="group">
+                          <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                            data-target="#tablaRequerimientos" (click)="editar(i)">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                            <i class="fa fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br>
+        <!----------------------------->
+        <br>
+        <hr>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">IV. Experiencia Universitaria - Auxiliares Y Cursos Dictados</h4>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
+              data-target="#tablaRequerimientos" id="btnAniadir">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Materia</th>
+                    <th class="text-center" scope="col"> Fecha De Inicio</th>
+                    <th class="text-center" scope="col">Fecha De Conclusion</th>
+                    <th class="text-center" scope="col">Tipo De Gestion</th>
+                    <th class="text-center" scope="col">Titular</th>
+                    <th class="text-center" scope="col">Carga Horaria</th>
+                    <th class="text-center" scope="col">Carrera</th>
+                    <th class="text-center" scope="col">Facultad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+               <td>{{requerimiento.getCantidadItem()}}</td>
+               <td>{{requerimiento.getHrsAcademicas()}}</td>
+               <td>{{requerimiento.getNombreItem()}}</td>
+               <td>{{requerimiento.getCodigoItem()}}</td>
+               <td class="text-center">
+                 <div class="btn btn-group" role="group">
+                   <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                     data-target="#tablaRequerimientos" (click)="editar(i)">
+                     <i class="fa fa-pencil"></i>
+                   </button>
+                   <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                     <i class="fa fa-trash-alt"></i>
+                   </button>
+                 </div>
+               </td>
+             </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br>
+        <!----------------------------->
+        <br>
+        <hr>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">V. Experiencia Extra-Universitaria</h4>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
+              data-target="#tablaRequerimientos" id="btnAniadir">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Institucion/Empresa</th>
+                    <th class="text-center" scope="col">Cargo/Actividad</th>
+                    <th class="text-center" scope="col">Fecha De Inicio</th>
+                    <th class="text-center" scope="col">Fecha De Conclucion</th>
+                    <th class="text-center" scope="col">Duracion (Mes)</th>
+                    <th class="text-center" scope="col">Lugar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+               <td>{{requerimiento.getCantidadItem()}}</td>
+               <td>{{requerimiento.getHrsAcademicas()}}</td>
+               <td>{{requerimiento.getNombreItem()}}</td>
+               <td>{{requerimiento.getCodigoItem()}}</td>
+               <td class="text-center">
+                 <div class="btn btn-group" role="group">
+                   <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                     data-target="#tablaRequerimientos" (click)="editar(i)">
+                     <i class="fa fa-pencil"></i>
+                   </button>
+                   <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                     <i class="fa fa-trash-alt"></i>
+                   </button>
+                 </div>
+               </td>
+             </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <!----------------------------->
+        <br>
+        <hr>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title">VI. Produccion (Investigacion, Publicacion, Articulos, Etc)</h4>
+            <button type="button" class="btn btn-outline-info mb-2" data-toggle="modal"
+              data-target="#tablaRequerimientos" id="btnAniadir">
+              <i class="fa fa-plus"></i> Añadir
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="table-responsive">
+              <table class="table align-middle table-hover mt-2 table-bordered" id="requerimientos">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center" scope="col">Titulo/Tema</th>
+                    <th class="text-center" scope="col">Tipo De Difunsion</th>
+                    <th class="text-center" scope="col">Medio De Publicacion/Difusion</th>
+                    <th class="text-center" scope="col">Institucion A La Que Se Entrego El Trabajo</th>
+                    <th class="text-center" scope="col">Fecha De Coclusion Del Trabajo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let requerimiento of listaRequerimientosX; index as i">
+               <td>{{requerimiento.getCantidadItem()}}</td>
+               <td>{{requerimiento.getHrsAcademicas()}}</td>
+               <td>{{requerimiento.getNombreItem()}}</td>
+               <td>{{requerimiento.getCodigoItem()}}</td>
+               <td class="text-center">
+                 <div class="btn btn-group" role="group">
+                   <button [disabled]="ruta()" class="btn btn-outline-success mr-1" type="button" data-toggle="modal"
+                     data-target="#tablaRequerimientos" (click)="editar(i)">
+                     <i class="fa fa-pencil"></i>
+                   </button>
+                   <button [disabled]="ruta()" class="btn btn-outline-danger" (click)="alertEliminar()" type="button">
+                     <i class="fa fa-trash-alt"></i>
+                   </button>
+                 </div>
+               </td>
+             </tr>-->
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
     </div>
+  </div>
 </div>
+
+
+<!--    modal idiomas    -->
+<div class="modal fade" id="modalIdioms" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Idiomas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalIdiomas">
+        <form autocomplete="off">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Idioma: </label>
+                <input id="tituloIdioma" class="form-control" type="text" placeholder="Ingrese el nomnre del idioma">
+            </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Habla: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
+              <option selected disabled value="por defecto">Seleccione un opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Lee: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
+              <option selected disabled value="por defecto">Seleccione una opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Escribe: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
+              <option selected disabled value="por defecto">Seleccione una opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!--    modal idiomas    -->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Idiomas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form autocomplete="off">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Idioma: </label>
+                <input class="form-control" type="text" placeholder="Ingrese el nomnre del idioma">
+            </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Habla: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" >
+              <option selected disabled value="por defecto">Seleccione un opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Lee: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
+              <option selected disabled value="por defecto">Seleccione una opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Escribe: </label>
+            <select aria-placeholder="Seleccione" class="custom-select" id="seleccionIdioma">
+              <option selected disabled value="por defecto">Seleccione una opcion</option>
+              <option>Bien</option>
+              <option>Regular</option>
+              <option>No</option>
+            </select>
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</div>
+
+
+<!--
+    <div class="form-group">
+                <label class="col-form-label mr-1">Fecha:</label>
+                <div class="d-flex justify-content">
+                    <input [matDatepicker]="pickerm2" placeholder="Fecha:" >
+                    <mat-datepicker-toggle matSuffix [for]="pickerm2"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerm2></mat-datepicker>
+                </div>
+            </div>
+
+-->
