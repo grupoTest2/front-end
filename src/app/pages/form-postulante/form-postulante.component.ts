@@ -25,7 +25,8 @@ export class FormPostulanteComponent implements OnInit {
 
   //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
-  postulante: Postulante;
+  postulante: Postulante; 
+  listaCodigosRotulo:string[]=[];
   listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
   bandera = true;
   banderaMostrar = false;
@@ -418,7 +419,19 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-
+  generarRotulo(){
+    if(this.listaCodigosRotulo.length>0){
+      if(this.listaCodigosRotulo.length==1){
+        //rotulo por convocatoria
+        this.pdfPorConvocatoria();
+      }else{
+        //rotulo por item
+        this.pdfPorItem();
+      }
+    }else{
+      console.log("no hay nada que crear")
+    }
+  }
   guardarDatos() {
     console.log("ingreso para guardar !!!!!!!!!!!!!!!!");
     console.log("todo valido !!!!!!!!!!!!!!!!");
@@ -437,7 +450,7 @@ export class FormPostulanteComponent implements OnInit {
         codigoSis = valor;
       }
       else {
-        datosPostulante.push(new DatosPostulante(1, id, valor));
+        datosPostulante.push(new DatosPostulante(this.listaDatosRotulo[index].getIdDato(), id, valor));
       }
     }
     let listItems: Item[] = [];
@@ -448,10 +461,9 @@ export class FormPostulanteComponent implements OnInit {
 
     }
     this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
-    console.log(this.postulante);
-    this.mensajeToastExito('Registro exítoso');
-    this.habilitarBotonRotulo = true;
-
+    console.log(JSON.stringify(this.postulante));
+    this.registrarPostulanteBD();
+   
 
   }
 
@@ -544,23 +556,30 @@ export class FormPostulanteComponent implements OnInit {
     console.log(this.listaDatosRotulo);
   }
 
-  /*
-    registrarPostulanteBD() {
+
+  registrarPostulanteBD() {
       this.servicePostulante.agregarPostulante(this.postulante).subscribe(
         resultado=>{
           if(resultado['resultado']=='correcto'){
-            this.mensajeToastExito("datos registrados correctamente");
-            console.log("el postulante se registro correctamente");
+            //this.mensajeToastExito("datos registrados correctamente");
+            let codigos=resultado['rotulos'];
+            this.mensajeToastExito('Registro exítoso');
+            this.habilitarBotonRotulo = true;
+            console.log(codigos);
+            for(let i in codigos){
+              this.listaCodigosRotulo.push(codigos[i]);
+            }
+            this.generarRotulo();
           }else{
             console.log("error al registrar el postulante");
-            this.mensajeToastErrorBD("error al registrar el postulante");
+            //this.mensajeToastErrorBD("error al registrar el postulante");
           }
         }
       )
-    }
-  }*/
+  }
+  
 
-  descargarPDF() {
+  pdfPorConvocatoria() {
     var pdf = new PdfMakeWrapper();
 
     pdf.pageMargins([50, 60]);
@@ -578,7 +597,7 @@ export class FormPostulanteComponent implements OnInit {
     );
     //el pie de pagina
     pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
-    pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+    pdf.add(new Txt(this.listaCodigosRotulo[0]).fontSize(20).bold().alignment('right').end);
     pdf.add(
       pdf.ln(1)
     );
@@ -613,10 +632,10 @@ export class FormPostulanteComponent implements OnInit {
     pdf.defaultStyle({
       bold: true,
       fontSize: 20
-    });
+    });/*
     pdf.add(
       new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
-    );
+    );*/
     pdf.create().open();
   }
 
@@ -639,7 +658,7 @@ export class FormPostulanteComponent implements OnInit {
       );
       //el pie de pagina
       pdf.footer(new Txt('- Documento sin validez legal').fontSize(15).color('#f2f2f2').opacity(0.5).alignment('center').end);
-      pdf.add(new Txt('XXXXXXXXXXXXXXXXXXX').fontSize(20).bold().alignment('right').end);
+      pdf.add(new Txt(this.listaCodigosRotulo[index]).fontSize(20).bold().alignment('right').end);
       pdf.add(
         pdf.ln(1)
       );

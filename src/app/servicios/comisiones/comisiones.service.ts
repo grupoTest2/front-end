@@ -35,4 +35,9 @@ export class ComisionesServicePhp {
   public agregarUsuariosComision(listaComision:Comision[]){
     return this.http.post(`${this.URL}agregarMiembroComision.php`, JSON.stringify(listaComision));
   }
+
+  public agregarUsuarioTematica(comisionConocimiento:Comision){
+    return this.http.post(`${this.URL}asignarTematicaUsuario.php`, JSON.stringify(comisionConocimiento));
+
+  }
 }

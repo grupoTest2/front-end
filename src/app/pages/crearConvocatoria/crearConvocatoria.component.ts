@@ -27,7 +27,7 @@ export class CrearConvocatoriaComponent implements OnInit {
 
   formCrearConv: FormGroup;
   listaTiposConvocatoria: TipoConvocatoria[] = [];
-  rotuloPorConvocatoria = true;
+  rotuloPorConvocatoria = true; //false => rotulo por item
   texto;
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria,
     private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
@@ -67,6 +67,7 @@ export class CrearConvocatoriaComponent implements OnInit {
     convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
       this.datosConvocatoria.tituloConvocatoria,
       this.datosConvocatoria.gestionConvocatoria);
+    convocatoria.setRotuloConvocatoria(this.rotuloPorConvocatoria);
     localStorage.setItem('tituloConvocatoria', this.datosConvocatoria.tituloConvocatoria);
     localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
     localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
