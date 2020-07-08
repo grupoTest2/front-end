@@ -20,8 +20,6 @@ export class CurriculumVitaeComponent implements OnInit {
   form: FormGroup
   formBuilder: any;
   data: any = {};
-
-  listaEmision:string[]=["cbba","ss"];
   paises: any[] = [];
   datosPersonales= new DatosPesoanles();
   listaFormacionAcademica:FormacionAcademica[]=[];
