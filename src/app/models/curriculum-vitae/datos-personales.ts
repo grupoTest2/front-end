@@ -10,7 +10,7 @@ export class DatosPesoanles {
     private celulaIdentidad: string;
     private lugarEmisionCI: string;
     private nacionalidad: string;
-    private sexo: string;
+    private genero: string;
     private estadoCivil: string;
     private domicilioCalle: string;
     private domicilioNumero: string;
@@ -19,11 +19,11 @@ export class DatosPesoanles {
     private nombreColegio: string;
     private tipoColegio: string;
     private fechaTituloBachillerato: string;
-    private situacionAcademica: string;
+    private carrera: string;
     private egresado: boolean;
     private fechaEgreso: Date;
     private nuvelEnCurso: string;
-    private idiomas: Idioma[];
+    private idiomas: Idioma[]=[];
     public constructor() { 
         let idioma=new Idioma();
         idioma.setIdioma("español");
@@ -108,12 +108,12 @@ export class DatosPesoanles {
         this.nacionalidad = nacionalidad;
     }
 
-    public getSexo(): string {
-        return this.sexo;
+    public getGenero(): string {
+        return this.genero;
     }
 
-    public setSexo(sexo: string): void {
-        this.sexo = sexo;
+    public setGenero(sexo: string): void {
+        this.genero = sexo;
     }
 
     public getEstadoCivil(): string {
@@ -172,11 +172,11 @@ export class DatosPesoanles {
     public setFechaTituloBachillerato(value: string) {
         this.fechaTituloBachillerato = value;
     }
-    public getSituacionAcademica(): string {
-        return this.situacionAcademica;
+    public getCarrera(): string {
+        return this.carrera;
     }
-    public setSituacionAcademica(value: string) {
-        this.situacionAcademica = value;
+    public setCarrera(value: string) {
+        this.carrera = value;
     }
     public getEgresado(): boolean {
         return this.egresado;
