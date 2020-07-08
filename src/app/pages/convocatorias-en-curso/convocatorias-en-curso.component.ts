@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Convocatoria} from '../../models/clases/convocatoria/convocatoria'
 import {TipoConvocatoria} from '../../models/clases/convocatoria/tipo-convocatoria'
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-convocatorias-en-curso',
@@ -12,7 +13,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
 
 
   listaConvocatorias: Convocatoria[]=[]
-  constructor(private convService: EditarConvocatoriaServicePhp) { 
+  constructor(private convService: EditarConvocatoriaServicePhp, private router: Router) { 
     this.recuperarDatos();
   }
 

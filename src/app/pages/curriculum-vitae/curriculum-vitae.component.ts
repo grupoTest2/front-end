@@ -4,6 +4,7 @@ import { PaisService } from 'src/app/servicios/Paises/pais.service';
 import { DatosPesoanles} from '../../models/curriculum-vitae/datos-personales';
 import { FormacionAcademica} from '../../models/curriculum-vitae/datos-formacion-academica';
 import { Router } from '@angular/router';
+import { PhpServeConvocatoria } from 'src/app/servicios/form-convocatoria/php-serve.service';
 declare var tata: any;
 declare var $: any;
 declare var swal: any;
@@ -24,7 +25,8 @@ export class CurriculumVitaeComponent implements OnInit {
   paises: any[] = [];
   datosPersonales= new DatosPesoanles();
   listaFormacionAcademica:FormacionAcademica[]=[];
-  constructor(private paisService: PaisService, private router: Router) {
+  egresado=false;
+  constructor(private paisService: PaisService, private router: Router,private phpService: PhpServeConvocatoria) {
   }
   ngOnInit( ): void {
     this.paisService.getPaises()
@@ -41,7 +43,9 @@ export class CurriculumVitaeComponent implements OnInit {
         window.scrollTo(0, 0);
       });
   }
-
+  setEgresado(egresado:boolean){
+    this.egresado=egresado;
+  }
   guardar( form: NgForm ){
     if(form.invalid){
       Object.values(form.controls).forEach(
@@ -76,8 +80,13 @@ export class CurriculumVitaeComponent implements OnInit {
    let tipoColegio=form.controls['tipoColegio'].value;
    let fechaBachiller =form.controls['fechaBachiller'].value;
    let carrera=form.controls['carrera'].value;
-   let semestre=form.controls['semestre'].value;
-   let fechaEgreso=$('#fechaEgreso').val();  
+   if(this.egresado){
+    let fechaEgreso=$('#fechaEgreso').val();  
+    this.datosPersonales.setFechaEgreso(fechaEgreso);
+   }else{
+    let semestre=form.controls['semestre'].value;
+    this.datosPersonales.setNivelCurso(semestre);
+   }
    let egreso=$('#egresado').val();  
 
    this.datosPersonales.setNombreUsuario(nombre);
@@ -98,10 +107,10 @@ export class CurriculumVitaeComponent implements OnInit {
    this.datosPersonales.setTipoColegio(tipoColegio);
    this.datosPersonales.setFechaTituloBachillerato(fechaBachiller);
    this.datosPersonales.setCarrera(carrera);
-   this.datosPersonales.setNuvelEnCurso(semestre);
-   this.datosPersonales.setEgresado(fechaEgreso);
-   this.datosPersonales.setEgresado(egreso);
-   console.log(this.datosPersonales)
+   //this.datosPersonales.setEgresado(fechaEgreso);
+   this.datosPersonales.setEgresado(this.egresado);
+   console.log(JSON.stringify(this.datosPersonales));
+   this.agregarDatosCvBD();
     console.log(form.value);
    
    //datos de los formacion academica.
@@ -122,13 +131,13 @@ export class CurriculumVitaeComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.registrar(f);
-        swal.fire(
+        /*swal.fire(
           'Exitoso!',
           'Se guardaron los usuarios.',
           'success'
         ).then((result) => {
         this.router.navigate(['/convocatoriasEnCurso']);
-        });
+        });*/
       } else {
         swal.fire(
           'Cancelado!',
@@ -140,4 +149,23 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  agregarDatosCvBD(){
+    this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          swal.fire(
+            'Exitoso!',
+            'Se guardaron los usuarios.',
+            'success'
+          ).then((result) => {
+          this.router.navigate(['/convocatoriasEnCurso']);
+          });
+        }
+      },
+      error=>{
+        alert("lo datos de este postulante para esta convocatoria ya existen");
+      }
+    
+    )
+  }
 }

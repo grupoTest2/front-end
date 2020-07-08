@@ -6,6 +6,7 @@ export class DatosPesoanles {
     private apellidoPaterno: string;
     private apellidoMaterno: string;
     private fechaNacimiento: Date;
+    private fechaNacimientoS: string;
     private lugarNacimiento: string;
     private celulaIdentidad: string;
     private lugarEmisionCI: string;
@@ -18,16 +19,19 @@ export class DatosPesoanles {
     private correo: string;
     private nombreColegio: string;
     private tipoColegio: string;
-    private fechaTituloBachillerato: string;
+    private fechaTituloBachillerato: Date;
+    private fechaTituloBachilleratoS: string;
     private carrera: string;
     private egresado: boolean;
     private fechaEgreso: Date;
-    private nuvelEnCurso: string;
+    private fechaEgresoS: string;
+    private nivelEnCurso: string;
     private idiomas: Idioma[]=[];
     public constructor() { 
+        this.idConv=parseInt(localStorage.getItem("idConv"));
         let idioma=new Idioma();
         idioma.setIdioma("español");
-        idioma.setHabala("bien");
+        idioma.setHabla("bien");
         idioma.setLee("bien");
         idioma.setEscribe("bien");
         this.idiomas.push(idioma);
@@ -79,6 +83,9 @@ export class DatosPesoanles {
 
     public setFechaNacimiento(fecha: Date): void {
         this.fechaNacimiento = fecha;
+        const fechaN = this.fechaNacimiento.toLocaleString().split(' ')[0];
+        let aux = fechaN.split('/', 3);
+        this.fechaNacimientoS = aux[2] + '-' + aux[1] + '-' + aux[0];
     }
 
     public getLugarNacimiento(): string {
@@ -100,6 +107,7 @@ export class DatosPesoanles {
     public getLugarEmisionCI(): string {
         return this.lugarEmisionCI;
     }
+
     public setLugarEmisionCI(value: string) {
         this.lugarEmisionCI = value;
     }
@@ -166,11 +174,14 @@ export class DatosPesoanles {
         this.tipoColegio = value;
     }
 
-    public getFechaTituloBachillerato(): string {
+    public getFechaTituloBachillerato(): Date {
         return this.fechaTituloBachillerato;
     }
-    public setFechaTituloBachillerato(value: string) {
+    public setFechaTituloBachillerato(value: Date) {
         this.fechaTituloBachillerato = value;
+        const fechaN = this.fechaTituloBachillerato.toLocaleString().split(' ')[0];
+        let aux = fechaN.split('/', 3);
+        this.fechaTituloBachilleratoS = aux[2] + '-' + aux[1] + '-' + aux[0];
     }
     public getCarrera(): string {
         return this.carrera;
@@ -188,13 +199,17 @@ export class DatosPesoanles {
     public getFechaEgreso(): Date {
         return this.fechaEgreso;
     }
-    public seFechaEgreso(value: Date) {
+    public setFechaEgreso(value: Date) {
         this.fechaEgreso = value;
+        const fechaN = this.fechaEgreso.toLocaleString().split(' ')[0];
+        let aux = fechaN.split('/', 3);
+        this.fechaEgresoS = aux[2] + '-' + aux[1] + '-' + aux[0];
     }
-    public getNuvelEnCurso(): string {
-        return this.nuvelEnCurso;
+    public getNivelEnCurso(): string {
+        return this.nivelEnCurso;
     }
-    public setNuvelEnCurso(value: string) {
-        this.nuvelEnCurso = value;
+    
+    public setNivelCurso(value: string) {
+        this.nivelEnCurso = value;
     }
 }

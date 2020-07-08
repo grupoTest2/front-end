@@ -1,6 +1,6 @@
 export class Idioma {
     private idioma: string;
-    private habala: string;
+    private habla: string;
     private lee: string;
     private escribe: string;
     
@@ -12,11 +12,11 @@ export class Idioma {
     public setIdioma(value: string) {
         this.idioma = value;
     }
-    public getHabala(): string {
-        return this.habala;
+    public getHabla(): string {
+        return this.habla;
     }
-    public setHabala(value: string) {
-        this.habala = value;
+    public setHabla(value: string) {
+        this.habla = value;
     }
     public getLee(): string {
         return this.lee;
