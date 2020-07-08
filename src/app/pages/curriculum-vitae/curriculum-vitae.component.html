@@ -70,7 +70,7 @@
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Cédula de identidad y lugar de emision:</label>
                         <div class="input-group">
-                            <input placeholder="Ejem: 1111111" aria-describedby="validatedInputGroupPrependy" type="text" class="form-control" required name="ci" #ci="ngModel" ngModel [class.is-invalid]="ci.invalid && ci.touched" [class.is-valid]="ci.valid && ci.touched">
+                            <input placeholder="Ejem: 1111111" aria-describedby="validatedInputGroupPrependy" type="number" class="form-control" required name="ci" #ci="ngModel" ngModel [class.is-invalid]="ci.invalid && ci.touched" [class.is-valid]="ci.valid && ci.touched">
                             <div class="input-group-addon">
                                 <select class="custom-select rounded-0" required name="emision" #emision="ngModel" ngModel aria-describedby="validatedInputGroupPrependu" [class.is-invalid]="emision.invalid && emision.touched" [class.is-valid]="emision.valid && emision.touched" id="ciEmision">
                   <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Emision

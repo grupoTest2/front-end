@@ -6,7 +6,10 @@
                     <h5 class="card-title">{{item.getTitulo()}}</h5>
                     <img class="card-img-bottom" src="../../../assets/img/logoDocenteXdD.jpg" class="card-img-top">
                     <p class="card-text">vigente para la gestion: {{item.getGestion()}}</p>
-                    <a routerLink="/formularioRegistro" type="button" class="btn btn-outline-primary" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">Postular</a>
+                    <div class="btn-group">
+                        <button routerLink="/curriculumVitae" type="button" class="btn btn-outline-info" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">currilum vitae</button>
+                        <button routerLink="/formularioRegistro" type="button" class="btn btn-outline-primary" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">postular</button>
+                    </div>
                 </div>
             </div>
         </div>

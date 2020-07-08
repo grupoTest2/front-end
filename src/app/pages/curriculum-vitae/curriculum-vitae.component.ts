@@ -3,9 +3,10 @@ import { FormGroup, Validators, NgForm } from '@angular/forms';
 import { PaisService } from 'src/app/servicios/Paises/pais.service';
 import { DatosPesoanles} from '../../models/curriculum-vitae/datos-personales';
 import { FormacionAcademica} from '../../models/curriculum-vitae/datos-formacion-academica';
+import { Router } from '@angular/router';
 declare var tata: any;
 declare var $: any;
-
+declare var swal: any;
 
 
 @Component({
@@ -23,7 +24,7 @@ export class CurriculumVitaeComponent implements OnInit {
   paises: any[] = [];
   datosPersonales= new DatosPesoanles();
   listaFormacionAcademica:FormacionAcademica[]=[];
-  constructor(private paisService: PaisService) {
+  constructor(private paisService: PaisService, private router: Router) {
   }
   ngOnInit( ): void {
     this.paisService.getPaises()
@@ -48,10 +49,16 @@ export class CurriculumVitaeComponent implements OnInit {
           control.markAllAsTouched();
         }
       );
-    }
+      tata.error('Error','Formulario invalido');
+    }else{
+      this.alertRegistrar(form);
     // console.log()
-    console.log(form.value);
-   let apellidoP=form.controls['apellidoP'].value;
+    
+    }
+  }
+
+  registrar(form: NgForm){
+    let apellidoP=form.controls['apellidoP'].value;
    let apellidoM=form.controls['apellidoM'].value;
    let nombre=form.controls['nombres'].value;
    let fechaNac=form.controls['fechaNac'].value;
@@ -95,15 +102,42 @@ export class CurriculumVitaeComponent implements OnInit {
    this.datosPersonales.setEgresado(fechaEgreso);
    this.datosPersonales.setEgresado(egreso);
    console.log(this.datosPersonales)
-
-
-
+    console.log(form.value);
+   
    //datos de los formacion academica.
    this.listaFormacionAcademica.push();
   }
 
-  resetForm(): void {
-    
+
+  alertRegistrar( f: NgForm): void {
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.registrar(f);
+        swal.fire(
+          'Exitoso!',
+          'Se guardaron los usuarios.',
+          'success'
+        ).then((result) => {
+        this.router.navigate(['/convocatoriasEnCurso']);
+        });
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'Los uuarios no fueron guardados.',
+          'warning'
+        );
+
+      }
+    });
   }
 
 }
