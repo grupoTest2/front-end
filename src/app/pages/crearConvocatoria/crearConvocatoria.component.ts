@@ -47,6 +47,9 @@ export class CrearConvocatoriaComponent implements OnInit {
       }
   }
 
+cambiar2(){
+  $("#radio").click();
+}
 
   cambiar(){
     console.log(this.rotuloPorConvocatoria);

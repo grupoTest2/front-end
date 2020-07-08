@@ -46,8 +46,10 @@
                     </div>
                 </div>
             </form>
-            <div class="form-group">
-                <mat-slide-toggle [(ngModel)]="rotuloPorConvocatoria">{{texto}}</mat-slide-toggle>
+            <h5>definir el tipo de rotulo</h5>
+            <div class="form-group d-flex">
+                <label (click)="cambiar2()" class="text-danger">Rotulo por item</label>&nbsp;&nbsp;
+                <mat-slide-toggle [(ngModel)]="rotuloPorConvocatoria" ><span id="radio" style="color: #49c5b6;;">{{texto}}</span></mat-slide-toggle>
             </div>
         </div>
         <div class="card-footer text-muted">
