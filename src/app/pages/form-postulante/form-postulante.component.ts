@@ -600,7 +600,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
     //la cabecera
-    pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
+    pdf.add(new Txt(localStorage.getItem('tituloConvocatoria')).alignment('center').fontSize(15).bold().end);
     pdf.add(
       pdf.ln(1)
     );

@@ -250,6 +250,7 @@ export class FormConvocatoriaComponent implements OnInit {
             'La convactoria fue habilitada correctamente',
             'success'
           );
+          this.router.navigate(['/editar/convocatorias']);
           }else{
             swal.fire(
               {title: 'Editar convocatoria',
@@ -274,7 +275,7 @@ export class FormConvocatoriaComponent implements OnInit {
           'La convocatoria no fue habilitada.',
           'error'
         );
-        this.router.navigate(['/home']);
+        this.router.navigate(['/editar/convocatorias']);
       }
     });
   }

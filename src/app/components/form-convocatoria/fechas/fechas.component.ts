@@ -109,7 +109,7 @@ export class FechasComponent implements OnInit {
   // validaciones -----------------------------------------------------
   private buildForm(): void {
     this.formEventos = this.formBuilder.group({
-      evento: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      evento: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       fecha: ['', [Validators.required]],
     });
   }

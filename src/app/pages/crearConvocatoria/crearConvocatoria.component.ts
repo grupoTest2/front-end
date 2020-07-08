@@ -75,6 +75,17 @@ cambiar2(){
     localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
     localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
     this.crearConvocatoriaBD(convocatoria);
+    console.log(this.rotuloPorConvocatoria,"llllllllllllllllllll");
+  }
+
+  setRotulo(){
+    if($('#porItem').is(':checked')){
+      this.rotuloPorConvocatoria = false;
+    }else{
+      this.rotuloPorConvocatoria = true;
+    }
+    console.log(this.rotuloPorConvocatoria,"llllllllllllllllllll");
+
   }
 
   // Validaciones -------------------------------------------------------------------------

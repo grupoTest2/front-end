@@ -46,10 +46,16 @@
                     </div>
                 </div>
             </form>
-            <h5>definir el tipo de rotulo</h5>
+            <h5>Tipo de rótulo</h5>
             <div class="form-group d-flex">
-                <label (click)="cambiar2()" class="text-danger">Rotulo por item</label>&nbsp;&nbsp;
-                <mat-slide-toggle [(ngModel)]="rotuloPorConvocatoria" ><span id="radio" style="color: #49c5b6;;">{{texto}}</span></mat-slide-toggle>
+                <div class="form-check form-check-inline">
+                    <input (input)="setRotulo()" checked class="form-check-input" type="radio" name="inlineRadioOptions" id="porConvocatoria" value="T">
+                    <label for="porConvocatoria" class="form-check-label" [class.text-primary]="rotuloPorConvocatoria">Rótulo por convocatoria</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input (input)="setRotulo()" class="form-check-input" type="radio" name="inlineRadioOptions" id="porItem" value="F">
+                    <label for="porItem" class="form-check-label" [class.text-primary]="!rotuloPorConvocatoria">Rótulo por item</label>
+                </div>
             </div>
         </div>
         <div class="card-footer text-muted">

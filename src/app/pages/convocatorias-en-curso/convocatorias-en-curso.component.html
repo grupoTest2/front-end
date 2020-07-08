@@ -1,20 +1,18 @@
 <div *ngIf="listaConvocatorias.length > 0">
-  <div class="row ">
-    <div class="col-sm-6 col-lg-3" *ngFor="let item of listaConvocatorias">
-      <div class="card mt-4">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{item.getTitulo()}}</h5>
-          <img class="card-img-bottom" src="../../../assets/img/logoDocenteXdD.jpg" class="card-img-top">
-          <p class="card-text">vigente para la gestion: {{item.getGestion()}}</p>
-          <a routerLink="/formularioRegistro" type="button" class="btn btn-outline-primary"
-            (click)="setearLocalStore(item.getIdConv(), item.getTitulo())">Postular</a>
+    <div class="row ">
+        <div class="col-sm-6 col-lg-3" *ngFor="let item of listaConvocatorias">
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{item.getTitulo()}}</h5>
+                    <img class="card-img-bottom" src="../../../assets/img/logoDocenteXdD.jpg" class="card-img-top">
+                    <p class="card-text">vigente para la gestion: {{item.getGestion()}}</p>
+                    <a routerLink="/formularioRegistro" type="button" class="btn btn-outline-primary" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">Postular</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <div *ngIf="listaConvocatorias.length == 0" class="page-header text-center alert alert-danger">
-  <h6 >  NO TIENE CONVOCATORIAS EN CURSO </h6>
-  <h6 >PARA QUE PUEDA POSTULARSE!</h6>
+    <h6> NO TIENE CONVOCATORIAS EN CURSO </h6>
+    <h6>PARA QUE PUEDA POSTULARSE!</h6>
 </div>
-
