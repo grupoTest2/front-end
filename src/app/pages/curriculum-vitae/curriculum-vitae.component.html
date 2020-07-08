@@ -1,11 +1,13 @@
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title" id="inicio">I. Registrar Datos personales</h4>
+      <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
+      <br><br>
+      <form class="form" autocomplete="off" (ngSubmit)="guardar( form )" #form="ngForm">
+        <h4 >I. Registrar Datos personales</h4>
       <div class="w-100">
         <hr class="border border-light  bg-dark" style="height: .1rem;">
       </div>
-      <form class="form" autocomplete="off" (ngSubmit)="guardar( form )" #form="ngForm">
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="inputEmail4">Apellido Paterno:</label>
