@@ -547,7 +547,7 @@ export class FormPostulanteComponent implements OnInit {
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
           if (!this.banderaMostrar) {
-            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "email", 5)));
+            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
           }
           this.listaDatosRotulo.push(datoRotulo);
 
