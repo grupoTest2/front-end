@@ -86,7 +86,7 @@ export class FormPostulanteComponent implements OnInit {
             console.log("presiono un text" + id)
           } else {
             if (inputTipe == 'email') {
-              console.log("presiono un number" + id)
+              this.cargarListenersTipoEmail(id, this.listaDatosRotulo[index].getTipoDato());
             }
           }
         }

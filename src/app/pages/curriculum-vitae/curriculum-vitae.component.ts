@@ -21,6 +21,7 @@ export class CurriculumVitaeComponent implements OnInit {
   formBuilder: any;
   data: any = {};
 
+  listaEmision:string[]=["cbba","ss"];
   paises: any[] = [];
   datosPersonales= new DatosPesoanles();
   listaFormacionAcademica:FormacionAcademica[]=[];
@@ -59,8 +60,10 @@ export class CurriculumVitaeComponent implements OnInit {
    let fechaNac=form.controls['fechaNac'].value;
    let lugarNac=form.controls['lugar'].value;
    let ci=form.controls['ci'].value;
-   //let emision =form.control['emision'].value;
+   let emision =form.control['emision'].value;
+   console.log(emision)
    let paisN=form.controls['pais'].value;
+   console.log(paisN)
    let genero=form.controls['genero'].value;
    let estadoCivil=form.controls['estadoCivil'].value;
    let direccion=form.controls['direccion'].value;
