@@ -577,6 +577,12 @@ export class FormPostulanteComponent implements OnInit {
             console.log("error al registrar el postulante");
             //this.mensajeToastErrorBD("error al registrar el postulante");
           }
+        },
+        error => {
+          this.mensajeToastError('El postulante con este codigo sis ya esta registrado');
+          $("#codigo_sis").removeClass("is-valid");
+          $("#codigo_sis").addClass("is-invalid");
+          $("#codigo_sis13").css('display', 'block');
         }
       )
   }

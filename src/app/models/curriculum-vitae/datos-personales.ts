@@ -1,7 +1,7 @@
 import { Idioma } from './datos-idiomas';
 export class DatosPesoanles {
     private idEstudiante: number;
-    private idConvoactoria: number;
+    private idConv: number;
     private nombreUsuario: string;
     private apellidoPaterno: string;
     private apellidoMaterno: string;
@@ -42,11 +42,11 @@ export class DatosPesoanles {
         this.idEstudiante = id;
     }
     public getIdConvocatoria(): number {
-        return this.idConvoactoria;
+        return this.idConv;
     }
 
     public setIdConvocatoria(id: number): void {
-        this.idConvoactoria = id;
+        this.idConv = id;
     }
 
     public getNombreUsuario(): string {

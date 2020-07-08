@@ -34,7 +34,7 @@
                                                         <i class="fas fa-book-user"></i>
                                                 </button>
                                                     <button (click)="modal(j, tipo.getIdTipoComision(), usuario.getIdUsuario())" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
-                                                    <i class="fas fa-user-times" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
+                                                    <i [class.fa-user-times]="!existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.fa-user-check]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.btn-outline-success]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" class="fas" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
                                                 </button>
                                                 </div>
                                             </td>
