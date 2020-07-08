@@ -46,11 +46,14 @@ export class FormPostulanteComponent implements OnInit {
   banderaDatosCargados = true;
   lista:string[]=["1","2","3"];
   listaTipos:string[]=["commision1","comision2"];
+
+  titulo="";
   constructor(private servicePostulante: PostulanteServicePhp) {
     this.enviarDatos();
   }
 
   ngOnInit(): void {
+    this.titulo=localStorage.tituloConvocatoria;
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });

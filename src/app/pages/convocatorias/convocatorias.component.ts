@@ -66,6 +66,7 @@ export class ConvocatoriasComponent implements OnInit {
   clickComision(item: Convocatoria){
     console.log("hice click en comision");
     localStorage.setItem("idConv",item.getIdConv()+"");
+    localStorage.setItem("tituloConvocatoria",item.getTitulo()+"");
   }
 
   cambiar(id: string){

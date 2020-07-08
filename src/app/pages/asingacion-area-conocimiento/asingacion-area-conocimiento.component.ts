@@ -24,12 +24,14 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   listaTematicas: Tematica[] = [];
   indiceActual = 0;
   tituloActual = "";
+  tituloConv="";
   constructor(private comisionServ:ComisionesServicePhp) {
     this.comision =new Comision(1);
     //this.agragarUsuariosPrueba();
     this.getTiposUsuarioBD();
     this.getTematicasBD();
     this.getComisionesBD();
+    this.tituloConv=localStorage.getItem('tituloConvocatoria');
 
   }
 

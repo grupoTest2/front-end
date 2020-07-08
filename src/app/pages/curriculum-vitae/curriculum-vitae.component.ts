@@ -58,10 +58,8 @@ export class CurriculumVitaeComponent implements OnInit {
    let fechaNac=form.controls['fechaNac'].value;
    let lugarNac=form.controls['lugar'].value;
    let ci=form.controls['ci'].value;
-   let emision =form.control['emision'].value;
-   console.log(emision)
+   let emision =form.controls['emision'].value;
    let paisN=form.controls['pais'].value;
-   console.log(paisN)
    let genero=form.controls['genero'].value;
    let estadoCivil=form.controls['estadoCivil'].value;
    let direccion=form.controls['direccion'].value;
@@ -70,7 +68,7 @@ export class CurriculumVitaeComponent implements OnInit {
    let correo=form.controls['correo'].value;
    let colegio=form.controls['colegio'].value;
    let tipoColegio=form.controls['tipoColegio'].value;
-   //let fechaBachiller =form.control['fechaBachiller'].value;
+   let fechaBachiller =form.controls['fechaBachiller'].value;
    let carrera=form.controls['carrera'].value;
    let semestre=form.controls['semestre'].value;
    let fechaEgreso=$('#fechaEgreso').val();  
@@ -82,7 +80,7 @@ export class CurriculumVitaeComponent implements OnInit {
    this.datosPersonales.setFechaNacimiento(fechaNac);
    this.datosPersonales.setLugarNacimiento(lugarNac);
    this.datosPersonales.setCelulaIdentidad(ci);
-   //this.datosPersonales.setLugarEmisionCI(emision);
+   this.datosPersonales.setLugarEmisionCI(emision);
    this.datosPersonales.setNacionalidad(paisN);
    this.datosPersonales.setGenero(genero);
    this.datosPersonales.setEstadoCivil(estadoCivil);
@@ -92,7 +90,7 @@ export class CurriculumVitaeComponent implements OnInit {
    this.datosPersonales.setCorreo(correo);
    this.datosPersonales.setNombreColegio(colegio);
    this.datosPersonales.setTipoColegio(tipoColegio);
-   //this.datosPersonales.setFechaTituloBachillerato(fechaBachiller);
+   this.datosPersonales.setFechaTituloBachillerato(fechaBachiller);
    this.datosPersonales.setCarrera(carrera);
    this.datosPersonales.setNuvelEnCurso(semestre);
    this.datosPersonales.setEgresado(fechaEgreso);

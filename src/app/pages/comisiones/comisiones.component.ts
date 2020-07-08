@@ -5,7 +5,7 @@ import { TipoComision } from 'src/app/models/clases/comision/tipo-comision';
 import { ComisionesServicePhp } from 'src/app/servicios/comisiones/comisiones.service';
 import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision';
 
-import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
 
 declare var $: any;
@@ -18,10 +18,10 @@ declare var tata: any;
 export class ComisionesComponent implements OnInit {
 
   formTipoUsuario: FormGroup;
-  comision1:Comision;
-  comision2:Comision;
-  listaTipoComision: TipoComision[]=[];
-  listaUsuarios:Usuario[]=[];
+  comision1: Comision;
+  comision2: Comision;
+  listaTipoComision: TipoComision[] = [];
+  listaUsuarios: Usuario[] = [];
   tabs = ['First', 'Second', 'Third'];
   selected = new FormControl(0);
   listaComision: Comision[] = [];
@@ -31,9 +31,12 @@ export class ComisionesComponent implements OnInit {
   idTipoUsuarioAux;
   indice;
   //
-  banderaConocimiento=false;
-  constructor(private comisionServ:ComisionesServicePhp,
-    private formBuilder: FormBuilder,) { 
+  banderaConocimiento = false;
+
+  titulo = "";
+  constructor(private comisionServ: ComisionesServicePhp,
+    private formBuilder: FormBuilder,) {
+    this.titulo = localStorage.tituloConvocatoria;
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
     this.getTipoComisionesBD();
@@ -45,28 +48,28 @@ export class ComisionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  existeUsuario(idTipoComision:number, idUsuario: number): boolean{
-    let res=false;
-    for(let i=0;i<this.listaComision.length&&!res;i++){
-      if(this.listaComision[i].getIdTipoComision()==idTipoComision){
-        res=this.listaComision[i].existeUsuario(idUsuario);
+  existeUsuario(idTipoComision: number, idUsuario: number): boolean {
+    let res = false;
+    for (let i = 0; i < this.listaComision.length && !res; i++) {
+      if (this.listaComision[i].getIdTipoComision() == idTipoComision) {
+        res = this.listaComision[i].existeUsuario(idUsuario);
       }
     }
     return res;
   }
-  getNombreTipoUsuario(idTipoComision,idUsuario){
-    let res="----";
-    let bandera=true;
-    for(let i=0;i<this.listaComision.length&&bandera;i++){
-      if(this.listaComision[i].getIdTipoComision()==idTipoComision){
-        
-        let idAux=this.listaComision[i].getIdTipoUsuario(idUsuario);
-        if(idAux!=-1){
-          for(let j=0;j<this.listaTipoComision.length;j++){
-            if(this.listaTipoComision[j].getIdTipoComision()==idTipoComision){
-              
-              res=this.listaTipoComision[j].getNombreTipoUsuario(idAux);
-              bandera=false;
+  getNombreTipoUsuario(idTipoComision, idUsuario) {
+    let res = "----";
+    let bandera = true;
+    for (let i = 0; i < this.listaComision.length && bandera; i++) {
+      if (this.listaComision[i].getIdTipoComision() == idTipoComision) {
+
+        let idAux = this.listaComision[i].getIdTipoUsuario(idUsuario);
+        if (idAux != -1) {
+          for (let j = 0; j < this.listaTipoComision.length; j++) {
+            if (this.listaTipoComision[j].getIdTipoComision() == idTipoComision) {
+
+              res = this.listaTipoComision[j].getNombreTipoUsuario(idAux);
+              bandera = false;
               break;
             }
           }
@@ -88,7 +91,7 @@ export class ComisionesComponent implements OnInit {
     for (let i in this.listaComision) {
       let objCom: Comision = this.listaComision[i];
       if (objCom.getIdTipoComision() === idTipoComision) {
-        let usuarioCom = new UsuarioComision(idUsuario, "insertar",idTipoUsuario);
+        let usuarioCom = new UsuarioComision(idUsuario, "insertar", idTipoUsuario);
         objCom.agregarUsuarioComision(usuarioCom);
       }
     }
@@ -111,24 +114,24 @@ export class ComisionesComponent implements OnInit {
       com = new Comision(objAux.getIdTipoComision());
       this.listaComision.push(com);
     }
-    
+
     this.getComisionesBD();
     //console.log("las comisiones");
     //console.log(this.listaComision);
   }
 
-  lista(){
+  lista() {
     //this.agregarUsuarioComisionBD();
     console.log(JSON.stringify(this.listaComision));
-    this.banderaConocimiento=true;
+    this.banderaConocimiento = true;
     this.agregarUsuarioComisionBD();
   }
 
-  modal(indice1: number, idTipoComision: number, idUsuario: number){
+  modal(indice1: number, idTipoComision: number, idUsuario: number) {
     this.idComisionAux = idTipoComision;
     this.idUsuarioAux = idUsuario;
     this.indice = indice1;
-    console.log(this.idComisionAux, idUsuario,"valoreeeeeees");
+    console.log(this.idComisionAux, idUsuario, "valoreeeeeees");
     this.resetForm();
     this.listaAux = [];
     for (const tipo of this.listaTipoComision[indice1].getListaTipoUsuario()) {
@@ -161,7 +164,7 @@ export class ComisionesComponent implements OnInit {
       $('#tablaTipo').modal('hide');
       tata.success('Agregado.', 'Se agregó al usuario.');
       this.idTipoUsuarioAux = this.listaTipoComision[this.indice].getListaTipoUsuario()[parseInt($('#seleccionaTipo').val())].getIdTipoUsuario();
-      $('#nombreTipo'+this.idUsuarioAux).text(this.listaAux[parseInt($('#seleccionaTipo').val())]);
+      $('#nombreTipo' + this.idUsuarioAux).text(this.listaAux[parseInt($('#seleccionaTipo').val())]);
       console.log(this.idComisionAux, this.idUsuarioAux, this.idTipoUsuarioAux);
       this.marcar();
       this.agregarUsuarioComison(this.idUsuarioAux, this.idComisionAux, this.idTipoUsuarioAux);
@@ -187,7 +190,7 @@ export class ComisionesComponent implements OnInit {
   }
 
 
-  marcar(){
+  marcar() {
     //  pintar fila y cambiar iconos
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('text-primary').toggleClass("text-muted");
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('shadow-sm');
@@ -198,7 +201,7 @@ export class ComisionesComponent implements OnInit {
     //this.agregarUsuarioComison(idUsuario, idTipo);
     //la linea de abajo esta hardcodeado para que no de errores al compilar
     // this.agregarUsuarioComison(idUsuario, idTipo,5);
-   }
+  }
 
   /**
    * metodos que interactuan con la base de datos
@@ -208,15 +211,15 @@ export class ComisionesComponent implements OnInit {
     this.comisionServ.getTiposComision().subscribe(
       resultado => {
         let tipoCom: TipoComision;
-        let tipoUsuario:TipoUsuario;
+        let tipoUsuario: TipoUsuario;
         for (let i in resultado) {
-          let tiposUsuario: TipoUsuario[]=[];
-          let objAux=resultado[i].tipoUsuario;
-          for(let j in objAux){
-            tipoUsuario=new TipoUsuario(objAux[j].idTipoUsuario,objAux[j].nombre);
+          let tiposUsuario: TipoUsuario[] = [];
+          let objAux = resultado[i].tipoUsuario;
+          for (let j in objAux) {
+            tipoUsuario = new TipoUsuario(objAux[j].idTipoUsuario, objAux[j].nombre);
             tiposUsuario.push(tipoUsuario);
           }
-          tipoCom = new TipoComision(resultado[i].idTipoComision, resultado[i].nombre,tiposUsuario);
+          tipoCom = new TipoComision(resultado[i].idTipoComision, resultado[i].nombre, tiposUsuario);
           this.listaTipoComision.push(tipoCom);
         }
         this.crearComisiones();
@@ -240,58 +243,58 @@ export class ComisionesComponent implements OnInit {
     )
     //console.log("los usuariossss");
     //console.log(this.listaUsuarios);
-   }
+  }
 
-   getComisionesBD(){
-     console.log("en el metodo pro");
-     console.log(this.listaComision.length);
-     for(let i in this.listaComision){
-       let objAux={
-          idConv:this.listaComision[i].getIdConv(),
-          idTipoComision:this.listaComision[i].getIdTipoComision()
-       }
-       this.comisionServ.getComisiones(objAux).subscribe(
-        resultado=>{
-            let misUsuarios=resultado['listaUsuarios'];
-            let usuariosAux: UsuarioComision[]=[];
-            for(let k in misUsuarios){
-              usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario,misUsuarios[k].accion,misUsuarios[k].idTipoUsuario));
-            }
-            this.listaComision[i].setListaUsuarios(usuariosAux);
+  getComisionesBD() {
+    console.log("en el metodo pro");
+    console.log(this.listaComision.length);
+    for (let i in this.listaComision) {
+      let objAux = {
+        idConv: this.listaComision[i].getIdConv(),
+        idTipoComision: this.listaComision[i].getIdTipoComision()
+      }
+      this.comisionServ.getComisiones(objAux).subscribe(
+        resultado => {
+          let misUsuarios = resultado['listaUsuarios'];
+          let usuariosAux: UsuarioComision[] = [];
+          for (let k in misUsuarios) {
+            usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario, misUsuarios[k].accion, misUsuarios[k].idTipoUsuario));
           }
-          
-          
-        
-       );
-     }
-     console.log("despues de la insercion");
-     console.log(this.listaComision);
-   }
+          this.listaComision[i].setListaUsuarios(usuariosAux);
+        }
 
-   agregarUsuarioComisionBD(){
-    let hayUsuarios:boolean=false; 
-    for(let i in this.listaComision){
-      hayUsuarios=this.listaComision[i].getListaUsuarios().length>0;
-      if(hayUsuarios){
+
+
+      );
+    }
+    console.log("despues de la insercion");
+    console.log(this.listaComision);
+  }
+
+  agregarUsuarioComisionBD() {
+    let hayUsuarios: boolean = false;
+    for (let i in this.listaComision) {
+      hayUsuarios = this.listaComision[i].getListaUsuarios().length > 0;
+      if (hayUsuarios) {
         break;
       }
     }
-    if(hayUsuarios){
+    if (hayUsuarios) {
       this.comisionServ.agregarUsuariosComision(this.listaComision).subscribe(
-        resultado=>{
-          if(resultado['resultado']=='correcto'){
+        resultado => {
+          if (resultado['resultado'] == 'correcto') {
             console.log("miembros agregados correctamente");
-          }else{
+          } else {
             console.log("error al agregar miembros");
           }
         }
       )
-    }else{
+    } else {
       console.log("no hay usuarios seleccionados");
     }
-    
-   }
-  
 
-   
+  }
+
+
+
 }
