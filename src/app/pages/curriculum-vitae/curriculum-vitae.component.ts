@@ -29,12 +29,11 @@ export class CurriculumVitaeComponent implements OnInit {
     this.paisService.getPaises()
       .subscribe( paises => {
         this.paises = paises;
-/*
         this.paises.unshift({
           nombre: 'Seleccione un País',
           codigo: ''
         })
-*/
+
         console.log( this.paises );
       });
       $('#subir').click(function(){  //referimos el elemento ( clase o identificador de acción )

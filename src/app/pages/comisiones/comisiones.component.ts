@@ -7,9 +7,11 @@ import { UsuarioComision } from 'src/app/models/clases/comision/usuario-comision
 
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { TipoUsuario } from 'src/app/models/clases/comision/tipo-usuario';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var tata: any;
+declare var swal: any;
 @Component({
   selector: 'app-comisiones',
   templateUrl: './comisiones.component.html',
@@ -30,12 +32,13 @@ export class ComisionesComponent implements OnInit {
   idUsuarioAux;
   idTipoUsuarioAux;
   indice;
+
   //
   banderaConocimiento = false;
 
   titulo = "";
   constructor(private comisionServ: ComisionesServicePhp,
-    private formBuilder: FormBuilder,) {
+    private formBuilder: FormBuilder, private router: Router) {
     this.titulo = localStorage.tituloConvocatoria;
     //this.comision1=new Comision("revisora");
     //this.comision2=new Comision("revisora");
@@ -46,6 +49,8 @@ export class ComisionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  this.listaAux = [];
+
   }
 
   existeUsuario(idTipoComision: number, idUsuario: number): boolean {
@@ -88,6 +93,7 @@ export class ComisionesComponent implements OnInit {
   }*/
   //se añadio idTipoUsuario como parametro para agregar un miembro a una comision
   agregarUsuarioComison(idUsuario, idTipoComision, idTipoUsuario) {
+      
     for (let i in this.listaComision) {
       let objCom: Comision = this.listaComision[i];
       if (objCom.getIdTipoComision() === idTipoComision) {
@@ -124,10 +130,26 @@ export class ComisionesComponent implements OnInit {
     //this.agregarUsuarioComisionBD();
     console.log(JSON.stringify(this.listaComision));
     this.banderaConocimiento = true;
-    this.agregarUsuarioComisionBD();
+    if(this.verificar()){
+    this.alertRegistrar();
+    }else{
+      tata.error('Error', 'Por favor debe elegir al menos un usuario')
+    }
+  }
+
+  verificar(){
+    let hayUsuarios: boolean = false;
+    for (let i in this.listaComision) {
+      hayUsuarios = this.listaComision[i].getListaUsuarios().length > 0;
+      if (hayUsuarios) {
+        break;
+      }
+    }
+    return hayUsuarios;
   }
 
   modal(indice1: number, idTipoComision: number, idUsuario: number) {
+    this.listaAux = [];
     this.idComisionAux = idTipoComision;
     this.idUsuarioAux = idUsuario;
     this.indice = indice1;
@@ -137,6 +159,37 @@ export class ComisionesComponent implements OnInit {
     for (const tipo of this.listaTipoComision[indice1].getListaTipoUsuario()) {
       this.listaAux.push(tipo.getNombre());
     }
+  }
+
+  alertRegistrar(): void {
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.agregarUsuarioComisionBD();
+        swal.fire(
+          'Exitoso!',
+          'Se guardaron los usuarios.',
+          'success'
+        ).then((result) => {
+        // this.router.navigate(['/editar/convocatorias']);
+        });
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'Los uuarios no fueron guardados.',
+          'warning'
+        );
+
+      }
+    });
   }
 
   // validacion ------------------------------------------------------------------------
