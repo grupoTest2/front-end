@@ -11,6 +11,7 @@ import { combineAll } from 'rxjs/operators';
 
 // para el pdf
 import { PdfMakeWrapper, Txt, Columns, Stack, Table, TextReference, PageReference, Img } from 'pdfmake-wrapper';
+import { Router } from '@angular/router';
 
 
 declare var $: any;
@@ -48,7 +49,7 @@ export class FormPostulanteComponent implements OnInit {
   listaTipos:string[]=["commision1","comision2"];
 
   titulo="";
-  constructor(private servicePostulante: PostulanteServicePhp) {
+  constructor(private servicePostulante: PostulanteServicePhp, private router: Router) {
     this.enviarDatos();
   }
 
@@ -469,7 +470,8 @@ export class FormPostulanteComponent implements OnInit {
     }
     this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
     console.log(JSON.stringify(this.postulante));
-    this.registrarPostulanteBD();
+    this.registrarPostulanteBD(); // no registra --------------------------------------------------------------------------
+    
    
 
   }
@@ -499,20 +501,23 @@ export class FormPostulanteComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        // swal.fire(
-        //   'Exitoso!',
-        //   'El campo fue eliminado.',
-        //   'success'
-        // )
         this.guardarDatos();
+        swal.fire(
+          'Exitoso!',
+          'Se generó su rotulo con exito.',
+          'success'
+        ).then((result) => {
+        this.router.navigate(['/convocatoriasEnCurso']);
+        });
       } else {
         swal.fire(
           'Cancelado!',
           'Sus datos no fueron guardados.',
           'warning'
-        )
+        );
+
       }
-    })
+    });
   }
 
 
@@ -604,7 +609,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
     //la cabecera
-    pdf.add(new Txt(localStorage.getItem('tituloConvocatoria')).alignment('center').fontSize(15).bold().end);
+    pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() +'\n==========\n GESTION '+localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
     pdf.add(
       pdf.ln(1)
     );
@@ -649,7 +654,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.add(
       new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
     );*/
-    pdf.create().open();
+    pdf.create().download();
   }
 
   pdfPorItem() {
@@ -665,7 +670,7 @@ export class FormPostulanteComponent implements OnInit {
       pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
       //la cabecera
-      pdf.add(new Txt('CONVOCATORIA A CONCURSO DE MÉRITOS Y PRUEBAS DE CONOCIMIENTOS PARA OPTAR A AUXILIATURAS EN LABORATORIO DE COMPUTACIÓN, DE MANTENIMIENTO Y DESARROLLO \n==========\n GESTIÓN 2020').alignment('center').fontSize(15).bold().end);
+      pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() +'\n==========\n GESTION '+localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
       pdf.add(
         pdf.ln(1)
       );
@@ -712,7 +717,7 @@ export class FormPostulanteComponent implements OnInit {
         aux++;
       }
     }
-    pdf.create().open();
+    pdf.create().download();
   }
 
   capitalize(word) {
