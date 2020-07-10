@@ -4,11 +4,3 @@ input[readonly] {
 ::ng-deep .cdk-overlay-container {
     z-index: 1200 !important;
 }
-
-.mat-stepper-horizontal {
-    margin-top: 8px;
-  }
-  
-  .mat-form-field {
-    margin-top: 16px;
-  }

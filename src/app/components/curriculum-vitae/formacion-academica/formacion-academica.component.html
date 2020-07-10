@@ -1,0 +1,77 @@
+<div>
+  <div class="d-flex justify-content-between align-items-center ">
+    <h4 class="card-title ">II. Formacion Academica</h4>
+    <button type="button " class="btn btn-outline-info mb-2 " data-toggle="modal " data-target="#modal2 ">
+      <i class="fa fa-plus "></i> Añadir
+    </button>
+  </div>
+  <div class="form-row ">
+    <div class="table-responsive ">
+      <table class="table align-middle table-hover mt-2 table-bordered ">
+        <thead class="thead-dark ">
+          <tr>
+            <th class="text-center " scope="col ">Grado</th>
+            <th class="text-center " scope="col "> Fecha Titulo </th>
+            <th class="text-center " scope="col ">Titulo</th>
+            <th class="text-center " scope="col ">Institucion</th>
+            <th class="text-center " scope="col ">Lugar</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--           modal para la tabla de formacion academica               -->
+<div class="modal fade " id="modal2 " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel "
+  aria-hidden="true ">
+  <div class="modal-dialog " role="document ">
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <h5 class="modal-title ">Detalles De Formacion Academica</h5>
+        <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <form autocomplete="off ">
+          <div class="form-group ">
+            <label for="recipient-name " class="col-form-label ">Grado: </label>
+            <select aria-placeholder="Seleccione " class="custom-select " id="seleccionGrado ">
+              <option selected disabled value="por defecto ">Seleccione un grado</option>
+              <option>Tecnico medio</option>
+              <option>Tecnico superior</option>
+              <option>Otros</option>
+            </select>
+          </div>
+          <div class="form-group ">
+            <label for="recipient-name " class="col-form-label ">Titulo: </label>
+            <input class="form-control " type="text ">
+          </div>
+          <div class="form-group ">
+            <label for="recipient-name " class="col-form-label ">Institucion donde obtuvo el grado: </label>
+            <input class="form-control " type="text ">
+          </div>
+          <div class="form-group ">
+            <label for="recipient-name " class="col-form-label ">Lugar donde obtuvo el grado: </label>
+            <input class="form-control " type="text ">
+          </div>
+          <div class="form-group ">
+            <label class="col-form-label mr-1 ">Fecha titulo:</label>
+            <div class="d-flex justify-content ">
+              <input [matDatepicker]="pickerm1 " class="form-control " readonly>
+              <mat-datepicker-toggle matSuffix [for]="pickerm1 "></mat-datepicker-toggle>
+              <mat-datepicker #pickerm1></mat-datepicker>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer ">
+        <button type="button " class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
+        <button type="submit " class="btn btn-primary ">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

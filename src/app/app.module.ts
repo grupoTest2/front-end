@@ -39,8 +39,19 @@ import { ConvocatoriasEnCursoComponent } from './pages/convocatorias-en-curso/co
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { AsingacionAreaConocimientoComponent } from './pages/asingacion-area-conocimiento/asingacion-area-conocimiento.component';
-import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vitae.component'; // fonts provided for pdfmake
+import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vitae.component';
+import { DatosPersonalesComponent } from './components/curriculum-vitae/datos-personales/datos-personales.component';
+import { FormacionAcademicaComponent } from './components/curriculum-vitae/formacion-academica/formacion-academica.component';
+import { EstudiosCursosComponent } from './components/curriculum-vitae/estudios-cursos/estudios-cursos.component';
+import { ExperienciaUniversitariaComponent } from './components/curriculum-vitae/experiencia-universitaria/experiencia-universitaria.component';
+import { ExperienciaExtraUniversitariaComponent } from './components/curriculum-vitae/experiencia-extra-universitaria/experiencia-extra-universitaria.component';
+import { ProduccionComponent } from './components/curriculum-vitae/produccion/produccion.component'; // fonts provided for pdfmake
  
+
+
+//
+import { MatStepperModule  } from '@angular/material/stepper';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -69,7 +80,13 @@ PdfMakeWrapper.setFonts(pdfFonts);
     FormPostulanteComponent,
     ConvocatoriasEnCursoComponent,
     AsingacionAreaConocimientoComponent,
-    CurriculumVitaeComponent
+    CurriculumVitaeComponent,
+    DatosPersonalesComponent,
+    FormacionAcademicaComponent,
+    EstudiosCursosComponent,
+    ExperienciaUniversitariaComponent,
+    ExperienciaExtraUniversitariaComponent,
+    ProduccionComponent
     ],
   imports: [
     BrowserModule,
@@ -82,6 +99,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
+    MatStepperModule,
+    MatFormFieldModule,
     BlockUIModule.forRoot({
       template: LoadingSpinnerComponent
     })
