@@ -654,7 +654,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.add(
       new Txt('This is the text to be referenced').pageBreak('before').id('titlePage2').end
     );*/
-    pdf.create().download();
+    pdf.create().download('rotulo');
   }
 
   pdfPorItem() {
@@ -717,7 +717,7 @@ export class FormPostulanteComponent implements OnInit {
         aux++;
       }
     }
-    pdf.create().download();
+    pdf.create().download('rotulo');
   }
 
   capitalize(word) {

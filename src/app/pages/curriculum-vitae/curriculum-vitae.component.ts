@@ -23,4 +23,24 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  agregarDatosCvBD(){
+  /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
+      resultado=>{
+        if(resultado['resultado']=='correcto'){
+          swal.fire(
+            'Exitoso!',
+            'Se guardaron los usuarios.',
+            'success'
+          ).then((result) => {
+          this.router.navigate(['/convocatoriasEnCurso']);
+          });
+        }
+      },
+      error=>{
+        alert("lo datos de este postulante para esta convocatoria ya existen");
+      }
+    
+    )
+  }*/
+}
 }

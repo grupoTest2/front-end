@@ -79,5 +79,5 @@ export class Evento{
         this.fechaFinString = aux[2] + '-' + aux[1] + '-' + aux[0];
         aux = fechaI.split('/', 3);
         this.fechaIniString = aux[2] + '-' + aux[1] + '-' + aux[0];
-    }
+    } 
 }
