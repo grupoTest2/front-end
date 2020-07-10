@@ -1,368 +1,358 @@
-<div class="card">
-  <div class="card-body">
-    <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
-    <br><br>
-    <form class="form" autocomplete="off" (ngSubmit)="guardar( form )" #form="ngForm">
-      <h4>I. Registrar Datos personales</h4>
-      <div class="w-100">
-        <hr class="border border-light  bg-dark" style="height: .1rem;">
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputEmail4">Apellido Paterno:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependc" type="text"
-              class="form-control" id="inputEmail4" required name="apellidoP" #apellidoP="ngModel" ngModel
-              [class.is-invalid]="apellidoP.invalid && apellidoP.touched"
-              [class.is-valid]="apellidoP.valid && apellidoP.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependc"><i
-                  class="far fa-user"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputEmail4">Apellido Materno:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependv" type="text"
-              class="form-control" required name="apellidoM" #apellidoM="ngModel" ngModel
-              [class.is-invalid]="apellidoM.invalid && apellidoM.touched"
-              [class.is-valid]="apellidoM.valid && apellidoM.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependv"><i
-                  class="far fa-user"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputEmail4">Nombres:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: Juan" aria-describedby="validatedInputGroupPrependn" type="text"
-              class="form-control" required name="nombres" #nombres="ngModel" ngModel
-              [class.is-invalid]="nombres.invalid && nombres.touched"
-              [class.is-valid]="nombres.valid && nombres.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependn"><i
-                  class="far fa-user"></i></span>
-            </div>
-          </div>
+<form class="form" autocomplete="off" (ngSubmit)="guardar( form )" #form="ngForm">
+  <h4>I. Registrar Datos personales</h4>
+  <div class="w-100">
+    <hr class="border border-light  bg-dark" style="height: .1rem;">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputEmail4">Apellido Paterno:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependc" type="text" class="form-control"
+          id="inputEmail4" required name="apellidoP" #apellidoP="ngModel" ngModel
+          [class.is-invalid]="apellidoP.invalid && apellidoP.touched"
+          [class.is-valid]="apellidoP.valid && apellidoP.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependc"><i
+              class="far fa-user"></i></span>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Fecha de nacimiento:</label>
-          <div class="d-flex justify-content">
-            <input placeholder="Ejem: 4/7/2020" [matDatepicker]="picker1" class="form-control rounded-0" readonly
-              required name="fechaNac" #fechaNac="ngModel" ngModel
-              [class.is-invalid]="fechaNac.invalid && fechaNac.touched"
-              [class.is-valid]="fechaNac.valid && fechaNac.touched">
-            <mat-datepicker-toggle matSuffix [for]="picker1" style="background: #e9ecef;" class="rounded-right ">
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </div>
-          <!-- <div *ngIf="fechaIsInvalid">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputEmail4">Apellido Materno:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependv" type="text" class="form-control"
+          required name="apellidoM" #apellidoM="ngModel" ngModel
+          [class.is-invalid]="apellidoM.invalid && apellidoM.touched"
+          [class.is-valid]="apellidoM.valid && apellidoM.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependv"><i
+              class="far fa-user"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputEmail4">Nombres:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: Juan" aria-describedby="validatedInputGroupPrependn" type="text" class="form-control"
+          required name="nombres" #nombres="ngModel" ngModel [class.is-invalid]="nombres.invalid && nombres.touched"
+          [class.is-valid]="nombres.valid && nombres.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependn"><i
+              class="far fa-user"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Fecha de nacimiento:</label>
+      <div class="d-flex justify-content">
+        <input placeholder="Ejem: 4/7/2020" [matDatepicker]="picker1" class="form-control rounded-0" readonly required
+          name="fechaNac" #fechaNac="ngModel" ngModel [class.is-invalid]="fechaNac.invalid && fechaNac.touched"
+          [class.is-valid]="fechaNac.valid && fechaNac.touched">
+        <mat-datepicker-toggle matSuffix [for]="picker1" style="background: #e9ecef;" class="rounded-right ">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </div>
+      <!-- <div *ngIf="fechaIsInvalid">
                         <small class="text-danger" *ngIf="fechaForm.hasError('required')">
                                     Seleccione una fecha por favor  <small class="fal fa-exclamation-triangle"></small>
                         </small>
                     </div> -->
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Lugar:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: Cercado" aria-describedby="validatedInputGroupPrependr" type="text"
-              class="form-control" required name="lugar" #lugar="ngModel" ngModel
-              [class.is-invalid]="lugar.invalid && lugar.touched" [class.is-valid]="lugar.valid && lugar.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependr"><i
-                  class="far fa-map-marker-alt"></i></span>
-            </div>
-          </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Lugar:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: Cercado" aria-describedby="validatedInputGroupPrependr" type="text"
+          class="form-control" required name="lugar" #lugar="ngModel" ngModel
+          [class.is-invalid]="lugar.invalid && lugar.touched" [class.is-valid]="lugar.valid && lugar.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependr"><i
+              class="far fa-map-marker-alt"></i></span>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Cédula de identidad y lugar de emision:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: 1111111" aria-describedby="validatedInputGroupPrependy" type="number"
-              class="form-control" required name="ci" #ci="ngModel" ngModel
-              [class.is-invalid]="ci.invalid && ci.touched" [class.is-valid]="ci.valid && ci.touched">
-            <div class="input-group-addon">
-              <select class="custom-select rounded-0" required name="emision" #emision="ngModel" ngModel
-                aria-describedby="validatedInputGroupPrependu" [class.is-invalid]="emision.invalid && emision.touched"
-                [class.is-valid]="emision.valid && emision.touched" id="ciEmision">
-                <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Emision
-                </option>
-                <option value="Cbba">CBBA</option>
-                <option value="Lpz">LPZ</option>
-                <option value="Oru">ORU</option>
-                <option value="chq">CHQ</option>
-                <option value="Oru">ORU</option>
-                <option value="Pnd">PND</option>
-                <option value="Psi">PSI</option>
-                <option value="Scz">SCZ</option>
-                <option value="Tja">TJA</option>
-              </select>
-            </div>
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependy"><i
-                  class="fal fa-address-card"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputState">Pais de origen:</label>
-          <div class="input-group">
-            <select [disabled]="paises.length === 0" aria-describedby="validatedInputGroupPrependu" id="inputState"
-              class="custom-select" required name="pais" #pais="ngModel" ngModel
-              [class.is-invalid]="pais.invalid && pais.touched" [class.is-valid]="pais.valid && pais.touched">
-              <option *ngFor="let pais of paises" [value]="pais.codigo">
-                {{ pais.nombre }}
-              </option>
-            </select>
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependu"><i
-                  class="far fa-flag"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputStates">Genero:</label>
-          <div class="input-group">
-            <select aria-describedby="validatedInputGroupPrependh" id="inputStates" class="custom-select" required
-              name="genero" #genero="ngModel" ngModel [class.is-invalid]="genero.invalid && genero.touched"
-              [class.is-valid]="genero.valid && genero.touched">
-              <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
-                su género</option>
-              <option value="Maculino">Masculino</option>
-              <option value="Femenino">Femenino</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrependh"><i class="fa fa-venus-mars"
-                  aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputState">Estado civil:</label>
-          <div class="input-group">
-            <select aria-describedby="validatedInputGroupPrepend5" id="inputState" class="custom-select" required
-              name="estadoCivil" #estadoCivil="ngModel" ngModel
-              [class.is-invalid]="estadoCivil.invalid && estadoCivil.touched"
-              [class.is-valid]="estadoCivil.valid && estadoCivil.touched">
-              <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
-                su estado civíl</option>
-              <option value="Soltero">Soltero(a)</option>
-              <option value="Casado">Casado(a)</option>
-              <option value="Viudo">Viudo(a)</option>
-              <option value="Divorciado">Divorciado(a)</option>
-            </select>
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrepend5"><i
-                  class="fas fa-rings-wedding"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-9">
-          <label for="inputEmail6">Direccion:</label>
-          <div class="input-group">
-            <input aria-describedby="validatedInputGroupPrepend6" type="text" class="form-control"
-              placeholder="Ejem: Av. Juncito Pinto" required name="direccion" #direccion="ngModel" ngModel
-              [class.is-invalid]="direccion.invalid && direccion.touched"
-              [class.is-valid]="direccion.valid && direccion.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrepend6"><i
-                  class="far fa-map-marker-alt"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-3">
-          <label for="inputEmail4">Número De Domicilio:</label>
-          <div class="input-group">
-            <input aria-describedby="validatedInputGroupPrepend8" type="number" class="form-control"
-              id="numeroDomicilio" placeholder="Ejem: 100">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrepend8"><i
-                  class="fas fa-list-ol"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Teléfono/Celular:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: 4444444 ó 77777777" aria-describedby="validatedInputGroupPrepend7" type="number"
-              class="form-control" id="inputEmail7" required name="telefono" #telefono="ngModel" ngModel
-              [class.is-invalid]="telefono.invalid && telefono.touched"
-              [class.is-valid]="telefono.valid && telefono.touched">
-            <div class="input-group-prepend">
-              <span class="input-group-text rounded-right" id="validatedInputGroupPrepend7"><i
-                  class="fad fa-phone-plus"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Correo electronico:</label>
-          <div class="input-group">
-            <input placeholder="Ejem: micorreito@gmail.com" aria-describedby="validatedInputGroupPrepend" type="email"
-              class="form-control" id="inputEmail4" required name="correo" #correo="ngModel" ngModel
-              [class.is-invalid]="correo.invalid && correo.touched" [class.is-valid]="correo.valid && correo.touched"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-            <div class=" input-group-prepend ">
-              <span class="input-group-text rounded-right " id="validatedInputGroupPrepend "><i
-                  class="fas fa-at "></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row ">
-        <div class="form-group col-md-6 ">
-          <label for="inputEmail4 ">Colegio de egreso:</label>
-          <div class="input-group ">
-            <input placeholder="Ejem: Mi escuelita " aria-describedby="validatedInputGroupPrepend9 " type="text "
-              class="form-control " id="inputEmail9 " required name="colegio" #colegio="ngModel" ngModel
-              [class.is-invalid]="colegio.invalid && colegio.touched"
-              [class.is-valid]="colegio.valid && colegio.touched">
-            <div class="input-group-addon ">
-              <select class="custom-select" required name="tipoColegio" #tipoColegio="ngModel" ngModel
-                [class.is-invalid]="tipoColegio.invalid && tipoColegio.touched"
-                [class.is-valid]="tipoColegio.valid && tipoColegio.touched">
-                <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Tipo
-                </option>
-                <option value="Privado ">Privado</option>
-                <option value="Fiscal ">Fiscal</option>
-                <option value="De convenio ">De convenio</option>
-              </select>
-            </div>
-            <div class="input-group-prepend ">
-              <span class="input-group-text rounded-right " id="validatedInputGroupPrepend9 "><i
-                  class="fas fa-graduation-cap "></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6 ">
-          <label>Fecha de titulo de bachiller:</label>
-          <div class="d-flex justify-content ">
-            <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker2 " class="form-control rounded-0 " id="fecha "
-              readonly required name="fechaBachiller" #fechaBachiller="ngModel" ngModel
-              [class.is-invalid]="fechaBachiller.invalid && fechaBachiller.touched"
-              [class.is-valid]="fechaBachiller.valid && fechaBachiller.touched">
-            <mat-datepicker-toggle matSuffix [for]="picker2 " style="background: #e9ecef; " class="rounded-right ">
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </div>
-        </div>
-      </div>
-      <div class="form-row ">
-        <div class="form-group col-md-6 ">
-          <label for="inputState2 ">Carrera actualmente inscrito:</label>
-          <div class="input-group ">
-            <select aria-describedby="validatedInputGroupPrepend2 " id="inputState2 " class="custom-select " required
-              name="carrera" #carrera="ngModel" ngModel [class.is-invalid]="carrera.invalid && carrera.touched"
-              [class.is-valid]="carrera.valid && carrera.touched">
-              <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
-                su carrera</option>
-              <option>Ing. Sistemas</option>
-              <option>Ing. Electronica</option>
-              <option>Ing. Matematica</option>
-              <option>Ing. Fisica</option>
-              <option>Ing. Quimica</option>
-              <option>Ing. Informatica</option>
-            </select>
-            <div class="input-group-prepend ">
-              <span class="input-group-text rounded-right " id="validatedInputGroupPrepend2 "><i
-                  class="fas fa-university "></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6 ">
-          <label for="inputStatel ">Semestre en curso:</label>
-          <div class="input-group ">
-            <select aria-describedby="validatedInputGroupPrependl " id="inputStatel " class="custom-select " required
-              name="semestre" #semestre="ngModel" ngModel [class.is-invalid]="semestre.invalid && semestre.touched"
-              [class.is-valid]="semestre.valid && semestre.touched">
-              <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
-                su semestre</option>
-              <option>1er Semestre</option>
-              <option>2do Semestre</option>
-              <option>3er Semestre</option>
-              <option>4to Semestre</option>
-              <option>5to Semestre</option>
-              <option>6to Semestre</option>
-              <option>7mo Semestre</option>
-              <option>9no Semestre</option>
-              <option>10mo Semestre</option>
-              <option>otros</option>
-
-            </select>
-            <div class="input-group-prepend ">
-              <span class="input-group-text rounded-right " id="validatedInputGroupPrependl "><i
-                  class="fas fa-books "></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row ">
-        <div class="form-group col-md-6">
-          <label>Egresado?</label>
-          <div class="input-group">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="porConvocatoria" value="Sí">
-              <label for="porConvocatoria" class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="porItem" value="No">
-              <label for="porItem" class="form-check-label">No</label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-6 ">
-          <label>Fecha de egreso </label>
-          <div class="d-flex justify-content ">
-            <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 "
-              id="fechaEgreso" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker3 " style="background: #e9ecef; " class="rounded-right ">
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker3></mat-datepicker>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="d-flex justify-content-between align-items-center ">
-          <h6 class="card-title ">Idiomas <small class="text-muted ">(ademas del espaniol)</small></h6>
-          <button type="button " class="btn btn-outline-info mb-2 " data-toggle="modal " data-target="#modalIdioms "
-            id="btnAniadir ">
-            <i class="fa fa-plus "></i> Añadir
-          </button>
-        </div>
-        <div class="form-row ">
-          <div class="table-responsive ">
-            <table class="table align-middle table-hover mt-2 table-bordered ">
-              <thead class="thead-dark ">
-                <tr>
-                  <th class="text-center " scope="col ">Idioma</th>
-                  <th class="text-center " scope="col "> Habla </th>
-                  <th class="text-center " scope="col ">Lee</th>
-                  <th class="text-center " scope="col ">Escribe</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <button type="submit " class="btn btn-primary " id="subir">Guardar</button>
-    </form>
+    </div>
   </div>
-</div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Cédula de identidad y lugar de emision:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: 1111111" aria-describedby="validatedInputGroupPrependy" type="number"
+          class="form-control" required name="ci" #ci="ngModel" ngModel [class.is-invalid]="ci.invalid && ci.touched"
+          [class.is-valid]="ci.valid && ci.touched">
+        <div class="input-group-addon">
+          <select class="custom-select rounded-0" required name="emision" #emision="ngModel" ngModel
+            aria-describedby="validatedInputGroupPrependu" [class.is-invalid]="emision.invalid && emision.touched"
+            [class.is-valid]="emision.valid && emision.touched" id="ciEmision">
+            <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Emision
+            </option>
+            <option value="Cbba">CBBA</option>
+            <option value="Lpz">LPZ</option>
+            <option value="Oru">ORU</option>
+            <option value="chq">CHQ</option>
+            <option value="Oru">ORU</option>
+            <option value="Pnd">PND</option>
+            <option value="Psi">PSI</option>
+            <option value="Scz">SCZ</option>
+            <option value="Tja">TJA</option>
+          </select>
+        </div>
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependy"><i
+              class="fal fa-address-card"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputState">Pais de origen:</label>
+      <div class="input-group">
+        <select [disabled]="paises.length === 0" aria-describedby="validatedInputGroupPrependu" id="inputState"
+          class="custom-select" required name="pais" #pais="ngModel" ngModel
+          [class.is-invalid]="pais.invalid && pais.touched" [class.is-valid]="pais.valid && pais.touched">
+          <option *ngFor="let pais of paises" [value]="pais.codigo">
+            {{ pais.nombre }}
+          </option>
+        </select>
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependu"><i
+              class="far fa-flag"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputStates">Genero:</label>
+      <div class="input-group">
+        <select aria-describedby="validatedInputGroupPrependh" id="inputStates" class="custom-select" required
+          name="genero" #genero="ngModel" ngModel [class.is-invalid]="genero.invalid && genero.touched"
+          [class.is-valid]="genero.valid && genero.touched">
+          <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
+            su género</option>
+          <option value="Maculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrependh"><i class="fa fa-venus-mars"
+              aria-hidden="true"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputState">Estado civil:</label>
+      <div class="input-group">
+        <select aria-describedby="validatedInputGroupPrepend5" id="inputState" class="custom-select" required
+          name="estadoCivil" #estadoCivil="ngModel" ngModel
+          [class.is-invalid]="estadoCivil.invalid && estadoCivil.touched"
+          [class.is-valid]="estadoCivil.valid && estadoCivil.touched">
+          <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
+            su estado civíl</option>
+          <option value="Soltero">Soltero(a)</option>
+          <option value="Casado">Casado(a)</option>
+          <option value="Viudo">Viudo(a)</option>
+          <option value="Divorciado">Divorciado(a)</option>
+        </select>
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrepend5"><i
+              class="fas fa-rings-wedding"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-9">
+      <label for="inputEmail6">Direccion:</label>
+      <div class="input-group">
+        <input aria-describedby="validatedInputGroupPrepend6" type="text" class="form-control"
+          placeholder="Ejem: Av. Juncito Pinto" required name="direccion" #direccion="ngModel" ngModel
+          [class.is-invalid]="direccion.invalid && direccion.touched"
+          [class.is-valid]="direccion.valid && direccion.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrepend6"><i
+              class="far fa-map-marker-alt"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputEmail4">Número De Domicilio:</label>
+      <div class="input-group">
+        <input aria-describedby="validatedInputGroupPrepend8" type="number" class="form-control" id="numeroDomicilio"
+          placeholder="Ejem: 100">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrepend8"><i
+              class="fas fa-list-ol"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Teléfono/Celular:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: 4444444 ó 77777777" aria-describedby="validatedInputGroupPrepend7" type="number"
+          class="form-control" id="inputEmail7" required name="telefono" #telefono="ngModel" ngModel
+          [class.is-invalid]="telefono.invalid && telefono.touched"
+          [class.is-valid]="telefono.valid && telefono.touched">
+        <div class="input-group-prepend">
+          <span class="input-group-text rounded-right" id="validatedInputGroupPrepend7"><i
+              class="fad fa-phone-plus"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Correo electronico:</label>
+      <div class="input-group">
+        <input placeholder="Ejem: micorreito@gmail.com" aria-describedby="validatedInputGroupPrepend" type="email"
+          class="form-control" id="inputEmail4" required name="correo" #correo="ngModel" ngModel
+          [class.is-invalid]="correo.invalid && correo.touched" [class.is-valid]="correo.valid && correo.touched"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <div class=" input-group-prepend ">
+          <span class="input-group-text rounded-right " id="validatedInputGroupPrepend "><i
+              class="fas fa-at "></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row ">
+    <div class="form-group col-md-6 ">
+      <label for="inputEmail4 ">Colegio de egreso:</label>
+      <div class="input-group ">
+        <input placeholder="Ejem: Mi escuelita " aria-describedby="validatedInputGroupPrepend9 " type="text "
+          class="form-control " id="inputEmail9 " required name="colegio" #colegio="ngModel" ngModel
+          [class.is-invalid]="colegio.invalid && colegio.touched" [class.is-valid]="colegio.valid && colegio.touched">
+        <div class="input-group-addon ">
+          <select class="custom-select" required name="tipoColegio" #tipoColegio="ngModel" ngModel
+            [class.is-invalid]="tipoColegio.invalid && tipoColegio.touched"
+            [class.is-valid]="tipoColegio.valid && tipoColegio.touched">
+            <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Tipo
+            </option>
+            <option value="Privado ">Privado</option>
+            <option value="Fiscal ">Fiscal</option>
+            <option value="De convenio ">De convenio</option>
+          </select>
+        </div>
+        <div class="input-group-prepend ">
+          <span class="input-group-text rounded-right " id="validatedInputGroupPrepend9 "><i
+              class="fas fa-graduation-cap "></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6 ">
+      <label>Fecha de titulo de bachiller:</label>
+      <div class="d-flex justify-content ">
+        <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker2 " class="form-control rounded-0 " id="fecha "
+          readonly required name="fechaBachiller" #fechaBachiller="ngModel" ngModel
+          [class.is-invalid]="fechaBachiller.invalid && fechaBachiller.touched"
+          [class.is-valid]="fechaBachiller.valid && fechaBachiller.touched">
+        <mat-datepicker-toggle matSuffix [for]="picker2 " style="background: #e9ecef; " class="rounded-right ">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </div>
+    </div>
+  </div>
+  <div class="form-row ">
+    <div class="form-group col-md-6 ">
+      <label for="inputState2 ">Carrera actualmente inscrito:</label>
+      <div class="input-group ">
+        <select aria-describedby="validatedInputGroupPrepend2 " id="inputState2 " class="custom-select " required
+          name="carrera" #carrera="ngModel" ngModel [class.is-invalid]="carrera.invalid && carrera.touched"
+          [class.is-valid]="carrera.valid && carrera.touched">
+          <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
+            su carrera</option>
+          <option>Ing. Sistemas</option>
+          <option>Ing. Electronica</option>
+          <option>Ing. Matematica</option>
+          <option>Ing. Fisica</option>
+          <option>Ing. Quimica</option>
+          <option>Ing. Informatica</option>
+        </select>
+        <div class="input-group-prepend ">
+          <span class="input-group-text rounded-right " id="validatedInputGroupPrepend2 "><i
+              class="fas fa-university "></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6 ">
+      <label for="inputStatel ">Semestre en curso:</label>
+      <div class="input-group ">
+        <select aria-describedby="validatedInputGroupPrependl " id="inputStatel " class="custom-select " required
+          name="semestre" #semestre="ngModel" ngModel [class.is-invalid]="semestre.invalid && semestre.touched"
+          [class.is-valid]="semestre.valid && semestre.touched">
+          <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
+            su semestre</option>
+          <option>1er Semestre</option>
+          <option>2do Semestre</option>
+          <option>3er Semestre</option>
+          <option>4to Semestre</option>
+          <option>5to Semestre</option>
+          <option>6to Semestre</option>
+          <option>7mo Semestre</option>
+          <option>9no Semestre</option>
+          <option>10mo Semestre</option>
+          <option>otros</option>
 
+        </select>
+        <div class="input-group-prepend ">
+          <span class="input-group-text rounded-right " id="validatedInputGroupPrependl "><i
+              class="fas fa-books "></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row ">
+    <div class="form-group col-md-6">
+      <label>Egresado?</label>
+      <div class="input-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="porConvocatoria" value="Sí">
+          <label for="porConvocatoria" class="form-check-label">Sí</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="porItem" value="No">
+          <label for="porItem" class="form-check-label">No</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6 ">
+      <label>Fecha de egreso </label>
+      <div class="d-flex justify-content ">
+        <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso"
+          readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker3 " style="background: #e9ecef; " class="rounded-right ">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="d-flex justify-content-between align-items-center ">
+      <h6 class="card-title ">Idiomas <small class="text-muted ">(ademas del espaniol)</small></h6>
+      <button type="button " class="btn btn-outline-info mb-2 " data-toggle="modal " data-target="#modalIdioms "
+        id="btnAniadir ">
+        <i class="fa fa-plus "></i> Añadir
+      </button>
+    </div>
+    <div class="form-row ">
+      <div class="table-responsive ">
+        <table class="table align-middle table-hover mt-2 table-bordered ">
+          <thead class="thead-dark ">
+            <tr>
+              <th class="text-center " scope="col ">Idioma</th>
+              <th class="text-center " scope="col "> Habla </th>
+              <th class="text-center " scope="col ">Lee</th>
+              <th class="text-center " scope="col ">Escribe</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <button type="submit " class="btn btn-primary " id="subir">Guardar</button>
+</form>
 <!--    modal idiomas    -->
 <div class="modal fade " id="modalIdioms " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel "
   aria-hidden="true ">
@@ -416,4 +406,3 @@
     </div>
   </div>
 </div>
-

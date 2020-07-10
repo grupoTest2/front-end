@@ -1,5 +1,4 @@
 <div class="container">
-  <p class=" text-center display-4">Hoja De Vida</p>
   <!--<mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -38,28 +37,44 @@
   </mat-horizontal-stepper>-->
 
   <mat-horizontal-stepper>
-    <mat-step label="Step 1" state="phone">
-      <p>Put down your phones.</p>
+    <mat-step label="hoja 1" state="phone">
       <div>
-        <app-datos-personales></app-datos-personales>
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
+            <br><br>
+            <app-datos-personales></app-datos-personales>
+          </div>
+        </div>
       </div>
     </mat-step>
-    <mat-step label="Step 2" state="chat">
-      <p>Socialize with each other.</p>
+    <mat-step label="hoja 2" state="chat">
       <div>
-        <app-formacion-academica></app-formacion-academica>
-        <br><br>
-        <app-estudios-cursos></app-estudios-cursos>
-        <br><br>
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
+            <br><br>
+            <app-formacion-academica></app-formacion-academica>
+            <br><br>
+            <app-estudios-cursos></app-estudios-cursos>
+            <br><br>
+          </div>
+        </div>
       </div>
     </mat-step>
-    <mat-step label="Paso 3" disabled>
+    <mat-step label="hoja 3" disabled>
       <div>
-        <app-experiencia-universitaria></app-experiencia-universitaria>
-        <br><br>
-        '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
-        <br><br>
-        <app-produccion></app-produccion>
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
+            <br><br>
+            <app-experiencia-universitaria></app-experiencia-universitaria>
+            <br><br>
+            '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
+            <br><br>
+            <app-produccion></app-produccion>
+          </div>
+        </div>
       </div>
     </mat-step>
 
