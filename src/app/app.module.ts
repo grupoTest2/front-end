@@ -51,7 +51,11 @@ import { ProduccionComponent } from './components/curriculum-vitae/produccion/pr
 
 //
 import { MatStepperModule  } from '@angular/material/stepper';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatLabel } from '@angular/material/form-field';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+
+
+import { MatInputModule } from '@angular/material/input';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -100,7 +104,12 @@ PdfMakeWrapper.setFonts(pdfFonts);
     MatNativeDateModule,
     MatSlideToggleModule,
     MatStepperModule,
+    CdkStepperModule,
+
+
     MatFormFieldModule,
+    MatInputModule,
+
     BlockUIModule.forRoot({
       template: LoadingSpinnerComponent
     })
@@ -110,6 +119,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     MatNativeDateModule,
     MatTabsModule,
     EditarConvocatoriaServicePhp,
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}},
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   entryComponents: [

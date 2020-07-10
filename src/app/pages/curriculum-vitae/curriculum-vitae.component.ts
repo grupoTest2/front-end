@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+import {STEPPER_GLOBAL_OPTIONS} from  '@angular/cdk/stepper' ;
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field/form-field';
 
 @Component({
   selector: 'app-curriculum-vitae',
   templateUrl: './curriculum-vitae.component.html',
-  styleUrls: ['./curriculum-vitae.component.css']
+  styleUrls: ['./curriculum-vitae.component.css'],
+  providers: [
+    {provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
+   ]
 })
 export class CurriculumVitaeComponent implements OnInit {
-  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
+  isLinear=false;
 
   constructor(private _formBuilder: FormBuilder) {}
 

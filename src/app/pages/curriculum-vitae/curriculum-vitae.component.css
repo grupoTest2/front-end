@@ -12,3 +12,11 @@ input[readonly] {
   .mat-form-field {
     margin-top: 16px;
   }
+
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
