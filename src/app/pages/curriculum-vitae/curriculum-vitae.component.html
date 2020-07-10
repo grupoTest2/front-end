@@ -1,10 +1,6 @@
 <div class="container">
-  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
- 
-
-  <mat-horizontal-stepper #stepper>
+  <p class=" text-center display-4">Hoja De Vida</p>
+  <!--<mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Fill out your name</ng-template>
@@ -39,26 +35,34 @@
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
-  </mat-horizontal-stepper>
-  
+  </mat-horizontal-stepper>-->
+
   <mat-horizontal-stepper>
     <mat-step label="Step 1" state="phone">
       <p>Put down your phones.</p>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <app-datos-personales></app-datos-personales>
       </div>
     </mat-step>
     <mat-step label="Step 2" state="chat">
       <p>Socialize with each other.</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <app-formacion-academica></app-formacion-academica>
+        <br><br>
+        <app-estudios-cursos></app-estudios-cursos>
+        <br><br>
       </div>
     </mat-step>
-    <mat-step label="Step 3">
-      <p>You're welcome.</p>
+    <mat-step label="Paso 3" disabled>
+      <div>
+        <app-experiencia-universitaria></app-experiencia-universitaria>
+        <br><br>
+        '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
+        <br><br>
+        <app-produccion></app-produccion>
+      </div>
     </mat-step>
-  
+
     <!-- Icon overrides.
     <ng-template matStepperIcon="phone">
       <mat-icon>call_end</mat-icon>
@@ -66,17 +70,5 @@
     <ng-template matStepperIcon="chat">
       <mat-icon>forum</mat-icon>
     </ng-template> -->
-  </mat-horizontal-stepper> 
-
-  <app-datos-personales></app-datos-personales>
-  <br><br>
-  <app-formacion-academica></app-formacion-academica>
-  <br><br>
-  <app-estudios-cursos></app-estudios-cursos>
-  <br><br>
-  <app-experiencia-universitaria></app-experiencia-universitaria>
-  <br><br>
-  '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
-  <br><br>
-  <app-produccion></app-produccion>
+  </mat-horizontal-stepper>
 </div>
