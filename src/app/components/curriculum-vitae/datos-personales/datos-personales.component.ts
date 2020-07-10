@@ -96,7 +96,7 @@ export class DatosPersonalesComponent implements OnInit {
    this.datosPersonales.setTipoColegio(tipoColegio);
    this.datosPersonales.setFechaTituloBachillerato(fechaBachiller);
    this.datosPersonales.setCarrera(carrera);
-   this.datosPersonales.setNuvelEnCurso(semestre);
+  // this.datosPersonales.setNuvelEnCurso(semestre);
    this.datosPersonales.setEgresado(fechaEgreso);
    this.datosPersonales.setEgresado(egreso);
    console.log(this.datosPersonales)
