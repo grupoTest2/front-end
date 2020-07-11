@@ -31,7 +31,6 @@ export class FormacionAcademicaComponent implements OnInit {
   }
   guardar(form: NgForm) {
     this.form = form;
-    console.log("metodoooooooooooooooo")
     if (form.invalid) {
       Object.values(form.controls).forEach(
         control => {
@@ -43,32 +42,20 @@ export class FormacionAcademicaComponent implements OnInit {
 
       $('#modalFormacion').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
-      console.log(form.value)
       this.enlistarDatosFormacion(form);
 
     }
   }
 
   enlistarDatosFormacion(form: NgForm) {
-    console.log(form.controls['grado'].value + "-------------");
     let grado = form.controls['grado'].value;
     let titulo = form.controls['titulo'].value;
-    console.log(form.controls['titulo'].value + "-------------");
-
     let institucionObtuvoGrado = form.controls['institucion'].value;
-    console.log(form.controls['institucion'].value + "-------------");
-
     let lugarObtuvoGrado = form.controls['lugar'].value;
-    console.log(form.controls['lugar'].value + "-------------");
-
     let fechaObtuvoGrado = form.controls['fecha'].value;
-
     const fecha = fechaObtuvoGrado.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
     fechaObtuvoGrado = aux[2] + '-' + aux[1] + '-' + aux[0];
-
-    console.log(fechaObtuvoGrado+"++++++++++++++++");
-
     this.datoFormacion = new FormacionAcademica(grado, titulo, institucionObtuvoGrado, lugarObtuvoGrado, fechaObtuvoGrado);
     console.log(this.datoFormacion);
     this.listaDatosFormacion.push(this.datoFormacion);
@@ -87,6 +74,10 @@ export class FormacionAcademicaComponent implements OnInit {
       }      
     }
     this.listaDatosFormacion=listaAux;
+  }
+
+  getDatosEC():FormacionAcademica[]{
+    return this.listaDatosFormacion;
   }
 
 }

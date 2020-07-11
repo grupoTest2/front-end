@@ -13,6 +13,7 @@ declare var $: any;
   templateUrl: './estudios-cursos.component.html',
   styleUrls: ['./estudios-cursos.component.css']
 })
+
 export class EstudiosCursosComponent implements OnInit {
 
   form: NgForm = new NgForm([], []);
@@ -34,7 +35,6 @@ export class EstudiosCursosComponent implements OnInit {
   }
   guardar(form: NgForm) {
     this.form = form;
-    console.log("metodoooooooooooooooo")
     if (form.invalid) {
       Object.values(form.controls).forEach(
         control => {
@@ -49,6 +49,7 @@ export class EstudiosCursosComponent implements OnInit {
       this.enlistarDatosFormacion(form);
     }
   }
+  
   enlistarDatosFormacion(form: NgForm) {
     let tipoDocumento = form.controls['tipoDocumento'].value;
     let tituloDocumento = form.controls['tituloDocumento'].value;
@@ -58,9 +59,6 @@ export class EstudiosCursosComponent implements OnInit {
     const fecha = fechaObtuvoDoc.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
     fechaObtuvoDoc = aux[2] + '-' + aux[1] + '-' + aux[0];
-
-    console.log(fechaObtuvoDoc + "++++++++++++++++");
-
     this.estudioCurso = new EstudiosCursosTomados(tipoDocumento, tituloDocumento, institucion, lugar, fechaObtuvoDoc);
     this.listaEstudiosCusrsosTomados.push(this.estudioCurso);
 
@@ -78,6 +76,11 @@ export class EstudiosCursosComponent implements OnInit {
       }
     }
     this.listaEstudiosCusrsosTomados = listaAux;
+  }
+
+
+  getDatosEC():EstudiosCursosTomados[]{
+    return this.listaEstudiosCusrsosTomados;
   }
 }
 
