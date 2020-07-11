@@ -56,6 +56,21 @@ export class DatosPersonalesComponent implements OnInit {
     }
   }
 
+  guardarIdiomas( form: NgForm ){
+    console.log("metodooooooooooooooooo")
+    if(form.invalid){
+      Object.values(form.controls).forEach(
+        control =>{
+          control.markAllAsTouched();
+        }
+      );
+      tata.error('Error','Formulario invalido');
+    }else{
+      $('#modalIdiomas').modal('hide');
+      tata.success('Exitoso', 'Se guardaron sus datos');
+    
+    }
+  }
   registrar(form: NgForm){
     let apellidoP=form.controls['apellidoP'].value;
    let apellidoM=form.controls['apellidoM'].value;
