@@ -1,74 +1,36 @@
 <div class="container">
-  <p class=" text-center display-4">Hoja De Vida</p>
-  <!--<mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>-->
 
-  <mat-horizontal-stepper>
-    <mat-step label="Step 1" state="phone">
-      <p>Put down your phones.</p>
-      <div>
-        <app-datos-personales></app-datos-personales>
-      </div>
-    </mat-step>
-    <mat-step label="Step 2" state="chat">
-      <p>Socialize with each other.</p>
-      <div>
-        <app-formacion-academica></app-formacion-academica>
-        <br><br>
-        <app-estudios-cursos></app-estudios-cursos>
-        <br><br>
-      </div>
-    </mat-step>
-    <mat-step label="Paso 3" disabled>
-      <div>
-        <app-experiencia-universitaria></app-experiencia-universitaria>
-        <br><br>
-        '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
-        <br><br>
-        <app-produccion></app-produccion>
-      </div>
-    </mat-step>
+    <p class=" text-center h2">Hoja De Vida</p>
+    <mat-horizontal-stepper>
+        <mat-step label="Step 1" state="phone">
+            <div>
+                <app-datos-personales></app-datos-personales>
+            </div>
+        </mat-step>
+        <mat-step label="Step 2" state="chat">
+            <div>
+                <app-formacion-academica></app-formacion-academica>
+                <br><br>
+                <app-estudios-cursos></app-estudios-cursos>
+                <br><br>
+            </div>
+        </mat-step>
+        <mat-step label="Paso 3" disabled>
+            <div>
+                <app-experiencia-universitaria></app-experiencia-universitaria>
+                <br><br> '
+                <app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
+                <br><br>
+                <app-produccion></app-produccion>
+            </div>
+        </mat-step>
 
-    <!-- Icon overrides.
+        <!-- Icon overrides.
     <ng-template matStepperIcon="phone">
       <mat-icon>call_end</mat-icon>
     </ng-template>
     <ng-template matStepperIcon="chat">
       <mat-icon>forum</mat-icon>
     </ng-template> -->
-  </mat-horizontal-stepper>
+    </mat-horizontal-stepper>
 </div>
