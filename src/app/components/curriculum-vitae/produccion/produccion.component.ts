@@ -49,7 +49,7 @@ export class ProduccionComponent implements OnInit {
       tata.error('Error', 'Llene todos los campos por favor');
     } else {
 
-      $('#modalEstudiosCursosTomados').modal('hide');
+      $('#modalProduccion').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarDatosFormacion(form);
     }

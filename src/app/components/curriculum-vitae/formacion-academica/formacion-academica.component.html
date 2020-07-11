@@ -27,12 +27,12 @@
                         <td>{{datoFormacion.getLugarObtuvoGrado()}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
-                            <button  class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(datoFormacion)">
+                                <button class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(datoFormacion)">
                               <i class="fa fa-trash-alt"></i>
                             </button>
-                          </div>
+                            </div>
                         </td>
-                      </tr>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -52,11 +52,11 @@
             </div>
             <div class="modal-body ">
                 <form autocomplete="off" (ngSubmit)="guardar(form1)" #form1="ngForm">
-                    <div  *ngIf="asignacion(form1)"class="hide"></div>
+                    <div *ngIf="asignacion(form1)" class="hide"></div>
                     <div class="form-group ">
                         <label for="recipient-name" class="col-form-label">Grado: </label>
                         <select aria-placeholder="Seleccione " class="custom-select " id="seleccionGrado" required name="grado" #grado="ngModel" ngModel [class.is-invalid]="grado.invalid && grado.touched" [class.is-valid]="grado.valid && grado.touched">
-              <option selected disabled value="">Seleccione un grado</option>
+              <option selected disabled hidden>Seleccione un grado</option>
               <option>Tecnico medio</option>
               <option>Tecnico superior</option>
               <option>Otros</option>
