@@ -1,23 +1,23 @@
 export class Produccion {
-    private tipoDocumento: string;
+    private tituloDocumento: string;
     private tipoDifusion: string;
     private medioPublicacion: string;
     private institucionEntrega: string;
     private fechaCoclusion: Date;
 
-    public constructor(tipoDocumento: string,tipoDifusion: string,medioPublicacion: string,institucionEntrega: string,fechaCoclusion: Date) {
-        this.tipoDifusion=tipoDocumento;
-        this.tipoDocumento=tipoDocumento;
+    public constructor(tituloDocumento: string,tipoDifusion: string,medioPublicacion: string,institucionEntrega: string,fechaCoclusion: Date) {
+        this.tipoDifusion=tipoDifusion;
+        this.tituloDocumento=tituloDocumento;
         this.medioPublicacion=medioPublicacion;
         this.institucionEntrega=institucionEntrega;
         this.fechaCoclusion=fechaCoclusion;
      }
 
-    public getTipoDocumento(): string {
-        return this.tipoDocumento;
+    public getTituloDocumento(): string {
+        return this.tituloDocumento;
     }
-    public setTipoDocumento(value: string) {
-        this.tipoDocumento = value;
+    public setTituloDocumento(value: string) {
+        this.tituloDocumento = value;
     }
     public getTipoDifusion(): string {
         return this.tipoDifusion;

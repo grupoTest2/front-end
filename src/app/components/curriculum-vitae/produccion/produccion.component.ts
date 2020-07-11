@@ -20,8 +20,8 @@ export class ProduccionComponent implements OnInit {
   form: NgForm = new NgForm([], []);
 
 
-  listaEstudiosCusrsosTomados: Produccion[] = [];
-  estudioCurso: Produccion;
+  listaInformacionProduc: Produccion[] = [];
+  datoInfoPrd: Produccion;
 
   constructor() { }
 
@@ -39,7 +39,6 @@ export class ProduccionComponent implements OnInit {
   }
   guardar(form: NgForm) {
     this.form = form;
-    console.log("metodoooooooooooooooo")
     if (form.invalid) {
       Object.values(form.controls).forEach(
         control => {
@@ -55,33 +54,34 @@ export class ProduccionComponent implements OnInit {
     }
   }
   enlistarDatosFormacion(form: NgForm) {
-    /*let tipoDocumento = form.controls['tipoDocumento'].value;
-    let tituloDocumento = form.controls['tituloDocumento'].value;
+    let titulo = form.controls['titulo'].value;
+    let tipoDifusion = form.controls['tipoDifusion'].value;
+    let medioPublicacion = form.controls['medioPublicacion'].value;
     let institucion = form.controls['institucion'].value;
-    let lugar = form.controls['lugar'].value;
-    let fechaObtuvoDoc = form.controls['fecha'].value;
-    const fecha = fechaObtuvoDoc.toLocaleString().split(' ')[0];
+    let fechaConclusion = form.controls['fechaConclusion'].value;
+    const fecha = fechaConclusion.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
-    fechaObtuvoDoc = aux[2] + '-' + aux[1] + '-' + aux[0];
+    fechaConclusion = aux[2] + '-' + aux[1] + '-' + aux[0];
 
-    console.log(fechaObtuvoDoc + "++++++++++++++++");
-
-    this.estudioCurso = new EstudiosCursosTomados(tipoDocumento, tituloDocumento, institucion, lugar, fechaObtuvoDoc);
-    this.listaEstudiosCusrsosTomados.push(this.estudioCurso);*/
+    this.datoInfoPrd = new Produccion(titulo, tipoDifusion, medioPublicacion, institucion, fechaConclusion);
+    this.listaInformacionProduc.push(this.datoInfoPrd);
 
   }
 
-  /*eliminarInformacion(dato: EstudiosCursosTomados) {
-    let listaAux: EstudiosCursosTomados[] = [];
-    for (let i = 0; i < this.listaEstudiosCusrsosTomados.length; i++) {
-      if (!(this.listaEstudiosCusrsosTomados[i].getTipoDocumento() == dato.getTipoDocumento() &&
-        this.listaEstudiosCusrsosTomados[i].getTituloDocumento() == dato.getTituloDocumento() &&
-        this.listaEstudiosCusrsosTomados[i].getInstitucionObtencionDcumento() == dato.getInstitucionObtencionDcumento() &&
-        this.listaEstudiosCusrsosTomados[i].getLugarObtencionDocumento() == dato.getLugarObtencionDocumento() &&
-        this.listaEstudiosCusrsosTomados[i].getFechaDocumento() == dato.getFechaDocumento())) {
-        listaAux.push(this.listaEstudiosCusrsosTomados[i]);
+  eliminarInformacion(dato: Produccion) {
+    let listaAux: Produccion[] = [];
+    for (let i = 0; i < this.listaInformacionProduc.length; i++) {
+      if (!(this.listaInformacionProduc[i].getTituloDocumento() == dato.getTituloDocumento() &&
+        this.listaInformacionProduc[i].getTipoDifusion() == dato.getTipoDifusion() &&
+        this.listaInformacionProduc[i].getMdioPublicacion() == dato.getMdioPublicacion() &&
+        this.listaInformacionProduc[i].getInstitucionEntrega() == dato.getInstitucionEntrega() &&
+        this.listaInformacionProduc[i].getFechaConclusion() == dato.getFechaConclusion())) {
+        listaAux.push(this.listaInformacionProduc[i]);
       }
     }
-    this.listaEstudiosCusrsosTomados = listaAux;
-  }*/
+    this.listaInformacionProduc = listaAux;
+  }
+  getDatosProduccion():Produccion[]{
+    return this.listaInformacionProduc;
+  }
 }

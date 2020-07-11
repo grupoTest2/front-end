@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { ExperienciaExtraUniversitaria } from '../../../models/curriculum-vitae/datos-experiencia-extra-universitaria';
+
+
 declare var tata: any;
 declare var $: any;
 @Component({
@@ -12,9 +15,20 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
 
   form: NgForm = new NgForm([], []);
 
+  listaExperienciaExtraUniversitaria: ExperienciaExtraUniversitaria[] = [];
+  datoExperienciaEU: ExperienciaExtraUniversitaria;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  reset() {
+    this.form.resetForm();
+  }
+
+  asignacion(form: NgForm) {
+    this.form = form;
+    return true;
   }
 
   guardar(form: NgForm) {
@@ -30,7 +44,45 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
 
       $('#modalExperienciaExtraUniversitaria').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
-      // this.enlistarDatosFormacion(form);
+      this.enlistarDatosExperienciaEU(form);
     }
+  }
+  enlistarDatosExperienciaEU(form: NgForm) {
+    let nombreInstitucion = form.controls['nombreInstitucion'].value;
+    let nombreCargo = form.controls['nombreCargo'].value;
+    let lugar = form.controls['lugar'].value;
+    let duracion = form.controls['duracion'].value;
+   let fechaInicio = form.controls['fechaInicio'].value;
+    const fecha = fechaInicio.toLocaleString().split(' ')[0];
+    let aux = fecha.split('/', 3);
+    fechaInicio = aux[2] + '-' + aux[1] + '-' + aux[0];
+    let fechaConclusion = form.controls['fechaConclusion'].value;
+    const fechaC = fechaConclusion.toLocaleString().split(' ')[0];
+    let auxx = fechaC.split('/', 3);
+    fechaConclusion = auxx[2] + '-' + auxx[1] + '-' + auxx[0];
+
+    this.datoExperienciaEU = new ExperienciaExtraUniversitaria(nombreInstitucion, nombreCargo, lugar,duracion, fechaInicio, fechaConclusion);
+    this.listaExperienciaExtraUniversitaria.push(this.datoExperienciaEU);
+
+  }
+
+  eliminarInformacion(dato: ExperienciaExtraUniversitaria) {
+    let listaAux: ExperienciaExtraUniversitaria[] = [];
+    for (let i = 0; i < this.listaExperienciaExtraUniversitaria.length; i++) {
+      if (!(this.listaExperienciaExtraUniversitaria[i].getNombreInstitucionEmpresa() == dato.getNombreInstitucionEmpresa() &&
+        this.listaExperienciaExtraUniversitaria[i].getNombreCargoActividad() == dato.getNombreCargoActividad() &&
+        this.listaExperienciaExtraUniversitaria[i].getLugar() == dato.getLugar() &&
+        this.listaExperienciaExtraUniversitaria[i].getDuracion() == dato.getDuracion() &&
+        this.listaExperienciaExtraUniversitaria[i].getFechaInicio() == dato.getFechaInicio()&&
+        this.listaExperienciaExtraUniversitaria[i].getFechaFin() == dato.getFechaFin())) {
+        listaAux.push(this.listaExperienciaExtraUniversitaria[i]);
+      }
+    }
+    this.listaExperienciaExtraUniversitaria = listaAux;
+  }
+
+  
+  getDatosEEU():ExperienciaExtraUniversitaria[]{
+    return this.listaExperienciaExtraUniversitaria;
   }
 }
