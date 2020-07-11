@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex justify-content-between align-items-center ">
         <h4 class="card-title ">V. Experiencia Extra-Universitaria</h4>
-        <button type="button " class="btn btn-outline-info mb-2" data-toggle="modal" data-target="#modalExperienciaExtraUniversitaria">
+        <button type="button " class="btn btn-outline-info mb-2" data-toggle="modal" data-target="#modalExperienciaExtraUniversitaria" (click)="reset()">
       <i class="fa fa-plus "></i> Añadir
     </button>
     </div>
@@ -13,12 +13,28 @@
                         <th class="text-center " scope="col ">Institucion/Empresa</th>
                         <th class="text-center " scope="col ">Cargo/Actividad</th>
                         <th class="text-center " scope="col ">Fecha De Inicio</th>
-                        <th class="text-center " scope="col ">Fecha De Conclucion</th>
-                        <th class="text-center " scope="col ">Duracion (Mes)</th>
                         <th class="text-center " scope="col ">Lugar</th>
+                        <th class="text-center " scope="col ">Duracion (Mes)</th>
+                        <th class="text-center " scope="col ">Fecha De Conclucion</th>
+                        <th class="text-center " scope="col ">Elimnar</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr *ngFor="let datoExperienciaExtra of listaExperienciaExtraUniversitaria; index as i">
+                        <td>{{datoExperienciaExtra.getNombreInstitucionEmpresa()}}</td>
+                        <td>{{datoExperienciaExtra.getNombreCargoActividad()}}</td>
+                        <td>{{datoExperienciaExtra.getFechaInicio()}}</td>
+                        <td>{{datoExperienciaExtra.getLugar()}}</td>
+                        <td>{{datoExperienciaExtra.getDuracion()}}</td>
+                        <td>{{datoExperienciaExtra.getFechaFin()}}</td>
+                        <td class="text-center">
+                            <div class="btn btn-group" role="group">
+                                <button class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(datoExperienciaExtra)">
+                              <i class="fa fa-trash-alt"></i>
+                            </button>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -37,6 +53,7 @@
             </div>
             <div class="modal-body ">
                 <form autocomplete="off" (ngSubmit)="guardar(form)" #form="ngForm">
+                    <div *ngIf="asignacion(form)" class="hide"></div>
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Nombre de intitucion/empresa: </label>
                         <input placeholder="Nombre Institucion" class="form-control " type="text" required name="nombreInstitucion" #nombreInstitucion="ngModel" ngModel [class.is-invalid]="nombreInstitucion.invalid && nombreInstitucion.touched" [class.is-valid]="nombreInstitucion.valid && nombreInstitucion.touched">

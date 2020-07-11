@@ -53,10 +53,7 @@ export class ExperienciaUniversitariaComponent implements OnInit {
     let carrera = form.controls['carrera'].value;
     let materia = form.controls['materia'].value;
     let cargaHoraria = form.controls['cargaHoraria'].value;
-   let titular =$('input:radio[name=titular]:checked').val();
-
-   console.log(titular+"----------------");
-   
+   let titular =$('input:radio[name=titular]:checked').val();   
    let bandera=true;
    if(titular=='no'){
      bandera=false;
