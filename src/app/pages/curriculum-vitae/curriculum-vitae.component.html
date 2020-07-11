@@ -1,5 +1,4 @@
 <div class="container">
-<<<<<<< HEAD
 
     <p class=" text-center h2">Hoja De Vida</p>
     <mat-horizontal-stepper>
@@ -25,86 +24,6 @@
                 <app-produccion></app-produccion>
             </div>
         </mat-step>
-=======
-  <!--<mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>-->
-
-  <mat-horizontal-stepper>
-    <mat-step label="hoja 1" state="phone">
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-datos-personales></app-datos-personales>
-          </div>
-        </div>
-      </div>
-    </mat-step>
-    <mat-step label="hoja 2" state="chat">
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-formacion-academica></app-formacion-academica>
-            <br><br>
-            <app-estudios-cursos></app-estudios-cursos>
-            <br><br>
-          </div>
-        </div>
-      </div>
-    </mat-step>
-    <mat-step label="hoja 3" disabled>
-      <div>
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-experiencia-universitaria></app-experiencia-universitaria>
-            <br><br>
-            '<app-experiencia-extra-universitaria></app-experiencia-extra-universitaria>
-            <br><br>
-            <app-produccion></app-produccion>
-          </div>
-        </div>
-      </div>
-    </mat-step>
->>>>>>> 7bef7fc54c09a55ee9e2a9045d384296a942e6fc
 
         <!-- Icon overrides.
     <ng-template matStepperIcon="phone">
