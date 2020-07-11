@@ -1,108 +1,114 @@
 <div>
-  <div class="d-flex justify-content-between align-items-center ">
-    <h4 class="card-title ">IV. Experiencia Universitaria - Auxiliares Y Cursos Dictados</h4>
-    <button type="button " class="btn btn-outline-info mb-2 " data-toggle="modal "
-      data-target="#modalExperienciaUniversitaria ">
+    <div class="d-flex justify-content-between align-items-center ">
+        <h4 class="card-title ">IV. Experiencia Universitaria - Auxiliares Y Cursos Dictados</h4>
+        <button type="button " class="btn btn-outline-info mb-2 " data-toggle="modal" data-target="#modalExperienciaUniversitaria">
       <i class="fa fa-plus "></i> Añadir
     </button>
-  </div>
-  <div class="form-row ">
-    <div class="table-responsive ">
-      <table class="table align-middle table-hover mt-2 table-bordered ">
-        <thead class="thead-dark ">
-          <tr>
-            <th class="text-center " scope="col ">Materia</th>
-            <th class="text-center " scope="col "> Fecha De Inicio</th>
-            <th class="text-center " scope="col ">Fecha De Conclusion</th>
-            <th class="text-center " scope="col ">Tipo De Gestion</th>
-            <th class="text-center " scope="col ">Titular</th>
-            <th class="text-center " scope="col ">Carga Horaria</th>
-            <th class="text-center " scope="col ">Carrera</th>
-            <th class="text-center " scope="col ">Facultad</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
     </div>
-  </div>
+    <div class="form-row ">
+        <div class="table-responsive ">
+            <table class="table align-middle table-hover mt-2 table-bordered ">
+                <thead class="thead-dark ">
+                    <tr>
+                        <th class="text-center " scope="col ">Materia</th>
+                        <th class="text-center " scope="col "> Fecha De Inicio</th>
+                        <th class="text-center " scope="col ">Fecha De Conclusion</th>
+                        <th class="text-center " scope="col ">Tipo De Gestion</th>
+                        <th class="text-center " scope="col ">Titular</th>
+                        <th class="text-center " scope="col ">Carga Horaria</th>
+                        <th class="text-center " scope="col ">Carrera</th>
+                        <th class="text-center " scope="col ">Facultad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 
 <!--           modal para la tabla de experiencia universitaria               -->
-<div class="modal fade " id="modalExperienciaUniversitaria " tabindex="-1 " role="dialog "
-  aria-labelledby="exampleModalLabel " aria-hidden="true ">
-  <div class="modal-dialog " role="document ">
-    <div class="modal-content ">
-      <div class="modal-header ">
-        <h5 class="modal-title ">Detalles De Experiencia Universitaria</h5>
-        <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+<div class="modal fade " id="modalExperienciaUniversitaria" tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+    <div class="modal-dialog " role="document ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h5 class="modal-title ">Detalles De Experiencia Universitaria</h5>
+                <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
           <span aria-hidden="true ">&times;</span>
         </button>
-      </div>
-      <div class="modal-body ">
-        <form autocomplete="off ">
-          <div class="form-group ">
-            <label for="recipient-name " class="col-form-label ">Tipo de gestion: </label>
-            <select aria-placeholder="Seleccione " class="custom-select ">
+            </div>
+            <div class="modal-body ">
+                <form autocomplete="off ">
+                    <div class="form-group ">
+                        <label for="recipient-name " class="col-form-label ">Tipo de gestion: </label>
+                        <select aria-placeholder="Seleccione " class="custom-select" required name="tipoGestion" #tipoGestion="ngModel" ngModel [class.is-invalid]="tipoGestion.invalid && tipoGestion.touched" [class.is-valid]="tipoGestion.valid && tipoGestion.touched">
               <option selected disabled value="por defecto ">Seleccione un tipo de gestion</option>
               <option>Semestral</option>
               <option>Anual</option>
             </select>
-          </div>
-          <div class="form-group ">
-            <label for="recipient-name " class="col-form-label ">Facultad: </label>
-            <input class="form-control " type="text ">
-          </div>
-          <div class="form-group ">
-            <label for="recipient-name " class="col-form-label ">Carrera: </label>
-            <input class="form-control " type="text ">
-          </div>
-          <div class="form-group ">
-            <label for="recipient-name " class="col-form-label ">Materia: </label>
-            <input class="form-control " type="text ">
-          </div>
-          <div class="form-group ">
-            <label for="recipient-name " class="col-form-label ">Carga horaria: </label>
-            <input class="form-control " type="number ">
-          </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="recipient-name " class="col-form-label ">Facultad: </label>
+                        <input class="form-control " type="text" required name="facultad" #facultad="ngModel" ngModel [class.is-invalid]="facultad.invalid && facultad.touched" [class.is-valid]="facultad.valid && facultad.touched">
+                    </div>
+                    <div class="form-group ">
+                        <label for="recipient-name " class="col-form-label ">Carrera: </label>
+                        <input class="form-control " type="text " required name="carrera" #carrera="ngModel" ngModel [class.is-invalid]="carrera.invalid && carrera.touched" [class.is-valid]="carrera.valid && carrera.touched">
+                    </div>
+                    <div class="form-group ">
+                        <label for="recipient-name " class="col-form-label ">Materia: </label>
+                        <input class="form-control " type="text " required name="materia" #materia="ngModel" ngModel [class.is-invalid]="materia.invalid && materia.touched" [class.is-valid]="materia.valid && materia.touched">
+                    </div>
+                    <div class="form-group ">
+                        <label for="recipient-name " class="col-form-label ">Carga horaria: </label>
+                        <input class="form-control " type="number " required name="cargaHoraria" #cargaHoraria="ngModel" ngModel [class.is-invalid]="cargaHoraria.invalid && cargaHoraria.touched" [class.is-valid]="cargaHoraria.valid && cargaHoraria.touched">
+                    </div>
 
-          <div class="form-group ">
-            <label>Titular?</label>
-            <div class="input-group mt-2 ">
-              <div class="custom-control custom-radio custom-control-inline ">
-                <input type="radio " id="radio1 " name="radioTitular " class="custom-control-input ">
-                <label class="custom-control-label " for="radio1 ">Si </label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline ">
-                <input type="radio " id="radio2 " name="radioTitular " class="custom-control-input ">
-                <label class="custom-control-label " for="radio2 ">No </label>
-              </div>
-            </div>
-          </div>
+                    <div class="form-group ">
+                        <label>Titular?</label>
+                        <div class="input-group mt-2 ">
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio " id="radio1 " name="radioTitular " class="custom-control-input ">
+                                <label class="custom-control-label " for="radio1 ">Si </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio " id="radio2 " name="radioTitular " class="custom-control-input ">
+                                <label class="custom-control-label " for="radio2 ">No </label>
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="form-group ">
-            <label class="col-form-label mr-1 ">Fecha de inicio:</label>
-            <div class="d-flex justify-content ">
-              <input [matDatepicker]="pickerm3 " class="form-control " readonly>
-              <mat-datepicker-toggle matSuffix [for]="pickerm3 "></mat-datepicker-toggle>
-              <mat-datepicker #pickerm3></mat-datepicker>
+                    <div class="form-group ">
+                        <label class="col-form-label mr-1 ">Fecha de inicio:</label>
+                        <div class="d-flex justify-content ">
+                            <input [matDatepicker]="pickerm3 " class="form-control " readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm3 "></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm3></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-form-label mr-1 ">Fecha de conclusion:</label>
+                        <div class="d-flex justify-content ">
+                            <input [matDatepicker]="pickerm4 " class="form-control " readonly>
+                            <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
+                            <mat-datepicker #pickerm4></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Start date">
+                            <input matEndDate placeholder="End date">
+                        </mat-date-range-input>
+
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div class="form-group ">
-            <label class="col-form-label mr-1 ">Fecha de conclucion:</label>
-            <div class="d-flex justify-content ">
-              <input [matDatepicker]="pickerm4 " class="form-control " readonly>
-              <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
-              <mat-datepicker #pickerm4></mat-datepicker>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
+                <button type="submit " class="btn btn-primary ">Guardar</button>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer ">
-        <button type="button " class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
-        <button type="submit " class="btn btn-primary ">Guardar</button>
-      </div>
+        </div>
     </div>
-  </div>
 </div>

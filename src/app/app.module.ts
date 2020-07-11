@@ -17,7 +17,7 @@ import { CalificacionConocimientosComponent } from './components/form-convocator
 import { FechasComponent } from './components/form-convocatoria/fechas/fechas.component';
 import { TribunalesComponent } from './components/form-convocatoria/tribunales/tribunales.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule, MatDatepickerInput } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
@@ -47,8 +47,6 @@ import { ExperienciaUniversitariaComponent } from './components/curriculum-vitae
 import { ExperienciaExtraUniversitariaComponent } from './components/curriculum-vitae/experiencia-extra-universitaria/experiencia-extra-universitaria.component';
 import { ProduccionComponent } from './components/curriculum-vitae/produccion/produccion.component'; // fonts provided for pdfmake
  
-
-
 //
 import { MatStepperModule  } from '@angular/material/stepper';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -103,13 +101,11 @@ PdfMakeWrapper.setFonts(pdfFonts);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
+    MatDatepickerInput,
     MatStepperModule,
     CdkStepperModule,
-
-
     MatFormFieldModule,
     MatInputModule,
-
     BlockUIModule.forRoot({
       template: LoadingSpinnerComponent
     })
