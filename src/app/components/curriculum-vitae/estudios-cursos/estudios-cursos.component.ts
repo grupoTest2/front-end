@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+
+//models
+import { EstudiosCursosTomados } from '../../../models/curriculum-vitae/datos-estudios-cursos-tomados';
+
+
 declare var tata: any;
 declare var $: any;
 @Component({
@@ -10,31 +15,70 @@ declare var $: any;
 })
 export class EstudiosCursosComponent implements OnInit {
 
-  form: NgForm = new NgForm([],[]);
+  form: NgForm = new NgForm([], []);
+
+
+  listaEstudiosCusrsosTomados: EstudiosCursosTomados[] = [];
+  estudioCurso: EstudiosCursosTomados;
   constructor() { }
   ngOnInit(): void {
   }
 
-  reset(){
+  reset() {
     this.form.resetForm();
   }
-  guardar( form: NgForm){
+
+  asignacion(form: NgForm) {
+    this.form = form;
+    return true;
+  }
+  guardar(form: NgForm) {
     this.form = form;
     console.log("metodoooooooooooooooo")
-    if(form.invalid){
+    if (form.invalid) {
       Object.values(form.controls).forEach(
-        control =>{
+        control => {
           control.markAllAsTouched();
         }
       );
-      tata.error('Error','Llene todos los campos por favor');
-    }else{
+      tata.error('Error', 'Llene todos los campos por favor');
+    } else {
 
       $('#modalEstudiosCursosTomados').modal('hide');
-      tata.success('Exitoso','Se guardaron sus datos');
-    console.log(form.value)
-    
+      tata.success('Exitoso', 'Se guardaron sus datos');
+      this.enlistarDatosFormacion(form);
     }
   }
+  enlistarDatosFormacion(form: NgForm) {
+    let tipoDocumento = form.controls['tipoDocumento'].value;
+    let tituloDocumento = form.controls['tituloDocumento'].value;
+    let institucion = form.controls['institucion'].value;
+    let lugar = form.controls['lugar'].value;
+    let fechaObtuvoDoc = form.controls['fecha'].value;
+    const fecha = fechaObtuvoDoc.toLocaleString().split(' ')[0];
+    let aux = fecha.split('/', 3);
+    fechaObtuvoDoc = aux[2] + '-' + aux[1] + '-' + aux[0];
 
+    console.log(fechaObtuvoDoc + "++++++++++++++++");
+
+    this.estudioCurso = new EstudiosCursosTomados(tipoDocumento, tituloDocumento, institucion, lugar, fechaObtuvoDoc);
+    this.listaEstudiosCusrsosTomados.push(this.estudioCurso);
+
+  }
+
+  eliminarInformacion(dato: EstudiosCursosTomados) {
+    let listaAux: EstudiosCursosTomados[] = [];
+    for (let i = 0; i < this.listaEstudiosCusrsosTomados.length; i++) {
+      if (!(this.listaEstudiosCusrsosTomados[i].getTipoDocumento() == dato.getTipoDocumento() &&
+        this.listaEstudiosCusrsosTomados[i].getTituloDocumento() == dato.getTituloDocumento() &&
+        this.listaEstudiosCusrsosTomados[i].getInstitucionObtencionDcumento() == dato.getInstitucionObtencionDcumento() &&
+        this.listaEstudiosCusrsosTomados[i].getLugarObtencionDocumento() == dato.getLugarObtencionDocumento() &&
+        this.listaEstudiosCusrsosTomados[i].getFechaDocumento() == dato.getFechaDocumento())) {
+        listaAux.push(this.listaEstudiosCusrsosTomados[i]);
+      }
+    }
+    this.listaEstudiosCusrsosTomados = listaAux;
+  }
 }
+
+

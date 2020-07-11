@@ -5,7 +5,14 @@ export class EstudiosCursosTomados {
     private lugarObtencionDocumento: string;
     private fechaDocumento: Date;
 
-    public constructor() { }
+    public constructor(tipoDocumento:string,tituloDocumento:string, institucionObtencionDcumento:string,lugarObtencionDocumento:string,fechaDocumento:Date) { 
+        this.tipoDocumento=tipoDocumento;
+        this.tituloDocumento=tituloDocumento;
+        this.institucionObtencionDcumento=institucionObtencionDcumento;
+        this.lugarObtencionDocumento=lugarObtencionDocumento;
+        this.fechaDocumento=fechaDocumento;
+
+    }
 
     public getTipoDocumento(): string {
         return this.tipoDocumento;

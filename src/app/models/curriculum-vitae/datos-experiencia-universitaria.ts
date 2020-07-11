@@ -5,11 +5,20 @@ export class ExperienciaUniversitaria {
     private carrera: string;
     private materia: string;
     private cargaHoraria: number;
-    private _titular: boolean;
+    private titular: boolean;
     private fechaInicio: Date;
     private fechaFin: Date;
 
-    constructor(){}
+    constructor(tipoDeGestion: string, facultad: string, carrera: string, materia: string, cargaHoraria: number, titular: boolean, fechaInicio: Date, fechaFin: Date) {
+        this.tipoDeGestion = tipoDeGestion;
+        this.facultad = facultad;
+        this.carrera = carrera;
+        this.materia = materia;
+        this.cargaHoraria = cargaHoraria;
+        this.titular = titular;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 
     public getTipoDeGestion(): string {
         return this.tipoDeGestion;
@@ -40,11 +49,11 @@ export class ExperienciaUniversitaria {
     }
     public setCargaHoraria(value: number) {
         this.cargaHoraria = value;
-    }    public get titular(): boolean {
-        return this._titular;
+    } public getTitular(): boolean {
+        return this.titular;
     }
-    public set titular(value: boolean) {
-        this._titular = value;
+    public seTitular(value: boolean) {
+        this.titular = value;
     }
     public getFechaInicio(): Date {
         return this.fechaInicio;

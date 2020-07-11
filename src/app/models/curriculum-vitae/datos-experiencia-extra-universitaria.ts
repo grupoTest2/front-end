@@ -7,7 +7,14 @@ export class ExperienciaExtraUniversitaria {
     private fechaInicio: Date;
     private fechaFin: Date;
 
-    constructor(){}
+    constructor( nombreInstitucionEmpresa: string,nombreCargoActividad: string,lugar: string,duracion: string,fechaInicio: Date,fechaFin: Date){
+        this.nombreCargoActividad=nombreCargoActividad;
+        this.nombreInstitucionEmpresa=nombreInstitucionEmpresa;
+        this.lugar=lugar;
+        this.duracion=duracion;
+        this.fechaFin=fechaFin;
+        this.fechaInicio=fechaInicio
+    }
 
     public getNombreInstitucionEmpresa(): string {
         return this.nombreInstitucionEmpresa;
