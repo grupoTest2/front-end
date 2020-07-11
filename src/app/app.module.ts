@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -17,7 +17,7 @@ import { CalificacionConocimientosComponent } from './components/form-convocator
 import { FechasComponent } from './components/form-convocatoria/fechas/fechas.component';
 import { TribunalesComponent } from './components/form-convocatoria/tribunales/tribunales.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatDatepickerInput } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { from } from 'rxjs';
 import { CrearConvocatoriaComponent } from './pages/crearConvocatoria/crearConvocatoria.component';
@@ -49,9 +49,8 @@ import { ProduccionComponent } from './components/curriculum-vitae/produccion/pr
  
 //
 import { MatStepperModule  } from '@angular/material/stepper';
-import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {CdkStepperModule} from '@angular/cdk/stepper';
-
 
 import { MatInputModule } from '@angular/material/input';
 // Set the fonts to use
@@ -101,7 +100,6 @@ PdfMakeWrapper.setFonts(pdfFonts);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatDatepickerInput,
     MatStepperModule,
     CdkStepperModule,
     MatFormFieldModule,
@@ -113,6 +111,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
     MatTabsModule,
     EditarConvocatoriaServicePhp,
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}},

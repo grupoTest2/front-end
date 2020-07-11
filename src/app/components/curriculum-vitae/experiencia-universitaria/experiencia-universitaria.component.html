@@ -34,81 +34,80 @@
         <div class="modal-content ">
             <div class="modal-header ">
                 <h5 class="modal-title ">Detalles De Experiencia Universitaria</h5>
-                <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true ">&times;</span>
         </button>
             </div>
             <div class="modal-body ">
-                <form autocomplete="off ">
+                <form autocomplete="off" (ngSubmit)="guardar(form)" #form="ngForm" name="form">
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Tipo de gestion: </label>
-                        <select aria-placeholder="Seleccione " class="custom-select" required name="tipoGestion" #tipoGestion="ngModel" ngModel [class.is-invalid]="tipoGestion.invalid && tipoGestion.touched" [class.is-valid]="tipoGestion.valid && tipoGestion.touched">
-              <option selected disabled value="por defecto ">Seleccione un tipo de gestion</option>
+                        <select aria-placeholder="Seleccione" class="custom-select" required name="tipoGestion" #tipoGestion="ngModel" ngModel [class.is-invalid]="tipoGestion.invalid && tipoGestion.touched" [class.is-valid]="tipoGestion.valid && tipoGestion.touched">
+              <option selected disabled hidden value="">Seleccione un tipo de gestion</option>
               <option>Semestral</option>
               <option>Anual</option>
             </select>
                     </div>
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Facultad: </label>
-                        <input class="form-control " type="text" required name="facultad" #facultad="ngModel" ngModel [class.is-invalid]="facultad.invalid && facultad.touched" [class.is-valid]="facultad.valid && facultad.touched">
+                        <input placeholder="Facultad" class="form-control " type="text" required name="facultad" #facultad="ngModel" ngModel [class.is-invalid]="facultad.invalid && facultad.touched" [class.is-valid]="facultad.valid && facultad.touched">
                     </div>
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Carrera: </label>
-                        <input class="form-control " type="text " required name="carrera" #carrera="ngModel" ngModel [class.is-invalid]="carrera.invalid && carrera.touched" [class.is-valid]="carrera.valid && carrera.touched">
+                        <input placeholder="Carrera" class="form-control " type="text " required name="carrera" #carrera="ngModel" ngModel [class.is-invalid]="carrera.invalid && carrera.touched" [class.is-valid]="carrera.valid && carrera.touched">
                     </div>
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Materia: </label>
-                        <input class="form-control " type="text " required name="materia" #materia="ngModel" ngModel [class.is-invalid]="materia.invalid && materia.touched" [class.is-valid]="materia.valid && materia.touched">
+                        <input placeholder="Materia" class="form-control " type="text " required name="materia" #materia="ngModel" ngModel [class.is-invalid]="materia.invalid && materia.touched" [class.is-valid]="materia.valid && materia.touched">
                     </div>
-                    <div class="form-group ">
-                        <label for="recipient-name " class="col-form-label ">Carga horaria: </label>
-                        <input class="form-control " type="number " required name="cargaHoraria" #cargaHoraria="ngModel" ngModel [class.is-invalid]="cargaHoraria.invalid && cargaHoraria.touched" [class.is-valid]="cargaHoraria.valid && cargaHoraria.touched">
-                    </div>
-
-                    <div class="form-group ">
-                        <label>Titular?</label>
-                        <div class="input-group mt-2 ">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio " id="radio1 " name="radioTitular " class="custom-control-input ">
-                                <label class="custom-control-label " for="radio1 ">Si </label>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="recipient-name " class="col-form-label ">Carga horaria(Hrs.): </label>
+                            <input placeholder="Carga Horaria" class="form-control " type="number" required name="cargaHoraria" #cargaHoraria="ngModel" ngModel [class.is-invalid]="cargaHoraria.invalid && cargaHoraria.touched" [class.is-valid]="cargaHoraria.valid && cargaHoraria.touched">
+                        </div>
+                        <div class="form-group mt-2 col-md-6">
+                            <label class="ml-2">Titular?</label>
+                            <div class="text-center">
+                                <!-- Default inline 1-->
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
+                                    <label class="custom-control-label" for="defaultInline1">Si</label>
+                                </div>
+                                <!-- Default inline 2-->
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input checked type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
+                                    <label class="custom-control-label" for="defaultInline2">No</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio " id="radio2 " name="radioTitular " class="custom-control-input ">
-                                <label class="custom-control-label " for="radio2 ">No </label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="col-form-label mr-1 ">Fecha de inicio:</label>
+                            <div class="d-flex justify-content ">
+                                <input required name="fechaInicio" #fechaInicio="ngModel" ngModel [class.is-invalid]="fechaInicio.invalid && fechaInicio.touched" [class.is-valid]="fechaInicio.valid && fechaInicio.touched" placeholder="Fecha inicio" [matDatepicker]="pickerm3 " class="form-control "
+                                    readonly>
+                                <mat-datepicker-toggle matSuffix [for]="pickerm3 "></mat-datepicker-toggle>
+                                <mat-datepicker #pickerm3></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="col-form-label mr-1 ">Fecha de conclusion:</label>
+                            <div class="d-flex justify-content ">
+                                <input required name="fechaConclusion" #fechaConclusion="ngModel" ngModel [class.is-invalid]="fechaConclusion.invalid && fechaConclusion.touched" [class.is-valid]="fechaConclusion.valid && fechaConclusion.touched" placeholder="Fecha Conclusion" [matDatepicker]="pickerm4 "
+                                    class="form-control " readonly>
+                                <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
+                                <mat-datepicker #pickerm4></mat-datepicker>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group ">
-                        <label class="col-form-label mr-1 ">Fecha de inicio:</label>
-                        <div class="d-flex justify-content ">
-                            <input [matDatepicker]="pickerm3 " class="form-control " readonly>
-                            <mat-datepicker-toggle matSuffix [for]="pickerm3 "></mat-datepicker-toggle>
-                            <mat-datepicker #pickerm3></mat-datepicker>
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-form-label mr-1 ">Fecha de conclusion:</label>
-                        <div class="d-flex justify-content ">
-                            <input [matDatepicker]="pickerm4 " class="form-control " readonly>
-                            <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
-                            <mat-datepicker #pickerm4></mat-datepicker>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate placeholder="Start date">
-                            <input matEndDate placeholder="End date">
-                        </mat-date-range-input>
-
-                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
+                        <button type="submit" class="btn btn-primary ">Guardar</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer ">
-                <button type="button " class="btn btn-secondary " data-dismiss="modal ">Cancelar</button>
-                <button type="submit " class="btn btn-primary ">Guardar</button>
-            </div>
+
         </div>
     </div>
 </div>

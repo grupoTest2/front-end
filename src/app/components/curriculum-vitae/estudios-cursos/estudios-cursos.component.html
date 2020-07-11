@@ -27,12 +27,12 @@
                         <td>{{estudiosCursos.getLugarObtencionDocumento()}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
-                            <button  class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(estudiosCursos)">
+                                <button class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(estudiosCursos)">
                               <i class="fa fa-trash-alt"></i>
                             </button>
-                          </div>
+                            </div>
                         </td>
-                      </tr>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -50,8 +50,8 @@
         </button>
             </div>
             <div class="modal-body ">
-                <form autocomplete="off" (ngSubmit)="guardar(form)" #form="ngForm" name="form" id="formulario">
-                    <div  *ngIf="asignacion(form)"class="hide"></div>
+                <form autocomplete="off" (ngSubmit)="guardar(form)" #form="ngForm">
+                    <div *ngIf="asignacion(form)" class="hide"></div>
                     <div class="form-group ">
                         <label for="recipient-name " class="col-form-label ">Tipo de documento obtenido: </label>
                         <select aria-placeholder="Seleccione " class="custom-select" required name="tipoDocumento" #tipoDocumento="ngModel" ngModel [class.is-invalid]="tipoDocumento.invalid && tipoDocumento.touched" [class.is-valid]="tipoDocumento.valid && tipoDocumento.touched">
