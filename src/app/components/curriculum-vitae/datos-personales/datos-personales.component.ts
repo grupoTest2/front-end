@@ -41,6 +41,7 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   guardar( form: NgForm ){
+    console.log("metodooooooooooooooooo")
     if(form.invalid){
       Object.values(form.controls).forEach(
         control =>{
