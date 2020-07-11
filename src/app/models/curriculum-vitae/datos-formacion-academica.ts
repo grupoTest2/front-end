@@ -4,7 +4,12 @@ export class FormacionAcademica {
     private institucionObtuvoGrado: string;
     private lugarObtuvoGrado: string;
     private fechaObtuvoGrado: Date;
-    constructor(){
+    constructor(grado:string,titulo:string,institucionObtuvoGrado:string,lugarObtuvoGrado:string,fechaObtuvoGrado:Date){
+    this.grado=grado;
+    this.titulo=titulo;
+    this.institucionObtuvoGrado=institucionObtuvoGrado;
+    this.lugarObtuvoGrado=lugarObtuvoGrado;
+    this.fechaObtuvoGrado=fechaObtuvoGrado;
     }
 
     public getGrado(): string {
