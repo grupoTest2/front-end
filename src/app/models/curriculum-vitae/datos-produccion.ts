@@ -5,7 +5,13 @@ export class Produccion {
     private institucionEntrega: string;
     private fechaCoclusion: Date;
 
-    public constructor() { }
+    public constructor(tipoDocumento: string,tipoDifusion: string,medioPublicacion: string,institucionEntrega: string,fechaCoclusion: Date) {
+        this.tipoDifusion=tipoDocumento;
+        this.tipoDocumento=tipoDocumento;
+        this.medioPublicacion=medioPublicacion;
+        this.institucionEntrega=institucionEntrega;
+        this.fechaCoclusion=fechaCoclusion;
+     }
 
     public getTipoDocumento(): string {
         return this.tipoDocumento;

@@ -63,16 +63,30 @@ export class FormacionAcademicaComponent implements OnInit {
 
     let fechaObtuvoGrado = form.controls['fecha'].value;
 
-    /*const fecha = fechaObtuvoGrado.toLocaleString().split(' ')[0];
+    const fecha = fechaObtuvoGrado.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
     fechaObtuvoGrado = aux[2] + '-' + aux[1] + '-' + aux[0];
 
-    console.log(fechaObtuvoGrado+"++++++++++++++++");*/
+    console.log(fechaObtuvoGrado+"++++++++++++++++");
 
-    //this.datoFormacion = new FormacionAcademica(grado, titulo, institucionObtuvoGrado, lugarObtuvoGrado, fechaObtuvoGrado);
+    this.datoFormacion = new FormacionAcademica(grado, titulo, institucionObtuvoGrado, lugarObtuvoGrado, fechaObtuvoGrado);
     console.log(this.datoFormacion);
-    //this.listaDatosFormacion.push(this.datoFormacion);
+    this.listaDatosFormacion.push(this.datoFormacion);
 
+  }
+
+  eliminarInformacion(dato:FormacionAcademica){
+    let listaAux:FormacionAcademica []=[];
+    for (let i = 0; i < this.listaDatosFormacion.length; i++) {
+      if(!(this.listaDatosFormacion[i].getGrado() == dato.getGrado()&&
+      this.listaDatosFormacion[i].getTitulo() == dato.getTitulo()&&
+      this.listaDatosFormacion[i].getInstitucionObtuvoGrado() == dato.getInstitucionObtuvoGrado()&&
+      this.listaDatosFormacion[i].getLugarObtuvoGrado() == dato.getLugarObtuvoGrado()&&
+      this.listaDatosFormacion[i].getFechaObtuvoGrado() == dato.getFechaObtuvoGrado())){
+        listaAux.push(this.listaDatosFormacion[i]);
+      }      
+    }
+    this.listaDatosFormacion=listaAux;
   }
 
 }

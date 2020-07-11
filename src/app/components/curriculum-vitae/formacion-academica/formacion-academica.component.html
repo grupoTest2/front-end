@@ -15,6 +15,7 @@
                         <th class="text-center " scope="col ">Titulo</th>
                         <th class="text-center " scope="col ">Institucion</th>
                         <th class="text-center " scope="col ">Lugar</th>
+                        <th class="text-center " scope="col "> Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,10 +27,7 @@
                         <td>{{datoFormacion.getLugarObtuvoGrado()}}</td>
                         <td class="text-center">
                             <div class="btn btn-group" role="group">
-                            <button class="btn btn-outline-success mr-1" type="button" data-toggle="modal">
-                              <i class="fa fa-pencil"></i>
-                            </button>
-                            <button  class="btn btn-outline-danger" type="button">
+                            <button  class="btn btn-outline-danger" type="button" (click)="eliminarInformacion(datoFormacion)">
                               <i class="fa fa-trash-alt"></i>
                             </button>
                           </div>
