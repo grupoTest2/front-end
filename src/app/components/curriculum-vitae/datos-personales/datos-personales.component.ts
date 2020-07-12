@@ -17,13 +17,13 @@ declare var swal: any;
 export class DatosPersonalesComponent implements OnInit {
   name=""
   formCurriculum: FormGroup
-  form: FormGroup
   formBuilder: any;
   data: any = {};
   paises: any[] = [];
   datosPersonales:DatosPesoanles;
   idioma:Idioma;
   form2: NgForm = new NgForm([], []);
+  form: NgForm = new NgForm([], []);
   listaIdiomas:Idioma []=[];
   constructor(private paisService: PaisService, private router: Router) {
   }
@@ -51,6 +51,10 @@ export class DatosPersonalesComponent implements OnInit {
     this.form2 = form;
     return true;
   }
+  asignacionDatos(form: NgForm) {
+    this.form = form;
+    return true;
+  }
 
   eliminarInformacion(dato: Idioma):void{
     let listaAux: Idioma[] = [];
@@ -66,16 +70,16 @@ export class DatosPersonalesComponent implements OnInit {
 
   }
 
-  guardar( form: NgForm ){
-    if(form.invalid){
-      Object.values(form.controls).forEach(
+  guardar(){
+    if(this.form.invalid){
+      Object.values(this.form.controls).forEach(
         control =>{
           control.markAllAsTouched();
         }
       );
       tata.error('Error','Formulario invalido');
     }else{
-      this.alertRegistrar(form);
+      this.alertRegistrar(this.form);
     }
   }
 

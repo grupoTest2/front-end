@@ -74,18 +74,9 @@ export class CurriculumVitaeComponent implements OnInit {
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
      }
 
-
-
-
-
-
-
-
-
-
-
-
-
+     guardar(){
+       this.datos_personales.guardar();
+     }
 
   agregarDatosCvBD() {
     /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(

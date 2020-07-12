@@ -1,5 +1,5 @@
-<form class="form" autocomplete="off" (ngSubmit)="guardar( form )" #form="ngForm">
-    <!--me la pelan-->
+<form class="form" autocomplete="off" (ngSubmit)="guardar()" #form="ngForm">
+    <div *ngIf="asignacionDatos(form)" class="hide"></div>
     <h4>I. Registrar Datos personales</h4>
     <div class="w-100">
         <hr class="border border-light  bg-dark" style="height: .1rem;">
