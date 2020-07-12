@@ -76,7 +76,7 @@ export class FormacionAcademicaComponent implements OnInit {
     this.listaDatosFormacion=listaAux;
   }
 
-  getDatosEC():FormacionAcademica[]{
+  getDatosFC():FormacionAcademica[]{
     return this.listaDatosFormacion;
   }
 

@@ -1,16 +1,21 @@
 export class Idioma {
-    private idioma: string;
-    private habla: string;
-    private lee: string;
-    private escribe: string;
+    private idiom:string;
+    private habla:string;
+    private lee:string;
+    private escribe:string;
     
-    constructor(){}
+    constructor(idiom: string, habla:string, lee:string, escribe:string) {
+        this.idiom = idiom;
+        this.habla = habla;
+        this.lee = lee;
+        this.escribe = escribe;
+    }
 
-    public getIdioma(): string {
-        return this.idioma;
+    public getIdiomas(): string {
+        return this.idiom;
     }
     public setIdioma(value: string) {
-        this.idioma = value;
+        this.idiom = value;
     }
     public getHabla(): string {
         return this.habla;

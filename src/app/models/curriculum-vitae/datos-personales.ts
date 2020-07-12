@@ -2,9 +2,9 @@ import { Idioma } from './datos-idiomas';
 export class DatosPesoanles {
     private idEstudiante: number;
     private idConv: number;
-    private nombreUsuario: string;
-    private apellidoPaterno: string;
-    private apellidoMaterno: string;
+    private nombreUsuario: string;//
+    private apellidoPaterno: string;//
+    private apellidoMaterno: string;//
     private fechaNacimiento: Date;
     private fechaNacimientoS: string;
     private lugarNacimiento: string;
@@ -26,17 +26,36 @@ export class DatosPesoanles {
     private fechaEgreso: Date;
     private fechaEgresoS: string;
     private nivelEnCurso: string;
-    private idiomas: Idioma[]=[];
-    public constructor() { 
+    private idiomas: Idioma[] = [];
+    public constructor(apellidoPaterno: string,apellidoMaterno: string,nombreUsuario: string,fechaNacimiento: Date,lugarNacimiento: string,celulaIdentidad: string,lugarEmisionCI: string,nacionalidad: string,genero: string,estadoCivil: string,domicilioCalle: string,domicilioNumero: string,telefono: number,correo: string,nombreColegio: string,tipoColegio: string,fechaTituloBachillerato: Date,carrera: string, nivelEnCurso: string) { 
         this.idConv=parseInt(localStorage.getItem("idConv"));
-        let idioma=new Idioma();
-        idioma.setIdioma("español");
-        idioma.setHabla("bien");
-        idioma.setLee("bien");
-        idioma.setEscribe("bien");
-        this.idiomas.push(idioma);
+        this.apellidoPaterno=apellidoPaterno;
+        this.apellidoMaterno=apellidoMaterno;
+        this.nombreUsuario=nombreUsuario;
+        this.fechaNacimiento=fechaNacimiento;
+        this.lugarNacimiento=lugarNacimiento;
+        this.celulaIdentidad=celulaIdentidad;
+        this.lugarEmisionCI=lugarEmisionCI;
+        this.nacionalidad=nacionalidad;
+        this.genero=genero;
+        this.estadoCivil=estadoCivil;
+        this.domicilioCalle=domicilioCalle;
+        this.domicilioNumero=domicilioNumero;
+        this.telefono=telefono;
+        this.correo=correo;
+        this.nombreColegio=nombreColegio;
+        this.tipoColegio=tipoColegio;
+        this.fechaTituloBachillerato=fechaTituloBachillerato;
+        this.carrera=carrera;
+        this.nivelEnCurso=nivelEnCurso;
     }
 
+    public getIdiomas(): Idioma[] {
+        return this.idiomas;
+    }
+    public setIdiomas(value: Idioma[]) {
+        this.idiomas = value;
+    }
 
     public getIdEstudiante(): number {
         return this.idEstudiante;

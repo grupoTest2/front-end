@@ -1,23 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from  '@angular/cdk/stepper' ;
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field/form-field';
+
+
+// componentes
+import { DatosPersonalesComponent } from 'src/app/components/curriculum-vitae/datos-personales/datos-personales.component';
+import { EstudiosCursosComponent } from 'src/app/components/curriculum-vitae/estudios-cursos/estudios-cursos.component';
+import { ExperienciaExtraUniversitariaComponent } from 'src/app/components/curriculum-vitae/experiencia-extra-universitaria/experiencia-extra-universitaria.component';
+import { ExperienciaUniversitariaComponent } from 'src/app/components/curriculum-vitae/experiencia-universitaria/experiencia-universitaria.component';
+import { FormacionAcademicaComponent } from 'src/app/components/curriculum-vitae/formacion-academica/formacion-academica.component';
+import { ProduccionComponent } from 'src/app/components/curriculum-vitae/produccion/produccion.component';
+
+
+//models
+import { DatosPesoanles } from '../../models/curriculum-vitae/datos-personales';
+import { FormacionAcademica } from '../../models/curriculum-vitae/datos-formacion-academica';
+import { EstudiosCursosTomados } from '../../models/curriculum-vitae/datos-estudios-cursos-tomados';
+import { ExperienciaUniversitaria } from '../../models/curriculum-vitae/datos-experiencia-universitaria';
+import { ExperienciaExtraUniversitaria } from 'src/app/models/curriculum-vitae/datos-experiencia-extra-universitaria';
+import { Produccion } from '../../models/curriculum-vitae/datos-produccion';
+import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
+
 
 @Component({
   selector: 'app-curriculum-vitae',
   templateUrl: './curriculum-vitae.component.html',
   styleUrls: ['./curriculum-vitae.component.css'],
   providers: [
-    {provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
-   ]
+    { provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false } },
+  ]
 })
 export class CurriculumVitaeComponent implements OnInit {
+  @ViewChild('datos_personales') datos_personales: DatosPersonalesComponent;
+  @ViewChild('formacion_academica') formacion_academica: FormacionAcademicaComponent;
+  @ViewChild('estudios_cursos') estudios_cursos: EstudiosCursosComponent;
+  @ViewChild('experiencia_universitaria') experiencia_universitaria: ExperienciaUniversitariaComponent;
+  @ViewChild('experiencia_extra_universitaria') experiencia_extra_universitaria: ExperienciaExtraUniversitariaComponent;
+  @ViewChild('produccion') produccion: ProduccionComponent;
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  isLinear=false;
+  isLinear = false;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  //variables para los datos de los diferentes componentes
+  banderaDatosPersonales = true;
+  datosPersonales: DatosPesoanles;
+  listaDatosFormacionAcademica: FormacionAcademica[];
+  listaDatosEstudios: EstudiosCursosTomados[];
+  listaExperienciaUniversitaria: ExperienciaUniversitaria[];
+  listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
+  listaDatosProduccion: Produccion[];
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -27,25 +62,49 @@ export class CurriculumVitaeComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
   }
+  recuperarLosDatosDeLosComponentes() {
+    if(this.banderaDatosPersonales){
+      this.datosPersonales = this.datos_personales.getDatosPersonales();
+    }
+    this.datosPersonales.getIdiomas().push(new Idioma("español","bien","bien","bien"));
+    this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
+    this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
+    this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
+    this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
+    this.listaDatosProduccion = this.produccion.getDatosProduccion();
+     }
 
-  agregarDatosCvBD(){
-  /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
-      resultado=>{
-        if(resultado['resultado']=='correcto'){
-          swal.fire(
-            'Exitoso!',
-            'Se guardaron los usuarios.',
-            'success'
-          ).then((result) => {
-          this.router.navigate(['/convocatoriasEnCurso']);
-          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  agregarDatosCvBD() {
+    /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
+        resultado=>{
+          if(resultado['resultado']=='correcto'){
+            swal.fire(
+              'Exitoso!',
+              'Se guardaron los usuarios.',
+              'success'
+            ).then((result) => {
+            this.router.navigate(['/convocatoriasEnCurso']);
+            });
+          }
+        },
+        error=>{
+          alert("lo datos de este postulante para esta convocatoria ya existen");
         }
-      },
-      error=>{
-        alert("lo datos de este postulante para esta convocatoria ya existen");
-      }
-    
-    )
-  }*/
-}
+      
+      )
+    }*/
+  }
 }
