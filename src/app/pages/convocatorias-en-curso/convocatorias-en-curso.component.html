@@ -7,7 +7,7 @@
                     <img class="card-img-bottom" src="../../../assets/img/logoDocenteXdD.jpg" class="card-img-top">
                     <p class="card-text">vigente para la gestion: {{item.getGestion()}}</p>
                     <div class="btn-group">
-                        <button routerLink="/curriculumVitae" type="button" class="btn btn-outline-info" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">currilum vitae</button>
+                        <button data-toggle="modal" data-target="#modalCodigo" type="button" class="btn btn-outline-info" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">currilum vitae</button>
                         <button routerLink="/formularioRegistro" type="button" class="btn btn-outline-primary" (click)="setearLocalStore(item.getIdConv(), item.getTitulo(), item.getGestion())">postular</button>
                     </div>
                 </div>
@@ -18,4 +18,31 @@
 <div *ngIf="listaConvocatorias.length == 0" class="page-header text-center alert alert-danger">
     <h6> NO TIENE CONVOCATORIAS EN CURSO </h6>
     <h6>PARA QUE PUEDA POSTULARSE!</h6>
+</div>
+
+
+<div class="modal fade" id="modalCodigo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Codigo de acceso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" id="modalRequisitos">
+                <form (ngSubmit)="guardar(form)" #form="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Ingrese su código:</label>
+                        <input type="text" placeholder="Detalle del requisito" class="form-control" required name="codigo" #codigo="ngModel" ngModel [class.is-invalid]="codigo.invalid && codigo.touched" [class.is-valid]="codigo.valid && codigo.touched">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>

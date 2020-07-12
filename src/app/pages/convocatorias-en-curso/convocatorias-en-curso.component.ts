@@ -3,7 +3,10 @@ import {Convocatoria} from '../../models/clases/convocatoria/convocatoria'
 import {TipoConvocatoria} from '../../models/clases/convocatoria/tipo-convocatoria'
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
+declare var tata: any;
+declare var $: any;
 @Component({
   selector: 'app-convocatorias-en-curso',
   templateUrl: './convocatorias-en-curso.component.html',
@@ -11,13 +14,33 @@ import { Router } from '@angular/router';
 })
 export class ConvocatoriasEnCursoComponent implements OnInit {
 
-
+  form: NgForm = new NgForm([], []);
   listaConvocatorias: Convocatoria[]=[]
   constructor(private convService: EditarConvocatoriaServicePhp, private router: Router) { 
     this.recuperarDatos();
   }
 
   ngOnInit(): void {
+  }
+
+  guardar(form: NgForm) {
+    this.form = form;
+    if (form.invalid) {
+      Object.values(form.controls).forEach(
+        control => {
+          control.markAllAsTouched();
+        }
+      );
+      tata.error('Error', 'Ingrese su código de rótulo por favor');
+    } else {
+      if (form.controls['codigo'].value === '123456'){
+        tata.success('Exitoso', 'Cogigo correcto');
+        $('#modalCodigo').modal('hide');
+        this.router.navigate(['/curriculumVitae']);
+      }else{
+      tata.error('Error', 'Codigo incorrecto');
+      }
+    }
   }
 
   recuperarDatos(){
@@ -49,4 +72,5 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
     localStorage.setItem('tituloConvocatoria', titulo);
     localStorage.setItem('gestionConvocatoria', gestion.toString());
   }
+
 }
