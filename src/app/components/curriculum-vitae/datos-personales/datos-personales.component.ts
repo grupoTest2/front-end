@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, NgForm } from '@angular/forms';
 import { PaisService } from 'src/app/servicios/Paises/pais.service';
-import { DatosPesoanles} from '../../../models/curriculum-vitae/datos-personales';
+import { DatosPesoanles } from '../../../models/curriculum-vitae/datos-personales';
 
 import { Router } from '@angular/router';
 import { Idioma } from 'src/app/models/curriculum-vitae/datos-idiomas';
@@ -21,7 +21,7 @@ export class DatosPersonalesComponent implements OnInit {
   formBuilder: any;
   data: any = {};
   paises: any[] = [];
-  datosPersonales= new DatosPesoanles();
+  datosPersonales:DatosPesoanles;
   idioma:Idioma;
   form2: NgForm = new NgForm([], []);
   listaIdiomas:Idioma []=[];
@@ -111,6 +111,9 @@ export class DatosPersonalesComponent implements OnInit {
    let apellidoM=form.controls['apellidoM'].value;
    let nombre=form.controls['nombres'].value;
    let fechaNac=form.controls['fechaNac'].value;
+   const fecha = fechaNac.toLocaleString().split(' ')[0];
+    let aux = fecha.split('/', 3);
+    fechaNac = aux[2] + '-' + aux[1] + '-' + aux[0];
    let lugarNac=form.controls['lugar'].value;
    let ci=form.controls['ci'].value;
    let emision =form.controls['emision'].value;
@@ -124,34 +127,20 @@ export class DatosPersonalesComponent implements OnInit {
    let colegio=form.controls['colegio'].value;
    let tipoColegio=form.controls['tipoColegio'].value;
    let fechaBachiller =form.controls['fechaBachiller'].value;
+   const fecha2 = fechaBachiller.toLocaleString().split(' ')[0];
+    let aux2 = fecha2.split('/', 3);
+    fechaBachiller = aux2[2] + '-' + aux2[1] + '-' + aux2[0];
    let carrera=form.controls['carrera'].value;
    let semestre=form.controls['semestre'].value;
-   let fechaEgreso=$('#fechaEgreso').val();  
-   let egreso=$('#egresado').val();  
-
-   this.datosPersonales.setNombreUsuario(nombre);
-   this.datosPersonales.setApellidoPaterno(apellidoP);
-   this.datosPersonales.setApellidoMaterno(apellidoM);
-   this.datosPersonales.setFechaNacimiento(fechaNac);
-   this.datosPersonales.setLugarNacimiento(lugarNac);
-   this.datosPersonales.setCelulaIdentidad(ci);
-   this.datosPersonales.setLugarEmisionCI(emision);
-   this.datosPersonales.setNacionalidad(paisN);
-   this.datosPersonales.setGenero(genero);
-   this.datosPersonales.setEstadoCivil(estadoCivil);
-   this.datosPersonales.setDomicilioCalle(direccion);
-   this.datosPersonales.setDomicilioNumero(numeroDireccion);
-   this.datosPersonales.setTelefono(telefono);
-   this.datosPersonales.setCorreo(correo);
-   this.datosPersonales.setNombreColegio(colegio);
-   this.datosPersonales.setTipoColegio(tipoColegio);
-   this.datosPersonales.setFechaTituloBachillerato(fechaBachiller);
-   this.datosPersonales.setCarrera(carrera);
-  // this.datosPersonales.setNuvelEnCurso(semestre);
-   this.datosPersonales.setEgresado(fechaEgreso);
-   this.datosPersonales.setEgresado(egreso);
    
-   //datos de los formacion academica.
+   //datos opcionales
+   let fechaEgreso=$('#fechaEgreso').val();  
+   let egreso=$('#egresado').val();
+   
+
+   this.datosPersonales=new DatosPesoanles(apellidoP,apellidoM,nombre,fechaNac,lugarNac,ci,emision,paisN,genero,estadoCivil,direccion,numeroDireccion,telefono,correo,colegio,tipoColegio,fechaBachiller,carrera,semestre);
+
+   console.log("+++ "+Object.values(this.datosPersonales)+" +++");
   }
 
 
@@ -184,5 +173,10 @@ export class DatosPersonalesComponent implements OnInit {
 
       }
     });
+  }
+
+
+  getDatosPersonales():DatosPesoanles{
+    return this.datosPersonales;
   }
 }
