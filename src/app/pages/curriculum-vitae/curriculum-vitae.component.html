@@ -1,35 +1,33 @@
 <div class="container">
+    <div class="d-flex justify-content-between">
+        <h3 class="text-center mb-2" id="inicio">Hoja De Vida</h3>
+        <button type="button" class="btn btn-outline-info mb-2">Guardar</button>
+    </div>
     <mat-horizontal-stepper>
+        <ng-container></ng-container>
         <mat-step label="Datos" state="phone" *ngIf="banderaDatosPersonales">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-datos-personales   #datos_personales></app-datos-personales>
+            <br>
+            <app-datos-personales #datos_personales></app-datos-personales>
         </mat-step>
         <mat-step label="Formacion" state="chat">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-formacion-academica   #formacion_academica></app-formacion-academica>
+            <br>
+            <app-formacion-academica #formacion_academica></app-formacion-academica>
         </mat-step>
         <mat-step label="Estudios">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
+            <br>
             <app-estudios-cursos estudios_cursos></app-estudios-cursos>
         </mat-step>
         <mat-step label="Exp. universitaria">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-experiencia-universitaria  #experiencia_universitaria></app-experiencia-universitaria>
+            <br>
+            <app-experiencia-universitaria #experiencia_universitaria></app-experiencia-universitaria>
         </mat-step>
         <mat-step label="Exp. extra universitaria">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br> '
-            <app-experiencia-extra-universitaria  #experiencia_extra_universitaria></app-experiencia-extra-universitaria>
-
+            <br>
+            <app-experiencia-extra-universitaria #experiencia_extra_universitaria></app-experiencia-extra-universitaria>
         </mat-step>
         <mat-step label="Produccion">
-            <h1 class="text-center" id="inicio">Hoja De Vida</h1>
-            <br><br>
-            <app-produccion  #produccion></app-produccion>
+            <br>
+            <app-produccion #produccion></app-produccion>
         </mat-step>
 
         <!-- Icon overrides.
