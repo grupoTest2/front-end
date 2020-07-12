@@ -67,7 +67,11 @@ export class CurriculumVitaeComponent implements OnInit {
     if (this.banderaDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
     }
-    this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
+
+    console.log
+    if(this.datosPersonales.getIdiomas()!=undefined){
+      this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
+    }
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();

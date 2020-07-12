@@ -235,7 +235,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-6 ">
+        <div class="form-group col-md-6 " >
             <label for="inputStatel ">Semestre en curso:</label>
             <div class="input-group ">
                 <select aria-describedby="validatedInputGroupPrependl " id="inputStatel " class="custom-select " required name="semestre" #semestre="ngModel" ngModel [class.is-invalid]="semestre.invalid && semestre.touched" [class.is-valid]="semestre.valid && semestre.touched">
@@ -251,7 +251,6 @@
           <option>9no Semestre</option>
           <option>10mo Semestre</option>
           <option>otros</option>
-
         </select>
                 <div class="input-group-prepend ">
                     <span class="input-group-text rounded-right " id="validatedInputGroupPrependl "><i
@@ -277,7 +276,7 @@
         <div *ngIf="banderaEgresado" class="form-group col-md-6 ">
             <label>Fecha de egreso </label>
             <div class="d-flex justify-content ">
-                <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso" readonly>
+                <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso" readonly readonly required name="fechaEgreso" #fechaEgreso="ngModel" ngModel [class.is-invalid]="fechaEgreso.invalid && fechaEgreso.touched" [class.is-valid]="fechaEgreso.valid && fechaEgreso.touched">
                 <mat-datepicker-toggle matSuffix [for]="picker3 " style="background: #e9ecef; " class="rounded-right ">
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
