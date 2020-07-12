@@ -66,16 +66,20 @@ export class CurriculumVitaeComponent implements OnInit {
     if(this.banderaDatosPersonales){
       this.datosPersonales = this.datos_personales.getDatosPersonales();
     }
-    this.datosPersonales.getIdiomas().push(new Idioma("español","bien","bien","bien"));
+    // this.datosPersonales.getIdiomas().push(new Idioma("español","bien","bien","bien"));
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
     this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
+    console.log(Object.values(this.datosPersonales), this.listaDatosFormacionAcademica, this.listaDatosEstudios, this.listaExperienciaUniversitaria, Object.values(this.listaExperienciaUniversitaria), this.listaDatosProduccion, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
      }
 
      guardar(){
-       this.datos_personales.guardar();
+       if(this.datos_personales.guardar()){
+         console.log("metodooooooooooooooooooooooooooo")
+         this.recuperarLosDatosDeLosComponentes();
+       }
      }
 
   agregarDatosCvBD() {

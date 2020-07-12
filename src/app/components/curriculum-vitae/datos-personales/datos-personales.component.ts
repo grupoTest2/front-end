@@ -71,6 +71,7 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   guardar(){
+    var bandera = false;
     if(this.form.invalid){
       Object.values(this.form.controls).forEach(
         control =>{
@@ -79,8 +80,10 @@ export class DatosPersonalesComponent implements OnInit {
       );
       tata.error('Error','Formulario invalido');
     }else{
-      this.alertRegistrar(this.form);
+      bandera = this.alertRegistrar(this.form);
     }
+    return true;
+
   }
 
   guardarIdiomas(form: NgForm ){
@@ -143,12 +146,13 @@ export class DatosPersonalesComponent implements OnInit {
    
 
    this.datosPersonales=new DatosPesoanles(apellidoP,apellidoM,nombre,fechaNac,lugarNac,ci,emision,paisN,genero,estadoCivil,direccion,numeroDireccion,telefono,correo,colegio,tipoColegio,fechaBachiller,carrera,semestre);
-
+  this.datosPersonales.setIdiomas(this.listaIdiomas);
    console.log("+++ "+Object.values(this.datosPersonales)+" +++");
   }
 
 
-  alertRegistrar( f: NgForm): void {
+  alertRegistrar( f: NgForm): boolean {
+    var bandera = false;
     swal.fire({
       title: 'Guardar Datos',
       text: "¿Está seguro de guardar datos?",
@@ -161,12 +165,13 @@ export class DatosPersonalesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.registrar(f);
+        bandera = true;
         swal.fire(
           'Exitoso!',
           'Se guardaron los usuarios.',
           'success'
         ).then((result) => {
-        this.router.navigate(['/convocatoriasEnCurso']);
+        // this.router.navigate(['/convocatoriasEnCurso']);
         });
       } else {
         swal.fire(
@@ -177,6 +182,7 @@ export class DatosPersonalesComponent implements OnInit {
 
       }
     });
+    return bandera;
   }
 
 
