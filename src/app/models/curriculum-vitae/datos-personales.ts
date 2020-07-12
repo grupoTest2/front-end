@@ -1,5 +1,5 @@
 import { Idioma } from './datos-idiomas';
-export class DatosPesoanles {
+export class DatosPersonales {
     private idEstudiante: number;
     private idConv: number;
     private nombreUsuario: string;//

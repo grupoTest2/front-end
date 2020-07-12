@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, NgForm } from '@angular/forms';
 import { PaisService } from 'src/app/servicios/Paises/pais.service';
-import { DatosPesoanles } from '../../../models/curriculum-vitae/datos-personales';
+import { DatosPersonales } from '../../../models/curriculum-vitae/datos-personales';
 
 import { Router } from '@angular/router';
 import { Idioma } from 'src/app/models/curriculum-vitae/datos-idiomas';
@@ -20,7 +20,7 @@ export class DatosPersonalesComponent implements OnInit {
   formBuilder: any;
   data: any = {};
   paises: any[] = [];
-  datosPersonales: DatosPesoanles;
+  datosPersonales: DatosPersonales;
   idioma: Idioma;
   form2: NgForm = new NgForm([], []);
   form: NgForm = new NgForm([], []);
@@ -156,7 +156,7 @@ export class DatosPersonalesComponent implements OnInit {
     fechaBachiller = aux2[2] + '-' + aux2[1] + '-' + aux2[0];
     let carrera = form.controls['carrera'].value;
     let semestre = form.controls['semestre'].value;
-    this.datosPersonales = new DatosPesoanles(apellidoP, apellidoM, nombre, fechaNac, lugarNac, ci, emision, paisN, genero, estadoCivil, direccion, numeroDireccion, telefono, correo, colegio, tipoColegio, fechaBachiller, carrera, semestre);
+    this.datosPersonales = new DatosPersonales(apellidoP, apellidoM, nombre, fechaNac, lugarNac, ci, emision, paisN, genero, estadoCivil, direccion, numeroDireccion, telefono, correo, colegio, tipoColegio, fechaBachiller, carrera, semestre);
     this.datosPersonales.setIdiomas(this.listaIdiomas);
     //datos opcionales
     this.datosPersonales.setEgresado(this.banderaEgresado);
@@ -204,7 +204,7 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
 
-  getDatosPersonales(): DatosPesoanles {
+  getDatosPersonales(): DatosPersonales {
     return this.datosPersonales;
   }
 }

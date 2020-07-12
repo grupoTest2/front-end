@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
-import { DatosPesoanles } from 'src/app/models/curriculum-vitae/datos-personales';
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +73,5 @@ export class PhpServeConvocatoria {
     return this.http.post(`${this.URL}establecerDatosRotulo.php`, JSON.stringify(listaDatos));
   }
 
-  public agregarDatosCv(datos:DatosPesoanles){
-    return this.http.post(`${this.URL}registrarDatosPersonales.php`, JSON.stringify(datos));
-  }
+  
 }

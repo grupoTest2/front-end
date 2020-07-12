@@ -14,7 +14,7 @@ import { ProduccionComponent } from 'src/app/components/curriculum-vitae/producc
 
 
 //models
-import { DatosPesoanles } from '../../models/curriculum-vitae/datos-personales';
+import { DatosPersonales } from '../../models/curriculum-vitae/datos-personales';
 import { FormacionAcademica } from '../../models/curriculum-vitae/datos-formacion-academica';
 import { EstudiosCursosTomados } from '../../models/curriculum-vitae/datos-estudios-cursos-tomados';
 import { ExperienciaUniversitaria } from '../../models/curriculum-vitae/datos-experiencia-universitaria';
@@ -47,7 +47,7 @@ export class CurriculumVitaeComponent implements OnInit {
 
   //variables para los datos de los diferentes componentes
   banderaDatosPersonales = true;
-  datosPersonales: DatosPesoanles;
+  datosPersonales: DatosPersonales;
   listaDatosFormacionAcademica: FormacionAcademica[];
   listaDatosEstudios: EstudiosCursosTomados[];
   listaExperienciaUniversitaria: ExperienciaUniversitaria[];
