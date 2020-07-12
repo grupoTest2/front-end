@@ -8,7 +8,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Apellido Paterno:</label>
             <div class="input-group">
-                <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependc" type="text" class="form-control" id="inputEmail4" required name="apellidoP" #apellidoP="ngModel" ngModel [class.is-invalid]="apellidoP.invalid && apellidoP.touched" [class.is-valid]="apellidoP.valid && apellidoP.touched">
+                <input type="text" class="form-control"id="apellidP" value={{apellidoPaterno}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependc"><i
               class="far fa-user"></i></span>
@@ -18,7 +18,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Apellido Materno:</label>
             <div class="input-group">
-                <input placeholder="Ejem: Perez" aria-describedby="validatedInputGroupPrependv" type="text" class="form-control" required name="apellidoM" #apellidoM="ngModel" ngModel [class.is-invalid]="apellidoM.invalid && apellidoM.touched" [class.is-valid]="apellidoM.valid && apellidoM.touched">
+                <input type="text" class="form-control" id="apellidM" value={{apellidoMaterno}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependv"><i
               class="far fa-user"></i></span>
@@ -28,7 +28,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Nombres:</label>
             <div class="input-group">
-                <input placeholder="Ejem: Juan" aria-describedby="validatedInputGroupPrependn" type="text" class="form-control" required name="nombres" #nombres="ngModel" ngModel [class.is-invalid]="nombres.invalid && nombres.touched" [class.is-valid]="nombres.valid && nombres.touched">
+                <input type="text" class="form-control"  id="nombreUsuario" value={{nombres}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependn"><i
               class="far fa-user"></i></span>
@@ -265,16 +265,16 @@
             <label>Egresado?</label>
             <div class="input-group">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="porConvocatoria" value="Sí">
-                    <label for="porConvocatoria" class="form-check-label">Sí</label>
+                    <label for="porConvocatoria" class="form-check-label">Sí&nbsp;&nbsp;</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="egresado" value="Sí" (click)="cambiarBanderaEgresado()">
                 </div>
                 <div class="form-check form-check-inline">
-                    <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="porItem" value="No">
-                    <label for="porItem" class="form-check-label">No</label>
+                    <label for="porItem" class="form-check-label">No&nbsp;&nbsp;</label>
+                    <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="noEgresado"  value="No" (click)="cambiarBanderaNoEgresado()">
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-6 ">
+        <div *ngIf="banderaEgresado" class="form-group col-md-6 ">
             <label>Fecha de egreso </label>
             <div class="d-flex justify-content ">
                 <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso" readonly>

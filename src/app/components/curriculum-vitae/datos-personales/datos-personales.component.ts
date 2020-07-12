@@ -15,34 +15,42 @@ declare var swal: any;
   styleUrls: ['./datos-personales.component.css']
 })
 export class DatosPersonalesComponent implements OnInit {
-  name=""
+  name = ""
   formCurriculum: FormGroup
   formBuilder: any;
   data: any = {};
   paises: any[] = [];
-  datosPersonales:DatosPesoanles;
-  idioma:Idioma;
+  datosPersonales: DatosPesoanles;
+  idioma: Idioma;
   form2: NgForm = new NgForm([], []);
   form: NgForm = new NgForm([], []);
-  listaIdiomas:Idioma []=[];
+  listaIdiomas: Idioma[] = [];
+
+
+
+
+  apellidoPaterno = "nina"
+  apellidoMaterno = "peres"
+  nombres = "chiquitin"
+  banderaEgresado = false;
   constructor(private paisService: PaisService, private router: Router) {
   }
-  ngOnInit( ): void {
+  ngOnInit(): void {
     this.paisService.getPaises()
-      .subscribe( paises => {
+      .subscribe(paises => {
         this.paises = paises;
         this.paises.unshift({
           nombre: 'Seleccione un País',
           codigo: ''
         })
 
-        console.log( this.paises );
+        console.log(this.paises);
       });
-      $('#subir').click(function(){  //referimos el elemento ( clase o identificador de acción )
-        window.scrollTo(0, 0);
-      });
+    $('#subir').click(function () {  //referimos el elemento ( clase o identificador de acción )
+      window.scrollTo(0, 0);
+    });
   }
-  
+
   reset() {
     this.form2.resetForm();
   }
@@ -56,7 +64,7 @@ export class DatosPersonalesComponent implements OnInit {
     return true;
   }
 
-  eliminarInformacion(dato: Idioma):void{
+  eliminarInformacion(dato: Idioma): void {
     let listaAux: Idioma[] = [];
     for (let i = 0; i < this.listaIdiomas.length; i++) {
       if (!(this.listaIdiomas[i].getIdiomas() == dato.getIdiomas() &&
@@ -70,88 +78,99 @@ export class DatosPersonalesComponent implements OnInit {
 
   }
 
-  guardar(){
+  guardar() {
     var bandera = false;
-    if(this.form.invalid){
+    if (this.form.invalid) {
       Object.values(this.form.controls).forEach(
-        control =>{
+        control => {
           control.markAllAsTouched();
         }
       );
-      tata.error('Error','Formulario invalido');
-    }else{
-      bandera = this.alertRegistrar(this.form);
+      tata.error('Error', 'Formulario invalido');
+    } else {
+      this.registrar(this.form);
+      bandera = this.alertRegistrar();
     }
     return true;
 
   }
 
-  guardarIdiomas(form: NgForm ){
-    if(form.invalid){
+  guardarIdiomas(form: NgForm) {
+    if (form.invalid) {
       Object.values(form.controls).forEach(
-        control =>{
+        control => {
           control.markAllAsTouched();
         }
       );
-      tata.error('Error','Formulario invalido');
-    }else{
+      tata.error('Error', 'Formulario invalido');
+    } else {
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarIdiomas(form);
       $('#modalIdiomas').modal('hide');
     }
   }
 
-  enlistarIdiomas(form: NgForm){
+  enlistarIdiomas(form: NgForm) {
     //listaIdiomas
     let idioma = form.controls['idioma'].value;
     let habla = form.controls['habla'].value;
     let lee = form.controls['lee'].value;
     let escribe = form.controls['escribe'].value;
-    this.idioma= new Idioma(idioma,habla,lee, escribe);
+    this.idioma = new Idioma(idioma, habla, lee, escribe);
     this.listaIdiomas.push(this.idioma);
-    console.log(this.listaIdiomas+"         ---------------------------------------")
-
-
+    console.log(this.listaIdiomas + "         ---------------------------------------")
   }
-  registrar(form: NgForm){
-    let apellidoP=form.controls['apellidoP'].value;
-   let apellidoM=form.controls['apellidoM'].value;
-   let nombre=form.controls['nombres'].value;
-   let fechaNac=form.controls['fechaNac'].value;
-   const fecha = fechaNac.toLocaleString().split(' ')[0];
+
+
+  cambiarBanderaEgresado() {
+    this.banderaEgresado = true;
+  }
+
+  cambiarBanderaNoEgresado() {
+    this.banderaEgresado = false;
+  }
+
+  registrar(form: NgForm) {
+    let apellidoP = this.apellidoPaterno;
+    let apellidoM = this.apellidoMaterno;
+    let nombre = this.nombres;
+    let fechaNac = form.controls['fechaNac'].value;
+    const fecha = fechaNac.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
     fechaNac = aux[2] + '-' + aux[1] + '-' + aux[0];
-   let lugarNac=form.controls['lugar'].value;
-   let ci=form.controls['ci'].value;
-   let emision =form.controls['emision'].value;
-   let paisN=form.controls['pais'].value;
-   let genero=form.controls['genero'].value;
-   let estadoCivil=form.controls['estadoCivil'].value;
-   let direccion=form.controls['direccion'].value;
-   let numeroDireccion=$('#numeroDomicilio').val();  
-   let telefono=form.controls['telefono'].value;
-   let correo=form.controls['correo'].value;
-   let colegio=form.controls['colegio'].value;
-   let tipoColegio=form.controls['tipoColegio'].value;
-   let fechaBachiller =form.controls['fechaBachiller'].value;
-   const fecha2 = fechaBachiller.toLocaleString().split(' ')[0];
+    let lugarNac = form.controls['lugar'].value;
+    let ci = form.controls['ci'].value;
+    let emision = form.controls['emision'].value;
+    let paisN = form.controls['pais'].value;
+    let genero = form.controls['genero'].value;
+    let estadoCivil = form.controls['estadoCivil'].value;
+    let direccion = form.controls['direccion'].value;
+    let numeroDireccion = $('#numeroDomicilio').val();
+    let telefono = form.controls['telefono'].value;
+    let correo = form.controls['correo'].value;
+    let colegio = form.controls['colegio'].value;
+    let tipoColegio = form.controls['tipoColegio'].value;
+    let fechaBachiller = form.controls['fechaBachiller'].value;
+    const fecha2 = fechaBachiller.toLocaleString().split(' ')[0];
     let aux2 = fecha2.split('/', 3);
     fechaBachiller = aux2[2] + '-' + aux2[1] + '-' + aux2[0];
-   let carrera=form.controls['carrera'].value;
-   let semestre=form.controls['semestre'].value;
-   
-   //datos opcionales
-   let fechaEgreso=$('#fechaEgreso').val();  
-   let egreso=$('#egresado').val();
-   
-
-   this.datosPersonales=new DatosPesoanles(apellidoP,apellidoM,nombre,fechaNac,lugarNac,ci,emision,paisN,genero,estadoCivil,direccion,numeroDireccion,telefono,correo,colegio,tipoColegio,fechaBachiller,carrera,semestre);
-  this.datosPersonales.setIdiomas(this.listaIdiomas);
-   console.log("+++ "+Object.values(this.datosPersonales)+" +++");
+    let carrera = form.controls['carrera'].value;
+    let semestre = form.controls['semestre'].value;
+    this.datosPersonales = new DatosPesoanles(apellidoP, apellidoM, nombre, fechaNac, lugarNac, ci, emision, paisN, genero, estadoCivil, direccion, numeroDireccion, telefono, correo, colegio, tipoColegio, fechaBachiller, carrera, semestre);
+    this.datosPersonales.setIdiomas(this.listaIdiomas);
+    //datos opcionales
+    this.datosPersonales.setEgresado(this.banderaEgresado);
+    if (this.banderaEgresado) {
+      let fechaEgreso = $('#fechaEgreso').val();
+      const fecha3 = fechaEgreso.toLocaleString().split(' ')[0];
+      let aux3 = fecha3.split('/', 3);
+      fechaEgreso = aux3[2] + '-' + aux3[1] + '-' + aux3[0];
+      this.datosPersonales.setFechaEgreso(fechaEgreso);
+    }
   }
 
 
-  alertRegistrar( f: NgForm): boolean {
+  alertRegistrar(): boolean {
     var bandera = false;
     swal.fire({
       title: 'Guardar Datos',
@@ -164,14 +183,13 @@ export class DatosPersonalesComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this.registrar(f);
         bandera = true;
         swal.fire(
           'Exitoso!',
           'Se guardaron los usuarios.',
           'success'
         ).then((result) => {
-        // this.router.navigate(['/convocatoriasEnCurso']);
+          // this.router.navigate(['/convocatoriasEnCurso']);
         });
       } else {
         swal.fire(
@@ -186,7 +204,7 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
 
-  getDatosPersonales():DatosPesoanles{
+  getDatosPersonales(): DatosPesoanles {
     return this.datosPersonales;
   }
 }

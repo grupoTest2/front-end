@@ -21,6 +21,7 @@ import { ExperienciaUniversitaria } from '../../models/curriculum-vitae/datos-ex
 import { ExperienciaExtraUniversitaria } from 'src/app/models/curriculum-vitae/datos-experiencia-extra-universitaria';
 import { Produccion } from '../../models/curriculum-vitae/datos-produccion';
 import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
+import { JsonpInterceptor } from '@angular/common/http';
 
 
 @Component({
@@ -63,24 +64,24 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
   recuperarLosDatosDeLosComponentes() {
-    if(this.banderaDatosPersonales){
+    if (this.banderaDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
     }
-    // this.datosPersonales.getIdiomas().push(new Idioma("español","bien","bien","bien"));
+    this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
     this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
-    console.log(Object.values(this.datosPersonales), this.listaDatosFormacionAcademica, this.listaDatosEstudios, this.listaExperienciaUniversitaria, Object.values(this.listaExperienciaUniversitaria), this.listaDatosProduccion, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-     }
+    console.log(JSON.stringify(this.datosPersonales) + "          ******    " + JSON.stringify(this.datosPersonales.getIdiomas())+ "    ---------   " + JSON.stringify(this.listaDatosFormacionAcademica)+"iiiiiiiiiiiiiiiiiiii"+ JSON.stringify(this.listaDatosEstudios)+"*******1**"+JSON.stringify(this.listaExperienciaUniversitaria)+"*************2*********"+JSON.stringify(this.listaExperienciaExtraU)+"********3**********"+JSON.stringify(this.listaDatosProduccion), "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+  }
 
-     guardar(){
-       if(this.datos_personales.guardar()){
-         console.log("metodooooooooooooooooooooooooooo")
-         this.recuperarLosDatosDeLosComponentes();
-       }
-     }
+  guardar() {
+    if (this.datos_personales.guardar()) {
+      console.log("metodooooooooooooooooooooooooooo")
+      this.recuperarLosDatosDeLosComponentes();
+    }
+  }
 
   agregarDatosCvBD() {
     /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
