@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, NgForm } from '@angular/forms';
 import { PaisService } from 'src/app/servicios/Paises/pais.service';
 import { DatosPesoanles} from '../../../models/curriculum-vitae/datos-personales';
-import { FormacionAcademica} from '../../../models/curriculum-vitae/datos-formacion-academica';
+
 import { Router } from '@angular/router';
+import { Idioma } from 'src/app/models/curriculum-vitae/datos-idiomas';
 declare var tata: any;
 declare var $: any;
 declare var swal: any;
@@ -21,7 +22,9 @@ export class DatosPersonalesComponent implements OnInit {
   data: any = {};
   paises: any[] = [];
   datosPersonales= new DatosPesoanles();
-  listaFormacionAcademica:FormacionAcademica[]=[];
+  idioma:Idioma;
+  form2: NgForm = new NgForm([], []);
+  listaIdiomas:Idioma []=[];
   constructor(private paisService: PaisService, private router: Router) {
   }
   ngOnInit( ): void {
@@ -39,9 +42,31 @@ export class DatosPersonalesComponent implements OnInit {
         window.scrollTo(0, 0);
       });
   }
+  
+  reset() {
+    this.form2.resetForm();
+  }
+
+  asignacion(form: NgForm) {
+    this.form2 = form;
+    return true;
+  }
+
+  eliminarInformacion(dato: Idioma):void{
+    let listaAux: Idioma[] = [];
+    for (let i = 0; i < this.listaIdiomas.length; i++) {
+      if (!(this.listaIdiomas[i].getIdiomas() == dato.getIdiomas() &&
+        this.listaIdiomas[i].getHabla() == dato.getHabla() &&
+        this.listaIdiomas[i].getLee() == dato.getLee() &&
+        this.listaIdiomas[i].getEscribe() == dato.getEscribe())) {
+        listaAux.push(this.listaIdiomas[i]);
+      }
+    }
+    this.listaIdiomas = listaAux;
+
+  }
 
   guardar( form: NgForm ){
-    console.log("metodooooooooooooooooo")
     if(form.invalid){
       Object.values(form.controls).forEach(
         control =>{
@@ -51,13 +76,10 @@ export class DatosPersonalesComponent implements OnInit {
       tata.error('Error','Formulario invalido');
     }else{
       this.alertRegistrar(form);
-    // console.log()
-    
     }
   }
 
-  guardarIdiomas( form: NgForm ){
-    console.log("metodooooooooooooooooo")
+  guardarIdiomas(form: NgForm ){
     if(form.invalid){
       Object.values(form.controls).forEach(
         control =>{
@@ -66,10 +88,23 @@ export class DatosPersonalesComponent implements OnInit {
       );
       tata.error('Error','Formulario invalido');
     }else{
-      $('#modalIdiomas').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
-    
+      this.enlistarIdiomas(form);
+      $('#modalIdiomas').modal('hide');
     }
+  }
+
+  enlistarIdiomas(form: NgForm){
+    //listaIdiomas
+    let idioma = form.controls['idioma'].value;
+    let habla = form.controls['habla'].value;
+    let lee = form.controls['lee'].value;
+    let escribe = form.controls['escribe'].value;
+    this.idioma= new Idioma(idioma,habla,lee, escribe);
+    this.listaIdiomas.push(this.idioma);
+    console.log(this.listaIdiomas+"         ---------------------------------------")
+
+
   }
   registrar(form: NgForm){
     let apellidoP=form.controls['apellidoP'].value;
@@ -115,11 +150,8 @@ export class DatosPersonalesComponent implements OnInit {
   // this.datosPersonales.setNuvelEnCurso(semestre);
    this.datosPersonales.setEgresado(fechaEgreso);
    this.datosPersonales.setEgresado(egreso);
-   console.log(this.datosPersonales)
-    console.log(form.value);
    
    //datos de los formacion academica.
-   this.listaFormacionAcademica.push();
   }
 
 
@@ -153,7 +185,4 @@ export class DatosPersonalesComponent implements OnInit {
       }
     });
   }
-
-  
-
 }

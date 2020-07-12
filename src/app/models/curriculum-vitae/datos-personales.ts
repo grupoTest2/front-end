@@ -29,11 +29,7 @@ export class DatosPesoanles {
     private idiomas: Idioma[]=[];
     public constructor() { 
         this.idConv=parseInt(localStorage.getItem("idConv"));
-        let idioma=new Idioma();
-        idioma.setIdioma("español");
-        idioma.setHabla("bien");
-        idioma.setLee("bien");
-        idioma.setEscribe("bien");
+        let idioma=new Idioma("español","bien","bien","bien");
         this.idiomas.push(idioma);
     }
 
