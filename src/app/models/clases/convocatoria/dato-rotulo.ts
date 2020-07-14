@@ -22,6 +22,9 @@ export class DatoRotulo {
     public getIdDato(){
         return this.idDato;
     }
+    public getNombreTipoDato(): string{
+        return this.tipoDato.getNombre();
+    }
     public getSeleccionado(): boolean {
         return this.seleccionado;
     }

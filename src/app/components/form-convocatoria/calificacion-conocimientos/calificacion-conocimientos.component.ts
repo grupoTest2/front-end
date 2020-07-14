@@ -145,6 +145,7 @@ export class CalificacionConocimientosComponent implements OnInit {
   }
 
   seleccionarTematica(idTem:number,tiposEvaluacion:TipoEvaluacion[]){
+    console.log("estamos en el metodo pro");
     for(let i in this.listaTematica){
       if(this.listaTematica[i].getIdTematica()==idTem){
         this.listaTematica[i].setSeleccionado(true);
@@ -351,7 +352,7 @@ export class CalificacionConocimientosComponent implements OnInit {
    */
   getRequerimientosBD() {
       if(localStorage.getItem("idConv")===""){
-        console.log("esta vacio en los requerimientos");
+        //console.log("esta vacio en los requerimientos");
       }else{
         let idConv: number = parseInt(localStorage.getItem("idConv"));
         this.editarConv.getRequerimientos(idConv).subscribe(
@@ -380,8 +381,9 @@ export class CalificacionConocimientosComponent implements OnInit {
                                               item,
                                               listaTem));
               }
-              console.log("recuperado de la base de datos yyyyyyyyyyy");
-              console.log(this.listaItems);
+              //console.log("recuperado de la base de datos yyyyyyyyyyy");
+              //console.log(this.listaItems);
+              //console.log(this.listaTematica);
             }
             
           
@@ -398,8 +400,8 @@ export class CalificacionConocimientosComponent implements OnInit {
         for (let i in resultado) {
           this.listaTematica.push(new Tematica(resultado[i].idTematica, resultado[i].nombre));
         }
-        console.log("las tematicas desde la base de datos son");
-        console.log(this.listaTematica);
+        //console.log("las tematicas desde la base de datos son");
+        //console.log(this.listaTematica);
       }
     );
   }
@@ -411,8 +413,8 @@ export class CalificacionConocimientosComponent implements OnInit {
         for (let i in resultado) {
           this.listaTiposEvaluacion.push(new TipoEvaluacion(resultado[i].idTipoEvaluacion, resultado[i].nombre));
         }
-        console.log("los tipos de evaluacion de la base de datos");
-        console.log(this.listaTiposEvaluacion);
+        //console.log("los tipos de evaluacion de la base de datos");
+        //console.log(this.listaTiposEvaluacion);
       }
     );
 

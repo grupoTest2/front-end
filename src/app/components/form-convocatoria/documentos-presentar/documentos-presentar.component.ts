@@ -136,7 +136,7 @@ export class DocumentosPresentarComponent implements OnInit {
 
     getDocumentosPresentar(){
       if(localStorage.getItem("idConv")===""){
-        console.log("esta vacio en los documentos");
+        //console.log("esta vacio en los documentos");
       }else{
         let idConv: number = parseInt(localStorage.getItem('idConv'));
         this.editarConv.getDocumentos(idConv).subscribe(

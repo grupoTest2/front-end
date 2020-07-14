@@ -447,6 +447,9 @@ export class FormPostulanteComponent implements OnInit {
     let datosPostulante: DatosPostulante[] = [];
     let dato: TipoDatoRotulo;
     let codigoSis: number = 0;
+    let nombre: string="";
+    let apellidoP: string="";
+    let apellidoM: string="";
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       dato = this.listaDatosRotulo[index].getTipoDato();
       let id = dato.getNombre();
@@ -454,10 +457,15 @@ export class FormPostulanteComponent implements OnInit {
       if (dato.getTipoDeDato() == 'number') {
         valor = parseInt(valor);
       }
-      if (dato.getNombre() == 'codigo_sis') {
+      if (dato.getNombre() == 'apellido_paterno') {
+        apellidoP=valor;
+      }else if(dato.getNombre() == 'codigo_sis'){
         codigoSis = valor;
-      }
-      else {
+      }else if(dato.getNombre() == 'apellido_materno'){
+        apellidoM=valor;
+      }else if(dato.getNombre() == 'nombre'){
+        nombre=valor;
+      }else{
         datosPostulante.push(new DatosPostulante(this.listaDatosRotulo[index].getIdDato(), id, valor));
       }
     }
@@ -469,6 +477,9 @@ export class FormPostulanteComponent implements OnInit {
 
     }
     this.postulante = new Postulante(codigoSis, listItems, datosPostulante);
+    this.postulante.setNombre(nombre);
+    this.postulante.setApellidoP(apellidoP);
+    this.postulante.setApellidoM(apellidoM);
     console.log(JSON.stringify(this.postulante));
     this.registrarPostulanteBD(); // no registra --------------------------------------------------------------------------
     
@@ -551,9 +562,9 @@ export class FormPostulanteComponent implements OnInit {
           let tipoAux = objAux.tipoDatoRotulo;
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
-          if (!this.banderaMostrar) {
+          /*if (!this.banderaMostrar) {
             this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
-          }
+          }*/
           this.listaDatosRotulo.push(datoRotulo);
 
           this.banderaMostrar = true
@@ -623,6 +634,22 @@ export class FormPostulanteComponent implements OnInit {
     pdf.add(
       pdf.ln(1)
     );
+    pdf.add(
+      new Columns([{ text: this.capitalize("Codigo Sis"), fontSize: 20, bold: true, width: 100 },
+      { text: ':', fontSize: 15, bold: true, width: 15 },
+      { text: this.postulante.getCodigoSis(), fontSize: 20, bold: false }]).end)
+    pdf.add(
+      new Columns([{ text: this.capitalize("Nombre"), fontSize: 20, bold: true, width: 100 },
+      { text: ':', fontSize: 15, bold: true, width: 15 },
+      { text: this.postulante.getNombre(), fontSize: 20, bold: false }]).end)
+    pdf.add(
+      new Columns([{ text: this.capitalize("Apellido Paterno"), fontSize: 20, bold: true, width: 100 },
+      { text: ':', fontSize: 15, bold: true, width: 15 },
+      { text: this.postulante.getApellidoP(), fontSize: 20, bold: false }]).end)
+    pdf.add(
+      new Columns([{ text: this.capitalize("Apellido Materno"), fontSize: 20, bold: true, width: 100 },
+      { text: ':', fontSize: 15, bold: true, width: 15 },
+      { text: this.postulante.getApellidoM(), fontSize: 20, bold: false }]).end)
     for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
       pdf.add(
         new Columns([{ text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100 },
@@ -684,6 +711,22 @@ export class FormPostulanteComponent implements OnInit {
       pdf.add(
         pdf.ln(1)
       );
+      pdf.add(
+        new Columns([{ text: this.capitalize("Codigo Sis"), fontSize: 20, bold: true, width: 100 },
+        { text: ':', fontSize: 15, bold: true, width: 15 },
+        { text: this.postulante.getCodigoSis(), fontSize: 20, bold: false }]).end)
+      pdf.add(
+        new Columns([{ text: this.capitalize("Nombre"), fontSize: 20, bold: true, width: 100 },
+        { text: ':', fontSize: 15, bold: true, width: 15 },
+        { text: this.postulante.getNombre(), fontSize: 20, bold: false }]).end)
+      pdf.add(
+        new Columns([{ text: this.capitalize("Apellido Paterno"), fontSize: 20, bold: true, width: 100 },
+        { text: ':', fontSize: 15, bold: true, width: 15 },
+        { text: this.postulante.getApellidoP(), fontSize: 20, bold: false }]).end)
+      pdf.add(
+        new Columns([{ text: this.capitalize("Apellido Materno"), fontSize: 20, bold: true, width: 100 },
+        { text: ':', fontSize: 15, bold: true, width: 15 },
+        { text: this.postulante.getApellidoM(), fontSize: 20, bold: false }]).end)
       for (let index = 0; index < this.postulante.getListaDatos().length; index++) {
         pdf.add(
           new Columns([{ text: this.capitalize(this.postulante.getListaDatos()[index].getNombreDato()), fontSize: 20, bold: true, width: 100 },
