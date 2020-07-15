@@ -4,6 +4,7 @@ import {TipoConvocatoria} from '../../models/clases/convocatoria/tipo-convocator
 import { EditarConvocatoriaServicePhp } from 'src/app/servicios/editar-convocatoria/editar-convocatoria.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { CurriculumService } from 'src/app/servicios/curriculum-vitae/curriculum.service';
 
 declare var tata: any;
 declare var $: any;
@@ -16,7 +17,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
 
   form: NgForm = new NgForm([], []);
   listaConvocatorias: Convocatoria[]=[]
-  constructor(private convService: EditarConvocatoriaServicePhp, private router: Router) { 
+  constructor(private convService: EditarConvocatoriaServicePhp, private seviceCV: CurriculumService, private router: Router) { 
     this.recuperarDatos();
   }
 
@@ -33,13 +34,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
       );
       tata.error('Error', 'Ingrese su código de rótulo por favor');
     } else {
-      if (form.controls['codigo'].value === '123456'){
-        tata.success('Exitoso', 'Cogigo correcto');
-        $('#modalCodigo').modal('hide');
-        this.router.navigate(['/curriculumVitae']);
-      }else{
-      tata.error('Error', 'Codigo incorrecto');
-      }
+      this.verificarCodigo(form.controls['codigo'].value);
     }
   }
 
@@ -62,11 +57,31 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
         }
       }
     )
-    console.log("las convocatorias");
-    console.log(this.listaConvocatorias);
+    //console.log("las convocatorias");
+    //console.log(this.listaConvocatorias);
     
   }
 
+  verificarCodigo(codigo:string){
+    let dato={
+      idConv: parseInt(localStorage.getItem("idConv")),
+      codigo: codigo
+    }
+    this.seviceCV.getPostulante(dato).subscribe(
+      (resp:any)=>{
+        console.log();
+        if(resp.idPostulante==0){
+          tata.error('Error', 'Codigo incorrecto');
+        }else{
+          tata.success('Exitoso', 'Cogigo correcto');
+        $('#modalCodigo').modal('hide');
+        localStorage.setItem("postulante",JSON.stringify(resp));
+        this.router.navigate(['/curriculumVitae']);
+        }
+        
+      }
+    );
+  }
   setearLocalStore(id:number,titulo:string, gestion:number){
     localStorage.setItem("idConv",id.toString());
     localStorage.setItem('tituloConvocatoria', titulo);

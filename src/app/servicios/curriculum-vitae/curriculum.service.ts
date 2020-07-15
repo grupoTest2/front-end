@@ -16,8 +16,8 @@ export class CurriculumService {
   constructor(private http: HttpClient) { }
 
    //recuperan informacion de la base de datos
-   public getPostulante(codigoRotulo:string) {
-    return this.http.get(`${this.URL}obtenerPostulante.php?codigo=${codigoRotulo}`);
+   public getPostulante(datos:any) {
+    return this.http.post(`${this.URL}obtenerPostulante.php`,JSON.stringify(datos));
   }
 
   //envian informacion al servidor phpç
