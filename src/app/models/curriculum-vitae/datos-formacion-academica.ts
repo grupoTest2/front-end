@@ -1,15 +1,22 @@
 export class FormacionAcademica {
+    private idConv: number;
+    private idPos: number;
     private grado: string;
     private titulo: string;
     private institucionObtuvoGrado: string;
     private lugarObtuvoGrado: string;
     private fechaObtuvoGrado: Date;
+    private fechaObtuvoGradoS:string; 
     constructor(grado:string,titulo:string,institucionObtuvoGrado:string,lugarObtuvoGrado:string,fechaObtuvoGrado:Date){
-    this.grado=grado;
-    this.titulo=titulo;
-    this.institucionObtuvoGrado=institucionObtuvoGrado;
-    this.lugarObtuvoGrado=lugarObtuvoGrado;
-    this.fechaObtuvoGrado=fechaObtuvoGrado;
+        this.idConv=parseInt(localStorage.getItem("idConv"));
+        let datos=JSON.parse(localStorage.getItem("postulante"));
+        this.idPos=datos.idPostulante;
+        this.fechaObtuvoGradoS="";
+        this.grado=grado;
+        this.titulo=titulo;
+        this.institucionObtuvoGrado=institucionObtuvoGrado;
+        this.lugarObtuvoGrado=lugarObtuvoGrado;
+        this.fechaObtuvoGrado=fechaObtuvoGrado;
     }
 
     public getGrado(): string {

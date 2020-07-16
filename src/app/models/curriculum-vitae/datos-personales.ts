@@ -2,11 +2,11 @@ import { Idioma } from './datos-idiomas';
 export class DatosPersonales {
     private idEstudiante: number;
     private idConv: number;
+    private idPos: number;
     private nombreUsuario: string;//
     private apellidoPaterno: string;//
     private apellidoMaterno: string;//
     private fechaNacimiento: Date;
-    private fechaNacimientoS: string;
     private lugarNacimiento: string;
     private celulaIdentidad: string;
     private lugarEmisionCI: string;
@@ -20,7 +20,6 @@ export class DatosPersonales {
     private nombreColegio: string;
     private tipoColegio: string;
     private fechaTituloBachillerato: Date;
-    private fechaTituloBachilleratoS: string;
     private carrera: string;
     private egresado: boolean;
     private fechaEgreso: Date;
@@ -29,6 +28,8 @@ export class DatosPersonales {
     private idiomas: Idioma[] = [];
     public constructor(apellidoPaterno: string,apellidoMaterno: string,nombreUsuario: string,fechaNacimiento: Date,lugarNacimiento: string,celulaIdentidad: string,lugarEmisionCI: string,nacionalidad: string,genero: string,estadoCivil: string,domicilioCalle: string,domicilioNumero: string,telefono: number,correo: string,nombreColegio: string,tipoColegio: string,fechaTituloBachillerato: Date,carrera: string, nivelEnCurso: string) { 
         this.idConv=parseInt(localStorage.getItem("idConv"));
+        let datos=JSON.parse(localStorage.getItem("postulante"));
+        this.idPos=datos.idPostulante;
         this.apellidoPaterno=apellidoPaterno;
         this.apellidoMaterno=apellidoMaterno;
         this.nombreUsuario=nombreUsuario;
@@ -98,13 +99,6 @@ export class DatosPersonales {
 
     public getFechaNacimiento(): Date {
         return this.fechaNacimiento;
-    }
-
-    public setFechaNacimiento(fecha: Date): void {
-        this.fechaNacimiento = fecha;
-        const fechaN = this.fechaNacimiento.toLocaleString().split(' ')[0];
-        let aux = fechaN.split('/', 3);
-        this.fechaNacimientoS = aux[2] + '-' + aux[1] + '-' + aux[0];
     }
 
     public getLugarNacimiento(): string {
@@ -196,12 +190,7 @@ export class DatosPersonales {
     public getFechaTituloBachillerato(): Date {
         return this.fechaTituloBachillerato;
     }
-    public setFechaTituloBachillerato(value: Date) {
-        this.fechaTituloBachillerato = value;
-        const fechaN = this.fechaTituloBachillerato.toLocaleString().split(' ')[0];
-        let aux = fechaN.split('/', 3);
-        this.fechaTituloBachilleratoS = aux[2] + '-' + aux[1] + '-' + aux[0];
-    }
+    
     public getCarrera(): string {
         return this.carrera;
     }

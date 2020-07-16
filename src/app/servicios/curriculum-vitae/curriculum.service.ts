@@ -26,27 +26,27 @@ export class CurriculumService {
     return this.http.post(`${this.URL}registrarDatosPersonales.php`, JSON.stringify(datos));
   }
 
-  public agregarIdiomas(idiomas:Idioma){
+  public agregarIdiomas(idiomas:Idioma[]){
     return this.http.post(`${this.URL}registrarIdiomas.php`, JSON.stringify(idiomas));
   }
   
-  public agregarFormacionAcademica(formacionAcademica:FormacionAcademica){
+  public agregarFormacionAcademica(formacionAcademica:FormacionAcademica[]){
     return this.http.post(`${this.URL}registrarFormacionAcademica.php`, JSON.stringify(formacionAcademica));
   }
   
-  public agregarEstudiosCursosTomados(estudiosCursos:EstudiosCursosTomados){
+  public agregarEstudiosCursosTomados(estudiosCursos:EstudiosCursosTomados[]){
     return this.http.post(`${this.URL}registrarEstudiosCursos.php`, JSON.stringify(estudiosCursos));
   }
 
-  public agregarExperienciaUniversitaria(experienciaUniversitaria:ExperienciaUniversitaria){
+  public agregarExperienciaUniversitaria(experienciaUniversitaria:ExperienciaUniversitaria[]){
     return this.http.post(`${this.URL}registrarExperienciaU.php`, JSON.stringify(experienciaUniversitaria));
   }
 
-  public agregarExperienciaExtraUniversitaria(experienciaExtra:ExperienciaExtraUniversitaria){
+  public agregarExperienciaExtraUniversitaria(experienciaExtra:ExperienciaExtraUniversitaria[]){
     return this.http.post(`${this.URL}registrarExperienciaExtraU.php`, JSON.stringify(experienciaExtra));
   }
 
-  public agregarProduccion(produccion:Produccion){
+  public agregarProduccion(produccion:Produccion[]){
     return this.http.post(`${this.URL}registrarProduccion.php`, JSON.stringify(produccion));
   }
 }
