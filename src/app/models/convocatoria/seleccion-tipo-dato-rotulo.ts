@@ -34,13 +34,45 @@ export class SeleccionTipoDatoRotulo {
     }
 
  
-    public cantDatosEnLista(): number{
-        let cont: number=0;
+    public estaHabilitado(): string{
+        let res: string;
+        let banderaCod: boolean=false;
+        let banderaNombre: boolean=false;
+        let banderaAp: boolean=false;
+        let banderaAm: boolean=false;
         for(let i in this.listaTiposDatosRotulo){
             if(this.listaTiposDatosRotulo[i].getEnLista()){
-                cont++;
+                if(this.listaTiposDatosRotulo[i].getNombreTipoDato()=="codigo_sis"){
+                    banderaCod=true; 
+                 }
+                if(this.listaTiposDatosRotulo[i].getNombreTipoDato()=="nombre"){
+                   banderaNombre=true; 
+                }
+                if(this.listaTiposDatosRotulo[i].getNombreTipoDato()=="apellido_paterno"){
+                    banderaAp=true; 
+                }
+                if(this.listaTiposDatosRotulo[i].getNombreTipoDato()=="apellido_materno"){
+                    banderaAm=true; 
+                }
             }
         }
-        return cont;
+        if(banderaNombre&&banderaAp&&banderaAm&&banderaCod){
+            res="bien";
+        }else{
+            res="seleccionar los datos: "
+            if(!banderaNombre){
+                res+="nombre ";
+            }
+            if(!banderaAp){
+                res+="apellido_parterno ";
+            }
+            if(!banderaAm){
+                res+="apellido_materno";
+            }
+            if(!banderaCod){
+                res+="codigo_sis";
+            }
+        }
+        return res;
     }
 }

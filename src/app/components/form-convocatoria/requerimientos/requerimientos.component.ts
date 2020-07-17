@@ -305,7 +305,7 @@ export class RequerimientosComponent implements OnInit {
 
   getRequerimientosBD() {
     if(localStorage.getItem("idConv")===""){
-      console.log("esta vacio en los requerimientos");
+      //console.log("esta vacio en los requerimientos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequerimientos(idConv).subscribe(
@@ -332,8 +332,8 @@ export class RequerimientosComponent implements OnInit {
                                             item,
                                             listaTem));
             }
-            console.log("recuperado de la base de datos xxxxxxxxxxxxxx");
-            console.log(this.listaRequerimientosX);
+            //console.log("recuperado de la base de datos xxxxxxxxxxxxxx");
+            //console.log(this.listaRequerimientosX);
           }
           
         

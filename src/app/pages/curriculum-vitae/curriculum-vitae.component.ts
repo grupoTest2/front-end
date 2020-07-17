@@ -21,6 +21,8 @@ import { ExperienciaUniversitaria } from '../../models/curriculum-vitae/datos-ex
 import { ExperienciaExtraUniversitaria } from 'src/app/models/curriculum-vitae/datos-experiencia-extra-universitaria';
 import { Produccion } from '../../models/curriculum-vitae/datos-produccion';
 import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
+import { JsonpInterceptor } from '@angular/common/http';
+import { CurriculumService } from 'src/app/servicios/curriculum-vitae/curriculum.service';
 
 
 @Component({
@@ -52,7 +54,7 @@ export class CurriculumVitaeComponent implements OnInit {
   listaExperienciaUniversitaria: ExperienciaUniversitaria[];
   listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
   listaDatosProduccion: Produccion[];
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder,private serviceCv: CurriculumService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -67,7 +69,6 @@ export class CurriculumVitaeComponent implements OnInit {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
     }
 
-    console.log
     if(this.datosPersonales.getIdiomas()!=undefined){
       this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
     }
@@ -82,27 +83,113 @@ export class CurriculumVitaeComponent implements OnInit {
   guardar() {
     if (this.datos_personales.guardar()) {
       this.recuperarLosDatosDeLosComponentes();
+      this.registrarDatosPersonalesCvBD();
     }
   }
 
-  agregarDatosCvBD() {
-    /*  this.phpService.agregarDatosCv(this.datosPersonales).subscribe(
+  registrarDatosPersonalesCvBD() {
+    let datosPos=JSON.parse(localStorage.getItem("postulante"));
+    if(datosPos.llenoCv==0){
+      this.serviceCv.agregarDatosPersonales(this.datosPersonales).subscribe(
         resultado=>{
           if(resultado['resultado']=='correcto'){
-            swal.fire(
+            alert("todo posi");
+            this.registrarIdiomas();
+            this.registrarFormacionAcademicaBD();
+            this.registrarEstudiosCursosBD();
+            this.registrarExperienciaUniBD();
+            this.registrarExperienciaExtraUniBD();
+            this.registrarDatosProduccion();
+            /*swal.fire(
               'Exitoso!',
               'Se guardaron los usuarios.',
               'success'
             ).then((result) => {
             this.router.navigate(['/convocatoriasEnCurso']);
-            });
+            });*/
+          }else{
+            alert("algo anda mal");
           }
-        },
-        error=>{
-          alert("lo datos de este postulante para esta convocatoria ya existen");
         }
-      
       )
-    }*/
+    }else{
+      this.registrarFormacionAcademicaBD();
+      this.registrarEstudiosCursosBD();
+      this.registrarExperienciaUniBD();
+      this.registrarExperienciaExtraUniBD();
+      this.registrarDatosProduccion();
+    }
+  }
+
+  registrarIdiomas(){
+    this.serviceCv.agregarIdiomas(this.datosPersonales.getIdiomas()).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con los idiomas");
+        }else{
+          console.log("error con los idiomas")
+        }
+      }
+    )
+  }
+  
+  registrarFormacionAcademicaBD(){
+    this.serviceCv.agregarFormacionAcademica(this.listaDatosFormacionAcademica).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con la formacion academica");
+        }else{
+          console.log("error con la formacion academica");
+        }
+      }
+    );
+  }
+
+  registrarEstudiosCursosBD(){
+    this.serviceCv.agregarEstudiosCursosTomados(this.listaDatosEstudios).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con los estudios cursos");
+        }else{
+          console.log("error con los estudios cursos");
+        }
+      }
+    );
+  }
+
+  registrarExperienciaUniBD(){
+    this.serviceCv.agregarExperienciaUniversitaria(this.listaExperienciaUniversitaria).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con la experiencia universitaria");
+        }else{
+          console.log("error con la experiencia universitaria");
+        }
+      }
+    );
+  }
+
+  registrarExperienciaExtraUniBD(){
+    this.serviceCv.agregarExperienciaExtraUniversitaria(this.listaExperienciaExtraU).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con la experiencia extra universitaria");
+        }else{
+          console.log("error con la experiencia extra universitaria");
+        }
+      }
+    );
+  }
+
+  registrarDatosProduccion(){
+    this.serviceCv.agregarProduccion(this.listaDatosProduccion).subscribe(
+      resp=>{
+        if(resp=='correcto'){
+          console.log("todo bien con los datos produccion");
+        }else{
+          console.log("error con los datos produccion");
+        }
+      }
+    );
   }
 }

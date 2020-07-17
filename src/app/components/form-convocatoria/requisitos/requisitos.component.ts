@@ -139,7 +139,7 @@ export class RequisitosComponent implements OnInit {
 
   getRequisitosBD() {
     if(localStorage.getItem("idConv")===""){
-      console.log("esta vacio en los requisitos");
+      //console.log("esta vacio en los requisitos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequisitos(idConv).subscribe(

@@ -158,7 +158,7 @@ export class DatosRotuloComponent implements OnInit {
 
   //indica si la convocatoria es apta para ser lanzada    
   estaHabilitado(): string{
-    return this.seleccion.cantDatosEnLista() > 0? "bien":"establecer al menos 1 dato para el rotulo";
+    return this.seleccion.estaHabilitado();
   }
 
   // metodos que interactuan con la base de datos
@@ -180,7 +180,7 @@ export class DatosRotuloComponent implements OnInit {
     //console.log("el valor de mi local storage");
     //console.log(localStorage.getItem("idConv"));
     if (localStorage.getItem("idConv") === "") {
-      console.log("esta vacio en los rotulos");
+      //console.log("esta vacio en los rotulos");
     } else {
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getDatosRotulo(idConv).subscribe(

@@ -1,10 +1,15 @@
 export class Idioma {
+    private idConv: number;
+    private idPos: number;
     private idiom:string;
     private habla:string;
     private lee:string;
     private escribe:string;
     
     constructor(idiom: string, habla:string, lee:string, escribe:string) {
+        this.idConv=parseInt(localStorage.getItem("idConv"));
+        let datos=JSON.parse(localStorage.getItem("postulante"));
+        this.idPos=datos.idPostulante;
         this.idiom = idiom;
         this.habla = habla;
         this.lee = lee;

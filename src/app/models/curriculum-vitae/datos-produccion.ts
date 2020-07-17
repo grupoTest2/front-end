@@ -1,11 +1,18 @@
 export class Produccion {
+    private idConv: number;
+    private idPos: number;
     private tituloDocumento: string;
     private tipoDifusion: string;
     private medioPublicacion: string;
     private institucionEntrega: string;
     private fechaCoclusion: Date;
+    private fechaCoclusionS: string;
 
     public constructor(tituloDocumento: string,tipoDifusion: string,medioPublicacion: string,institucionEntrega: string,fechaCoclusion: Date) {
+        this.idConv=parseInt(localStorage.getItem("idConv"));
+        let datos=JSON.parse(localStorage.getItem("postulante"));
+        this.idPos=datos.idPostulante;
+        this.fechaCoclusionS="";
         this.tipoDifusion=tipoDifusion;
         this.tituloDocumento=tituloDocumento;
         this.medioPublicacion=medioPublicacion;

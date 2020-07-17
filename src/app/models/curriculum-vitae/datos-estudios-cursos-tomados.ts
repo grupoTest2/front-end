@@ -1,11 +1,17 @@
 export class EstudiosCursosTomados {
+    private idConv: number;
+    private idPos: number;
     private tipoDocumento: string;
     private tituloDocumento: string;
     private institucionObtencionDcumento: string;
     private lugarObtencionDocumento: string;
     private fechaDocumento: Date;
-
+    private fechaDocumentoS:string;
     public constructor(tipoDocumento:string,tituloDocumento:string, institucionObtencionDcumento:string,lugarObtencionDocumento:string,fechaDocumento:Date) { 
+        this.idConv=parseInt(localStorage.getItem("idConv"));
+        let datos=JSON.parse(localStorage.getItem("postulante"));
+        this.idPos=datos.idPostulante;
+        this.fechaDocumentoS="";
         this.tipoDocumento=tipoDocumento;
         this.tituloDocumento=tituloDocumento;
         this.institucionObtencionDcumento=institucionObtencionDcumento;

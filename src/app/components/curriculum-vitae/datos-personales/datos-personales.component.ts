@@ -28,12 +28,18 @@ export class DatosPersonalesComponent implements OnInit {
 
 
 
-
+  datosPostulante:any;
   apellidoPaterno = "nina"
   apellidoMaterno = "peres"
   nombres = "chiquitin"
+  llenoCv=false;
   banderaEgresado = false;
   constructor(private paisService: PaisService, private router: Router) {
+    this.datosPostulante= JSON.parse(localStorage.getItem("postulante"));
+    this.nombres=this.datosPostulante.nombre;
+    this.apellidoMaterno=this.datosPostulante.apellidoM;
+    this.apellidoPaterno=this.datosPostulante.apellidoP;
+    this.llenoCv=this.datosPostulante.llenoCv!=0;
   }
   ngOnInit(): void {
     this.paisService.getPaises()

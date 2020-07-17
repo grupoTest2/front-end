@@ -181,7 +181,7 @@ export class FechasComponent implements OnInit {
   */
   getEventosBD(){
     if(localStorage.getItem("idConv")===""){
-      console.log("esta vacio en los eventos");
+      //console.log("esta vacio en los eventos");
     }else{
       let idConv: number =  parseInt(localStorage.getItem("idConv"));
       this.editarConv.getEventos(idConv).subscribe(

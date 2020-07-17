@@ -272,7 +272,7 @@ export class MeritosComponent implements OnInit {
    */
   getMeritosBD(){
     if(localStorage.getItem("idConv")===""){
-      console.log("esta vacio en los rotulos");
+      //console.log("esta vacio en los rotulos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getMeritos(idConv).subscribe(
