@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../../models/clases/convocatoria/item'
 import { Convocatoria } from '../../models/clases/convocatoria/convocatoria';
 declare var $: any;
+declare var tata: any;
+declare var swal: any;
 
 @Component({
   selector: 'app-datos-presentados',
@@ -11,7 +13,6 @@ declare var $: any;
 export class DatosPresentadosComponent implements OnInit {
   fecha: Date = new Date();
   hora = "";
-
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
@@ -19,6 +20,7 @@ export class DatosPresentadosComponent implements OnInit {
   bandera = false;
 
   constructor() {
+    this.getHora();
   }
 
   ngOnInit(): void {
@@ -37,8 +39,10 @@ export class DatosPresentadosComponent implements OnInit {
 
   getHora() {
     this.hora = "";
+    let res = "PM"
     if (this.fecha.getHours().toString().length == 1) {
       this.hora += "0" + this.fecha.getHours() + ":";
+
     }
     else {
       this.hora += this.fecha.getHours() + ":";
@@ -49,25 +53,78 @@ export class DatosPresentadosComponent implements OnInit {
     else {
       this.hora += this.fecha.getMinutes();
     }
+    let aux = this.fecha.getHours();
+    if (this.fecha.getHours() < 12) {
+      res = "AM";
+    }
+    this.hora += " " + res;
     return this.hora;
   }
 
 
   buscarCodigo() {
-    let codigo=$('#codigo').val();
+    let codigo = $('#codigo').val();
     if (codigo == "12345") {
       this.bandera = true;
+    }
+    if (this.bandera) {
+      tata.success("Exito:", "puede configurar el registro");
+    }
+    else {
+      tata.error("Error:", "el codigo ingresaado no existe!");
+
     }
     return this.bandera;
   }
 
-  limpiarDatos(){
+  limpiarDatos() {
     $('#codigo').val("");
+    $('#numero_doc').val("");
     this.bandera = false;
+    $('#hora').val(this.getHora() + "");
   }
 
-  guardarDatos(){
-    console.log("----++++++++++--------+++++++++")
+  guardarDatos() {
+    let numeroDoc = $('#numero_doc').val();
+    let hora = $('#hora').val();
+    console.log(numeroDoc + "----" + hora);
   }
 
+  alertGuardar(): void {
+    let numDocs = parseInt($('#numero_doc').val());
+    if (numDocs != 13) {
+      tata.error("Error:", "el numero de documentos es incompleto! ");
+    }
+    else {
+      this.alertConfirmacion();
+    }
+  }
+  
+  alertConfirmacion(){
+    swal.fire({
+      title: 'Guardar',
+      text: "¿Desea guardar los datos registrados",
+      icon: 'question',//wrning
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        swal.fire(
+          'Exitoso!',
+          'El registro fue guardado',
+          'success'
+        )
+        this.guardarDatos();
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'No se guardo el registro',
+          'info'
+        )
+      }
+    })
+  }
 }
