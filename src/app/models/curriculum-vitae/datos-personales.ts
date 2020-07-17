@@ -51,6 +51,10 @@ export class DatosPersonales {
     }
 
     public getIdiomas(): Idioma[] {
+
+        if(this.idiomas==undefined){
+              this.idiomas=[];
+        }
         return this.idiomas;
     }
     public setIdiomas(value: Idioma[]) {

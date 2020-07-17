@@ -21,7 +21,6 @@ import { ExperienciaUniversitaria } from '../../models/curriculum-vitae/datos-ex
 import { ExperienciaExtraUniversitaria } from 'src/app/models/curriculum-vitae/datos-experiencia-extra-universitaria';
 import { Produccion } from '../../models/curriculum-vitae/datos-produccion';
 import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
-import { JsonpInterceptor } from '@angular/common/http';
 
 
 @Component({
@@ -46,7 +45,7 @@ export class CurriculumVitaeComponent implements OnInit {
   isLinear = false;
 
   //variables para los datos de los diferentes componentes
-  banderaDatosPersonales = true;
+  banderaDatosPersonales = false;
   datosPersonales: DatosPersonales;
   listaDatosFormacionAcademica: FormacionAcademica[];
   listaDatosEstudios: EstudiosCursosTomados[];
@@ -82,7 +81,6 @@ export class CurriculumVitaeComponent implements OnInit {
 
   guardar() {
     if (this.datos_personales.guardar()) {
-      console.log("metodooooooooooooooooooooooooooo")
       this.recuperarLosDatosDeLosComponentes();
     }
   }

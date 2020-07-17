@@ -53,6 +53,7 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import {CdkStepperModule} from '@angular/cdk/stepper';
 
 import { MatInputModule } from '@angular/material/input';
+import { DatosPresentadosComponent } from './pages/datos-presentados/datos-presentados.component';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -87,7 +88,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     EstudiosCursosComponent,
     ExperienciaUniversitariaComponent,
     ExperienciaExtraUniversitariaComponent,
-    ProduccionComponent
+    ProduccionComponent,
+    DatosPresentadosComponent
     ],
   imports: [
     BrowserModule,
