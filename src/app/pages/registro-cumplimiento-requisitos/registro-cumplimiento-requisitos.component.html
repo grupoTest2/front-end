@@ -1,0 +1,25 @@
+<div class="container">
+  <h1 class="text-center">Registro Cumplimiento De Requisitos</h1>
+  <br><br><br>
+  <div class="d-flex justify-content-between mt-4">
+    <h3 >seleccione los documentos presentados</h3>
+    <button class="btn btn-outline-success mb-3" (click)="guardraRegistro()"> guardar Registro</button>
+  </div>
+  <hr class="bg-dark mt-0 h-10">
+  <br><br>
+  <ng-container *ngFor="let requisisto of listaRequisitos">
+    <div class="d-flex justify-content-between mt-4">
+      <span class="justify-content-center mt-4" [class.text-darck]="!requisisto.getSeleccionado()"
+        [class.text-success]="requisisto.getSeleccionado()">
+        {{requisisto.getDescripcion()}}
+      </span>
+      <div class="checkbox">
+        <label style="font-size: 2.5em">
+          <input type="checkbox" value="">
+          <span class="cr" (click)="setSeleccionado(requisisto)"><i class="cr-icon fa fa-check"></i></span>
+        </label>
+      </div>
+    </div>
+    <hr [class.bg-success]="requisisto.getSeleccionado()" [class.bg-dark]="!requisisto.getSeleccionado()">
+  </ng-container>
+</div>

@@ -54,6 +54,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 
 import { MatInputModule } from '@angular/material/input';
 import { DatosPresentadosComponent } from './pages/datos-presentados/datos-presentados.component';
+import { RegistroCumplimientoRequisitosComponent } from './pages/registro-cumplimiento-requisitos/registro-cumplimiento-requisitos.component';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -89,7 +90,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ExperienciaUniversitariaComponent,
     ExperienciaExtraUniversitariaComponent,
     ProduccionComponent,
-    DatosPresentadosComponent
+    DatosPresentadosComponent,
+    RegistroCumplimientoRequisitosComponent
     ],
   imports: [
     BrowserModule,

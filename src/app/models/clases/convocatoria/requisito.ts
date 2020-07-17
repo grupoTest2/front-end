@@ -3,11 +3,13 @@ export class Requisito {
     private idRequisito: number;
     private descripcion: string;
     private accion: string;
+    private seleccionado:boolean;
     public constructor(descripcion,idRequisto=-1){
         this.idConv        = parseInt(localStorage.getItem("idConv"));
         this.descripcion   = descripcion;
         this.idRequisito=idRequisto;
         this.accion="nada";
+        this.seleccionado=false;
     }
 
     public getDescripcion(): string{
@@ -28,6 +30,12 @@ export class Requisito {
 
     public setAccion(accion){
         this.accion=accion;
+    }
+    public getSeleccionado(){
+        return this.seleccionado;
+    }
+    public setSeleccionado(value:boolean):void{
+     this.seleccionado=value;
     }
     
 }

@@ -11,6 +11,7 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
 import { AsingacionAreaConocimientoComponent } from './pages/asingacion-area-conocimiento/asingacion-area-conocimiento.component';
 import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vitae.component';
 import { DatosPresentadosComponent } from './pages/datos-presentados/datos-presentados.component';
+import { RegistroCumplimientoRequisitosComponent } from './pages/registro-cumplimiento-requisitos/registro-cumplimiento-requisitos.component';
 
 
 const routes: Routes = [
@@ -22,12 +23,13 @@ const routes: Routes = [
   { path: 'convocatoriasEnCurso', component: ConvocatoriasEnCursoComponent },
   { path: 'editar/convocatorias', component: ConvocatoriasComponent },
   { path: 'formularioRegistro', component: FormPostulanteComponent },
-  { path: 'formularioMiembro', component: FormRegistroComponent},
+  { path: 'formularioMiembro', component: FormRegistroComponent },
   { path: 'convocatorias', component: ConvocatoriasComponent },
   { path: 'comisiones', component: ComisionesComponent },
   { path: 'comisiones/asingnacion_area_conocimiento', component: AsingacionAreaConocimientoComponent },
   { path: 'curriculumVitae', component: CurriculumVitaeComponent },
   { path: 'datos_presentados', component: DatosPresentadosComponent },
+  { path: 'registro_cumplimiento_requisitos', component: RegistroCumplimientoRequisitosComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
