@@ -30,17 +30,20 @@ export class DatosPresentadosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarPruebas();
     this.horas = this.getHora();
-    this.minutos=this.getMinutos();
-    this.segundos=this.getSegundos();
+    this.minutos = this.getMinutos();
+    this.segundos = this.getSegundos();
     setInterval(() => {
       //this.getSegundos();
       this.segundos += 1;
-      if (this.segundos == 60) {
-        this.segundos = 0;
-        this.minutos += 1;
-      }
-      if (this.minutos == 59) {
+      if (this.minutos == 59 && this.segundos == 59) {
         this.horas += 1;
+        this.minutos = 0;
+        this.segundos = 0;
+      } else {
+        if (this.segundos == 60) {
+          this.segundos = 0;
+          this.minutos += 1;
+        }
       }
       if (this.horas == 24) {
         this.horas = 1;
@@ -60,7 +63,7 @@ export class DatosPresentadosComponent implements OnInit {
 
   }
 
-  getHora():number {
+  getHora(): number {
     let hr = this.fecha.getHours();
     return hr;
 
@@ -99,7 +102,7 @@ export class DatosPresentadosComponent implements OnInit {
   guardarDatos() {
     let numeroDoc = $('#numero_doc').val();
     let hora = $('#hora').val();
-    console.log(numeroDoc + "----" + this.horas+":"+this.minutos+":"+this.segundos);
+    console.log(numeroDoc + "----" + this.horas + ":" + this.minutos + ":" + this.segundos);
   }
 
   alertGuardar(): void {
