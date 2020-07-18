@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Requisito } from '../../models/clases/convocatoria/requisito';
+import { Requisito } from '../../../models/clases/convocatoria/requisito';
 declare var $: any;
 declare var swal: any;
 @Component({
-  selector: 'app-registro-cumplimiento-requisitos',
-  templateUrl: './registro-cumplimiento-requisitos.component.html',
-  styleUrls: ['./registro-cumplimiento-requisitos.component.css']
+  selector: 'app-registro-requisitos-presentados',
+  templateUrl: './registro-requisitos-presentados.component.html',
+  styleUrls: ['./registro-requisitos-presentados.component.css']
 })
-export class RegistroCumplimientoRequisitosComponent implements OnInit {
+export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
   constructor() { }

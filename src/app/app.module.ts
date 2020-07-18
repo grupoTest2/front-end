@@ -54,7 +54,10 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 
 import { MatInputModule } from '@angular/material/input';
 import { DatosPresentadosComponent } from './pages/datos-presentados/datos-presentados.component';
-import { RegistroCumplimientoRequisitosComponent } from './pages/registro-cumplimiento-requisitos/registro-cumplimiento-requisitos.component';
+import { EvaluacionRequisitosComponent } from './pages/evaluacion-requisitos/evaluacion-requisitos.component';
+import { RegistroRequisitosPresentadosComponent } from './components/usuario-comision-evaluadora/registro-requisitos-presentados/registro-requisitos-presentados.component';
+import { ConvocatoriasAsignadasComponent } from './components/usuario-comision-evaluadora/convocatorias-asignadas/convocatorias-asignadas.component';
+import { PostulantesAsignadasComponent } from './components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -91,7 +94,10 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ExperienciaExtraUniversitariaComponent,
     ProduccionComponent,
     DatosPresentadosComponent,
-    RegistroCumplimientoRequisitosComponent
+    EvaluacionRequisitosComponent,
+    RegistroRequisitosPresentadosComponent,
+    ConvocatoriasAsignadasComponent,
+    PostulantesAsignadasComponent
     ],
   imports: [
     BrowserModule,

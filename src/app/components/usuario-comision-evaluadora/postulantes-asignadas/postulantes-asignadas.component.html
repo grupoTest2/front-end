@@ -1,0 +1,65 @@
+<br><br>
+<h3 >Postulantes de la convicaroria: </h3>
+<hr class="bg-dark mt-0 h-10">
+<div class="table-responsive mt-3">
+    <table class="table align-middle table-hover table-bordered" id="requerimientos">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center" scope="col">Apellidos y nombres</th>
+                <th class="text-center" scope="col">Codigo Sis</th>
+                <th class="text-center" scope="col">Evaluado Por</th>
+                <th class="text-center" scope="col">Estado</th>
+                <th class="text-center" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+           <tr *ngFor="let postulante of listaPostulantes; index as i">
+                <td>{{postulante.getApellidoP()}}&nbsp;{{postulante.getApellidoM()}}&nbsp;{{postulante.getNombre()}}</td>
+                <td>{{postulante.getCodigoSis()}}</td>
+                <td>{{postulante.getEvaluador()}}</td>
+                <td>{{postulante.getEstado()}}</td>
+                <td class="text-center">
+                    <div class="btn btn-group" role="group">
+                        <button  class="btn btn-outline-info mr-1" type="button" >
+                            <i class="fa fa-users"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <div class="table-responsive mt-3">
+        <table class="table align-middle" id="requerimientos">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center" scope="col">Título Convocatoria</th>
+                    <th class="text-center" scope="col">Tipo</th>
+                    <th class="text-center" scope="col">Estado</th>
+                    <th class="text-center" scope="col">Gestión</th>
+                </tr>
+            </thead>
+            <tbody class="accordion" id="accordionExample">
+                <ng-container *ngFor="let postulante of listaPostulantes; let i = index">
+                    <tr data-toggle="collapse" attr.data-target="#id{{postulante.getCodigoSis()}}" aria-expanded="false" attr.aria-controls="id{{postulante.getCodigoSis()}}" id="id2{{postulante.getCodigoSis()}}">
+                        <td><i id="{{postulante.getCodigoSis()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{postulante.getCodigoSis()}}</td>
+                        <td class="text-center">{{postulante..getApellidoP()}}&nbsp;{{postulante.getApellidoM()}}&nbsp;{{postulante.getNombre()}}</td>
+                        <td class="text-center">{{postulante.getEstado()}}</td>
+                        <td class="text-center">{{postulante.getEvaluador()}}</td>
+                    </tr>
+                    <tr class="collapse" id="id{{postulante.getCodigoSis()}}">
+                        <td colspan="4" class="pt-2 pb-4">
+                            <span class="font-weight-bold mr-2">Acciones:&nbsp;</span><br>
+                            <button class="ml-5 mr-2 btn btn-outline-primary badge"><i class="fa fa-file-alt"></i>&nbsp; Habilitar</button>
+                            <button class="mr-2 btn btn-outline-info badge" ><i class="fas fa-users"></i>&nbsp; Comisiones</button>
+                            <button class="mr-2 btn btn-outline-success badge" ><i class="fa fa-pencil"></i>&nbsp; Editar</button>
+                            <button class="mr-2 btn btn-outline-danger badge"><i class="fa fa-trash-alt"></i>&nbsp; Borrar</button>
+                        </td>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>

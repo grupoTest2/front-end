@@ -9,6 +9,8 @@ export class Postulante{
     private idConv: number;
     private listaItems: Item[];
     private listaDatos: DatosPostulante[];
+    private estado: string;
+    private evaluador: string;
 
     public constructor(codigoSis:number,listaItems: Item[]=[], listaDatos:DatosPostulante[]=[]){
         this.idConv= parseInt(localStorage.getItem("idConv"));
@@ -18,8 +20,23 @@ export class Postulante{
         this.nombre="";
         this.apellidoP="";
         this.apellidoM="";
+        this.estado="sin evaluar"
+        this.evaluador="sin evaluador"
     }
 
+    public getEstado(): string {
+        return this.estado;
+    }
+    public setEstado(value: string) {
+        this.estado = value;
+    }
+    public getEvaluador(): string {
+        return this.evaluador;
+    }
+    public setEvaluador(value: string) {
+        this.evaluador = value;
+    }
+    
     public setNombre(nombre:string){
         this.nombre=nombre;
     }

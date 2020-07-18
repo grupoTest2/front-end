@@ -1,0 +1,27 @@
+<br><br>
+<h3 >Convocatorias Asignadas</h3>
+<hr class="bg-dark mt-0 h-10">
+<div class="table-responsive mt-3">
+    <table class="table align-middle table-hover table-bordered" id="requerimientos">
+        <thead class="thead-dark">
+            <tr >
+                <th class="text-center" scope="col-7">Titulo</th>
+                <th class="text-center" scope="col-3">Gestion</th>
+                <th class="text-center" scope="col-2">Ver Postulantes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let conv of listaConv; index as i">
+                <td>{{conv.getTitulo()}}</td>
+                <td>{{conv.getGestion()}}</td>
+                <td class="text-center">
+                    <div class="btn btn-group" role="group">
+                        <button  class="btn btn-outline-info mr-1" type="button" >
+                            <i class="fa fa-users"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
