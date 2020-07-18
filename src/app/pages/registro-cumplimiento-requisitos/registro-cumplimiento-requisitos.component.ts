@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Requisito } from '../../models/clases/convocatoria/requisito';
 declare var $: any;
+declare var swal: any;
 @Component({
   selector: 'app-registro-cumplimiento-requisitos',
   templateUrl: './registro-cumplimiento-requisitos.component.html',
@@ -49,6 +50,34 @@ export class RegistroCumplimientoRequisitosComponent implements OnInit {
        console.log(this.listaRequisitos[index].getDescripcion()+"----");
       }
     }
+  }
+
+  alertConfirmacion(){
+    swal.fire({
+      title: 'Guardar',
+      text: '¿Desea guardar el registro?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        swal.fire(
+          'Exitoso!',
+          'El registro fue guardado',
+          'success'
+        )
+        this.guardraRegistro();
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'No se guardó el registro',
+          'info'
+        )
+      }
+    })
   }
 
 }
