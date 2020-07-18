@@ -1,0 +1,12 @@
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+tr {
+    cursor: pointer;
+}
+
+.color {
+    background-color: #f2f2f2;
+}
