@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../models/clases/convocatoria/item'
 import { Convocatoria } from '../../models/clases/convocatoria/convocatoria';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { getTestBed } from '@angular/core/testing';
 declare var $: any;
 declare var tata: any;
 declare var swal: any;
@@ -12,7 +14,10 @@ declare var swal: any;
 })
 export class DatosPresentadosComponent implements OnInit {
   fecha: Date = new Date();
-  hora = "";
+  horas: number = 0;
+  minutos: number = 0;
+  segundos: number = 0;
+
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
@@ -20,11 +25,28 @@ export class DatosPresentadosComponent implements OnInit {
   bandera = false;
 
   constructor() {
-    this.getHora();
   }
 
   ngOnInit(): void {
     this.cargarPruebas();
+    this.horas = this.getHora();
+    this.minutos=this.getMinutos();
+    this.segundos=this.getSegundos();
+    setInterval(() => {
+      //this.getSegundos();
+      this.segundos += 1;
+      if (this.segundos == 60) {
+        this.segundos = 0;
+        this.minutos += 1;
+      }
+      if (this.minutos == 59) {
+        this.horas += 1;
+      }
+      if (this.horas == 24) {
+        this.horas = 1;
+      }
+      //this.segundos = this.fecha.getSeconds();
+    }, 1000);
   }
 
   cargarPruebas() {//json()[i]["imagen"];
@@ -35,32 +57,22 @@ export class DatosPresentadosComponent implements OnInit {
     this.item = new Item(1, "1", "Teoria De Grafos");
     this.listaItems.push(this.item);
     this.convocatoria = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
+
   }
 
-  getHora() {
-    this.hora = "";
-    let res = "PM"
-    if (this.fecha.getHours().toString().length == 1) {
-      this.hora += "0" + this.fecha.getHours() + ":";
+  getHora():number {
+    let hr = this.fecha.getHours();
+    return hr;
 
-    }
-    else {
-      this.hora += this.fecha.getHours() + ":";
-    }
-    if (this.fecha.getMinutes().toString().length == 1) {
-      this.hora += "0" + this.fecha.getMinutes();
-    }
-    else {
-      this.hora += this.fecha.getMinutes();
-    }
-    let aux = this.fecha.getHours();
-    if (this.fecha.getHours() < 12) {
-      res = "AM";
-    }
-    this.hora += " " + res;
-    return this.hora;
   }
-
+  getMinutos() {
+    let mn = this.minutos = this.fecha.getMinutes();
+    return mn;
+  }
+  getSegundos() {
+    let sg = this.fecha.getSeconds();
+    return sg;
+  }
 
   buscarCodigo() {
     let codigo = $('#codigo').val();
@@ -87,7 +99,7 @@ export class DatosPresentadosComponent implements OnInit {
   guardarDatos() {
     let numeroDoc = $('#numero_doc').val();
     let hora = $('#hora').val();
-    console.log(numeroDoc + "----" + hora);
+    console.log(numeroDoc + "----" + this.horas+":"+this.minutos+":"+this.segundos);
   }
 
   alertGuardar(): void {
@@ -99,8 +111,8 @@ export class DatosPresentadosComponent implements OnInit {
       this.alertConfirmacion();
     }
   }
-  
-  alertConfirmacion(){
+
+  alertConfirmacion() {
     swal.fire({
       title: 'Guardar',
       text: "¿Desea guardar los datos registrados",
