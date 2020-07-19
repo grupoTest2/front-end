@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 
 @Component({
@@ -9,6 +9,7 @@ import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 export class ConvocatoriasAsignadasComponent implements OnInit {
 
   listaConv:Convocatoria[]=[];
+  @Output() listarPos=new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -22,13 +23,15 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
     let convocatoria3 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
     let convocatoria4 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
     let convocatoria5 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-
     this.listaConv.push(convocatoria);
     this.listaConv.push(convocatoria1);
     this.listaConv.push(convocatoria2);
     this.listaConv.push(convocatoria3);
     this.listaConv.push(convocatoria4);
     this.listaConv.push(convocatoria5);
+  }
 
+  listarPostulantes(id:number){
+    this.listarPos.emit(id);
   }
 }

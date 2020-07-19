@@ -11,7 +11,6 @@ export class PostulantesAsignadasComponent implements OnInit {
 
   listaPostulantes: Postulante[] = [];
   constructor() {
-    this.cargarDatosPrueba();
 
   }
 
@@ -74,6 +73,11 @@ export class PostulantesAsignadasComponent implements OnInit {
    this.listaPostulantes.push(postlulante8);
    this.listaPostulantes.push(postlulante9);
    
+  }
+
+  listarPostulantes(idConv){
+   console.log("estamos en postulantes");
+   this.cargarDatosPrueba();
   }
 
 }

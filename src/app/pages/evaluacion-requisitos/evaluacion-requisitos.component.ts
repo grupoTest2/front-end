@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PostulantesAsignadasComponent } from '../../components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
+
 declare var $: any;
 
 @Component({
@@ -7,10 +9,17 @@ declare var $: any;
   styleUrls: ['./evaluacion-requisitos.component.css']
 })
 export class EvaluacionRequisitosComponent implements OnInit {
+  @ViewChild('postulantes') postulantes: PostulantesAsignadasComponent;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  listarPos(idConv: number) {
+    console.log("ingresooooooooo");
+    this.postulantes.listarPostulantes(idConv);
+    $("#postulantes").removeClass("disabled");
+    $("#postulantes").click();
+  }
 }
