@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Requisito } from '../../../models/clases/convocatoria/requisito';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 declare var $: any;
@@ -12,11 +12,11 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
   postulante: PostulanteEvaluado;
+  @Output() datosPostl = new EventEmitter();
+
   constructor() { }
 
-  ngOnInit(): void {
-    this.cargarDatosPrueva();
-  }
+  ngOnInit(): void {  }
 
   cargarDatosPrueva() {
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
@@ -73,6 +73,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
           'success'
         )
         this.guardraRegistro();
+        this.redireccionPostulantes();
       } else {
         swal.fire(
           'Cancelado!',
@@ -86,6 +87,11 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
 
   listarRequisitos(postulante: PostulanteEvaluado) {
     this.postulante = postulante;
+    this.cargarDatosPrueva();
+  }
+
+  redireccionPostulantes(){
+    this.datosPostl.emit()
   }
 
 }

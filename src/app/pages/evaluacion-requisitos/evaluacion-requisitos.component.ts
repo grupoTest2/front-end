@@ -28,7 +28,7 @@ export class EvaluacionRequisitosComponent implements OnInit {
     $("#postulantes").removeClass('invisible')
   }
 
-  datosPostulante(postulante:PostulanteEvaluado) {
+  datosPostulante(postulante: PostulanteEvaluado) {
     console.log("ingresooooooooo");
     this.banderaEvaluacion = true;
     this.datosPost.listarRequisitos(postulante);
@@ -36,7 +36,10 @@ export class EvaluacionRequisitosComponent implements OnInit {
     $("#evaluacion").removeClass('invisible')
   }
 
-
-
-
+  redireccion() {
+    console.log("ingresooooooooo");
+    this.banderaPostulantes = true;
+    $("#postulantes").click();
+    $("#evaluacion").addClass('invisible')
+  }
 }
