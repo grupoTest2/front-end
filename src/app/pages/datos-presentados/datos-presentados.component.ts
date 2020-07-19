@@ -23,11 +23,21 @@ export class DatosPresentadosComponent implements OnInit {
   convocatoria: Convocatoria;
   listaAuxiliar = ['nombre: jhonn', 'apellidos: Camacho Ledezma', 'correo: jhonnwcl@gmail.com', 'codigo_sis: 2010342'];
   bandera = false;
-
   constructor() {
-  }
+}
 
   ngOnInit(): void {
+    let options = {
+      timeZone: 'America/La_Paz',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    },
+    formatter = new Intl.DateTimeFormat([], options);
+  
     this.cargarPruebas();
     this.horas = this.getHora();
     this.minutos = this.getMinutos();
