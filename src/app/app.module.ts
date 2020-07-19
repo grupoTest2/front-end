@@ -97,7 +97,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     EvaluacionRequisitosComponent,
     RegistroRequisitosPresentadosComponent,
     ConvocatoriasAsignadasComponent,
-    PostulantesAsignadasComponent
+    PostulantesAsignadasComponent,
     ],
   imports: [
     BrowserModule,

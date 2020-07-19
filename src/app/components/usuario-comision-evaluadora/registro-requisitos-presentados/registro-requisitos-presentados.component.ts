@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Requisito } from '../../../models/clases/convocatoria/requisito';
+import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 declare var $: any;
 declare var swal: any;
 @Component({
@@ -10,6 +11,7 @@ declare var swal: any;
 export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
+  postulante: PostulanteEvaluado;
   constructor() { }
 
   ngOnInit(): void {
@@ -47,12 +49,13 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   guardraRegistro() {
     for (let index = 0; index < this.listaRequisitos.length; index++) {
       if (this.listaRequisitos[index].getSeleccionado()) {
-       console.log(this.listaRequisitos[index].getDescripcion()+"----");
+        console.log(this.listaRequisitos[index].getDescripcion() + "----");
+        console.log(JSON.stringify(this.postulante) + "+++++++++++++++++++");
       }
     }
   }
 
-  alertConfirmacion(){
+  alertConfirmacion() {
     swal.fire({
       title: 'Guardar',
       text: '¿Desea guardar el registro?',
@@ -78,6 +81,11 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
         )
       }
     })
+  }
+
+
+  listarRequisitos(postulante: PostulanteEvaluado) {
+    this.postulante = postulante;
   }
 
 }
