@@ -19,6 +19,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   ngOnInit(): void {  }
 
   cargarDatosPrueva() {
+    this.listaRequisitos=[];
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
     let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
     let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
@@ -71,9 +72,10 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        )
-        this.guardraRegistro();
-        this.redireccionPostulantes();
+        ).then(()=>{
+          this.guardraRegistro();
+          this.redireccionPostulantes();
+        });
       } else {
         swal.fire(
           'Cancelado!',
