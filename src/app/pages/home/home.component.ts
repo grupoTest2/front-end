@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PdfMakeWrapper,Txt, Columns, Stack, Table, TextReference, PageReference, Img } from 'pdfmake-wrapper';
 import * as pdfMaker from 'pdfmake';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+declare var tata: any;
+declare var $: any;
 
 @Component({
   selector: 'app-home',
@@ -10,11 +15,31 @@ import * as pdfMaker from 'pdfmake';
 export class HomeComponent implements OnInit {
   [x: string]: any;
   pdf:PdfMakeWrapper;
-  constructor() { 
+  constructor(private router: Router) { 
     this.pdf=new PdfMakeWrapper();
   }
 
   ngOnInit(): void {
+  }
+
+  guardar(form: NgForm) {
+    this.form = form;
+    if (form.invalid) {
+      Object.values(form.controls).forEach(
+        control => {
+          control.markAllAsTouched();
+        }
+      );
+      tata.error('Error', 'Ingrese su código de rótulo por favor');
+    } else {
+      if(form.controls['codigo'].value === '12345'){
+      tata.success('Exito', 'Ingreso exitoso');
+      this.router.navigate(['/evaluacion_Postulante']);
+      $('#modalEvaluador').modal('hide');
+      }else{
+      tata.error('Error', 'Codigo Incorrecto');
+      }
+    }
   }
   //metodo de prueba, lo pueden borrar nomas si quieren xd
   descargar(){
