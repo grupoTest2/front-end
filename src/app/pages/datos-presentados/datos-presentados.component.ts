@@ -156,6 +156,7 @@ export class DatosPresentadosComponent implements OnInit {
           console.log("el codigo existe");
           let conv=resp['convocatoria'];
           this.convocatoria=new Convocatoria(0,conv.titulo,conv.gestion);
+          this.convocatoria.setIdConv(conv.idConv);
           console.log("la convocatoria desde la base de datos");
           console.log(this.convocatoria);
           let post=resp['postulante'];
@@ -167,6 +168,7 @@ export class DatosPresentadosComponent implements OnInit {
           this.postulante.setNombre(post.nombre);
           this.postulante.setApellidoP(post.apellidoP);
           this.postulante.setApellidoM(post.apellidoM);
+          this.postulante.setIdPostulante(post.idPos);
           console.log("el postulante desde la base de datos");
           console.log(this.postulante);
           this.bandera=true;
