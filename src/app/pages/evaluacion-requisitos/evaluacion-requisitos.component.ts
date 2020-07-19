@@ -10,7 +10,8 @@ declare var $: any;
 })
 export class EvaluacionRequisitosComponent implements OnInit {
   @ViewChild('postulantes') postulantes: PostulantesAsignadasComponent;
-
+   banderaPostulantes=false;
+   banderaEvaluacion=false;
   constructor() { }
 
   ngOnInit(): void {
@@ -18,8 +19,13 @@ export class EvaluacionRequisitosComponent implements OnInit {
 
   listarPos(idConv: number) {
     console.log("ingresooooooooo");
+    this.banderaPostulantes=true;
     this.postulantes.listarPostulantes(idConv);
-    $("#postulantes").removeClass("disabled");
     $("#postulantes").click();
+    $("#postulantes").removeClass('invisible')
   }
+
+
+
+
 }
