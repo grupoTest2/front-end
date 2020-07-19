@@ -11,9 +11,10 @@ export class Postulante{
     private listaDatos: DatosPostulante[];
     private estado: string;
     private evaluador: string;
-
+    private idPos:number;
     public constructor(codigoSis:number,listaItems: Item[]=[], listaDatos:DatosPostulante[]=[]){
         this.idConv= parseInt(localStorage.getItem("idConv"));
+        this.idPos=0;
         this.codigoSis=codigoSis;
         this.listaItems=listaItems;
         this.listaDatos=listaDatos;
@@ -23,7 +24,9 @@ export class Postulante{
         this.estado="sin evaluar"
         this.evaluador="sin evaluador"
     }
-
+    public setIdPostulante(idPos:number){
+        this.idPos=idPos;
+    }
     public getEstado(): string {
         return this.estado;
     }

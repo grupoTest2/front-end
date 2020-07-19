@@ -58,6 +58,7 @@ import { EvaluacionRequisitosComponent } from './pages/evaluacion-requisitos/eva
 import { RegistroRequisitosPresentadosComponent } from './components/usuario-comision-evaluadora/registro-requisitos-presentados/registro-requisitos-presentados.component';
 import { ConvocatoriasAsignadasComponent } from './components/usuario-comision-evaluadora/convocatorias-asignadas/convocatorias-asignadas.component';
 import { PostulantesAsignadasComponent } from './components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
+import { FiltroCodSisPipe } from './pipes/postulante/filtro-cod-sis.pipe';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -98,6 +99,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     RegistroRequisitosPresentadosComponent,
     ConvocatoriasAsignadasComponent,
     PostulantesAsignadasComponent,
+    FiltroCodSisPipe,
     ],
   imports: [
     BrowserModule,

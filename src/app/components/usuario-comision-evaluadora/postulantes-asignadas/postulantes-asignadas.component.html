@@ -1,3 +1,16 @@
+<div class="row justify-content-end mt-2">
+    <div class="col align-self-center ml-2">
+        Buscar por:
+    </div>
+    <i class="fas fa-filter mr-5 align-self-center"></i>
+    <div class="form-inline mr-2">
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Cogigo Sis:</label>
+        <input type="text" class="form-control" name="filtroCodigo" [(ngModel)]="filtroCodigo">
+    </div>
+    <div class="form-inline mr-2">
+        <button type="submit" class="btn btn-info mr-2" (click)="listarTodo()">Ver todos los postulantes</button>
+    </div>
+</div>
 <div class="form-group">
     <div class="table-responsive mt-3">
         <table class="table align-middle" id="requerimientos">
@@ -10,9 +23,10 @@
                 </tr>
             </thead>
             <tbody class="accordion" id="accordionExample">
-                <ng-container *ngFor="let postulante of listaPostulantes; let i = index">
+                <ng-container *ngFor="let postulante of listaPostulantes | filtroCodSis: filtroCodigo; let i = index">
                     <tr data-toggle="collapse" attr.data-target="#id{{postulante.getCodigoSis()}}{{i}}" aria-expanded="false" attr.aria-controls="id{{postulante.getCodigoSis()}}{{i}}" id="id2{{postulante.getCodigoSis()}}">
-                        <td><i id="idIcono{{postulante.getCodigoSis()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{postulante.getApellidoPaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getApellidoMaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getNombres() | titlecase}}</td>
+                        <td><i id="idIcono{{postulante.getCodigoSis()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{postulante.getApellidoPaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getApellidoMaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getNombres()
+                            | titlecase}}</td>
                         <td class="text-center">{{postulante.getCodigoSis()}}</td>
                         <td *ngIf="postulante.getEvaluador().getApellidoPaterno() !=''" class="text-center">{{postulante.getEvaluador().getApellidoPaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getEvaluador().getApellidoMaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getEvaluador().getNombres() | titlecase}}</td>
                         <td *ngIf="postulante.getEvaluador().getApellidoPaterno()==''" class="text-center">Siin Evaluador</td>

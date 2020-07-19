@@ -3,6 +3,8 @@ import { Item } from '../../models/clases/convocatoria/item'
 import { Convocatoria } from '../../models/clases/convocatoria/convocatoria';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { getTestBed } from '@angular/core/testing';
+import { RecepcionService } from 'src/app/servicios/recepcionDocumentos/recepcion.service';
+import { Postulante } from 'src/app/models/clases/postulante/postulante';
 declare var $: any;
 declare var tata: any;
 declare var swal: any;
@@ -21,24 +23,15 @@ export class DatosPresentadosComponent implements OnInit {
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
+  postulante:Postulante;
   listaAuxiliar = ['nombre: jhonn', 'apellidos: Camacho Ledezma', 'correo: jhonnwcl@gmail.com', 'codigo_sis: 2010342'];
   bandera = false;
-  constructor() {
-}
+
+  constructor(private recepcion: RecepcionService) {
+  }
 
   ngOnInit(): void {
-    let options = {
-      timeZone: 'America/La_Paz',
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-    },
-    formatter = new Intl.DateTimeFormat([], options);
-  
-    this.cargarPruebas();
+    //this.cargarPruebas();
     this.horas = this.getHora();
     this.minutos = this.getMinutos();
     this.segundos = this.getSegundos();
@@ -89,7 +82,8 @@ export class DatosPresentadosComponent implements OnInit {
 
   buscarCodigo() {
     let codigo = $('#codigo').val();
-    if (codigo == "12345") {
+    this.existeCodigoBD(codigo);
+    /*if (codigo == "12345") {
       this.bandera = true;
     }
     if (this.bandera) {
@@ -99,7 +93,7 @@ export class DatosPresentadosComponent implements OnInit {
       tata.error("Error:", "el codigo ingresaado no existe!");
 
     }
-    return this.bandera;
+    return this.bandera;*/
   }
 
   limpiarDatos() {
@@ -151,5 +145,44 @@ export class DatosPresentadosComponent implements OnInit {
         )
       }
     })
+  }
+
+  // ----------interaccion con la base de datos
+
+  existeCodigoBD(codigo: string){
+    this.recepcion.getInformacionPostulante(codigo).subscribe(
+      resp=>{
+        if(resp['existe']){
+          console.log("el codigo existe");
+          let conv=resp['convocatoria'];
+          this.convocatoria=new Convocatoria(0,conv.titulo,conv.gestion);
+          this.convocatoria.setIdConv(conv.idConv);
+          console.log("la convocatoria desde la base de datos");
+          console.log(this.convocatoria);
+          let post=resp['postulante'];
+          let items=post.listaItems;
+          for(let i in items){
+            this.listaItems.push(new Item(items[i].idItem,items[i].codigoItem,items[i].nombreItem));
+          }
+          this.postulante=new Postulante(post.codigoSis,items);
+          this.postulante.setNombre(post.nombre);
+          this.postulante.setApellidoP(post.apellidoP);
+          this.postulante.setApellidoM(post.apellidoM);
+          this.postulante.setIdPostulante(post.idPos);
+          console.log("el postulante desde la base de datos");
+          console.log(this.postulante);
+          this.bandera=true;
+          if (this.bandera) {
+            tata.success("Exito:", "puede configurar el registro");
+          }
+          else {
+            tata.error("Error:", "el codigo ingresaado no existe!");
+      
+          }
+        }else{
+          console.log("el codigo no existe");
+        }
+      }
+    );
   }
 }
