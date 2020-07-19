@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Requisito } from '../../../models/clases/convocatoria/requisito';
+import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 declare var $: any;
 declare var swal: any;
 @Component({
@@ -10,13 +11,15 @@ declare var swal: any;
 export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
+  postulante: PostulanteEvaluado;
+  @Output() datosPostl = new EventEmitter();
+
   constructor() { }
 
-  ngOnInit(): void {
-    this.cargarDatosPrueva();
-  }
+  ngOnInit(): void {  }
 
   cargarDatosPrueva() {
+    this.listaRequisitos=[];
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
     let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
     let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
@@ -47,12 +50,13 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   guardraRegistro() {
     for (let index = 0; index < this.listaRequisitos.length; index++) {
       if (this.listaRequisitos[index].getSeleccionado()) {
-       console.log(this.listaRequisitos[index].getDescripcion()+"----");
+        console.log(this.listaRequisitos[index].getDescripcion() + "----");
+        console.log(JSON.stringify(this.postulante) + "+++++++++++++++++++");
       }
     }
   }
 
-  alertConfirmacion(){
+  alertConfirmacion() {
     swal.fire({
       title: 'Guardar',
       text: '¿Desea guardar el registro?',
@@ -68,8 +72,10 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        )
-        this.guardraRegistro();
+        ).then(()=>{
+          this.guardraRegistro();
+          this.redireccionPostulantes();
+        });
       } else {
         swal.fire(
           'Cancelado!',
@@ -78,6 +84,16 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
         )
       }
     })
+  }
+
+
+  listarRequisitos(postulante: PostulanteEvaluado) {
+    this.postulante = postulante;
+    this.cargarDatosPrueva();
+  }
+
+  redireccionPostulantes(){
+    this.datosPostl.emit()
   }
 
 }

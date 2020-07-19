@@ -1,23 +1,28 @@
-<div class="container">
-    <br><br>
-    <div class="d-flex justify-content-between mt-4">
-        <h3>Seleccione los requisitos presentados por el usuario</h3>
-        <button class="btn btn-outline-success mb-3" (click)="alertConfirmacion()"> Guardar Registro</button>
-    </div>
-    <hr class="bg-dark mt-0 h-10">
-    <br><br>
-    <ng-container *ngFor="let requisisto of listaRequisitos">
-        <div class="d-flex justify-content-between mt-4 align-items-center">
-            <span class=" mt-4 w-100" [class.text-dark]="!requisisto.getSeleccionado()" [class.text-success]="requisisto.getSeleccionado()">
-        {{requisisto.getDescripcion()}}
-        <hr class="mt-0" [class.bg-success]="requisisto.getSeleccionado()" [class.bg-dark]="!requisisto.getSeleccionado()">
-      </span>
-            <div class="checkbox">
-                <label style="font-size: 2.5em">
-          <input type="checkbox" value="">
-          <span class="cr" (click)="setSeleccionado(requisisto)"><i class="cr-icon fa fa-check"></i></span>
-        </label>
-            </div>
-        </div>
-    </ng-container>
+<div class="">
+    <table class="table align-middle table-hover" id="requerimientos">
+        <thead class="thead-dark">
+            <tr class="">
+                <th class="d-flex justify-content-between"><span class="align-self-center">Seleccione los requisitos presentados por el postulante</span> <button class="d-inline-block btn btn-success text-right" (click)="alertConfirmacion()"> Guardar Registro</button></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let requisisto of listaRequisitos">
+                <td>
+                    <div class="d-flex justify-content-between mt-4 align-items-center">
+                        <span class=" mt-4 w-100" [class.text-dark]="!requisisto.getSeleccionado()" [class.text-success]="requisisto.getSeleccionado()">
+                    {{requisisto.getDescripcion()}}
+                    <hr class="mt-0" [class.bg-success]="requisisto.getSeleccionado()" [class.bg-dark]="!requisisto.getSeleccionado()">
+                  </span>
+                        <div class="checkbox">
+                            <label style="font-size: 2em">
+                      <input type="checkbox" value="">
+                      <span class="cr" (click)="setSeleccionado(requisisto)"><i class="cr-icon fa fa-check"></i></span>
+                    </label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

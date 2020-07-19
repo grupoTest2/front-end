@@ -15,16 +15,16 @@
 -->
     <h1 class="text-center">Evaluacion De Datos Postulante</h1>
     <br><br><br>
-    <nav class="d-flex justify-content-between">
+    <nav class="d-flex justify-content-between" animationDuration="1200ms">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active border-left" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Convocatorias</a>
-            <a class="nav-item nav-link border-left disabled" id="postulantes" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Postulantes</a>
-            <a class="nav-item nav-link border-left" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Evaluacion Estudiante</a>
+            <a class="nav-item nav-link active border-left" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Convocatorias Asignadas</a>
+            <a class="nav-item nav-link border-left invisible" id="postulantes" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Postulantes</a>
+            <a class="nav-item nav-link border-left invisible" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" id="evaluacion">Evaluacion Estudiante</a>
         </div>
         <div>
-            <button class=" btn btn-outline-primary">
-    Salir
-</button>
+            <button routerLink="/home" class=" btn btn-outline-primary">
+        Salir
+      </button>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -32,10 +32,10 @@
             <app-convocatorias-asignadas (listarPos)="listarPos($event)"></app-convocatorias-asignadas>
         </div>
         <div class="tab-pane fade border-left border-right" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <app-postulantes-asignadas #postulantes></app-postulantes-asignadas>
+            <app-postulantes-asignadas #postulantes (datosPostulante)="datosPostulante($event)"></app-postulantes-asignadas>
         </div>
         <div class="tab-pane fade border-left border-right" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <app-registro-requisitos-presentados></app-registro-requisitos-presentados>
+            <app-registro-requisitos-presentados #datosPost (datosPostl)="redireccion()"></app-registro-requisitos-presentados>
         </div>
     </div>
 </div>
