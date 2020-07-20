@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 declare var $: any;
 declare var tata: any;
 declare var swal: any;
-
 @Component({
-  selector: 'app-datos-presentados',
-  templateUrl: './datos-presentados.component.html',
-  styleUrls: ['./datos-presentados.component.css']
+  selector: 'app-recepcion-documentos-postulante',
+  templateUrl: './recepcion-documentos-postulante.component.html',
+  styleUrls: ['./recepcion-documentos-postulante.component.css']
 })
-export class DatosPresentadosComponent implements OnInit {
+export class RecepcionDocumentosPostulanteComponent implements OnInit {
+
   fecha: Date = new Date();
   horas: number = 0;
   minutos: number = 0;
@@ -85,17 +85,6 @@ export class DatosPresentadosComponent implements OnInit {
   buscarCodigo() {
     let codigo = $('#codigo').val();
     this.existeCodigoBD(codigo);
-    /*if (codigo == "12345") {
-      this.bandera = true;
-    }
-    if (this.bandera) {
-      tata.success("Exito:", "puede configurar el registro");
-    }
-    else {
-      tata.error("Error:", "el codigo ingresaado no existe!");
-
-    }
-    return this.bandera;*/
   }
 
   limpiarDatos() {
@@ -109,16 +98,22 @@ export class DatosPresentadosComponent implements OnInit {
     let numeroDoc = $('#numero_doc').val();
     let hora = $('#hora').val();
     console.log(numeroDoc + "----" + this.horas + ":" + this.minutos + ":" + this.segundos);
+    this.limpiarDatos();
   }
+//          
 
   alertGuardar(): void {
     let numDocs = parseInt($('#numero_doc').val());
-    if (numDocs < 7) {
-      tata.error("Error:", "el numero de documentos es incompleto! ");
-    }
-    else {
+    if (numDocs >= 7) {
       this.alertConfirmacion();
     }
+    else {
+      tata.error("Error:", "el numero de documentos es incompleto! ");
+    }
+  }
+
+  salir(){
+    this.router.navigate(['/home']);
   }
 
   alertConfirmacion() {
@@ -139,7 +134,6 @@ export class DatosPresentadosComponent implements OnInit {
           'success'
         ).then(()=>{
           this.guardarDatos();
-          this.router.navigate(['/home']);
         })
       } else {
         swal.fire(

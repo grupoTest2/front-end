@@ -6,8 +6,9 @@
         <div class="form-group">
             <label for="items"> </label>
             <div class="d-flex mt-2 justify-content-end">
-                <button [disabled]="!bandera" (click)="limpiarDatos()" class="btn btn-outline-danger"> Limpiar Datos</button>
+                <button [disabled]="!bandera" (click)="limpiarDatos()" class="btn btn-outline-primary"> Limpiar Datos</button>
                 <button [disabled]="!bandera" (click)="alertGuardar()" class="ml-4 btn btn-outline-success"> Guardar Registro</button>
+                <button (click)="salir()" class="ml-4 btn btn-outline-danger"> Salir</button>
             </div>
         </div>
         <div class="row">
@@ -51,8 +52,11 @@
                             <h5 class="card-title text-center">Postulante</h5>
                         </div>
                         <div class="card-body text-center">
-                            <div class="pb-2" *ngFor="let datos of listaAuxiliar">
-                                <p class="card-text mb-0 text-capitalize">{{datos}}</p>
+                            <div class="pb-2">
+                                <p class="card-text mb-0 text-capitalize">{{postulante.getCodigoSis()}}</p>
+                                <hr class="bg-dark mt-0 h-10">
+                                <p class="card-text mb-0 text-capitalize">{{postulante.getApellidoP()}}&nbsp;&nbsp;{{postulante.getApellidoM()}}&nbsp;&nbsp;{{postulante.getNombre()}}</p>
+                                <hr class="bg-dark mt-0 h-10"><p class="card-text mb-0 text-capitalize">{{postulante.getCodigoSis()}}</p>
                                 <hr class="bg-dark mt-0 h-10">
                             </div>
                         </div>
@@ -65,9 +69,6 @@
         </div>
     </form>
 </div>
-
-<!-- Button trigger modal -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
