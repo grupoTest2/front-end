@@ -169,15 +169,17 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
           console.log("el postulante desde la base de datos");
           console.log(this.postulante);
           this.bandera=true;
+         let num=1;
+         //let num=1;
+         if(num==0){
+            tata.error("Error:", "la recepcion de los documentos de este postulante ya se realizo!");
+            this.bandera=false;
+          }
           if (this.bandera) {
             tata.success("Exito:", "puede configurar el registro");
           }
-          else {
-            tata.error("Error:", "el codigo ingresaado no existe!");
-      
-          }
         }else{
-          console.log("el codigo no existe");
+          tata.error("Error:", "el codigo ingresaado no existe!");
         }
       }
     );
