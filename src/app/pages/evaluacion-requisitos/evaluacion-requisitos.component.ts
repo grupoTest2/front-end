@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PostulantesAsignadasComponent } from '../../components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
 import { RegistroRequisitosPresentadosComponent } from '../../components/usuario-comision-evaluadora/registro-requisitos-presentados/registro-requisitos-presentados.component';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
+import { Convocatoria } from '../../models/clases/convocatoria/convocatoria';
 
 declare var $: any;
 
@@ -20,10 +21,10 @@ export class EvaluacionRequisitosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listarPos(idConv: number) {
+  listarPos(conv:Convocatoria) {
     console.log("ingresooooooooo");
     this.banderaPostulantes = true;
-    this.postulantes.listarPostulantes(idConv);
+    this.postulantes.listarPostulantes(conv);
     $("#postulantes").click();
     $("#postulantes").removeClass('invisible')
   }

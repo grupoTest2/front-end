@@ -23,6 +23,7 @@ import { Produccion } from '../../models/curriculum-vitae/datos-produccion';
 import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
 import { JsonpInterceptor } from '@angular/common/http';
 import { CurriculumService } from 'src/app/servicios/curriculum-vitae/curriculum.service';
+import { concat } from 'rxjs';
 
 
 @Component({
@@ -47,13 +48,14 @@ export class CurriculumVitaeComponent implements OnInit {
   isLinear = false;
 
   //variables para los datos de los diferentes componentes
-  banderaDatosPersonales = false;
+  banderaDatosPersonales = true;
   datosPersonales: DatosPersonales;
   listaDatosFormacionAcademica: FormacionAcademica[];
   listaDatosEstudios: EstudiosCursosTomados[];
   listaExperienciaUniversitaria: ExperienciaUniversitaria[];
   listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
   listaDatosProduccion: Produccion[];
+
   constructor(private _formBuilder: FormBuilder,private serviceCv: CurriculumService) { }
 
   ngOnInit() {
@@ -68,8 +70,8 @@ export class CurriculumVitaeComponent implements OnInit {
     if (this.banderaDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
     }
-
-    if(this.datosPersonales.getIdiomas()!=undefined){
+   console.log(this.datosPersonales+"----------");
+    if(this.datosPersonales.getIdiomas()==undefined||this.datosPersonales.getIdiomas()==[]){
       this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
     }
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();

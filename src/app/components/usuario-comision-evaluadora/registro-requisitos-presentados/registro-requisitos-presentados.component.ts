@@ -11,7 +11,7 @@ declare var swal: any;
 export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
-  postulante: PostulanteEvaluado;
+  postulante: PostulanteEvaluado=new PostulanteEvaluado(0,0,"","","","",null);
   @Output() datosPostl = new EventEmitter();
 
   constructor() { }

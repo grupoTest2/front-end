@@ -20,7 +20,7 @@ export class DatosPersonalesComponent implements OnInit {
   formBuilder: any;
   data: any = {};
   paises: any[] = [];
-  datosPersonales: DatosPersonales;
+  datosPersonales: DatosPersonales=new DatosPersonales("","","",new Date(),"","","","","","","","",0,"","","",new Date(),"","");
   idioma: Idioma;
   form2: NgForm = new NgForm([], []);
   form: NgForm = new NgForm([], []);
@@ -36,10 +36,14 @@ export class DatosPersonalesComponent implements OnInit {
   banderaEgresado = false;
   constructor(private paisService: PaisService, private router: Router) {
     this.datosPostulante= JSON.parse(localStorage.getItem("postulante"));
+   
+   console.log(this.datosPersonales);
     this.nombres=this.datosPostulante.nombre;
     this.apellidoMaterno=this.datosPostulante.apellidoM;
     this.apellidoPaterno=this.datosPostulante.apellidoP;
     this.llenoCv=this.datosPostulante.llenoCv!=0;
+    //si deferente de cero lleno el doc
+
   }
   ngOnInit(): void {
     this.paisService.getPaises()

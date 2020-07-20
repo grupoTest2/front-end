@@ -5,6 +5,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { getTestBed } from '@angular/core/testing';
 import { RecepcionService } from 'src/app/servicios/recepcionDocumentos/recepcion.service';
 import { Postulante } from 'src/app/models/clases/postulante/postulante';
+import { Router } from '@angular/router';
 declare var $: any;
 declare var tata: any;
 declare var swal: any;
@@ -27,7 +28,8 @@ export class DatosPresentadosComponent implements OnInit {
   listaAuxiliar = ['nombre: jhonn', 'apellidos: Camacho Ledezma', 'correo: jhonnwcl@gmail.com', 'codigo_sis: 2010342'];
   bandera = false;
 
-  constructor(private recepcion: RecepcionService) {
+  constructor(private recepcion: RecepcionService, private router:Router) {
+ 
   }
 
   ngOnInit(): void {
@@ -111,7 +113,7 @@ export class DatosPresentadosComponent implements OnInit {
 
   alertGuardar(): void {
     let numDocs = parseInt($('#numero_doc').val());
-    if (numDocs != 13) {
+    if (numDocs < 7) {
       tata.error("Error:", "el numero de documentos es incompleto! ");
     }
     else {
@@ -135,8 +137,10 @@ export class DatosPresentadosComponent implements OnInit {
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        )
-        this.guardarDatos();
+        ).then(()=>{
+          this.guardarDatos();
+          this.router.navigate(['/home']);
+        })
       } else {
         swal.fire(
           'Cancelado!',
@@ -153,7 +157,6 @@ export class DatosPresentadosComponent implements OnInit {
     this.recepcion.getInformacionPostulante(codigo).subscribe(
       resp=>{
         if(resp['existe']){
-          console.log("el codigo existe");
           let conv=resp['convocatoria'];
           this.convocatoria=new Convocatoria(0,conv.titulo,conv.gestion);
           this.convocatoria.setIdConv(conv.idConv);

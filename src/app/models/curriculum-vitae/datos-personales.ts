@@ -25,8 +25,8 @@ export class DatosPersonales {
     private fechaEgreso: Date;
     private fechaEgresoS: string;
     private nivelEnCurso: string;
-    private idiomas: Idioma[] = [];
-    public constructor(apellidoPaterno: string,apellidoMaterno: string,nombreUsuario: string,fechaNacimiento: Date,lugarNacimiento: string,celulaIdentidad: string,lugarEmisionCI: string,nacionalidad: string,genero: string,estadoCivil: string,domicilioCalle: string,domicilioNumero: string,telefono: number,correo: string,nombreColegio: string,tipoColegio: string,fechaTituloBachillerato: Date,carrera: string, nivelEnCurso: string) { 
+    private idiomas: Idioma[];
+        public constructor(apellidoPaterno: string,apellidoMaterno: string,nombreUsuario: string,fechaNacimiento: Date,lugarNacimiento: string,celulaIdentidad: string,lugarEmisionCI: string,nacionalidad: string,genero: string,estadoCivil: string,domicilioCalle: string,domicilioNumero: string,telefono: number,correo: string,nombreColegio: string,tipoColegio: string,fechaTituloBachillerato: Date,carrera: string, nivelEnCurso: string) { 
         this.idConv=parseInt(localStorage.getItem("idConv"));
         let datos=JSON.parse(localStorage.getItem("postulante"));
         this.idPos=datos.idPostulante;
@@ -49,6 +49,7 @@ export class DatosPersonales {
         this.fechaTituloBachillerato=fechaTituloBachillerato;
         this.carrera=carrera;
         this.nivelEnCurso=nivelEnCurso;
+        this.idiomas=[];
     }
 
     public getIdiomas(): Idioma[] {

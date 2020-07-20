@@ -31,7 +31,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
     this.listaConv.push(convocatoria5);
   }
 
-  listarPostulantes(id:number){
-    this.listarPos.emit(id);
+  listarPostulantes(conv:Convocatoria){
+    this.listarPos.emit(conv);
   }
 }
