@@ -24,7 +24,9 @@ import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
 import { JsonpInterceptor } from '@angular/common/http';
 import { CurriculumService } from 'src/app/servicios/curriculum-vitae/curriculum.service';
 import { concat } from 'rxjs';
+import { Router } from '@angular/router';
 
+declare var swal: any;
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -44,19 +46,19 @@ export class CurriculumVitaeComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
+  botonGuardar = 0;
   isLinear = false;
 
   //variables para los datos de los diferentes componentes
-  banderaDatosPersonales = true;
-  datosPersonales: DatosPersonales;
+  banderaDatosPersonales = false;
+  datosPersonales: DatosPersonales = new DatosPersonales("", "", "", new Date(), "", "", "", "", "", "", "", "", 0, "", "", "", new Date(), "", "");
   listaDatosFormacionAcademica: FormacionAcademica[];
   listaDatosEstudios: EstudiosCursosTomados[];
   listaExperienciaUniversitaria: ExperienciaUniversitaria[];
   listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
   listaDatosProduccion: Produccion[];
 
-  constructor(private _formBuilder: FormBuilder,private serviceCv: CurriculumService) { }
+  constructor(private _formBuilder: FormBuilder, private serviceCv: CurriculumService, private router: Router) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -65,36 +67,68 @@ export class CurriculumVitaeComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    this.botonGuardar = 0;
   }
+
+  alertSalir(): void {
+    swal.fire({
+      title: 'Salir',
+      text: "¿Está seguro de salir?, Se perderan sus datos",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
   recuperarLosDatosDeLosComponentes() {
     if (this.banderaDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
-    }
-   console.log(this.datosPersonales+"----------");
-    if(this.datosPersonales.getIdiomas()==undefined||this.datosPersonales.getIdiomas()==[]){
-      this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
+      console.log(this.datosPersonales + "----------");
+      if (this.datosPersonales.getIdiomas() == undefined || this.datosPersonales.getIdiomas() == []) {
+        this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
+      }
     }
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
     this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
-    console.log(JSON.stringify(this.datosPersonales) + "          ******    " + JSON.stringify(this.datosPersonales.getIdiomas())+ "    ---------   " + JSON.stringify(this.listaDatosFormacionAcademica)+"iiiiiiiiiiiiiiiiiiii"+ JSON.stringify(this.listaDatosEstudios)+"*******1**"+JSON.stringify(this.listaExperienciaUniversitaria)+"*************2*********"+JSON.stringify(this.listaExperienciaExtraU)+"********3**********"+JSON.stringify(this.listaDatosProduccion), "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+    if (this.banderaDatosPersonales){
+      console.log(JSON.stringify(this.datosPersonales));
+    }
+    console.log("          ******    " + JSON.stringify(this.datosPersonales.getIdiomas()) + "    ---------   " + JSON.stringify(this.listaDatosFormacionAcademica) + "iiiiiiiiiiiiiiiiiiii" + JSON.stringify(this.listaDatosEstudios) + "*******1**" + JSON.stringify(this.listaExperienciaUniversitaria) + "*************2*********" + JSON.stringify(this.listaExperienciaExtraU) + "********3**********" + JSON.stringify(this.listaDatosProduccion), "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
   }
 
   guardar() {
-    if (this.datos_personales.guardar()) {
+    if (!this.banderaDatosPersonales) {
       this.recuperarLosDatosDeLosComponentes();
       this.registrarDatosPersonalesCvBD();
     }
+    else {
+      if (this.datos_personales.guardar()) {
+        this.recuperarLosDatosDeLosComponentes();
+        this.registrarDatosPersonalesCvBD();
+      }
+    }
+  }
+  mostrarBoton() {
+    this.botonGuardar++;
+    console.log(this.botonGuardar);
   }
 
   registrarDatosPersonalesCvBD() {
-    let datosPos=JSON.parse(localStorage.getItem("postulante"));
-    if(datosPos.llenoCv==0){
+    let datosPos = JSON.parse(localStorage.getItem("postulante"));
+    if (datosPos.llenoCv == 0) {
       this.serviceCv.agregarDatosPersonales(this.datosPersonales).subscribe(
-        resultado=>{
-          if(resultado['resultado']=='correcto'){
+        resultado => {
+          if (resultado['resultado'] == 'correcto') {
             alert("todo posi");
             this.registrarIdiomas();
             this.registrarFormacionAcademicaBD();
@@ -109,12 +143,12 @@ export class CurriculumVitaeComponent implements OnInit {
             ).then((result) => {
             this.router.navigate(['/convocatoriasEnCurso']);
             });*/
-          }else{
+          } else {
             alert("algo anda mal");
           }
         }
       )
-    }else{
+    } else {
       this.registrarFormacionAcademicaBD();
       this.registrarEstudiosCursosBD();
       this.registrarExperienciaUniBD();
@@ -123,72 +157,72 @@ export class CurriculumVitaeComponent implements OnInit {
     }
   }
 
-  registrarIdiomas(){
+  registrarIdiomas() {
     this.serviceCv.agregarIdiomas(this.datosPersonales.getIdiomas()).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con los idiomas");
-        }else{
+        } else {
           console.log("error con los idiomas")
         }
       }
     )
   }
-  
-  registrarFormacionAcademicaBD(){
+
+  registrarFormacionAcademicaBD() {
     this.serviceCv.agregarFormacionAcademica(this.listaDatosFormacionAcademica).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con la formacion academica");
-        }else{
+        } else {
           console.log("error con la formacion academica");
         }
       }
     );
   }
 
-  registrarEstudiosCursosBD(){
+  registrarEstudiosCursosBD() {
     this.serviceCv.agregarEstudiosCursosTomados(this.listaDatosEstudios).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con los estudios cursos");
-        }else{
+        } else {
           console.log("error con los estudios cursos");
         }
       }
     );
   }
 
-  registrarExperienciaUniBD(){
+  registrarExperienciaUniBD() {
     this.serviceCv.agregarExperienciaUniversitaria(this.listaExperienciaUniversitaria).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con la experiencia universitaria");
-        }else{
+        } else {
           console.log("error con la experiencia universitaria");
         }
       }
     );
   }
 
-  registrarExperienciaExtraUniBD(){
+  registrarExperienciaExtraUniBD() {
     this.serviceCv.agregarExperienciaExtraUniversitaria(this.listaExperienciaExtraU).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con la experiencia extra universitaria");
-        }else{
+        } else {
           console.log("error con la experiencia extra universitaria");
         }
       }
     );
   }
 
-  registrarDatosProduccion(){
+  registrarDatosProduccion() {
     this.serviceCv.agregarProduccion(this.listaDatosProduccion).subscribe(
-      resp=>{
-        if(resp=='correcto'){
+      resp => {
+        if (resp == 'correcto') {
           console.log("todo bien con los datos produccion");
-        }else{
+        } else {
           console.log("error con los datos produccion");
         }
       }
