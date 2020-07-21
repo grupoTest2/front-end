@@ -13,10 +13,11 @@ export class PostulantesAsignadasComponent implements OnInit {
 
   listaPostulantes: PostulanteEvaluado[] = [];
   @Output() datosPostulante = new EventEmitter();
-
+  @Output() requisitosEvaluadosPost = new EventEmitter();
   filtroCodigo = '';
   titulo = "";
-  gestion="";
+  gestion = "";
+  usuario: Usuario;
   constructor() {
 
   }
@@ -28,15 +29,15 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.filtroCodigo = '';
   }
   cargarDatosPrueba() {
-    let postlulante1 = new PostulanteEvaluado(1, 2021333, "pepe", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
+    let postlulante1 = new PostulanteEvaluado(1, 2021333, "pepe", "predes", "gomes", "inhabilitado", new Usuario(0, "", "", "", ""));
     let postlulante2 = new PostulanteEvaluado(1, 42021, "pepemmm", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante3 = new PostulanteEvaluado(1, 52021, "pepeuuu", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante4 = new PostulanteEvaluado(1, 62021, "pepajj", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
+    let postlulante3 = new PostulanteEvaluado(1, 52021, "pepeuuu", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
+    let postlulante4 = new PostulanteEvaluado(1, 62021, "pepajj", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
     let postlulante5 = new PostulanteEvaluado(1, 7202144, "pepew", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
     let postlulante6 = new PostulanteEvaluado(1, 82021, "pepee", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante7 = new PostulanteEvaluado(1, 2021, "pepedd", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
+    let postlulante7 = new PostulanteEvaluado(1, 2021, "pepedd", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
     let postlulante8 = new PostulanteEvaluado(1, 920216, "pepeww", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante9 = new PostulanteEvaluado(1, 2021, "pepeuuu", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
+    let postlulante9 = new PostulanteEvaluado(1, 2021, "pepeuuu", "predes", "gomes", "inhabilitado", new Usuario(0, "", "", "", ""));
 
 
     this.listaPostulantes.push(postlulante1);
@@ -51,9 +52,9 @@ export class PostulantesAsignadasComponent implements OnInit {
 
   }
 
-  listarPostulantes(conv:Convocatoria) {
-    this.titulo=conv.getTitulo();
-    this.gestion=conv.getGestion();
+  listarPostulantes(conv: Convocatoria) {
+    this.titulo = conv.getTitulo();
+    this.gestion = conv.getGestion();
     console.log("estamos en postulantes");
     this.cargarDatosPrueba();
   }
@@ -61,6 +62,13 @@ export class PostulantesAsignadasComponent implements OnInit {
   registrarRequisitos(postulante: PostulanteEvaluado) {
     console.log("primero")
     this.datosPostulante.emit(postulante);
+  }
+  revisarRequisitos(postulante: PostulanteEvaluado) {
+    this.requisitosEvaluadosPost.emit(postulante);
+  }
+  setUsuario(usuario: Usuario) {
+    console.log("postulantes")
+    this.usuario = usuario;
   }
 
 }

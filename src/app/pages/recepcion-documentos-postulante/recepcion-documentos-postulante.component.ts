@@ -133,9 +133,8 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        ).then(()=>{
+        );
           this.guardarDatos();
-        })
       } else {
         swal.fire(
           'Cancelado!',

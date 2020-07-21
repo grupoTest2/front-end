@@ -11,7 +11,7 @@ import { FormPostulanteComponent } from './pages/form-postulante/form-postulante
 import { AsingacionAreaConocimientoComponent } from './pages/asingacion-area-conocimiento/asingacion-area-conocimiento.component';
 import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vitae.component';
 import { RecepcionDocumentosPostulanteComponent } from './pages/recepcion-documentos-postulante/recepcion-documentos-postulante.component';
-import { EvaluacionRequisitosComponent } from './pages/evaluacion-requisitos/evaluacion-requisitos.component';
+import { EvaluacionRequisitosPostulanteComponent } from './pages/evaluacion-requisitos-postulante/evaluacion-requisitos-postulante.component';
 
 
 const routes: Routes = [
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'comisiones/asingnacion_area_conocimiento', component: AsingacionAreaConocimientoComponent },
   { path: 'curriculumVitae', component: CurriculumVitaeComponent },
   { path: 'recepcion_documentos_postulante', component: RecepcionDocumentosPostulanteComponent },
-  { path: 'evaluacion_Postulante', component: EvaluacionRequisitosComponent },
+  { path: 'evaluacion__requisitos_postulante', component: EvaluacionRequisitosPostulanteComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
