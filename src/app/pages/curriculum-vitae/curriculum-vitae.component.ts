@@ -24,7 +24,9 @@ import { Idioma } from '../../models/curriculum-vitae/datos-idiomas';
 import { JsonpInterceptor } from '@angular/common/http';
 import { CurriculumService } from 'src/app/servicios/curriculum-vitae/curriculum.service';
 import { concat } from 'rxjs';
+import { Router } from '@angular/router';
 
+declare var swal: any;
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -44,7 +46,7 @@ export class CurriculumVitaeComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
+  botonGuardar = 0;
   isLinear = false;
 
   //variables para los datos de los diferentes componentes
@@ -56,7 +58,7 @@ export class CurriculumVitaeComponent implements OnInit {
   listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
   listaDatosProduccion: Produccion[];
 
-  constructor(private _formBuilder: FormBuilder,private serviceCv: CurriculumService) { }
+  constructor(private _formBuilder: FormBuilder,private serviceCv: CurriculumService, private router: Router) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -65,7 +67,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    this.botonGuardar = 0;
   }
+
+  alertSalir(): void {
+    swal.fire({
+      title: 'Salir',
+      text: "¿Está seguro de salir?, Se perderan sus datos",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/home']);
+      } 
+    });
+  }
+
   recuperarLosDatosDeLosComponentes() {
     if (this.banderaDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
@@ -87,6 +108,10 @@ export class CurriculumVitaeComponent implements OnInit {
       this.recuperarLosDatosDeLosComponentes();
       this.registrarDatosPersonalesCvBD();
     }
+  }
+  mostrarBoton(){
+    this.botonGuardar++;
+    console.log(this.botonGuardar);
   }
 
   registrarDatosPersonalesCvBD() {

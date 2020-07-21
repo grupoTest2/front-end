@@ -1,14 +1,18 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <h3 class="text-center mb-2" id="inicio">Hoja De Vida</h3>
-        <button type="button" class="btn btn-outline-info mb-2" (click)="guardar()">Guardar</button>
+        <div>
+            <button type="button" class="btn btn-outline-info mb-2 mr-2" (click)="guardar()">Guardar</button>
+            <button type="button" class="btn btn-outline-danger mb-2" (click)="alertSalir()">Salir</button>
+        </div>
     </div>
     <mat-horizontal-stepper>
-        <mat-step label="Datos"  *ngIf="banderaDatosPersonales">
+        <mat-step label="Datos" *ngIf="banderaDatosPersonales">
             <br>
             <app-datos-personales #datos_personales></app-datos-personales>
         </mat-step>
-        <mat-step label="Formacion" ><!--state="chat"-->
+        <mat-step label="Formacion">
+            <!--state="chat"-->
             <br>
             <app-formacion-academica #formacion_academica></app-formacion-academica>
         </mat-step>
