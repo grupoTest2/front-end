@@ -17,17 +17,14 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   postulante: PostulanteEvaluado = new PostulanteEvaluado(0, 0, "", "", "", "", null);
   @Output() datosPostl = new EventEmitter();
   usuario: Usuario;
+  banderaSoloLectura = false;
   constructor() {
   }
 
   ngOnInit(): void {
-    this.cargarDatosPrueva2();
-    //this.comparar();
-
   }
 
   cargarDatosPrueva() {
-    this.listaRequisitos = [];
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1)
     let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 2)
     let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD3", 3)
@@ -44,9 +41,10 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.listaRequisitos.push(requisto6);
     this.listaRequisitos.push(requisto7);
     this.listaRequisitos.push(requisto8);
+    this.cargarDatosPrueva2();
   }
   cargarDatosPrueva2() {
-    this.cargarDatosPrueva();
+
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1);
     requisto1.setSeleccionado(true);
     let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 2)
@@ -57,43 +55,40 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     requisto3.setSeleccionado(true);
     requisto4.setSeleccionado(true);
     requisto5.setSeleccionado(true);
-
     this.listaRequisitosPresentados.push(requisto1);
     this.listaRequisitosPresentados.push(requisto2);
     this.listaRequisitosPresentados.push(requisto3);
     this.listaRequisitosPresentados.push(requisto4);
     this.listaRequisitosPresentados.push(requisto5);
+    this.comparar();
   }
   comparar() {
-    let listaAux=this.listaRequisitosPresentados;//.slice();
     for (let i = 0; i < this.listaRequisitos.length; i++) {
-      for (let j = 0; j < listaAux.length; j++) {
-        if (this.listaRequisitos[i].getIdRequisito() == listaAux[j].getIdRequisito()) {
+      for (let j = 0; j < this.listaRequisitosPresentados.length; j++) {
+        if (this.listaRequisitos[i].getIdRequisito() == this.listaRequisitosPresentados[j].getIdRequisito()) {
+          console.log(this.listaRequisitos[i].getIdRequisito() + "----" + this.listaRequisitosPresentados[j].getIdRequisito())
           this.listaRequisitos[i].setSeleccionado(true);
+          console.log("contador");
         }
       }
     }
-    return true;
-  }
-  prueba2(index){
-  // $('#chequeo'+index).attr('checked',true);
-    $('#cheacks' + index).click();
-  }
-  setSeleccionado(requisto: Requisito,index): void {
-    if (!requisto.getSeleccionado()) {
-      requisto.setSeleccionado(true);
-      $('#chequeo'+index).attr('checked',true);
-      $('#cheacks' + index).click();
-    } else {
-      requisto.setSeleccionado(false);
-      $('#chequeo'+index).attr('checked',false);
-    }//[checked]="requisisto.getSeleccionado()"
-    //$('#cheacks' + index).click();
+    console.log(JSON.stringify(this.listaRequisitos));
   }
 
-  setSeleccionadoCheck(requisto,index): void {
-    //this.setSeleccionado(requisto,index)
+  setRequisitoSeleccionado(requisto: Requisito, index): void {
+    if (!this.banderaSoloLectura) {
+      if (!requisto.getSeleccionado()) {
+        requisto.setSeleccionado(true);
+        //$('#chequeo'+index).attr('checked',true);
+        //$('#cheacks' + index).click();
+      } else {
+        requisto.setSeleccionado(false);
+        //$('#chequeo'+index).attr('checked',false);
+      }//[checked]="requisisto.getSeleccionado()"
+      //$('#cheacks' + index).click();
     }
+  }
+
   guardraRegistro() {
     console.log(JSON.stringify(this.listaRequisitos) + "----");
     for (let index = 0; index < this.listaRequisitos.length; index++) {
@@ -116,15 +111,15 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
+        this.guardraRegistro()
         swal.fire(
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        )
-        this.guardraRegistro()
-        this.redireccionPostulantes();
-          
-        
+        ).then(() => {
+          this.redireccionPostulantes();
+        })
+
       } else {
         swal.fire(
           'Cancelado!',
@@ -134,14 +129,29 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
       }
     })
   }
+  Inhavilitado(value, idex) {
+    $('#' + value + idex).click();
+  }
 
-
-  listarRequisitos(postulante: PostulanteEvaluado) {
+  listarRequisitos(postulante: PostulanteEvaluado) {    
+    this.listaRequisitos = [];
+    this.listaRequisitosPresentados = [];
     this.postulante = postulante;
+    this.banderaSoloLectura = false;
+    this.cargarDatosPrueva();
+  }
+
+  listarRequisitosLectura(postulante: PostulanteEvaluado) {
+    this.listaRequisitos = [];
+    this.listaRequisitosPresentados = [];
+    this.postulante = postulante;
+    this.banderaSoloLectura = true;
     this.cargarDatosPrueva();
   }
 
   redireccionPostulantes() {
+    this.listaRequisitos = [];
+    this.listaRequisitosPresentados = [];
     this.datosPostl.emit()
   }
   setUsuario(usuario: Usuario) {

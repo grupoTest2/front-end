@@ -51,6 +51,13 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.listaPostulantes.push(postlulante9);
 
   }
+  evaluador(postulante:PostulanteEvaluado){
+    let res=false;
+    if(postulante.getEstado()=="habilitado"||postulante.getEstado()=="inhabilitado"){
+       res=true;
+    }
+    return res;
+  }
 
   listarPostulantes(conv: Convocatoria) {
     this.titulo = conv.getTitulo();
