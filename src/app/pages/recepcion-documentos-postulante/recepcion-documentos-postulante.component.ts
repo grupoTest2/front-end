@@ -20,7 +20,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
   horas: number = 0;
   minutos: number = 0;
   segundos: number = 0;
-
+  editar=false;
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
@@ -66,6 +66,11 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     this.listaItems.push(this.item);
     this.convocatoria = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
 
+  }
+
+  editarHora(){
+    this.editar = !this.editar;
+    console.log(this.editar)
   }
 
   getHora(): number {
