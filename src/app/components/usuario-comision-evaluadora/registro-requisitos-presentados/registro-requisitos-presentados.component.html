@@ -14,29 +14,25 @@
     </thead>
     <tbody>
       <ng-container *ngIf="comparar()">
-        <tr *ngFor="let requisisto of listaRequisitos3; let i = index">
-        <td>
-          <div class="d-flex justify-content-between mt-4 align-items-center">
-            <span class=" mt-4 w-100" [class.text-dark]="!requisisto.getSeleccionado()"
-              [class.text-success]="requisisto.getSeleccionado()">
+        <tr *ngFor="let requisisto of listaRequisitos; let i = index">
+          <td class="d-flex justify-content-between mt-4 align-items-center" (click)="setSeleccionado(requisisto,i)">
+            <span class=" mt-4 w-100" id="requisisto.getIdRequisito()">
               {{requisisto.getDescripcion()}}
-              <hr class="mt-0" [class.bg-success]="requisisto.getSeleccionado()"
-                [class.bg-dark]="!requisisto.getSeleccionado()">
+              <hr class="mt-0">
             </span>
             <div class="checkbox">
-              <label style="font-size: 2em">
-                <input type="checkbox" value="" [checked]="requisisto.getSeleccionado()">
-                <span class="cr" id="cheacks{{i}}" (click)="setSeleccionado(requisisto)"><i
+              <label style="font-size: 2em ">
+                <input type="checkbox" value="" id="chequeo{{i}}"[checked]="requisisto.getSeleccionado()">
+                <span class="cr"  (click)="setSeleccionadoCheck(requisisto,i)"><i
                     class="cr-icon fa fa-check"></i></span>
               </label>
             </div>
-          </div>
-        </td>
-      </tr>
-    </ng-container>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
-  </div>
+</div>
 
 
 
@@ -64,3 +60,4 @@
     </div>
   </div>
 </div>
+
