@@ -129,11 +129,6 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        swal.fire(
-          'Exitoso!',
-          'El registro fue guardado',
-          'success'
-        );
           this.guardarDatos();
       } else {
         swal.fire(
@@ -185,6 +180,26 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     );
   }
   registrarRecepcionBD(nroDoc,hora){
-    
+    let datos={
+      "idConv":this.convocatoria.getIdConv(),
+      "idPos":this.postulante.getIdPostulante(),
+      "items":this.listaItems,
+      "nroDocumentos":nroDoc,
+      "horaRegistro":hora
+    }
+    this.recepcion.registrarRecepcion(datos).subscribe(
+      resp=>{
+        if(resp=="correcto"){
+          console.log("todo posi");
+          swal.fire(
+            'Exitoso!',
+            'El registro fue guardado',
+            'success'
+          );
+        }else{
+          console.log("se chingo");
+        }
+      }
+    );
   }
 }

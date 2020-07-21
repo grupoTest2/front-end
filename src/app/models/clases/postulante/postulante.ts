@@ -27,6 +27,9 @@ export class Postulante{
     public setIdPostulante(idPos:number){
         this.idPos=idPos;
     }
+    public getIdPostulante(){
+        return this.idPos;
+    }
     public getEstado(): string {
         return this.estado;
     }
