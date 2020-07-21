@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Requisito } from '../../../models/clases/convocatoria/requisito';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 import { Usuario } from 'src/app/models/clases/comision/usuario';
+import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
 declare var $: any;
 declare var swal: any;
 @Component({
@@ -14,14 +15,14 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   listaRequisitos: Requisito[] = [];
   listaRequisitosPresentados: Requisito[] = [];
   listaRequisitos3: Requisito[] = [];
-  postulante: PostulanteEvaluado = new PostulanteEvaluado(0, 0, "", "", "", "", null);
+  postulante: PostulanteEvaluado = new PostulanteEvaluado(0,0,0,"","");
   @Output() datosPostl = new EventEmitter();
   usuario: Usuario;
-  constructor() {
+  constructor(private habilitacion:HabilitacionService) {
   }
 
   ngOnInit(): void {
-    this.cargarDatosPrueva2();
+    //this.cargarDatosPrueva2();
     //this.comparar();
 
   }
@@ -95,6 +96,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     //this.setSeleccionado(requisto,index)
     }
   guardraRegistro() {
+    this.postulante.setEstado("inhabilitado");
     console.log(JSON.stringify(this.listaRequisitos) + "----");
     for (let index = 0; index < this.listaRequisitos.length; index++) {
       if (this.listaRequisitos[index].getSeleccionado()) {
@@ -138,7 +140,17 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
 
   listarRequisitos(postulante: PostulanteEvaluado) {
     this.postulante = postulante;
-    this.cargarDatosPrueva();
+    console.log("id convocatoria: "+postulante.getIdConv());
+    if(postulante.getListaRequisitos().length==0){
+      console.log("cargar requisitos de la convocatoria");
+      if(this.listaRequisitos.length==0){
+        this.getRequisitosConvBD();
+      }
+    }else{
+      console.log("cargar requisitos del postulante");
+      this.listaRequisitos=postulante.getListaRequisitos();
+    }
+    //this.cargarDatosPrueva();
   }
 
   redireccionPostulantes() {
@@ -147,5 +159,16 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   setUsuario(usuario: Usuario) {
     console.log("usuarios")
     this.usuario = usuario;
+  }
+
+  //interaccion con la base de datos
+  getRequisitosConvBD(){
+    this.habilitacion.getRequisitosConv(this.postulante.getIdConv()).subscribe(
+      resp=>{
+        for(let i in resp){
+          this.listaRequisitos.push(new Requisito(resp[i].descripcion,resp[i].idRequisito));
+        }
+      }
+    )
   }
 }

@@ -16,7 +16,7 @@
         <table class="table align-middle" id="requerimientos">
             <thead class="thead-dark">
                 <tr>
-                    <th class="text-center" scope="col">Apellidos y Nombres</th>
+                    <th class="text-center" scope="col">Nombres y Apellidos</th>
                     <th class="text-center" scope="col">Cod_Sis</th>
                     <th class="text-center" scope="col">Evaluado por</th>
                     <th class="text-center" scope="col">Estado</th>
@@ -25,19 +25,17 @@
             <tbody class="accordion" id="accordionExample">
                 <ng-container *ngFor="let postulante of listaPostulantes | filtroCodSis: filtroCodigo; let i = index">
                     <tr data-toggle="collapse" attr.data-target="#id{{postulante.getCodigoSis()}}{{i}}" aria-expanded="false" attr.aria-controls="id{{postulante.getCodigoSis()}}{{i}}" id="id2{{postulante.getCodigoSis()}}">
-                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'"><i id="idIcono{{postulante.getCodigoSis()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{postulante.getApellidoPaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getApellidoMaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getNombres()
-                            | titlecase}}</td>
+                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'"><i id="idIcono{{postulante.getCodigoSis()}}" class="fas fa-angle-right mr-2"></i>&nbsp;&nbsp;{{postulante.getNombreCompleto() | titlecase}}</td>
                         <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'" class="text-center">{{postulante.getCodigoSis()}}</td>
-                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'" *ngIf="postulante.getEvaluador().getApellidoPaterno() !=''" class="text-center">{{postulante.getEvaluador().getApellidoPaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getEvaluador().getApellidoMaterno() | titlecase}}&nbsp;&nbsp;{{postulante.getEvaluador().getNombres() | titlecase}}</td>
-                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'" *ngIf="postulante.getEvaluador().getApellidoPaterno()==''" class="text-center">Sin Evaluador</td>
-                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'"class="text-center ">{{postulante.getEstado() | titlecase}}</td>
+                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'" class="text-center">{{postulante.getNombreUsuario() | titlecase}}</td>
+                        <td [class.text-success]="postulante.getEstado()=='habilitado'"  [class.text-danger]="postulante.getEstado()=='inhabilitado'" class="text-center ">{{postulante.getEstado() | titlecase}}</td>
                     </tr>
                     <tr class="collapse" id="id{{postulante.getCodigoSis()}}{{i}}">
                         <td colspan="4" class="pt-2 pb-4">
                             <span class="font-weight-bold mr-2">Acciones:&nbsp;</span><br>
                             <button class="ml-5 mr-2 btn btn-outline-primary badge" (click)="registrarRequisitos(postulante)"><i class="fa fa-file-alt"></i>&nbsp; Registrar Requisitos</button>
                            <!-- <button class="mr-2 btn btn-outline-success badge"><i class="fa fa-pencil"></i>&nbsp; Editar Requisitos</button>-->
-                            <button class="mr-2 btn btn-outline-info badge" (click)="revisarRequisitos(postulante)"><i class="far fa-eye"></i>&nbsp; Ver Detalles</button>
+                            <button *ngIf="postulante.getEstado()!='sin evaluar'" class="mr-2 btn btn-outline-info badge" (click)="registrarRequisitos(postulante)"><i class="far fa-eye"></i>&nbsp; Ver Detalles</button>
                         </td>
                     </tr>
                 </ng-container>

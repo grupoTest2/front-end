@@ -3,6 +3,8 @@ import { PdfMakeWrapper,Txt, Columns, Stack, Table, TextReference, PageReference
 import * as pdfMaker from 'pdfmake';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
+import { Usuario } from 'src/app/models/clases/comision/usuario';
 
 declare var tata: any;
 declare var $: any;
@@ -15,7 +17,7 @@ declare var $: any;
 export class HomeComponent implements OnInit {
   [x: string]: any;
   pdf:PdfMakeWrapper;
-  constructor(private router: Router) { 
+  constructor(private router: Router,private habilitacion:HabilitacionService) { 
     this.pdf=new PdfMakeWrapper();
   }
 
@@ -32,14 +34,31 @@ export class HomeComponent implements OnInit {
       );
       tata.error('Error', 'Ingrese su código de rótulo por favor');
     } else {
-      if(form.controls['codigo'].value === '12345'){
+      /*if(form.controls['codigo'].value === '12345'){
       tata.success('Exito', 'Ingreso exitoso');
       this.router.navigate(['/evaluacion__requisitos_postulante']);
       $('#modalEvaluador').modal('hide');
       }else{
       tata.error('Error', 'Codigo Incorrecto');
-      }
+      }*/
+      this.getUsuarioBD(parseInt(form.controls['codigo'].value));
+      this.router.navigate(['/evaluacion__requisitos_postulante']);
+      $('#modalEvaluador').modal('hide');
     }
+  }
+  getUsuarioBD(idUsuario:number){
+    this.habilitacion.getUsuario(idUsuario).subscribe(
+      (resp:any)=>{
+        let usuario:Usuario=new Usuario(resp.idUsuario,
+                                        resp.nombre,
+                                        resp.apellidoP,
+                                        resp.apellidoM,
+                                        resp.correo);
+        //console.log(JSON.stringify(usuario));
+        localStorage.setItem("usuario",JSON.stringify(usuario));
+      }
+      )
+    
   }
   //metodo de prueba, lo pueden borrar nomas si quieren xd
   descargar(){

@@ -24,7 +24,9 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
 
   usuarioComision:Usuario= new Usuario(1,"","","","");
   constructor() { 
-    //this.enviarUsuario();
+    let datos=JSON.parse(localStorage.getItem("usuario"));
+    this.usuarioComision=new Usuario(datos.idUsuario,datos.nombres,datos.apellidoPaterno,datos.apellidoMaterno,datos.correo);
+    
   }
 
   ngOnInit(): void {

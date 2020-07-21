@@ -17,6 +17,9 @@ export class HabilitacionService {
     return this.http.get(`${this.URL}obtenerPostulantesConv.php?idConv=${idConv}`);
   }
 
+  public getUsuario(idUsuario:number){
+    return this.http.get(`${this.URL}obtenerUsuario.php?idUsuario=${idUsuario}`);
+  }
   public getRequisitosConv(idConv: number) {
     return this.http.get(`${this.URL}obtenerRequisitosConv.php?idConv=${idConv}`);
   }

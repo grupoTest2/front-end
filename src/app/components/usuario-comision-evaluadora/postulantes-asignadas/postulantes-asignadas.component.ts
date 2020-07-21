@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 import { Usuario } from '../../../models/clases/comision/usuario';
 import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
+import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
 
 @Component({
   selector: 'app-postulantes-asignadas',
@@ -18,7 +19,7 @@ export class PostulantesAsignadasComponent implements OnInit {
   titulo = "";
   gestion = "";
   usuario: Usuario;
-  constructor() {
+  constructor(private habilitacion:HabilitacionService) {
 
   }
 
@@ -28,7 +29,7 @@ export class PostulantesAsignadasComponent implements OnInit {
   listarTodo() {
     this.filtroCodigo = '';
   }
-  cargarDatosPrueba() {
+  /*cargarDatosPrueba() {
     let postlulante1 = new PostulanteEvaluado(1, 2021333, "pepe", "predes", "gomes", "inhabilitado", new Usuario(0, "", "", "", ""));
     let postlulante2 = new PostulanteEvaluado(1, 42021, "pepemmm", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
     let postlulante3 = new PostulanteEvaluado(1, 52021, "pepeuuu", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
@@ -50,13 +51,15 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.listaPostulantes.push(postlulante8);
     this.listaPostulantes.push(postlulante9);
 
-  }
+  }*/
 
   listarPostulantes(conv: Convocatoria) {
     this.titulo = conv.getTitulo();
     this.gestion = conv.getGestion();
     console.log("estamos en postulantes");
-    this.cargarDatosPrueba();
+    //this.cargarDatosPrueba();
+    this.listaPostulantes=[];
+    this.getPostulantesConvBD(conv.getIdConv());
   }
 
   registrarRequisitos(postulante: PostulanteEvaluado) {
@@ -71,4 +74,27 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.usuario = usuario;
   }
 
+  //interaccion con la base de datos
+  getPostulantesConvBD(idConv:number){
+    this.habilitacion.getPostulantesConv(idConv).subscribe(
+      resp=>{
+        for(let i in resp){
+          let estado=resp[i].estado;
+          let nombreUsuario=resp[i].nombreUsuario;
+          if(nombreUsuario==null){
+            nombreUsuario="-----------";
+          }
+          if(estado==null){
+            estado="sin evaluar";
+          }
+          this.listaPostulantes.push(new PostulanteEvaluado(resp[i].idPos,
+            resp[i].idConv,
+            resp[i].codigoSis,
+            resp[i].nombreCompleto,
+            estado,
+            nombreUsuario));
+        }
+      }
+    );
+  }
 }
