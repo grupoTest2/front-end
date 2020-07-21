@@ -20,9 +20,12 @@ export class HabilitacionService {
   public getRequisitosConv(idConv: number) {
     return this.http.get(`${this.URL}obtenerRequisitosConv.php?idConv=${idConv}`);
   }
+  public getRequisitosPostulante(datos:any){
+    return this.http.post(`${this.URL}obtenerRequisitosPostulante.php`, JSON.stringify(datos));
+  }
   //envian informacion al servidor phpç
 
   public registrarCumplimientoRequisitos(datos: any){
-    return this.http.post(`${this.URL}recepcionDocumentos.php`, JSON.stringify(datos));
+    return this.http.post(`${this.URL}registrarCumplimientoRequisitos.php`, JSON.stringify(datos));
   }
 }

@@ -98,6 +98,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     let numeroDoc = $('#numero_doc').val();
     let hora = $('#hora').val();
     console.log(numeroDoc + "----" + this.horas + ":" + this.minutos + ":" + this.segundos);
+    this.registrarRecepcionBD(numeroDoc,this.horas + ":" + this.minutos + ":" + this.segundos);
     this.limpiarDatos();
   }
 //          
@@ -183,5 +184,8 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
         }
       }
     );
+  }
+  registrarRecepcionBD(nroDoc,hora){
+    
   }
 }
