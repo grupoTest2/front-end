@@ -8,7 +8,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Apellido Paterno:</label>
             <div class="input-group">
-                <input type="text" class="form-control"id="apellidP" value={{apellidoPaterno}} readonly>
+                <input type="text" class="form-control is-valid" id="apellidP" value={{apellidoPaterno}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependc"><i
               class="far fa-user"></i></span>
@@ -18,7 +18,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Apellido Materno:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="apellidM" value={{apellidoMaterno}} readonly>
+                <input type="text" class="form-control is-valid" id="apellidM" value={{apellidoMaterno}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependv"><i
               class="far fa-user"></i></span>
@@ -28,7 +28,7 @@
         <div class="form-group col-md-4">
             <label for="inputEmail4">Nombres:</label>
             <div class="input-group">
-                <input type="text" class="form-control"  id="nombreUsuario" value={{nombres}} readonly>
+                <input type="text" class="form-control is-valid" id="nombreUsuario" value={{nombres}} readonly>
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-right" id="validatedInputGroupPrependn"><i
               class="far fa-user"></i></span>
@@ -235,10 +235,10 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-6 " >
+        <div class="form-group col-md-6 ">
             <label for="inputStatel ">Semestre en curso:</label>
             <div class="input-group ">
-                <select aria-describedby="validatedInputGroupPrependl " id="inputStatel " class="custom-select " required name="semestre" #semestre="ngModel" ngModel [class.is-invalid]="semestre.invalid && semestre.touched" [class.is-valid]="semestre.valid && semestre.touched">
+                <select [disabled]="banderaEgresado" aria-describedby="validatedInputGroupPrependl " id="inputStatel " class="custom-select " required name="semestre" #semestre="ngModel" ngModel [class.is-invalid]="semestre.invalid && semestre.touched" [class.is-valid]="semestre.valid && semestre.touched">
           <option class="text-muted" style="color: grey !important;" value="" selected disabled hidden>Seleccione
             su semestre</option>
           <option>1er Semestre</option>
@@ -269,14 +269,15 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <label for="porItem" class="form-check-label">No&nbsp;&nbsp;</label>
-                    <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="noEgresado"  value="No" (click)="cambiarBanderaNoEgresado()">
+                    <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="noEgresado" value="No" (click)="cambiarBanderaNoEgresado()">
                 </div>
             </div>
         </div>
         <div *ngIf="banderaEgresado" class="form-group col-md-6 ">
             <label>Fecha de egreso </label>
             <div class="d-flex justify-content ">
-                <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso" readonly readonly required name="fechaEgreso" #fechaEgreso="ngModel" ngModel [class.is-invalid]="fechaEgreso.invalid && fechaEgreso.touched" [class.is-valid]="fechaEgreso.valid && fechaEgreso.touched">
+                <input placeholder="Ejem: 4/7/2020 " [matDatepicker]="picker3 " class="form-control rounded-0 " id="fechaEgreso" readonly readonly required name="fechaEgreso" #fechaEgreso="ngModel" ngModel [class.is-invalid]="fechaEgreso.invalid && fechaEgreso.touched"
+                    [class.is-valid]="fechaEgreso.valid && fechaEgreso.touched">
                 <mat-datepicker-toggle matSuffix [for]="picker3 " style="background: #e9ecef; " class="rounded-right ">
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
