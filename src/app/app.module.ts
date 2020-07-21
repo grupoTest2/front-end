@@ -53,12 +53,12 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import {CdkStepperModule} from '@angular/cdk/stepper';
 
 import { MatInputModule } from '@angular/material/input';
-import { EvaluacionRequisitosComponent } from './pages/evaluacion-requisitos/evaluacion-requisitos.component';
 import { RegistroRequisitosPresentadosComponent } from './components/usuario-comision-evaluadora/registro-requisitos-presentados/registro-requisitos-presentados.component';
 import { ConvocatoriasAsignadasComponent } from './components/usuario-comision-evaluadora/convocatorias-asignadas/convocatorias-asignadas.component';
 import { PostulantesAsignadasComponent } from './components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
 import { FiltroCodSisPipe } from './pipes/postulante/filtro-cod-sis.pipe';
 import { RecepcionDocumentosPostulanteComponent } from './pages/recepcion-documentos-postulante/recepcion-documentos-postulante.component';
+import { EvaluacionRequisitosPostulanteComponent } from './pages/evaluacion-requisitos-postulante/evaluacion-requisitos-postulante.component';
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -94,12 +94,12 @@ PdfMakeWrapper.setFonts(pdfFonts);
     ExperienciaUniversitariaComponent,
     ExperienciaExtraUniversitariaComponent,
     ProduccionComponent,
-    EvaluacionRequisitosComponent,
     RegistroRequisitosPresentadosComponent,
     ConvocatoriasAsignadasComponent,
     PostulantesAsignadasComponent,
     FiltroCodSisPipe,
     RecepcionDocumentosPostulanteComponent,
+    EvaluacionRequisitosPostulanteComponent,
     ],
   imports: [
     BrowserModule,

@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     } else {
       if(form.controls['codigo'].value === '12345'){
       tata.success('Exito', 'Ingreso exitoso');
-      this.router.navigate(['/evaluacion_Postulante']);
+      this.router.navigate(['/evaluacion__requisitos_postulante']);
       $('#modalEvaluador').modal('hide');
       }else{
       tata.error('Error', 'Codigo Incorrecto');

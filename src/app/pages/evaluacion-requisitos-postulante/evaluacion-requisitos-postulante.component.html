@@ -15,10 +15,10 @@
     </nav>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active  border-left border-right" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <app-convocatorias-asignadas (listarPos)="listarPos($event)"></app-convocatorias-asignadas>
+            <app-convocatorias-asignadas #convocatorias (listarPos)="listarPos($event)"></app-convocatorias-asignadas>
         </div>
         <div class="tab-pane fade border-left border-right" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <app-postulantes-asignadas #postulantes (datosPostulante)="datosPostulante($event)"></app-postulantes-asignadas>
+            <app-postulantes-asignadas #postulantes (datosPostulante)="datosPostulante($event)" (requisitosEvaluadosPost)="requisitosEvaluadosPost($event)"></app-postulantes-asignadas>
         </div>
         <div class="tab-pane fade border-left border-right" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <app-registro-requisitos-presentados #datosPost (datosPostl)="redireccion()"></app-registro-requisitos-presentados>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Requisito } from '../../../models/clases/convocatoria/requisito';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
+import { Usuario } from 'src/app/models/clases/comision/usuario';
 declare var $: any;
 declare var swal: any;
 @Component({
@@ -11,23 +12,29 @@ declare var swal: any;
 export class RegistroRequisitosPresentadosComponent implements OnInit {
   bandera = true;
   listaRequisitos: Requisito[] = [];
-  postulante: PostulanteEvaluado=new PostulanteEvaluado(0,0,"","","","",null);
+  listaRequisitosPresentados: Requisito[] = [];
+  listaRequisitos3: Requisito[] = [];
+  postulante: PostulanteEvaluado = new PostulanteEvaluado(0, 0, "", "", "", "", null);
   @Output() datosPostl = new EventEmitter();
+  usuario: Usuario;
+  constructor() {
+   }
 
-  constructor() { }
+  ngOnInit(): void { 
+    this.comparar();
 
-  ngOnInit(): void {  }
+  }
 
-  cargarDatosPrueva() {
-    this.listaRequisitos=[];
-    let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto4: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto5: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto6: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto7: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
-    let requisto8: Requisito = new Requisito("CARNET DE IDENTIDAD", 1)
+   cargarDatosPrueva() {
+    this.listaRequisitos = [];
+    let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1)
+    let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 1)
+    let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD3", 1)
+    let requisto4: Requisito = new Requisito("CARNET DE IDENTIDAD4", 1)
+    let requisto5: Requisito = new Requisito("CARNET DE IDENTIDAD5", 1)
+    let requisto6: Requisito = new Requisito("CARNET DE IDENTIDAD6", 1)
+    let requisto7: Requisito = new Requisito("CARNET DE IDENTIDAD7", 1)
+    let requisto8: Requisito = new Requisito("CARNET DE IDENTIDAD8", 1)
 
     this.listaRequisitos.push(requisto1);
     this.listaRequisitos.push(requisto2);
@@ -38,7 +45,34 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.listaRequisitos.push(requisto7);
     this.listaRequisitos.push(requisto8);
   }
+   cargarDatosPrueva2() {
+    this.listaRequisitos = [];
+    let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1)
+    let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 1)
+    let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD3", 1)
+    let requisto4: Requisito = new Requisito("CARNET DE IDENTIDAD4", 1)
+    let requisto5: Requisito = new Requisito("CARNET DE IDENTIDAD5", 1)
 
+    this.listaRequisitosPresentados.push(requisto1);
+    this.listaRequisitosPresentados.push(requisto2);
+    this.listaRequisitosPresentados.push(requisto3);
+    this.listaRequisitosPresentados.push(requisto4);
+    this.listaRequisitosPresentados.push(requisto5);
+  }
+  comparar() {
+    this.cargarDatosPrueva();
+    this.cargarDatosPrueva2();
+    console.log(this.listaRequisitos+"-------------")
+    for (let i = 0; i < this.listaRequisitos.length; i++) {
+      for (let j = 0; j < this.listaRequisitosPresentados.length; j++) {
+        if (this.listaRequisitos[i].getDescripcion() == this.listaRequisitosPresentados[j].getDescripcion()) {
+          this.listaRequisitos[i].setSeleccionado(true);
+        }
+      }
+    }
+    this.listaRequisitos3=this.listaRequisitos;
+    console.log(this.listaRequisitos+"-------------")
+  }
   setSeleccionado(requisto: Requisito): void {
     if (!requisto.getSeleccionado()) {
       requisto.setSeleccionado(true);
@@ -47,6 +81,14 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     }
   }
 
+  setSeleccionadoCheck(requisto: Requisito, index): void {
+    if (!requisto.getSeleccionado()) {
+      requisto.setSeleccionado(true);
+    } else {
+      requisto.setSeleccionado(false);
+    }
+    $('#cheacks' + index).click();
+  }
   guardraRegistro() {
     for (let index = 0; index < this.listaRequisitos.length; index++) {
       if (this.listaRequisitos[index].getSeleccionado()) {
@@ -72,7 +114,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
           'Exitoso!',
           'El registro fue guardado',
           'success'
-        ).then(()=>{
+        ).then(() => {
           this.guardraRegistro();
           this.redireccionPostulantes();
         });
@@ -92,8 +134,11 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.cargarDatosPrueva();
   }
 
-  redireccionPostulantes(){
+  redireccionPostulantes() {
     this.datosPostl.emit()
   }
-
+  setUsuario(usuario: Usuario) {
+    console.log("usuarios")
+    this.usuario = usuario;
+  }
 }

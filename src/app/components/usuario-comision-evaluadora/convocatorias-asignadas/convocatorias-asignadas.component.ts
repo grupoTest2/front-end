@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
+import { Usuario } from 'src/app/models/clases/comision/usuario';
 
 @Component({
   selector: 'app-convocatorias-asignadas',
@@ -8,8 +9,10 @@ import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 })
 export class ConvocatoriasAsignadasComponent implements OnInit {
 
-  listaConv:Convocatoria[]=[];
-  @Output() listarPos=new EventEmitter();
+  listaConv: Convocatoria[] = [];
+  @Output() listarPos = new EventEmitter();
+
+  usuario: Usuario;
   constructor() { }
 
   ngOnInit(): void {
@@ -31,7 +34,12 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
     this.listaConv.push(convocatoria5);
   }
 
-  listarPostulantes(conv:Convocatoria){
+  listarPostulantes(conv: Convocatoria) {
     this.listarPos.emit(conv);
+  }
+
+  setUsuario(usuario: Usuario) {
+    console.log("convocatorias")
+    this.usuario = usuario;
   }
 }
