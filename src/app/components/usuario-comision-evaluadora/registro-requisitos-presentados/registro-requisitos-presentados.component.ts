@@ -18,14 +18,15 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   @Output() datosPostl = new EventEmitter();
   usuario: Usuario;
   constructor() {
-   }
+  }
 
-  ngOnInit(): void { 
-    this.comparar();
+  ngOnInit(): void {
+    this.cargarDatosPrueva2();
+    //this.comparar();
 
   }
 
-   cargarDatosPrueva() {
+  cargarDatosPrueva() {
     this.listaRequisitos = [];
     let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1)
     let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 1)
@@ -45,33 +46,38 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.listaRequisitos.push(requisto7);
     this.listaRequisitos.push(requisto8);
   }
-   cargarDatosPrueva2() {
+  cargarDatosPrueva2() {
+    this.cargarDatosPrueva();
     this.listaRequisitos = [];
-    let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1)
-    let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 1)
-    let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD3", 1)
-    let requisto4: Requisito = new Requisito("CARNET DE IDENTIDAD4", 1)
-    let requisto5: Requisito = new Requisito("CARNET DE IDENTIDAD5", 1)
+    let requisto1: Requisito = new Requisito("CARNET DE IDENTIDAD1", 1);
+    requisto1.setSeleccionado(true);
+    let requisto2: Requisito = new Requisito("CARNET DE IDENTIDAD2", 2)
+    let requisto3: Requisito = new Requisito("CARNET DE IDENTIDAD3", 3)
+    let requisto4: Requisito = new Requisito("CARNET DE IDENTIDAD4", 4)
+    let requisto5: Requisito = new Requisito("CARNET DE IDENTIDAD5", 5)
+    requisto2.setSeleccionado(true);
+    requisto3.setSeleccionado(true);
+    requisto4.setSeleccionado(true);
+    requisto5.setSeleccionado(true);
 
     this.listaRequisitosPresentados.push(requisto1);
     this.listaRequisitosPresentados.push(requisto2);
     this.listaRequisitosPresentados.push(requisto3);
     this.listaRequisitosPresentados.push(requisto4);
     this.listaRequisitosPresentados.push(requisto5);
+    this.comparar();
   }
   comparar() {
-    this.cargarDatosPrueva();
-    this.cargarDatosPrueva2();
-    console.log(this.listaRequisitos+"-------------")
+    let listaAux=this.listaRequisitosPresentados;//.slice();
     for (let i = 0; i < this.listaRequisitos.length; i++) {
-      for (let j = 0; j < this.listaRequisitosPresentados.length; j++) {
+      for (let j = 0; j < listaAux.length; j++) {
         if (this.listaRequisitos[i].getDescripcion() == this.listaRequisitosPresentados[j].getDescripcion()) {
           this.listaRequisitos[i].setSeleccionado(true);
         }
       }
     }
-    this.listaRequisitos3=this.listaRequisitos;
-    console.log(this.listaRequisitos+"-------------")
+    this.listaRequisitos3 = this.listaRequisitos;
+    return true;
   }
   setSeleccionado(requisto: Requisito): void {
     if (!requisto.getSeleccionado()) {
@@ -81,12 +87,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     }
   }
 
-  setSeleccionadoCheck(requisto: Requisito, index): void {
-    if (!requisto.getSeleccionado()) {
-      requisto.setSeleccionado(true);
-    } else {
-      requisto.setSeleccionado(false);
-    }
+  setSeleccionadoCheck(requisto,index): void {
     $('#cheacks' + index).click();
   }
   guardraRegistro() {

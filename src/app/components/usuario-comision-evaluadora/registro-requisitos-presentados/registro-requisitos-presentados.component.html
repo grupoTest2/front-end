@@ -1,11 +1,11 @@
 <div class="container">
-    <br>
+  <br>
   <div class="align-self-center ml-2 d-flex justify-content-between">
     <button class="btn btn-info" data-toggle="modal" data-target="#datosPost"> <i
         class="fa fa-info">&nbsp;&nbsp;&nbsp;Datos Postulante</i></button>
     <button class="d-inline-block btn btn-success text-right" (click)="alertConfirmacion()"> Guardar Registro</button>
   </div><br>
-  <table class="table align-middle table-hover" id="requerimientos">
+  <table class="table align-middle table-hover" id="requerimientosNoP">
     <thead class="thead-dark">
       <tr>
         <th>Seleccione los requisitos presentados
@@ -13,9 +13,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let requisisto of listaRequisitos3; let i = index">
+      <ng-container *ngIf="comparar()">
+        <tr *ngFor="let requisisto of listaRequisitos3; let i = index">
         <td>
-          <div (click)="setSeleccionadoCheck(requisisto,i)" class="d-flex justify-content-between mt-4 align-items-center">
+          <div class="d-flex justify-content-between mt-4 align-items-center">
             <span class=" mt-4 w-100" [class.text-dark]="!requisisto.getSeleccionado()"
               [class.text-success]="requisisto.getSeleccionado()">
               {{requisisto.getDescripcion()}}
@@ -23,17 +24,21 @@
                 [class.bg-dark]="!requisisto.getSeleccionado()">
             </span>
             <div class="checkbox">
-              <label style="font-size: 2em" id="cheacks{{i}}">
-                <input type="checkbox" value="">
-                <span class="cr" (click)="setSeleccionado(requisisto)"><i class="cr-icon fa fa-check"></i></span>
+              <label style="font-size: 2em">
+                <input type="checkbox" value="" [checked]="requisisto.getSeleccionado()">
+                <span class="cr" id="cheacks{{i}}" (click)="setSeleccionado(requisisto)"><i
+                    class="cr-icon fa fa-check"></i></span>
               </label>
             </div>
           </div>
         </td>
       </tr>
+    </ng-container>
     </tbody>
   </table>
-</div>
+  </div>
+
+
 
 
 <!-- Modal -->

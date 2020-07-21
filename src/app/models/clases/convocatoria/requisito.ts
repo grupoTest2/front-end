@@ -23,6 +23,9 @@ export class Requisito {
     public getIdRequisito(): number{
         return this.idRequisito
     }
+    public setIdRequisito(value: number) {
+        this.idRequisito = value;
+    }
 
     public getAccion(): string{
         return this.accion;
