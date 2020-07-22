@@ -150,7 +150,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
   existeCodigoBD(codigo: string){
     this.recepcion.getInformacionPostulante(codigo).subscribe(
       resp=>{
-        if(resp['existe']){
+        if(resp['existe']==0){
           let conv=resp['convocatoria'];
           this.convocatoria=new Convocatoria(0,conv.titulo,conv.gestion);
           this.convocatoria.setIdConv(conv.idConv);
@@ -169,17 +169,15 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
           console.log("el postulante desde la base de datos");
           console.log(this.postulante);
           this.bandera=true;
-         let num=1;
-         //let num=1;
-         if(num==0){
-            tata.error("Error:", "la recepcion de los documentos de este postulante ya se realizo!");
-            this.bandera=false;
-          }
           if (this.bandera) {
             tata.success("Exito:", "puede configurar el registro");
           }
-        }else{
+        }else if(resp['existe']==-1){
           tata.error("Error:", "el codigo ingresaado no existe!");
+          this.bandera=false;
+        }else{
+          tata.error("Error:", "la recepcion de los documentos de este postulante ya se realizo!");
+          this.bandera=false;
         }
       }
     );
@@ -188,12 +186,14 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     let datos={
       "idConv":this.convocatoria.getIdConv(),
       "idPos":this.postulante.getIdPostulante(),
-      "items":this.listaItems,
+      "idItem":this.listaItems[0].getIdItem(),
       "nroDocumentos":nroDoc,
       "horaRegistro":hora
     }
+    console.log(JSON.stringify(datos));
     this.recepcion.registrarRecepcion(datos).subscribe(
       resp=>{
+        console.log(resp); 
         if(resp=="correcto"){
           console.log("todo posi");
           swal.fire(

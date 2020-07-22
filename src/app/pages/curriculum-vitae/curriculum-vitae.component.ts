@@ -167,7 +167,7 @@ export class CurriculumVitaeComponent implements OnInit {
       this.serviceCv.agregarDatosPersonales(this.datosPersonales).subscribe(
         resultado => {
           if (resultado['resultado'] == 'correcto') {
-            alert("todo posi");
+            //alert("todo posi");
             this.registrarIdiomas();
             this.registrarFormacionAcademicaBD();
             this.registrarEstudiosCursosBD();
@@ -182,7 +182,7 @@ export class CurriculumVitaeComponent implements OnInit {
             this.router.navigate(['/convocatoriasEnCurso']);
             });*/
           } else {
-            alert("algo anda mal");
+            //alert("algo anda mal");
           }
         }
       )
