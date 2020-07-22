@@ -9,10 +9,10 @@
   <mat-horizontal-stepper>
     <mat-step label="Datos">
       <br>
-      <div *ngIf="banderaDatosPersonales">
+      <div *ngIf="!llenoDatosPersonales">
         <app-datos-personales #datos_personales></app-datos-personales>
       </div>
-      <div *ngIf="!banderaDatosPersonales">
+      <div *ngIf="llenoDatosPersonales">
         <p class="display-3 text-center">ya registro sus datos personales anterioremente</p>
       </div>
     </mat-step>

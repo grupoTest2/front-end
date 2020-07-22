@@ -17,6 +17,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   constructor(private habilitacion: HabilitacionService) {
     let datos=JSON.parse(localStorage.getItem("usuario"));
     this.usuario=new Usuario(datos.idUsuario,datos.nombres,datos.apellidoPaterno,datos.apellidoMaterno,datos.correo);
+    
     this.cargarConvocatoriasUsuarioBD();
   }
 
@@ -50,6 +51,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   //interaccion con la base de datos
 
   cargarConvocatoriasUsuarioBD(){
+    this.listaConv = [];
     this.habilitacion.getConvocatoriasDisponibles(this.usuario.getIdUsuario()).subscribe(
       resp=>{
         for(let i in resp){

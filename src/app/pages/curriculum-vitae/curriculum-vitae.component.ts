@@ -50,7 +50,7 @@ export class CurriculumVitaeComponent implements OnInit {
   isLinear = false;
 
   //variables para los datos de los diferentes componentes
-  banderaDatosPersonales = false;
+  llenoDatosPersonales = false;
   datosPersonales: DatosPersonales = new DatosPersonales("", "", "", new Date(), "", "", "", "", "", "", "", "", 0, "", "", "", new Date(), "", "");
   listaDatosFormacionAcademica: FormacionAcademica[];
   listaDatosEstudios: EstudiosCursosTomados[];
@@ -58,7 +58,10 @@ export class CurriculumVitaeComponent implements OnInit {
   listaExperienciaExtraU: ExperienciaExtraUniversitaria[];
   listaDatosProduccion: Produccion[];
 
-  constructor(private _formBuilder: FormBuilder, private serviceCv: CurriculumService, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private serviceCv: CurriculumService, private router: Router) {
+    let datosPostulante= JSON.parse(localStorage.getItem("postulante"));
+    this.llenoDatosPersonales=datosPostulante.llenoCv==1;
+   }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -88,7 +91,7 @@ export class CurriculumVitaeComponent implements OnInit {
   }
 
   recuperarLosDatosDeLosComponentes() {
-    if (this.banderaDatosPersonales) {
+    if (this.llenoDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
       console.log(this.datosPersonales + "----------");
       if (this.datosPersonales.getIdiomas() == undefined || this.datosPersonales.getIdiomas() == []) {
@@ -100,14 +103,14 @@ export class CurriculumVitaeComponent implements OnInit {
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
     this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
-    if (this.banderaDatosPersonales){
+    if (this.llenoDatosPersonales){
       console.log(JSON.stringify(this.datosPersonales));
     }
     console.log("          ******    " + JSON.stringify(this.datosPersonales.getIdiomas()) + "    ---------   " + JSON.stringify(this.listaDatosFormacionAcademica) + "iiiiiiiiiiiiiiiiiiii" + JSON.stringify(this.listaDatosEstudios) + "*******1**" + JSON.stringify(this.listaExperienciaUniversitaria) + "*************2*********" + JSON.stringify(this.listaExperienciaExtraU) + "********3**********" + JSON.stringify(this.listaDatosProduccion), "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
   }
 
   guardar() {
-    if (!this.banderaDatosPersonales) {
+    if (!this.llenoDatosPersonales) {
       this.recuperarLosDatosDeLosComponentes();
       this.registrarDatosPersonalesCvBD();
     }

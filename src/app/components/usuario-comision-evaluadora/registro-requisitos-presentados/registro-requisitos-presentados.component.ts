@@ -67,16 +67,22 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.comparar();
   }
   comparar() {
+    console.log("lista 1");
+    console.log( this.listaRequisitos.length);
+    console.log(this.listaRequisitosPresentados.length);
+
     for (let i = 0; i < this.listaRequisitos.length; i++) {
       for (let j = 0; j < this.listaRequisitosPresentados.length; j++) {
         if (this.listaRequisitos[i].getIdRequisito() == this.listaRequisitosPresentados[j].getIdRequisito()) {
           console.log(this.listaRequisitos[i].getIdRequisito() + "----" + this.listaRequisitosPresentados[j].getIdRequisito())
           this.listaRequisitos[i].setSeleccionado(true);
           console.log("contador");
+        }else{
+          console.log("los ids no coinciden");
         }
       }
     }
-    console.log(JSON.stringify(this.listaRequisitos));
+    console.log(this.listaRequisitos);
   }
 
   setRequisitoSeleccionado(requisto: Requisito, index): void {
@@ -94,14 +100,22 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   }
 
   guardraRegistro() {
-    this.postulante.setEstado("inhabilitado");
-    console.log(JSON.stringify(this.listaRequisitos) + "----");
+
     for (let index = 0; index < this.listaRequisitos.length; index++) {
       if (this.listaRequisitos[index].getSeleccionado()) {
         //console.log(this.listaRequisitos[index].getDescripcion() + "----");
-        console.log(JSON.stringify(this.postulante) + "+++++++++++++++++++");
+        this.postulante.getListaRequisitos().push(this.listaRequisitos[index]);
+        
       }
     }
+    console.log("adcsdcsdcsdcasdcsdcasdc");
+    console.log(this.postulante);
+    if(this.postulante.getListaRequisitos().length==this.listaRequisitos.length){
+      this.postulante.setEstado('habilitado');
+    }else{
+      this.postulante.setEstado('inhabilitado');
+    }
+    this.postulante.setNombreUsuario(this.usuario.getNombres());
   }
 
   alertConfirmacion() {
@@ -143,25 +157,18 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     this.listaRequisitosPresentados = [];
     this.postulante = postulante;
     this.banderaSoloLectura = false;
-    this.cargarDatosPrueva();
+    this.getRequisitosConvBD();
   }
 
   listarRequisitosLectura(postulante: PostulanteEvaluado) {
     this.listaRequisitos = [];
     this.listaRequisitosPresentados = [];
     this.postulante = postulante;
-    console.log("id convocatoria: "+postulante.getIdConv());
-    if(postulante.getListaRequisitos().length==0){
-      console.log("cargar requisitos de la convocatoria");
-      if(this.listaRequisitos.length==0){
-        this.getRequisitosConvBD();
-      }
-    }else{
-      console.log("cargar requisitos del postulante");
-      this.listaRequisitos=postulante.getListaRequisitos();
-      this.banderaSoloLectura = true;
-    }
-    //this.cargarDatosPrueva();
+    this.listaRequisitosPresentados=postulante.getListaRequisitos();
+    this.banderaSoloLectura = true;
+    console.log("jhon putito");
+    this.getRequisitosConvBD();
+    
   }
 
   redireccionPostulantes() {
@@ -181,6 +188,7 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
         for(let i in resp){
           this.listaRequisitos.push(new Requisito(resp[i].descripcion,resp[i].idRequisito));
         }
+        this.comparar();
       }
     )
   }

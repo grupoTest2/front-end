@@ -48,6 +48,9 @@ export class PostulanteEvaluado {
     public getNombreUsuario(): string{
         return this.nombreUsuario;
     }
+    public setNombreUsuario(value): void{
+        this.nombreUsuario=value;
+    }
 
     /*public getNombres(): string {
         return this.nombres;

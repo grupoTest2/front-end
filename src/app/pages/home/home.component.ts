@@ -42,8 +42,7 @@ export class HomeComponent implements OnInit {
       tata.error('Error', 'Codigo Incorrecto');
       }*/
       this.getUsuarioBD(parseInt(form.controls['codigo'].value));
-      this.router.navigate(['/evaluacion__requisitos_postulante']);
-      $('#modalEvaluador').modal('hide');
+      
     }
   }
   getUsuarioBD(idUsuario:number){
@@ -56,6 +55,8 @@ export class HomeComponent implements OnInit {
                                         resp.correo);
         //console.log(JSON.stringify(usuario));
         localStorage.setItem("usuario",JSON.stringify(usuario));
+        this.router.navigate(['/evaluacion__requisitos_postulante']);
+        $('#modalEvaluador').modal('hide');
       }
       )
     
