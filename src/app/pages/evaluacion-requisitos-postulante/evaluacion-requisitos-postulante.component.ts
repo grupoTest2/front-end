@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PostulantesAsignadasComponent } from '../../components/usuario-comision-evaluadora/postulantes-asignadas/postulantes-asignadas.component';
 import { RegistroRequisitosPresentadosComponent } from '../../components/usuario-comision-evaluadora/registro-requisitos-presentados/registro-requisitos-presentados.component';
 import { ConvocatoriasAsignadasComponent } from '../../components/usuario-comision-evaluadora/convocatorias-asignadas/convocatorias-asignadas.component';
@@ -32,7 +32,7 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listarPos(conv:Convocatoria) {
+  listarPos(conv: Convocatoria) {
     console.log("ingresooooooooo");
     this.banderaPostulantes = true;
     this.postulantes.listarPostulantes(conv);
@@ -55,12 +55,16 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
     $("#postulantes").click();
     $("#evaluacion").addClass('invisible')
   }
-  requisitosEvaluadosPost(postulante:PostulanteEvaluado){
-     this.datosPost.listarRequisitos(postulante);
+  requisitosEvaluadosPost(postulante: PostulanteEvaluado) {
+    console.log("ingresooooooooo");
+    this.banderaEvaluacion = true;
+    this.datosPost.listarRequisitosLectura(postulante);
+    $("#evaluacion").click();
+    $("#evaluacion").removeClass('invisible')
   }
 
 
-  enviarUsuario(){
+  enviarUsuario() {
     this.postulantes.setUsuario(this.usuarioComision);
     this.datosPost.setUsuario(this.usuarioComision);
     this.convocatorias.setUsuario(this.usuarioComision);

@@ -33,10 +33,11 @@
                     <tr class="collapse" id="id{{postulante.getCodigoSis()}}{{i}}">
                         <td colspan="4" class="pt-2 pb-4">
                             <span class="font-weight-bold mr-2">Acciones:&nbsp;</span><br>
-                            <button class="ml-5 mr-2 btn btn-outline-primary badge" (click)="registrarRequisitos(postulante)"><i class="fa fa-file-alt"></i>&nbsp; Registrar Requisitos</button>
-                           <!-- <button class="mr-2 btn btn-outline-success badge"><i class="fa fa-pencil"></i>&nbsp; Editar Requisitos</button>-->
-                            <button *ngIf="postulante.getEstado()!='sin evaluar'" class="mr-2 btn btn-outline-info badge" (click)="registrarRequisitos(postulante)"><i class="far fa-eye"></i>&nbsp; Ver Detalles</button>
-                        </td>
+                            <button class="ml-5 mr-2 btn btn-outline-primary badge" (click)="registrarRequisitos(postulante)" [disabled]="evaluador(postulante)"><i class="fa fa-file-alt"></i>&nbsp; Registrar Requisitos</button>
+                            <!--<button class="mr-2 btn btn-outline-success badge"><i class="fa fa-pencil"></i>&nbsp; Editar Requisitos</button>-->
+                            <button class="mr-2 btn btn-outline-info badge" (click)="revisarRequisitos(postulante)" [disabled]="!evaluador(postulante)"><i class="far fa-eye"></i>&nbsp; Ver Detalles</button>
+                          </td>
+                          
                     </tr>
                 </ng-container>
 
