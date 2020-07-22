@@ -43,7 +43,7 @@
                 <div class="col-sm-12 col-lg-6">
                     <div class="card mt-4">
                         <div class="card-header">
-                            <h5 class="card-title text-center">Convocatoria</h5>
+                            <h5 class="card-title text-center">Convocatoria &nbsp; <i class="fal fa-users-class"></i></h5>
                         </div>
                         <div class="card-body text-center">
                             <p class="card-text">{{convocatoria.getTitulo()}}
@@ -57,15 +57,13 @@
                 <div class="col-sm-12 col-lg-6">
                     <div class="card mt-4">
                         <div class="card-header">
-                            <h5 class="card-title text-center">Postulante</h5>
+                            <h5 class="card-title text-center">Postulante &nbsp; <i class="fal fa-user-graduate"></i></h5>
                         </div>
                         <div class="card-body text-center">
                             <div class="pb-2">
-                                <p class="card-text mb-0 text-capitalize">{{postulante.getCodigoSis()}}</p>
+                                <p class="card-text mb-0 text-capitalize">Codigo Sis:&nbsp;&nbsp;{{postulante.getCodigoSis()}}</p>
                                 <hr class="bg-dark mt-0 h-10">
-                                <p class="card-text mb-0 text-capitalize">{{postulante.getApellidoP()}}&nbsp;&nbsp;{{postulante.getApellidoM()}}&nbsp;&nbsp;{{postulante.getNombre()}}</p>
-                                <hr class="bg-dark mt-0 h-10">
-                                <p class="card-text mb-0 text-capitalize">{{postulante.getCodigoSis()}}</p>
+                                <p class="card-text mb-0 text-capitalize">Apellidos y nombres:&nbsp;{{postulante.getApellidoP() | titlecase}}&nbsp;{{postulante.getApellidoM() | titlecase}}&nbsp;{{postulante.getNombre() | titlecase}}</p>
                                 <hr class="bg-dark mt-0 h-10">
                             </div>
                         </div>
