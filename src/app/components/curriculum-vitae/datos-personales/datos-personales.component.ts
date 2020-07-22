@@ -168,6 +168,7 @@ export class DatosPersonalesComponent implements OnInit {
     let semestre = form.controls['semestre'].value;
     this.datosPersonales = new DatosPersonales(apellidoP, apellidoM, nombre, fechaNac, lugarNac, ci, emision, paisN, genero, estadoCivil, direccion, numeroDireccion, telefono, correo, colegio, tipoColegio, fechaBachiller, carrera, semestre);
     this.datosPersonales.setIdiomas(this.listaIdiomas);
+    console.log(apellidoM,"semestreeeeeeee<<<<<<<<<<<<<<<<<<<------------------------")
     //datos opcionales
     this.datosPersonales.setEgresado(this.banderaEgresado);
     if (this.banderaEgresado) {
@@ -176,6 +177,8 @@ export class DatosPersonalesComponent implements OnInit {
       let aux3 = fecha3.split('/', 3);
       fechaEgreso = aux3[2] + '-' + aux3[1] + '-' + aux3[0];
       this.datosPersonales.setFechaEgreso(fechaEgreso);
+    }else{
+      this.datosPersonales.setEgresado(false);
     }
   }
 
@@ -199,7 +202,7 @@ export class DatosPersonalesComponent implements OnInit {
           'Se guardaron los usuarios.',
           'success'
         ).then((result) => {
-          // this.router.navigate(['/convocatoriasEnCurso']);
+          this.router.navigate(['/convocatoriasEnCurso']);
         });
       } else {
         swal.fire(
@@ -215,6 +218,7 @@ export class DatosPersonalesComponent implements OnInit {
 
 
   getDatosPersonales(): DatosPersonales {
+    // this.guardar();
     return this.datosPersonales;
   }
 }

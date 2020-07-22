@@ -83,6 +83,8 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
     );
   }
   setearLocalStore(id:number,titulo:string, gestion:number){
+    this.form.reset();
+
     localStorage.setItem("idConv",id.toString());
     localStorage.setItem('tituloConvocatoria', titulo);
     localStorage.setItem('gestionConvocatoria', gestion.toString());

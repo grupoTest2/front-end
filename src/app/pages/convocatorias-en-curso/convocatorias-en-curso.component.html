@@ -34,7 +34,7 @@
                 <form (ngSubmit)="guardar(form)" #form="ngForm" autocomplete="off">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Ingrese su código:</label>
-                        <input type="text" placeholder="Detalle del requisito" class="form-control" required name="codigo" #codigo="ngModel" ngModel [class.is-invalid]="codigo.invalid && codigo.touched" [class.is-valid]="codigo.valid && codigo.touched">
+                        <input id="codigo" type="text" placeholder="Codigo de acceso" class="form-control" required name="codigo" #codigo="ngModel" ngModel [class.is-invalid]="codigo.invalid && codigo.touched" [class.is-valid]="codigo.valid && codigo.touched">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

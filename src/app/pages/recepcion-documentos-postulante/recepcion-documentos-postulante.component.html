@@ -43,13 +43,13 @@
                 <div class="col-sm-12 col-lg-6">
                     <div class="card mt-4">
                         <div class="card-header">
-                            <h5 class="card-title text-center">Convocatoria &nbsp; <i class="fal fa-users-class"></i></h5>
+                            <h5 class="card-title text-center"><span class="font-weight-bold">Convocatoria</span> &nbsp; <i class="fal fa-users-class"></i></h5>
                         </div>
                         <div class="card-body text-center">
-                            <p class="card-text">{{convocatoria.getTitulo()}}
+                            <p class="card-text">{{convocatoria.getTitulo() | titlecase}}
                             </p>
                             <hr class="bg-dark mt-0 h-10">
-                            <p class="card-text">Gestion: &nbsp; &nbsp;{{convocatoria.getGestion()}}</p>
+                            <p class="card-text"><span class="font-weight-bold">Gestion:</span> &nbsp; &nbsp;{{convocatoria.getGestion()}}</p>
                             <hr class="bg-dark mt-0 h-10">
                         </div>
                     </div>
@@ -57,13 +57,15 @@
                 <div class="col-sm-12 col-lg-6">
                     <div class="card mt-4">
                         <div class="card-header">
-                            <h5 class="card-title text-center">Postulante &nbsp; <i class="fal fa-user-graduate"></i></h5>
+                            <h5 class="card-title text-center"><span class="font-weight-bold">Postulante</span> &nbsp; <i class="fal fa-user-graduate"></i></h5>
                         </div>
                         <div class="card-body text-center">
                             <div class="pb-2">
-                                <p class="card-text mb-0 text-capitalize">Codigo Sis:&nbsp;&nbsp;{{postulante.getCodigoSis()}}</p>
+                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Codigo Sis:</span>&nbsp;&nbsp;{{postulante.getCodigoSis()}}</p>
                                 <hr class="bg-dark mt-0 h-10">
-                                <p class="card-text mb-0 text-capitalize">Apellidos y nombres:&nbsp;{{postulante.getApellidoP() | titlecase}}&nbsp;{{postulante.getApellidoM() | titlecase}}&nbsp;{{postulante.getNombre() | titlecase}}</p>
+                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Apellidos:</span>&nbsp;&nbsp;{{postulante.getApellidoP() | titlecase}}&nbsp;{{postulante.getApellidoM() | titlecase}}</p>
+                                <hr class="bg-dark mt-0 h-10">
+                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Nombres:</span>&nbsp;&nbsp;{{postulante.getNombre() | titlecase}}</p>
                                 <hr class="bg-dark mt-0 h-10">
                             </div>
                         </div>
