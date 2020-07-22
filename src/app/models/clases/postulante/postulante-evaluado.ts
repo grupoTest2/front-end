@@ -19,7 +19,12 @@ export class PostulanteEvaluado {
         this.idUsuarioHab=idUsHab;
         this.listaRequisitos=[];
     }
-
+    public setIdUsuarioHab(value:number): void{
+        this.idUsuarioHab=value;
+    }
+    public setListaRequisitos(value): void{
+        this.listaRequisitos=value;
+    }
     public getIdUsuario(): number {
         return this.idPostulante;
     }

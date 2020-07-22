@@ -3,6 +3,7 @@ import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-
 import { Usuario } from '../../../models/clases/comision/usuario';
 import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
+import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 
 @Component({
   selector: 'app-postulantes-asignadas',
@@ -94,13 +95,23 @@ export class PostulantesAsignadasComponent implements OnInit {
           if(estado==null){
             estado="sin evaluar";
           }
-          this.listaPostulantes.push(new PostulanteEvaluado(resp[i].idPos,
+          let postulante=new PostulanteEvaluado(resp[i].idPos,
             resp[i].idConv,
             resp[i].codigoSis,
             resp[i].nombreCompleto,
             estado,
-            nombreUsuario));
+            nombreUsuario);
+          let reqs=resp[i].listaRequisitos;
+          let listaReqs: Requisito[]=[];
+          for(let j in reqs){
+            listaReqs.push(new Requisito(reqs[j].descripcion,reqs[j].idRequisito,reqs[j].seleccionado));
+          }
+          postulante.setListaRequisitos(listaReqs);
+          this.listaPostulantes.push(postulante);
+          
         }
+        console.log("los postulantes de la base de datos");
+        console.log(this.listaPostulantes);
       }
     );
   }

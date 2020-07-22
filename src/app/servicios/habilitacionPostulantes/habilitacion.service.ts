@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class HabilitacionService {
   }
   //envian informacion al servidor phpç
 
-  public registrarCumplimientoRequisitos(datos: any){
-    return this.http.post(`${this.URL}registrarCumplimientoRequisitos.php`, JSON.stringify(datos));
+  public registrarCumplimientoRequisitos(postulante: PostulanteEvaluado){
+    return this.http.post(`${this.URL}registrarCumplimientoRequisitos.php`, JSON.stringify(postulante));
   }
 }

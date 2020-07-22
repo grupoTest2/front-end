@@ -108,14 +108,16 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
         
       }
     }
-    console.log("adcsdcsdcsdcasdcsdcasdc");
-    console.log(this.postulante);
     if(this.postulante.getListaRequisitos().length==this.listaRequisitos.length){
       this.postulante.setEstado('habilitado');
     }else{
       this.postulante.setEstado('inhabilitado');
     }
     this.postulante.setNombreUsuario(this.usuario.getNombres());
+    this.postulante.setIdUsuarioHab(this.usuario.getIdUsuario());
+    console.log("adcsdcsdcsdcasdcsdcasdc");
+    console.log(this.postulante);
+    this.guardarRequisitosPostulanteBD();
   }
 
   alertConfirmacion() {
@@ -190,6 +192,12 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
         }
         this.comparar();
       }
+    )
+  }
+
+  guardarRequisitosPostulanteBD(){
+    this.habilitacion.registrarCumplimientoRequisitos(this.postulante).subscribe(
+      
     )
   }
 }
