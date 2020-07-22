@@ -101,7 +101,7 @@ export class DatosPersonalesComponent implements OnInit {
       this.registrar(this.form);
       bandera = this.alertRegistrar();
     }
-    return true;
+    return bandera;
 
   }
 

@@ -94,9 +94,9 @@ export class CurriculumVitaeComponent implements OnInit {
     if (!this.llenoDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
       console.log(this.datosPersonales + "----------");
-      if (this.datosPersonales.getIdiomas() == undefined || this.datosPersonales.getIdiomas() == []) {
+      // if (this.datosPersonales.getIdiomas() == undefined || this.datosPersonales.getIdiomas() == []) {
         this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
-      }
+      // }
     }
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
