@@ -133,13 +133,6 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.guardraRegistro()
-        swal.fire(
-          'Exitoso!',
-          'El registro fue guardado',
-          'success'
-        ).then(() => {
-          this.redireccionPostulantes();
-        })
 
       } else {
         swal.fire(
@@ -197,7 +190,20 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
 
   guardarRequisitosPostulanteBD(){
     this.habilitacion.registrarCumplimientoRequisitos(this.postulante).subscribe(
-      
+      resp=>{
+        if(resp=='correcto'){
+          console.log("se registro los requisitos todo bien");
+          swal.fire(
+            'Exitoso!',
+            'El registro fue guardado',
+            'success'
+          ).then(() => {
+            this.redireccionPostulantes();
+          })
+        }else{
+          console.log("algo salio mal al registrar los requisitos");
+        }
+      }
     )
   }
 }
