@@ -90,6 +90,40 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  alertRegistrar(): boolean {
+    var bandera = false;
+    swal.fire({
+      title: 'Guardar Datos',
+      text: "¿Está seguro de guardar datos?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        bandera = true;
+        swal.fire(
+          'Exitoso!',
+          'Se guardaron los usuarios.',
+          'success'
+        ).then((result) => {
+        this.registrarDatosPersonalesCvBD();
+          this.router.navigate(['/convocatoriasEnCurso']);
+        });
+      } else {
+        swal.fire(
+          'Cancelado!',
+          'Los uuarios no fueron guardados.',
+          'warning'
+        );
+
+      }
+    });
+    return bandera;
+  }
+
   recuperarLosDatosDeLosComponentes() {
     if (!this.llenoDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
@@ -112,12 +146,13 @@ export class CurriculumVitaeComponent implements OnInit {
   guardar() {
     if (this.llenoDatosPersonales) {
       this.recuperarLosDatosDeLosComponentes();
-      this.registrarDatosPersonalesCvBD();
+      // this.registrarDatosPersonalesCvBD();
+      this.alertRegistrar()
     }
     else {
       if (this.datos_personales.guardar()) {
         this.recuperarLosDatosDeLosComponentes();
-        this.registrarDatosPersonalesCvBD();
+        this.alertRegistrar()
       }
     }
   }

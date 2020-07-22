@@ -89,6 +89,16 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   guardar() {
+    let bb = false;
+    if(this.guardar2()){
+      this.registrar(this.form);
+      // this.alertRegistrar();
+      bb = true;
+    }
+    return bb;
+  }
+
+  guardar2() {
     var bandera = false;
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(
@@ -98,8 +108,7 @@ export class DatosPersonalesComponent implements OnInit {
       );
       tata.error('Error', 'Formulario invalido');
     } else {
-      this.registrar(this.form);
-      bandera = this.alertRegistrar();
+      bandera = true;
     }
     return bandera;
 
@@ -183,38 +192,38 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
 
-  alertRegistrar(): boolean {
-    var bandera = false;
-    swal.fire({
-      title: 'Guardar Datos',
-      text: "¿Está seguro de guardar datos?",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.value) {
-        bandera = true;
-        swal.fire(
-          'Exitoso!',
-          'Se guardaron los usuarios.',
-          'success'
-        ).then((result) => {
-          this.router.navigate(['/convocatoriasEnCurso']);
-        });
-      } else {
-        swal.fire(
-          'Cancelado!',
-          'Los uuarios no fueron guardados.',
-          'warning'
-        );
+  // alertRegistrar(): boolean {
+  //   var bandera = false;
+  //   swal.fire({
+  //     title: 'Guardar Datos',
+  //     text: "¿Está seguro de guardar datos?",
+  //     icon: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Confirmar',
+  //     cancelButtonText: 'Cancelar'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       bandera = true;
+  //       swal.fire(
+  //         'Exitoso!',
+  //         'Se guardaron los usuarios.',
+  //         'success'
+  //       ).then((result) => {
+  //         this.router.navigate(['/convocatoriasEnCurso']);
+  //       });
+  //     } else {
+  //       swal.fire(
+  //         'Cancelado!',
+  //         'Los uuarios no fueron guardados.',
+  //         'warning'
+  //       );
 
-      }
-    });
-    return bandera;
-  }
+  //     }
+  //   });
+  //   return bandera;
+  // }
 
 
   getDatosPersonales(): DatosPersonales {
