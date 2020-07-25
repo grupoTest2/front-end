@@ -1,62 +1,62 @@
 <div class="wrapper">
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h4 class="text-center">ACCIONES SOBRE LA PAGINA</h4>
+      <h4 class="text-center"><em>Huayra Soft</em></h4>
     </div>
     <ul class="list-unstyled components">
       <h5 class="pl-4" >Bienvenido</h5>
-      <hr>
+      <hr>1
+      <li>
+        <a routerLink="/crearConvocatoria"class="p-4"> <i class="fas fa-layer-plus"></i>&nbsp;Crear Convocatoria</a>
+      </li>
+      <li>
+        <a routerLink="/editar/convocatorias" class="p-4"> <i class="fas fa-scroll"></i>&nbsp;Ver Convocatorias</a>
+      </li>
       <li class="opciones">
-        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle p-4">Crear
-          Convocatoria</a>
+        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle p-4"><i class="fas fa-book-reader"></i>&nbsp;<span>Convocatorias En<br> Curso</span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
           <li>
-            <a href="#" class="p-3">informatica y sistemas</a>
+            <a href="#" class="p-3">Convocatoria 1</a>
           </li>
           <li>
-            <a href="#" class="p-3">Industrial</a>
+            <a href="#" class="p-3">Convocatoria 2</a>
           </li>
           <li>
-            <a href="#" class="p-3">Civil</a>
+            <a href="#" class="p-3">Convocatoria 3</a>
           </li>
         </ul>
-      </li>      
-
-
-      <li>
-        <a href="#" class="p-4">Ver Convocatorias</a>
       </li>
       <li>
-        <a href="#" class="p-4">Registrarme como postulante</a>
+        <a routerLink="/convocatoriasEnCurso"  class="p-4"> <i class="fas fa-street-view"></i>&nbsp;Registrarme como postulante</a>
       </li>
       <li>
-        <a href="#" class="p-4">Evaluar Requisitos Postulante</a>
+        <a routerLink="/recepcion_documentos_postulante" class="p-4" ><i class="fas fa-file-user"></i>&nbsp;Recepcion Documentos Postulante</a>
       </li>
       <li>
-        <a href="#" class="p-4">Acerca De</a>
+        <a routerLink="/evaluacion__requisitos_postulante" routerLinkActive="router-link-active"  class="p-4"><i class="fad fa-user-edit"></i>&nbsp;Evaluar Requisitos Postulante</a>
+      </li>
+      <li>
+        <a href="#" class="p-4"><i class="fas fa-users"></i>&nbsp;Acerca De Nosotros</a>
       </li>
 
     </ul>
 
-    <ul class="list-unstyled CTAs">
+    <!--<ul class="list-unstyled CTAs">
       <li>
         <a href="#" class="download">Pagina Principal</a>
       </li>
       <li>
-        <!--<a href="#" class="article">article</a>-->
       </li>
-    </ul>
+    </ul>-->
   </nav>
 
   <div class="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-
-      <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="toggleSideVar()">
-        <i class=" fa fa-align-justify"></i> <span>{{menu}}</span>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: #242c34;">
+      <button type="button" class="btn btn-outline-light"id="sidebarCollapse" (click)="toggleSideVar()"><span>{{menu}}</span>
       </button>
 
       <!--<a class="navbar-brand" href="#">Navbar</a> -->
-      <button class="navbar-toggler bg-info" type="button" data-toggle="collapse" data-target="#navbarNav"
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

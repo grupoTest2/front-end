@@ -1,13 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body{font-family: 'Poppins', sans-serif;
      background: #fafafa}
-p{font-family: 'Poppins', sans-serif;
-  font-size: 1.1em;
-	font-weight: 300;
-	line-height: 1.7em;
-	color: #fff;
-}
-a,
 a:hover,
 a:focus{
 	color: inherit;
@@ -46,7 +39,7 @@ a:focus{
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;/*#292C2F;*/
+    background:#242c34;/* #7386D5;/*#292C2F;*/
 	color: #fff;
     transition: all 0.3s;
 }
@@ -57,11 +50,11 @@ a:focus{
 
 #sidebar .sidebar-header{
 	padding: 20px;
-	background: #6d7fcc;
+	background: #242c34;/*#6d7fcc;*/
 }
 #sidebar ul.components{
 	padding: 20px 0px;
-	border-bottom: 1px solid #47748b;
+	border-bottom: 1px solid  #242c34;/*#47748b;*/
 }
 
 #sidebar ul p{
@@ -74,16 +67,24 @@ a:focus{
 	padding: 10px;
 	font-size: 1.1em;
 	display: block;
+	color: #5d6777;
+}
+#sidebar ul.collapse li a{
+	padding: 10px;
+	font-size: 1.1em;
+	display: block;
+	color: #242c34;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+	color: white;
+   /* color: #242c34; #7386D5;
+    background: #fff;*/
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #242c34;/*#6d7fcc*/;
 }
 a[data-toggle="collapse"] {
     position: relative;
@@ -99,7 +100,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #444c5a;/*#6d7fcc;*/
 }
 
 ul.CTAs {
