@@ -9,6 +9,8 @@ import * as $ from 'jquery';
 })
 export class SidebarComponent implements OnInit {
     estado:boolean=true;
+    menu="Ocultar Menu";
+    banderaMenu=true;
   ngOnInit(): void {
   }
   setEstado(){
@@ -20,6 +22,15 @@ export class SidebarComponent implements OnInit {
    //metodo para deslisar el menu despeglabe de la izquierda
    toggleSideVar() {
     $('#sidebar').toggleClass('active');
+    if(this.banderaMenu){
+       this.menu="Mostrar Menu"
+       this.banderaMenu=false;
+     }
+     else{
+      this.menu="Ocultar Menu"
+      this.banderaMenu=true;
+     }
   }
+
 
 }
