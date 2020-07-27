@@ -22,6 +22,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $('#carouselExampleIndicators').carousel({
+      interval: 2000
+    })
   }
 
   guardar(form: NgForm) {
