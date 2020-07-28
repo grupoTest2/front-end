@@ -11,20 +11,6 @@
             <li>
                 <a routerLink="/editar/convocatorias" class="p-4"> <i class="fas fa-scroll"></i>&nbsp;Ver Convocatorias</a>
             </li>
-            <li class="opciones">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle p-4"><i class="fas fa-book-reader"></i>&nbsp;<span>Convocatorias En<br> Curso</span></a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#" class="p-3">Convocatoria 1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="p-3">Convocatoria 2</a>
-                    </li>
-                    <li>
-                        <a href="#" class="p-3">Convocatoria 3</a>
-                    </li>
-                </ul>
-            </li>
             <li>
                 <a routerLink="/convocatoriasEnCurso" class="p-4"> <i class="fas fa-street-view"></i>&nbsp;Registrarme como postulante</a>
             </li>
@@ -32,15 +18,14 @@
                 <a routerLink="/recepcion_documentos_postulante" class="p-4"><i class="fas fa-file-user"></i>&nbsp;Recepcion Documentos Postulante</a>
             </li>
             <li>
-                <a routerLink="/evaluacion__requisitos_postulante" routerLinkActive="router-link-active" class="p-4"><i class="fad fa-user-edit"></i>&nbsp;Evaluar Requisitos Postulante</a>
+                <a  routerLink="" data-toggle="modal" data-target="#modalEvaluador" class="p-4"><i class="fad fa-user-edit"></i>&nbsp;Evaluar Requisitos Postulante</a>
             </li>
             <li>
                 <a href="#" class="p-4"><i class="fas fa-users"></i>&nbsp;Acerca De Nosotros</a>
             </li>
 
         </ul>
-
-        <!--<ul class="list-unstyled CTAs">
+                <!--<ul class="list-unstyled CTAs">
       <li>
         <a href="#" class="download">Pagina Principal</a>
       </li>
@@ -85,3 +70,31 @@
     </div>
 </div>
 <app-footer></app-footer>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEvaluador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Codigo de acceso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body" id="modalRequisitos">
+                <form (ngSubmit)="guardar(form)" #form="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Ingrese id de usuario:</label>
+                        <input type="text" placeholder="id de usuario" class="form-control" required name="codigo" #codigo="ngModel" ngModel [class.is-invalid]="codigo.invalid && codigo.touched" [class.is-valid]="codigo.valid && codigo.touched">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit"  class="btn btn-primary">Acceder</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
