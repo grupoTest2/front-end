@@ -19,16 +19,12 @@ export class DatosRotuloComponent implements OnInit {
   seleccionTodo: boolean = true;
   seleccion: SeleccionTipoDatoRotulo = new SeleccionTipoDatoRotulo([]);
   href: string = '';
-
-  //bandera para que no genere error en  la peticion http
   banderaAuxiliar = true;
-
-  //verficar switch y posible marcacion
   banderaSitch = false;
   banderaSeleccion = false;
-
   banderaFormCheck = true;
   rotuloParaConvocatoria = true;
+  
   constructor(private apiPHP: PhpServeConvocatoria, private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
     this.getTipoDatosRotuloBD();
@@ -42,7 +38,7 @@ export class DatosRotuloComponent implements OnInit {
     this.seleccionRotulo(this.banderaFormCheck);
   }
 
-  ruta() {
+  ruta():boolean {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     } else {
@@ -50,26 +46,22 @@ export class DatosRotuloComponent implements OnInit {
     }
   }
 
-  seleccionRotulo(turn) {
+  seleccionRotulo(turn):void {
     if (this.banderaFormCheck) {
       $("#checkRotuloForm").click();
       this.banderaFormCheck = false;
       this.rotuloParaConvocatoria = true
     }
   }
-  seleccionRotulo2(turn) {
+  seleccionRotulo2(turn):void {
     if (this.rotuloParaConvocatoria) {
       this.rotuloParaConvocatoria = false;
     }
     else {
       this.rotuloParaConvocatoria = true;
     }
-
-
-    console.log("rotulo para convocatoria --->" + this.rotuloParaConvocatoria)
   }
 
-  //meotodo cuando presiona un dato rotulo
   seleccionado(index: number): void {
     let bandera = true;
     if (this.seleccion.getListaTiposDatosRotulo()[index].getSeleccionado()) {
@@ -94,12 +86,10 @@ export class DatosRotuloComponent implements OnInit {
       $('.switch').click();
       this.banderaSitch = false;
       this.banderaSeleccion = false;
-
     }
   }
 
-  //metodo cuando presiona guardar
-  enlistar() {
+  enlistar():void {
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       if (this.seleccion.getListaTiposDatosRotulo()[i].getSeleccionado()) {
         this.seleccion.getListaTiposDatosRotulo()[i].setEnLista(true);
@@ -110,7 +100,7 @@ export class DatosRotuloComponent implements OnInit {
     this.banderaSeleccion = false;
   }
 
-  ocultarBtnGuardar() {
+  ocultarBtnGuardar():boolean {
     let bandera3 = true;
     if (this.banderaAuxiliar) {
       for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
@@ -122,7 +112,7 @@ export class DatosRotuloComponent implements OnInit {
     return bandera3;
   }
 
-  presionando(bandera) {
+  presionando(bandera):void {
     if (!bandera && !this.banderaSeleccion) {
       if (!this.banderaSitch) {
         for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
@@ -146,7 +136,7 @@ export class DatosRotuloComponent implements OnInit {
     }
   }
 
-  getDatos() {
+  getDatos():DatoRotulo[] {
     let listaDatosR: DatoRotulo[] = [];
     for (let i = 0; i < this.seleccion.getListaTiposDatosRotulo().length; i++) {
       if (this.seleccion.getListaTiposDatosRotulo()[i].getEnLista()) {
@@ -155,14 +145,12 @@ export class DatosRotuloComponent implements OnInit {
     }
     return listaDatosR;
   }
-
-  //indica si la convocatoria es apta para ser lanzada    
+  
   estaHabilitado(): string{
     return this.seleccion.estaHabilitado();
   }
 
-  // metodos que interactuan con la base de datos
-  getTipoDatosRotulo() {
+  getTipoDatosRotulo():void {
     let listaTipos: object[] = []// new Array();
     this.apiPHP.getTipoDatosRotulo().subscribe(
       resultado => {
@@ -175,24 +163,18 @@ export class DatosRotuloComponent implements OnInit {
     );
   }
 
-  // recupera la configuracion de una convocatoria
-  getTipoDatosRotuloBD() {
-    //console.log("el valor de mi local storage");
-    //console.log(localStorage.getItem("idConv"));
+  getTipoDatosRotuloBD():void {
     if (localStorage.getItem("idConv") === "") {
-      //console.log("esta vacio en los rotulos");
-    } else {
+    }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getDatosRotulo(idConv).subscribe(
         resultado => {
           for (let i in resultado) {
             this.seleccion.setDatoRotulo(resultado[i].idTipo);
           }
-          //console.log(this.seleccion.getListaTiposDatosRotulo())
           this.banderaAuxiliar = true;
         }
       )
     }
-
   }
 }

@@ -95,6 +95,5 @@ export class Requerimiento {
             }
         }
         return res;
-
     }
 }

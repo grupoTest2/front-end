@@ -17,7 +17,7 @@ declare var tata: any;
 export class AsingacionAreaConocimientoComponent implements OnInit {
 
 
-  comision: Comision;  //	constructor(idTipoComision: number,listaUsuarios:UsuarioComision[]=[]) {
+  comision: Comision; 
   listaUsuarios: Usuario[] = [];
   listaUsuariosComision: UsuarioComision[] = [];
   listaTiposUsuario: TipoUsuario[] = [];
@@ -27,48 +27,16 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   tituloConv="";
   constructor(private comisionServ:ComisionesServicePhp) {
     this.comision =new Comision(1);
-    //this.agragarUsuariosPrueba();
     this.getTiposUsuarioBD();
     this.getTematicasBD();
     this.getComisionesBD();
     this.tituloConv=localStorage.getItem('tituloConvocatoria');
-
   }
 
   ngOnInit(): void {
   }
-  agragarUsuariosPrueba() {
-   /* this.listaUsuarios.push(new Usuario(1, "pepe", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(2, "jose", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(3, "kewin", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(4, "josue", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(5, "cunao", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(6, "mongolo", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(7, "pepa", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaUsuarios.push(new Usuario(8, "felipa", "gomes", "lopez", "pepe@gmail.com"));
-    this.listaTiposUsuario.push(new TipoUsuario(1, "evaluador"));
-    this.listaTiposUsuario.push(new TipoUsuario(2, "veedor"));
-    this.listaUsuariosComision.push(new UsuarioComision(1, "insertar", 2));
-    this.listaUsuariosComision.push(new UsuarioComision(2, "insertar", 2));
-    this.listaUsuariosComision.push(new UsuarioComision(3, "insertar", 1));
-    this.listaUsuariosComision.push(new UsuarioComision(4, "insertar", 1));
-    this.listaUsuariosComision.push(new UsuarioComision(5, "insertar", 2));
-    this.listaUsuariosComision.push(new UsuarioComision(6, "insertar", 2));
-    this.listaUsuariosComision.push(new UsuarioComision(7, "insertar", 1));
-    this.listaUsuariosComision.push(new UsuarioComision(8, "insertar", 2));
-    this.comision = new Comision(1, this.listaUsuariosComision);
 
-    this.listaTematicas.push(new Tematica("introduccon", 0, 0));
-    this.listaTematicas.push(new Tematica("psicologia", 0, 0));
-    this.listaTematicas.push(new Tematica("matematicas", 0, 0));
-    this.listaTematicas.push(new Tematica("matematicas", 0, 0));
-    this.listaTematicas.push(new Tematica("fisica", 0, 0));
-    this.listaTematicas.push(new Tematica("tecnicas", 0, 0));
-    this.listaTematicas.push(new Tematica("tayjhutsu", 0, 0));*/
-
-  }
-
-  getTipoUsuario(id: number) {
+  getTipoUsuario(id: number):string {
     let res = "";
     for (let index = 0; index < this.comision.getListaUsuarios().length; index++) {
       if (this.comision.getListaUsuarios()[index].getIdUsuario() == this.listaUsuarios[id].getIdUsuario()) {
@@ -82,14 +50,13 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     return res;
   }
 
-  mostrarMensaje(ind: number) {
+  mostrarMensaje(ind: number) :void{
     this.indiceActual = ind;
     this.tituloActual = "Por El Usuario: " + this.listaUsuarios[this.indiceActual].getNombres() + " " + this.listaUsuarios[this.indiceActual].getApellidoPaterno() + " " + this.listaUsuarios[this.indiceActual].getApellidoMaterno();
     this.quitarSeleecionTematicas();
     $("#tablaDatosSeleccionables").modal("show");
     for (let i = 0; i < this.comision.getListaUsuarios().length; i++) {
       if (this.comision.getListaUsuarios()[i].getIdUsuario() == this.listaUsuarios[this.indiceActual].getIdUsuario()) {
-        console.log("ingreso" + (i + 1));
         for (let index = 0; index < this.comision.getListaUsuarios()[i].getListaTematica().length; index++) {
           for (let j = 0; j < this.listaTematicas.length; j++) {
             if (this.listaTematicas[j].getNombre() == this.comision.getListaUsuarios()[i].getListaTematica()[index].getNombre()) {
@@ -100,7 +67,6 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
       }
     }
   }
-  //
 
   seleccionado(index: number): void {
     if (this.listaTematicas[index].getSeleccionado())
@@ -110,8 +76,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     }
   }
 
-  //metodo para agregar tematicas a evaluar para e usuario
-  agregarTematicasEvaluar() {
+  agregarTematicasEvaluar():void {
     let listaTemporalTematica: Tematica[] = [];
     let banderaSeleccionado = false;
     for (let i = 0; i < this.comision.getListaUsuarios().length; i++) {
@@ -136,17 +101,15 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   }
 
 
-  quitarSeleecionTematicas() {
+  quitarSeleecionTematicas():void {
     for (let index = 0; index < this.listaTematicas.length; index++) {
       this.listaTematicas[index].setSeleccionado(false);
     }
   }
 
-  guardarDatos() {
+  guardarDatos():void {
    if(this.verificarSeleccionTematicas()){
-     console.log("todo salio bien !!!!");
      this.guardarDatosBD();
-     //console.log(JSON.stringify(this.comision));
    }
    else{
     this.mensajeToastError(`Debe De Asignar Por Lo Menos Un Usuario De Tipo Evaluador <br> A Cada Item`);
@@ -159,12 +122,8 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
   mensajeToastExito(mensaje) {
     tata.success("Registro Exitoso", mensaje);
   }
-
-
-
-  //minimamente una tematica debe tener asignado a un  ususario de tipo evaluador
   
-  verificarSeleccionTematicas2() {
+  verificarSeleccionTematicas2():boolean {
     let banderaValidador = true;
     let banderaContador = true;
     let contador = 0;
@@ -186,7 +145,6 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
             }
           }
         }
-
       }
       banderaContador = true;
     }
@@ -196,7 +154,7 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     return banderaValidador
   }
   
-  verificarSeleccionTematicas(){
+  verificarSeleccionTematicas():boolean{
     let res=true;
     for(let i=0; i<this.listaTematicas.length&&res;i++){
       let bandera=false;
@@ -213,13 +171,6 @@ export class AsingacionAreaConocimientoComponent implements OnInit {
     return res;
   }
 
-  //modificado
-
-
-
-
-
-//////////////////////// aqui va la recuperacion de la base de datos:
 getUsuariosBD() {
   this.comisionServ.getUsuarios().subscribe(
     resultado => {
@@ -233,8 +184,6 @@ getUsuariosBD() {
       }
     }
   )
- // console.log("los usuariossss");
-  //console.log(this.listaUsuarios);
  }
 
  getComisionesBD(){
@@ -250,8 +199,6 @@ getUsuariosBD() {
            usuariosAux.push(new UsuarioComision(misUsuarios[k].idUsuario,misUsuarios[k].accion,misUsuarios[k].idTipoUsuario));
          }
          this.comision.setListaUsuarios(usuariosAux);
-         //console.log("los usuarios de la comision");
-         //console.log(this.comision);
          this.getUsuariosBD();
        }
        
@@ -265,8 +212,6 @@ getUsuariosBD() {
         for(let i in resultado){
           this.listaTiposUsuario.push(new TipoUsuario(resultado[i].idTipoUsuario,resultado[i].nombre));
         }
-        //console.log("los tipos de usuario");
-        //console.log(this.listaTiposUsuario);
       }
     );
   }
@@ -278,8 +223,6 @@ getUsuariosBD() {
         for(let i in resultado){
           this.listaTematicas.push(new Tematica(resultado[i].idTematica, resultado[i].nombre));
         }
-        //console.log("las tematicas");
-        //console.log(this.listaTematicas);
       }
     );
   }
@@ -295,7 +238,5 @@ getUsuariosBD() {
       }
     );
   }
-
-
 }
 

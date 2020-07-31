@@ -21,16 +21,18 @@ export class SidebarComponent implements OnInit {
     constructor(private router: Router,private habilitacion:HabilitacionService){
       
     }
+
   ngOnInit(): void {
   }
-  setEstado(){
+
+  setEstado():void{
     if(this.estado)
       this.estado=false;
     else
       this.estado=true;
   }
-   //metodo para deslisar el menu despeglabe de la izquierda
-   toggleSideVar() {
+
+  toggleSideVar():void {
     $('#sidebar').toggleClass('active');
     if(this.banderaMenu){
        this.menu="Mostrar Menu"
@@ -42,7 +44,7 @@ export class SidebarComponent implements OnInit {
      }
   }
 
-  guardar(form: NgForm) {
+  guardar(form: NgForm):void {
     this.form = form;
     if (form.invalid) {
       Object.values(form.controls).forEach(
@@ -56,7 +58,8 @@ export class SidebarComponent implements OnInit {
      this.form.resetForm();
     }
   }
-  getUsuarioBD(idUsuario:number){
+
+  getUsuarioBD(idUsuario:number):void{
     this.habilitacion.getUsuario(idUsuario).subscribe(
       (resp:any)=>{
         let usuario:Usuario=new Usuario(resp.idUsuario,

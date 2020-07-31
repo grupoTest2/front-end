@@ -31,48 +31,48 @@ export class ExperienciaUniversitaria {
     public getTipoDeGestion(): string {
         return this.tipoDeGestion;
     }
-    public setTipoDeGestion(value: string) {
+    public setTipoDeGestion(value: string):void {
         this.tipoDeGestion = value;
     }
     public getFacultad(): string {
         return this.facultad;
     }
-    public setFacultad(value: string) {
+    public setFacultad(value: string) :void{
         this.facultad = value;
     }
     public getCarrera(): string {
         return this.carrera;
     }
-    public setCarrera(value: string) {
+    public setCarrera(value: string) :void{
         this.carrera = value;
     }
     public getMateria(): string {
         return this.materia;
     }
-    public setMateria(value: string) {
+    public setMateria(value: string) :void{
         this.materia = value;
     }
     public getCargaHoraria(): number {
         return this.cargaHoraria;
     }
-    public setCargaHoraria(value: number) {
+    public setCargaHoraria(value: number):void {
         this.cargaHoraria = value;
     } public getTitular(): boolean {
         return this.titular;
     }
-    public seTitular(value: boolean) {
+    public seTitular(value: boolean) :void{
         this.titular = value;
     }
     public getFechaInicio(): Date {
         return this.fechaInicio;
     }
-    public setFechaInicio(value: Date) {
+    public setFechaInicio(value: Date):void {
         this.fechaInicio = value;
     }
     public getFechaFin(): Date {
         return this.fechaFin;
     }
-    public setFechaFin(value: Date) {
+    public setFechaFin(value: Date):void {
         this.fechaFin = value;
     }
 

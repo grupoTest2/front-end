@@ -28,8 +28,6 @@ export class MeritosComponent implements OnInit {
   indice1: number = 0;
   indice2: number = 0;
   indice3: number = 0;
-
-  //detalles merito
   merito1: Merito = new Merito(" ", " ", 0, []);
   tituloMerito: String = " ";
   porcentajeMerito: number = 0;
@@ -50,7 +48,7 @@ export class MeritosComponent implements OnInit {
 
   }
 
-  ruta(){
+  ruta():boolean{
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     }else{
@@ -58,7 +56,6 @@ export class MeritosComponent implements OnInit {
     }
   }
 
-  //nivel 1------------------------------------------------------------
   agregarMeritoNivel1(): void {
     var tituloMerito = (<HTMLInputElement>document.getElementById("tituloM1")).value;
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentajeM1")).value);
@@ -68,23 +65,17 @@ export class MeritosComponent implements OnInit {
     let resp = this.seleccionMerito.agregarMerito(merito);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
     if (resp === 'exito') {
-      //el porcentaje esta en el rango que corresponde
-
       $('#modal1').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
       }
-      //resetea valores a vacio
       (<HTMLInputElement>document.getElementById("requisitosM1")).value = "";
       this.formMeritos.reset();
     } else {
-      //el porcentaje supera los limites
-      // this.toastError()
       this.ErrorAlInsertarMerito(resp);
     }
   }
 
-  //nivel 2------------------------------------------------------------
   agregarMeritoNivel2(): void {
     var tituloSubMerito = (<HTMLInputElement>document.getElementById("titulo2")).value;
     var porcentajeSubMerito = parseInt((<HTMLInputElement>document.getElementById("porcentaje2")).value);
@@ -92,23 +83,17 @@ export class MeritosComponent implements OnInit {
     merito.setAccion("insertar");
     let resp = this.seleccionMerito.agregarSubMerito(merito, this.indice1);
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
-
     if (resp === 'exito') {
-      //el porcentaje esta en el rango que corresponde
       $('#modal2').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
       }
       this.formMeritos.reset();
     } else {
-      //el porcentaje supera los limites
-      //this.toastError()
       this.ErrorAlInsertarMerito(resp);
-
     }
   }
 
-  // nivel 3 ----------------------------------------------------------
   agregarMeritoNivel3(): void {
     var tituloMerito = (<HTMLInputElement>document.getElementById("tituloMerito3")).value;
     var porcentaje = parseInt((<HTMLInputElement>document.getElementById("porcentaje3")).value);
@@ -119,7 +104,6 @@ export class MeritosComponent implements OnInit {
     this.tablasMeritos = this.seleccionMerito.getTablaMeritos();
     console.log(this.tablasMeritos);
     if (resp === 'exito') {
-      //el porcentaje esta en el rango que corresponde
       $('#modal3').modal('hide');
       if (this.formMeritos.valid) {
         this.toastExitoso();
@@ -127,18 +111,15 @@ export class MeritosComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("requisitos3")).value = "";
       this.formMeritos.reset();
     } else {
-      //el porcentaje supera los limites
-      //this.toastError()
       this.ErrorAlInsertarMerito(resp);
     }
   }
 
 
-  ErrorAlInsertarMerito(mensaje: string = 'Formulario invalido') {
+  ErrorAlInsertarMerito(mensaje: string = 'Formulario invalido'):void {
     this.formMeritos.markAllAsTouched();
     tata.error('Error', mensaje);
   }
-
 
   tieneMeritos(merito: Merito): boolean {
     return merito.getListaMeritos().length !== 0;
@@ -153,7 +134,6 @@ export class MeritosComponent implements OnInit {
     return this.seleccionMerito.getSubSubMeritos(this.indice1, this.indice2);
   }
 
-  //indice1 -------------------------------------------------------------------------------
   setIndice1(i: number): void {
     this.indice1 = i;
   }
@@ -169,12 +149,10 @@ export class MeritosComponent implements OnInit {
     this.indice2 = k;
   }
 
-  /*-------------- metodo para recuperar los datos de este componente*/
-  getDatos() {
+  getDatos():Merito[] {
     return this.tablasMeritos;
   }
 
-  //validacion -------------------------------------------------------------------------
   private buildForm(): void {
     this.formMeritos = this.formBuilder.group({
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -236,28 +214,30 @@ export class MeritosComponent implements OnInit {
     });
   }
 
-  get titulo() {
+  get titulo():any {
     return this.formMeritos.get('titulo');
   }
-  get tituloIsValid() {
+
+  get tituloIsValid():boolean {
     return this.titulo.touched && this.titulo.valid;
   }
-  get tituloIsInvalid() {
+
+  get tituloIsInvalid():boolean {
     return this.titulo.touched && this.titulo.invalid;
   }
 
-  get porcentaje() {
+  get porcentaje():any {
     return this.formMeritos.get('porcentaje');
   }
-  get porcentajeIsValid() {
+
+  get porcentajeIsValid():boolean {
     return this.porcentaje.touched && this.porcentaje.valid;
   }
-  get porcentajeIsInvalid() {
+
+  get porcentajeIsInvalid():boolean {
     return this.porcentaje.touched && this.porcentaje.invalid;
   }
-    /**
-   *indica si la convocatoria es apta para ser lanzada 
-   */
+
   estaHabilitado(): string{
     let res="bien";
     if(this.seleccionMerito.getTablaMeritos().length==0){
@@ -267,12 +247,9 @@ export class MeritosComponent implements OnInit {
     }
     return res;
   }
-  /**
-   * metodos que interaccuan con la base de datos
-   */
-  getMeritosBD(){
+
+  getMeritosBD():any{
     if(localStorage.getItem("idConv")===""){
-      //console.log("esta vacio en los rotulos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getMeritos(idConv).subscribe(
@@ -306,7 +283,6 @@ export class MeritosComponent implements OnInit {
                 }
               }
           }
-          //console.log(this.seleccionMerito.getTablaMeritos());
           this.tablasMeritos=this.seleccionMerito.getTablaMeritos();
         }
       )

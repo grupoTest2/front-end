@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-
 import { Produccion } from '../../../models/curriculum-vitae/datos-produccion';
-
 
 declare var tata: any;
 declare var $: any;
-
 
 @Component({
   selector: 'app-produccion',
@@ -16,10 +12,7 @@ declare var $: any;
 })
 export class ProduccionComponent implements OnInit {
 
-
   form: NgForm = new NgForm([], []);
-
-
   listaInformacionProduc: Produccion[] = [];
   datoInfoPrd: Produccion;
 
@@ -29,11 +22,11 @@ export class ProduccionComponent implements OnInit {
   }
 
   
-  reset() {
+  reset():void {
     this.form.resetForm();
   }
 
-  asignacion(form: NgForm) {
+  asignacion(form: NgForm):boolean {
     this.form = form;
     return true;
   }
@@ -47,13 +40,12 @@ export class ProduccionComponent implements OnInit {
       );
       tata.error('Error', 'Llene todos los campos por favor');
     } else {
-
       $('#modalProduccion').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarDatosFormacion(form);
     }
   }
-  enlistarDatosFormacion(form: NgForm) {
+  enlistarDatosFormacion(form: NgForm):void {
     let titulo = form.controls['titulo'].value;
     let tipoDifusion = form.controls['tipoDifusion'].value;
     let medioPublicacion = form.controls['medioPublicacion'].value;
@@ -62,13 +54,11 @@ export class ProduccionComponent implements OnInit {
     const fecha = fechaConclusion.toLocaleString().split(' ')[0];
     let aux = fecha.split('/', 3);
     fechaConclusion = aux[2] + '-' + aux[1] + '-' + aux[0];
-
     this.datoInfoPrd = new Produccion(titulo, tipoDifusion, medioPublicacion, institucion, fechaConclusion);
     this.listaInformacionProduc.push(this.datoInfoPrd);
-
   }
 
-  eliminarInformacion(dato: Produccion) {
+  eliminarInformacion(dato: Produccion):void {
     let listaAux: Produccion[] = [];
     for (let i = 0; i < this.listaInformacionProduc.length; i++) {
       if (!(this.listaInformacionProduc[i].getTituloDocumento() == dato.getTituloDocumento() &&

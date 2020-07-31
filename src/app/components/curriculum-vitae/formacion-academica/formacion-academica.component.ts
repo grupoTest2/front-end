@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-
-//models
 import { FormacionAcademica } from '../../../models/curriculum-vitae/datos-formacion-academica';
 
 declare var tata: any;
@@ -22,14 +19,14 @@ export class FormacionAcademicaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  reset() {
+  reset():void {
     this.form.resetForm();
   }
   asignacion(form: NgForm){
     this.form=form;
     return true;
   }
-  guardar(form: NgForm) {
+  guardar(form: NgForm):void {
     this.form = form;
     if (form.invalid) {
       Object.values(form.controls).forEach(
@@ -39,15 +36,13 @@ export class FormacionAcademicaComponent implements OnInit {
       );
       tata.error('Error', 'Llene todos los campos por favor');
     } else {
-
       $('#modalFormacion').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarDatosFormacion(form);
-
     }
   }
 
-  enlistarDatosFormacion(form: NgForm) {
+  enlistarDatosFormacion(form: NgForm):void {
     let grado = form.controls['grado'].value;
     let titulo = form.controls['titulo'].value;
     let institucionObtuvoGrado = form.controls['institucion'].value;
@@ -57,12 +52,10 @@ export class FormacionAcademicaComponent implements OnInit {
     let aux = fecha.split('/', 3);
     fechaObtuvoGrado = aux[2] + '-' + aux[1] + '-' + aux[0];
     this.datoFormacion = new FormacionAcademica(grado, titulo, institucionObtuvoGrado, lugarObtuvoGrado, fechaObtuvoGrado);
-    console.log(this.datoFormacion);
     this.listaDatosFormacion.push(this.datoFormacion);
-
   }
 
-  eliminarInformacion(dato:FormacionAcademica){
+  eliminarInformacion(dato:FormacionAcademica):void{
     let listaAux:FormacionAcademica []=[];
     for (let i = 0; i < this.listaDatosFormacion.length; i++) {
       if(!(this.listaDatosFormacion[i].getGrado() == dato.getGrado()&&
@@ -75,9 +68,7 @@ export class FormacionAcademicaComponent implements OnInit {
     }
     this.listaDatosFormacion=listaAux;
   }
-
   getDatosFC():FormacionAcademica[]{
     return this.listaDatosFormacion;
   }
-
 }

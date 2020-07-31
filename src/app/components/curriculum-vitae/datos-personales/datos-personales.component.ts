@@ -25,24 +25,18 @@ export class DatosPersonalesComponent implements OnInit {
   form2: NgForm = new NgForm([], []);
   form: NgForm = new NgForm([], []);
   listaIdiomas: Idioma[] = [];
-
-
-
   datosPostulante:any;
-  apellidoPaterno = "nina"
-  apellidoMaterno = "peres"
-  nombres = "chiquitin"
+  apellidoPaterno = ""
+  apellidoMaterno = ""
+  nombres = ""
   llenoCv=false;
   banderaEgresado = false;
   constructor(private paisService: PaisService, private router: Router) {
-    this.datosPostulante= JSON.parse(localStorage.getItem("postulante"));
-   
-   console.log(this.datosPersonales);
+    this.datosPostulante= JSON.parse(localStorage.getItem("postulante")); 
     this.nombres=this.datosPostulante.nombre;
     this.apellidoMaterno=this.datosPostulante.apellidoM;
     this.apellidoPaterno=this.datosPostulante.apellidoP;
     this.llenoCv=this.datosPostulante.llenoCv!=0;
-    //si deferente de cero lleno el doc
 
   }
   ngOnInit(): void {
@@ -53,23 +47,21 @@ export class DatosPersonalesComponent implements OnInit {
           nombre: 'Seleccione un País',
           codigo: ''
         })
-
-        console.log(this.paises);
       });
-    $('#subir').click(function () {  //referimos el elemento ( clase o identificador de acción )
+    $('#subir').click(function () {
       window.scrollTo(0, 0);
     });
   }
 
-  reset() {
+  reset():void {
     this.form2.resetForm();
   }
 
-  asignacion(form: NgForm) {
+  asignacion(form: NgForm):boolean {
     this.form2 = form;
     return true;
   }
-  asignacionDatos(form: NgForm) {
+  asignacionDatos(form: NgForm):boolean {
     this.form = form;
     return true;
   }
@@ -88,17 +80,16 @@ export class DatosPersonalesComponent implements OnInit {
 
   }
 
-  guardar() {
+  guardar():boolean {
     let bb = false;
     if(this.guardar2()){
       this.registrar(this.form);
-      // this.alertRegistrar();
       bb = true;
     }
     return bb;
   }
 
-  guardar2() {
+  guardar2():boolean {
     var bandera = false;
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(
@@ -111,10 +102,9 @@ export class DatosPersonalesComponent implements OnInit {
       bandera = true;
     }
     return bandera;
-
   }
 
-  guardarIdiomas(form: NgForm) {
+  guardarIdiomas(form: NgForm):void {
     if (form.invalid) {
       Object.values(form.controls).forEach(
         control => {
@@ -129,27 +119,25 @@ export class DatosPersonalesComponent implements OnInit {
     }
   }
 
-  enlistarIdiomas(form: NgForm) {
-    //listaIdiomas
+  enlistarIdiomas(form: NgForm):void {
     let idioma = form.controls['idioma'].value;
     let habla = form.controls['habla'].value;
     let lee = form.controls['lee'].value;
     let escribe = form.controls['escribe'].value;
     this.idioma = new Idioma(idioma, habla, lee, escribe);
     this.listaIdiomas.push(this.idioma);
-    console.log(this.listaIdiomas + "         ---------------------------------------")
   }
 
 
-  cambiarBanderaEgresado() {
+  cambiarBanderaEgresado():void {
     this.banderaEgresado = true;
   }
 
-  cambiarBanderaNoEgresado() {
+  cambiarBanderaNoEgresado():void {
     this.banderaEgresado = false;
   }
 
-  registrar(form: NgForm) {
+  registrar(form: NgForm):void {
     let apellidoP = this.apellidoPaterno;
     let apellidoM = this.apellidoMaterno;
     let nombre = this.nombres;
@@ -177,8 +165,6 @@ export class DatosPersonalesComponent implements OnInit {
     let semestre = form.controls['semestre'].value;
     this.datosPersonales = new DatosPersonales(apellidoP, apellidoM, nombre, fechaNac, lugarNac, ci, emision, paisN, genero, estadoCivil, direccion, numeroDireccion, telefono, correo, colegio, tipoColegio, fechaBachiller, carrera, semestre);
     this.datosPersonales.setIdiomas(this.listaIdiomas);
-    console.log(apellidoM,"semestreeeeeeee<<<<<<<<<<<<<<<<<<<------------------------")
-    //datos opcionales
     this.datosPersonales.setEgresado(this.banderaEgresado);
     if (this.banderaEgresado) {
       let fechaEgreso = $('#fechaEgreso').val();
@@ -191,43 +177,7 @@ export class DatosPersonalesComponent implements OnInit {
     }
   }
 
-
-  // alertRegistrar(): boolean {
-  //   var bandera = false;
-  //   swal.fire({
-  //     title: 'Guardar Datos',
-  //     text: "¿Está seguro de guardar datos?",
-  //     icon: 'question',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Confirmar',
-  //     cancelButtonText: 'Cancelar'
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       bandera = true;
-  //       swal.fire(
-  //         'Exitoso!',
-  //         'Se guardaron los usuarios.',
-  //         'success'
-  //       ).then((result) => {
-  //         this.router.navigate(['/convocatoriasEnCurso']);
-  //       });
-  //     } else {
-  //       swal.fire(
-  //         'Cancelado!',
-  //         'Los uuarios no fueron guardados.',
-  //         'warning'
-  //       );
-
-  //     }
-  //   });
-  //   return bandera;
-  // }
-
-
   getDatosPersonales(): DatosPersonales {
-    // this.guardar();
     return this.datosPersonales;
   }
 }

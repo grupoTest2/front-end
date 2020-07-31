@@ -38,9 +38,11 @@ export class UsuarioComision{
     public getAccion(): string{
         return this.accion;
     }
+    
     public setAccion(accion): void{
         this.accion=accion;
     }
+
     public existeTematica(idTematica):boolean{
         let res:boolean=false;
         for(let i=0;i<this.listaTematicas.length&&!res;i++){
@@ -48,6 +50,7 @@ export class UsuarioComision{
         }
         return res;
     }
+
     public getNombreTipoUsuario(listaTiposUsuario:TipoUsuario[]): string{
         let res:string="";
         for(let i=0;i<listaTiposUsuario.length;i++){
@@ -58,5 +61,4 @@ export class UsuarioComision{
         }
         return res;
     }
-
 }

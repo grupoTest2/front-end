@@ -23,31 +23,31 @@ export class Produccion {
     public getTituloDocumento(): string {
         return this.tituloDocumento;
     }
-    public setTituloDocumento(value: string) {
+    public setTituloDocumento(value: string):void {
         this.tituloDocumento = value;
     }
     public getTipoDifusion(): string {
         return this.tipoDifusion;
     }
-    public setTipoDifusion(value: string) {
+    public setTipoDifusion(value: string):void {
         this.tipoDifusion = value;
     }
     public getMdioPublicacion(): string {
         return this.medioPublicacion;
     }
-    public setMdioPublicacion(value: string) {
+    public setMdioPublicacion(value: string) :void{
         this.medioPublicacion = value;
     }
     public getInstitucionEntrega(): string {
         return this.institucionEntrega;
     }
-    public setInstitucionEntrega(value: string) {
+    public setInstitucionEntrega(value: string) :void{
         this.institucionEntrega = value;
     }
     public getFechaConclusion(): Date {
         return this.fechaCoclusion;
     }
-    public setFechaConclusion(value: Date) {
+    public setFechaConclusion(value: Date):void {
         this.fechaCoclusion = value;
     }
 }

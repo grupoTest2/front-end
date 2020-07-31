@@ -24,7 +24,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  guardar(form: NgForm) {
+  guardar(form: NgForm):void {
     this.form = form;
     if (form.invalid) {
       Object.values(form.controls).forEach(
@@ -38,7 +38,7 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
     }
   }
 
-  recuperarDatos(){
+  recuperarDatos(): void{
     this.convService.getConvocatoriasEncurso(1).subscribe(
       resultado=>{
         let conv: Convocatoria;
@@ -56,20 +56,16 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
             this.listaConvocatorias.push(conv);
         }
       }
-    )
-    //console.log("las convocatorias");
-    //console.log(this.listaConvocatorias);
-    
+    )    
   }
 
-  verificarCodigo(codigo:string){
+  verificarCodigo(codigo:string):void{
     let dato={
       idConv: parseInt(localStorage.getItem("idConv")),
       codigo: codigo
     }
     this.seviceCV.getPostulante(dato).subscribe(
       (resp:any)=>{
-        console.log();
         if(resp.idPostulante==0){
           tata.error('Error', 'Codigo incorrecto');
         }else{
@@ -78,16 +74,13 @@ export class ConvocatoriasEnCursoComponent implements OnInit {
         localStorage.setItem("postulante",JSON.stringify(resp));
         this.router.navigate(['/curriculumVitae']);
         }
-        
       }
     );
   }
-  setearLocalStore(id:number,titulo:string, gestion:number){
+  setearLocalStore(id:number,titulo:string, gestion:number):void{
     this.form.reset();
-
     localStorage.setItem("idConv",id.toString());
     localStorage.setItem('tituloConvocatoria', titulo);
     localStorage.setItem('gestionConvocatoria', gestion.toString());
   }
-
 }

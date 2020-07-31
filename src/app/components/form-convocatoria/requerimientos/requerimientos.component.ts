@@ -37,16 +37,9 @@ export class RequerimientosComponent implements OnInit {
   listaItems:Item[]=[];
   itemSeleccionado:Item;
   formRequerimientos: FormGroup;
-  //seleccionRequerimiento: SeleccionRequerimiento=new SeleccionRequerimiento([]);
   requerimiento: Requerimiento;
-
-  /*----- M para envio de datos ------------*/
   href: string = "";
-
-
-  //variable para enviar la lista de requerimientos
   @Output() listaRequerimientos = new EventEmitter();
-
   bandera = true;
   constructor(private formBuilder: FormBuilder,
     private apiPHP: PhpServeConvocatoria,
@@ -56,38 +49,23 @@ export class RequerimientosComponent implements OnInit {
     this.buildForm();
     this.getItems();
     this.getRequerimientosBD();
-
-    /*.then(() => {
-      if (!this.seleccionRequerimiento.hayMateriasDisponibles()) {
-        this.bandera = false;
-      }
-      else{
-        this.bandera=true;
-      }
-      console.log("despues de la promesa")
-    })
-      .catch(error => console.error(error));
-*/
   }
 
   ngOnInit(): void {
     this.href = this.router.url;
   }
-  seleccionoItem(){
+
+  seleccionoItem():void{
     var valor = $("#seleccionaMateria option:selected").val();
     if(valor != undefined){
       valor.toString();
-      console.log("recuperando "+valor);
       for(let i=0;i<this.listaItems.length;i++){
         if(this.listaItems[i].getNombreItem()==valor){
           this.itemSeleccionado=this.listaItems[i];
           break;
         }
       }
-    }else{
-      console.log("esta wea es undefined");
-    }
-    
+    }    
   }
 
   hayItemDisponible(): boolean{
@@ -104,10 +82,9 @@ export class RequerimientosComponent implements OnInit {
     else{
       this.bandera=true;
     }
-    console.log("despues de la promesa")
   }
 
-  ruta() {
+  ruta():boolean {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     } else {
@@ -142,7 +119,6 @@ export class RequerimientosComponent implements OnInit {
     })
   }
 
-  // notificaciones--------------------------------
   toastExitoso(): void {
     tata.success('Agregado.', 'El merito fue creado con exito.', {
       duration: 2000,
@@ -157,35 +133,18 @@ export class RequerimientosComponent implements OnInit {
     });
   }
 
-  // metodos para almacenar lo de la interfaz
   guardarRequerimientos(): void {
     let numeroItems = parseInt($('#itemRequerimiento').val());
     let horasM = parseInt($('#horasMesRequerimiento').val());
-    //let nombreMateria = $('#seleccionaMateria').val()
-    console.log("el item seleccionado");
-    console.log(this.itemSeleccionado);
     this.itemSeleccionado.setSeleccionado(true);
     this.requerimiento=new Requerimiento(horasM,numeroItems,this.itemSeleccionado);
     this.requerimiento.setAccion("insertar");
     this.listaRequerimientosX.push(this.requerimiento);
-    console.log("lista pro");
-    console.log(this.listaRequerimientosX);
     this.enviarLista();
     
   }
+  editar(i: number): void { }
 
-  // editar modal
-  editar(i: number): void {
-    /*this.formRequerimientos.get('items').setErrors(null);
-    this.formRequerimientos.get('horasMes').setErrors(null);
-    this.formRequerimientos.get('materia').setErrors(null);
-    $('#itemRequerimiento').val(this.requerimientosSeleccionados[i].getCantidadItem());
-    $('#horasMesRequerimiento').val(this.requerimientosSeleccionados[i].getHrsAcademicas());
-    $('#seleccionaMateria').val(this.requerimientosSeleccionados[i].getnombreMateria());*/
-  }
-
-
-  /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Requerimiento[] {
     return this.listaRequerimientosX;
   }
@@ -194,14 +153,12 @@ export class RequerimientosComponent implements OnInit {
     this.listaRequerimientos.emit(this.listaRequerimientosX);
   }
 
-  // validacion ------------------------------------------------------------------------
   private buildForm(): void {
     this.formRequerimientos = this.formBuilder.group({
       items: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       horasMes: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(/^\d*$/)])],
       materia: ['', [Validators.required]],
     });
-
     this.formRequerimientos.valueChanges
       .subscribe(value => {
       });
@@ -230,52 +187,48 @@ export class RequerimientosComponent implements OnInit {
     if (!this.hayItemDisponible()) {
       $('#btnAniadir').click(function () {
         $(this).removeAttr('data-target');
-       // $(this).attr('data-target', '#carousel');
-        //$(".active").attr('data-target', '');
     });
     }
     this.buildForm();
   }
 
-  get materiaForm() {
+  get materiaForm():any {
     return this.formRequerimientos.get('materia');
   }
 
-  get materiaFormIsValid() {
+  get materiaFormIsValid():boolean {
     return this.materiaForm.touched && this.materiaForm.valid;
   }
 
-  get materiaFormIsInvalid() {
+  get materiaFormIsInvalid():boolean {
     return this.materiaForm.touched && this.materiaForm.invalid;
   }
 
-  get horasMes() {
+  get horasMes():any {
     return this.formRequerimientos.get('horasMes');
   }
 
-  get horasMesIsValid() {
+  get horasMesIsValid():boolean {
     return this.horasMes.touched && this.horasMes.valid;
   }
 
-  get horasMesIsInvalid() {
+  get horasMesIsInvalid():boolean {
     return this.horasMes.touched && this.horasMes.invalid;
   }
 
-  get item() {
+  get item():any {
     return this.formRequerimientos.get('items');
   }
 
-  get itemIsValid() {
+  get itemIsValid():boolean {
     return this.item.touched && this.item.valid;
   }
 
-  get itemIsInvalid() {
+  get itemIsInvalid():boolean {
     return this.item.touched && this.item.invalid;
   }
 
-  /**
-   * verificar si es apto para que la convocatoria sea lanzada
-   */
+
   estaHabilitado():string{
     return this.listaRequerimientosX.length > 0?"bien":"establecer al menos un requerimiento!!";
   }
@@ -288,7 +241,7 @@ export class RequerimientosComponent implements OnInit {
       }
     }
   }
-  /*-------------interaccion con la base de datos---------------------*/
+
   getItems(): void {
     let idTipoConvocatoria: number = parseInt(localStorage.getItem("idTipo")); //usar 1 para docencia y 2 para labo
     this.apiPHP.getItems(idTipoConvocatoria).subscribe(
@@ -296,16 +249,12 @@ export class RequerimientosComponent implements OnInit {
         for (let i in result) {
           this.listaItems.push(new Item(result[i].idItem,result[i].codigoItem,result[i].nombreItem));
         }
-        
-        //this.seleccionRequerimiento = new SeleccionRequerimiento(listaItems);
-        //this.listaMateriasDisponibles = this.seleccionRequerimiento.getListaMateriasDisponibles();
-      }
+       }
     );
   }
 
-  getRequerimientosBD() {
+  getRequerimientosBD():void {
     if(localStorage.getItem("idConv")===""){
-      //console.log("esta vacio en los requerimientos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequerimientos(idConv).subscribe(
@@ -332,14 +281,8 @@ export class RequerimientosComponent implements OnInit {
                                             item,
                                             listaTem));
             }
-            //console.log("recuperado de la base de datos xxxxxxxxxxxxxx");
-            //console.log(this.listaRequerimientosX);
           }
-          
-        
       );
     }
     }
-  
-
 }

@@ -32,15 +32,14 @@ export class CalificacionConocimientosComponent implements OnInit {
   formCalificacion: FormGroup;
   href: string = '';
   listaItems: Requerimiento[] = [];
-
-  //
-  listaTiposEvaluacion: TipoEvaluacion[] = [];// ocupando de la bd
-  listaTematica: Tematica[] = []; //ocupando base de datos
+  listaTiposEvaluacion: TipoEvaluacion[] = [];
+  listaTematica: Tematica[] = [];
   banderaTematica = false;
   detalleTipoEvaluacion = ``;
   tematicaActual: Tematica;
   listaTiposEvaluacionSeleccionados: TipoEvaluacion[] = [];
   mensaje = ``;
+
   constructor(private router: Router, private formBuilder: FormBuilder, private editarConv: EditarConvocatoriaServicePhp,
     private crearConv: PhpServeConvocatoria) {
     this.buildForm();
@@ -60,8 +59,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  //metodo para seleccion de tematica
-  seleccionoTematica() {
+  seleccionoTematica():void {
     var valor = $("#nombreTematica option:selected").val();
     if (valor != undefined) {
       valor.toString();
@@ -80,7 +78,6 @@ export class CalificacionConocimientosComponent implements OnInit {
     return caracter;
   }
 
-  /*-------------- metodo para recuperar los datos de este componente*/
   getDatos(): Requerimiento[] {
     console.log(this.listaItems + "-------------------");
     return this.listaItems;
@@ -92,7 +89,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     this.listaItems = listaRequeriminetos;
   }
 
-  getDatosTipoEvaluacion(tematica: Tematica) {
+  getDatosTipoEvaluacion(tematica: Tematica):void {
     this.detalleTipoEvaluacion = ``;
     $("#mensaje").text('');
     let mensaje=``;
@@ -102,15 +99,13 @@ export class CalificacionConocimientosComponent implements OnInit {
          mensaje=`${tematica.getTiposEvaluacion()[index].getNombre()} = ${tematica.getTiposEvaluacion()[index].getPorcentaje()} <br>`;
          $("#mensaje").append('<br>'+mensaje);            
     }
-   // $('#mensaje').text(' me la pelas \n si si tu <br/> si cujudu tu');
-
   }
 
-  getId(id: string) {
+  getId(id: string):string {
     return id.replace(/ /g, "");
   }
 
-  agregarTematicaItem() {
+  agregarTematicaItem():void {
     let res1 = this.validaNotasItems();
     let res2 = this.validaNotasTiposEvaluacion();
     if (res1 && res2) {
@@ -127,15 +122,11 @@ export class CalificacionConocimientosComponent implements OnInit {
               this.tematicaActual.getTiposEvaluacion());
               tem.setAccion("insertar");
             this.listaItems[index].agregarTematica(tem);
-            console.log(id + "   los ids de los items con notas")
           }
         }
       }
       this.tematicaActual.setSeleccionado(true);
-      console.log(this.tematicaActual);
       this.quitarSeleccionTiposEvaluacion();
-      console.log("prueba prooooooooooooooo xdxd");
-      console.log(this.listaItems);
       this.listaTiposEvaluacionSeleccionados = [];
       $('#modalConocimientoAux').modal('hide');
     }
@@ -144,8 +135,7 @@ export class CalificacionConocimientosComponent implements OnInit {
     }
   }
 
-  seleccionarTematica(idTem:number,tiposEvaluacion:TipoEvaluacion[]){
-    console.log("estamos en el metodo pro");
+  seleccionarTematica(idTem:number,tiposEvaluacion:TipoEvaluacion[]):void{
     for(let i in this.listaTematica){
       if(this.listaTematica[i].getIdTematica()==idTem){
         this.listaTematica[i].setSeleccionado(true);
@@ -154,6 +144,7 @@ export class CalificacionConocimientosComponent implements OnInit {
       }
     }
   }
+
   hayTematicas():boolean{
     let bandera = false;
     for (let index = 0; index < this.listaTematica.length&&!bandera; index++) {
@@ -174,24 +165,23 @@ export class CalificacionConocimientosComponent implements OnInit {
     return id;
   }
 
-  mensajeErrorDePorcentajesIngresados(mensaje: string) {
+  mensajeErrorDePorcentajesIngresados(mensaje: string):void {
     tata.error('Error', mensaje);
     this.mensaje = ``;
   }
 
 
-  quitarSeleccionTiposEvaluacion() {
+  quitarSeleccionTiposEvaluacion():void {
     for (let index = 0; index < this.listaTiposEvaluacion.length; index++) {
       this.listaTiposEvaluacion[index].setSeleccionado(false);
     }
   }
-
-  ErrorAlInsertarDocumento(mensaje: string = 'Formulario invalido') {
+  ErrorAlInsertarDocumento(mensaje: string = 'Formulario invalido'):void {
     this.formCalificacion.markAllAsTouched();
     tata.error('Error', mensaje);
   }
 
-  seleccionado(index: number) {
+  seleccionado(index: number):void {
     if (this.listaTiposEvaluacion[index].getSeleccionado()) {
       this.listaTiposEvaluacion[index].setSeleccionado(false)
     }
@@ -212,13 +202,10 @@ export class CalificacionConocimientosComponent implements OnInit {
       if (!this.listaTematica[index].getSeleccionado()) {
         bandera2 = true;
       }
-
     }
-
     return bandera && bandera2;
   }
 
-  // validaciones -------------------------------------------------------------------------------
   private buildForm(): void {
     this.formCalificacion = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(/[a-zA-Z]/)])],
@@ -237,7 +224,6 @@ export class CalificacionConocimientosComponent implements OnInit {
 
   resetForm(): void {
     this.banderaTematica = false;
-    // this.listaTiposDatos = [];
     $("#nombreTematica").val("porDefecto");
     $('input').removeClass('is-invalid');
     this.buildForm();
@@ -251,10 +237,8 @@ export class CalificacionConocimientosComponent implements OnInit {
       if (this.listaTiposEvaluacion[index].getSeleccionado()) {
         let id: any = this.getId(this.listaTiposEvaluacion[index].getNombre());
         let value = (<HTMLInputElement>document.getElementById(id)).value;
-        console.log(value + "+++++++++++++++++");
         if (value != "") {
           let tipoEvaluacionTemp = new TipoEvaluacion(this.listaTiposEvaluacion[index].getId(), this.listaTiposEvaluacion[index].getNombre());
-          console.log("tipo de evaluacion! " + id + "del tipo de evaluacion");
           let nota = parseInt(value);
           tipoEvaluacionTemp.setPorcentaje(nota);
           this.listaTiposEvaluacionSeleccionados.push(tipoEvaluacionTemp)
@@ -262,7 +246,6 @@ export class CalificacionConocimientosComponent implements OnInit {
         }
       }
     }
-    console.log(sumatoria);
     if (sumatoria > 100) {
       this.mensaje += `La nota de los tipos de evaluacion exede el 100% <br>`;
     }
@@ -282,11 +265,9 @@ export class CalificacionConocimientosComponent implements OnInit {
       let id: any = this.listaItems[index].getIdItem();
       if (this.listaItems[index].getNotaDisponible() > 0) {
         let value = (<HTMLInputElement>document.getElementById(id)).value;
-        console.log("tipo de evaluacion! " + value + "del item");
         if (value != "") {
           cont += 1;
           if (parseInt(value) <= this.listaItems[index].getNotaDisponible()) {
-
           }
           else {
             this.mensaje += `la nota del item ${this.listaItems[index].getNombreItem()} exede su nota disponible <br>`;
@@ -303,32 +284,23 @@ export class CalificacionConocimientosComponent implements OnInit {
     return bandera;
   }
 
-  formValido(): void {
-    // if (this.formCalificacion.valid) {
-    //this.validarNota();
-    //} else {
-    //this.formCalificacion.markAllAsTouched();
-    //tata.error('Error', 'Formulario invalido');
-    //}
-  }
-
-  get detalle() {
+  get detalle():any {
     return this.formCalificacion.get('detalle');
   }
-  get detalleIsValid() {
+  get detalleIsValid():boolean {
     return this.detalle.touched && this.detalle.valid;
   }
   get detalleIsInvalid() {
     return this.detalle.touched && this.detalle.invalid;
   }
 
-  get nota() {
+  get nota():any {
     return this.formCalificacion.get('nota');
   }
-  get notaIsValid() {
+  get notaIsValid():boolean {
     return this.nota.touched && this.nota.valid;
   }
-  get notaIsInvalid() {
+  get notaIsInvalid():boolean {
     return this.nota.touched && this.nota.invalid;
   }
 
@@ -347,12 +319,8 @@ export class CalificacionConocimientosComponent implements OnInit {
     return res;
   }
 
-  /**
-   * metodos que interactuan con la base de datos
-   */
-  getRequerimientosBD() {
+  getRequerimientosBD():void {
       if(localStorage.getItem("idConv")===""){
-        //console.log("esta vacio en los requerimientos");
       }else{
         let idConv: number = parseInt(localStorage.getItem("idConv"));
         this.editarConv.getRequerimientos(idConv).subscribe(
@@ -360,7 +328,6 @@ export class CalificacionConocimientosComponent implements OnInit {
             let item:Item;
               for(let i in resultado){
                 item=new Item(resultado[i].item['idItem'],resultado[i].item['codigoItem'],resultado[i].item['nombreItem'],true);
-                //this.seleccionarItem(resultado[i].item['idItem']);
                 let listaTem:Tematica[]=[];
                 let tem:Tematica;
                 let listaTemAux=resultado[i].listaTematicas;
@@ -381,42 +348,32 @@ export class CalificacionConocimientosComponent implements OnInit {
                                               item,
                                               listaTem));
               }
-              //console.log("recuperado de la base de datos yyyyyyyyyyy");
-              //console.log(this.listaItems);
-              //console.log(this.listaTematica);
             }
             
           
         );
       }
-      
-    
   }
 
-  getTematicasBD() {
+  getTematicasBD():void {
     let idTipoConv = parseInt(localStorage.getItem("idTipo"));
     this.crearConv.getTematicas(idTipoConv).subscribe(
       resultado => {
         for (let i in resultado) {
           this.listaTematica.push(new Tematica(resultado[i].idTematica, resultado[i].nombre));
         }
-        //console.log("las tematicas desde la base de datos son");
-        //console.log(this.listaTematica);
       }
     );
   }
 
-  getTiposEvaluacionBD() {
+  getTiposEvaluacionBD():void {
     let idDep = 1;
     this.crearConv.getTiposEvaluacion(idDep).subscribe(
       resultado => {
         for (let i in resultado) {
           this.listaTiposEvaluacion.push(new TipoEvaluacion(resultado[i].idTipoEvaluacion, resultado[i].nombre));
         }
-        //console.log("los tipos de evaluacion de la base de datos");
-        //console.log(this.listaTiposEvaluacion);
       }
     );
-
   }
 }

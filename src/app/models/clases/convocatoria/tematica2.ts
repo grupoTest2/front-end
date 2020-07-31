@@ -52,7 +52,7 @@ export class Tematica{
         this.accion=accion;
     }
 
-    public agregarTipoEvaluacion(tipoEv:TipoEvaluacion){
+    public agregarTipoEvaluacion(tipoEv:TipoEvaluacion):void{
         this.tiposEvaluacion.push(tipoEv);
     }
 

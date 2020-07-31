@@ -31,7 +31,7 @@ export class Requisito {
         return this.accion;
     }
 
-    public setAccion(accion){
+    public setAccion(accion):void{
         this.accion=accion;
     }
     public getSeleccionado(){

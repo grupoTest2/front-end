@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
 import { ExperienciaExtraUniversitaria } from '../../../models/curriculum-vitae/datos-experiencia-extra-universitaria';
 
 
 declare var tata: any;
 declare var $: any;
+
 @Component({
   selector: 'app-experiencia-extra-universitaria',
   templateUrl: './experiencia-extra-universitaria.component.html',
   styleUrls: ['./experiencia-extra-universitaria.component.css']
 })
+
 export class ExperienciaExtraUniversitariaComponent implements OnInit {
 
   form: NgForm = new NgForm([], []);
-
   listaExperienciaExtraUniversitaria: ExperienciaExtraUniversitaria[] = [];
   datoExperienciaEU: ExperienciaExtraUniversitaria;
   constructor() { }
@@ -22,16 +22,16 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  reset() {
+  reset():void {
     this.form.resetForm();
   }
 
-  asignacion(form: NgForm) {
+  asignacion(form: NgForm):boolean {
     this.form = form;
     return true;
   }
 
-  guardar(form: NgForm) {
+  guardar(form: NgForm):void {
     this.form = form;
     if (form.invalid) {
       Object.values(form.controls).forEach(
@@ -41,13 +41,13 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
       );
       tata.error('Error', 'Llene todos los campos por favor');
     } else {
-
       $('#modalExperienciaExtraUniversitaria').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarDatosExperienciaEU(form);
     }
   }
-  enlistarDatosExperienciaEU(form: NgForm) {
+
+  enlistarDatosExperienciaEU(form: NgForm):void {
     let nombreInstitucion = form.controls['nombreInstitucion'].value;
     let nombreCargo = form.controls['nombreCargo'].value;
     let lugar = form.controls['lugar'].value;
@@ -60,13 +60,11 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
     const fechaC = fechaConclusion.toLocaleString().split(' ')[0];
     let auxx = fechaC.split('/', 3);
     fechaConclusion = auxx[2] + '-' + auxx[1] + '-' + auxx[0];
-
     this.datoExperienciaEU = new ExperienciaExtraUniversitaria(nombreInstitucion, nombreCargo, lugar,duracion, fechaInicio, fechaConclusion);
     this.listaExperienciaExtraUniversitaria.push(this.datoExperienciaEU);
-
   }
 
-  eliminarInformacion(dato: ExperienciaExtraUniversitaria) {
+  eliminarInformacion(dato: ExperienciaExtraUniversitaria):void {
     let listaAux: ExperienciaExtraUniversitaria[] = [];
     for (let i = 0; i < this.listaExperienciaExtraUniversitaria.length; i++) {
       if (!(this.listaExperienciaExtraUniversitaria[i].getNombreInstitucionEmpresa() == dato.getNombreInstitucionEmpresa() &&

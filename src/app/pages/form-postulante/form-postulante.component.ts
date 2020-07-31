@@ -24,11 +24,10 @@ declare var swal: any;
 })
 export class FormPostulanteComponent implements OnInit {
 
-  //listaDatosPostulante: DatosPostulante[] = [];
   listaItems: Item[] = [];
-  postulante: Postulante; 
-  listaCodigosRotulo:string[]=[];
-  listaDatosRotulo: DatoRotulo[] = []// [new DatoRotulo(true, true, new TipoDatoRotulo("ss", "ss", 2))];
+  postulante: Postulante;
+  listaCodigosRotulo: string[] = [];
+  listaDatosRotulo: DatoRotulo[] = [];
   bandera = true;
   banderaMostrar = false;
 
@@ -45,49 +44,44 @@ export class FormPostulanteComponent implements OnInit {
   habilitarBotonRotulo: boolean = false;
 
   banderaDatosCargados = true;
-  lista:string[]=["1","2","3"];
-  listaTipos:string[]=["commision1","comision2"];
+  lista: string[] = ["1", "2", "3"];
+  listaTipos: string[] = ["commision1", "comision2"];
 
-  titulo="";
+  titulo = "";
   constructor(private servicePostulante: PostulanteServicePhp, private router: Router) {
     this.enviarDatos();
   }
 
   ngOnInit(): void {
-    this.titulo=localStorage.tituloConvocatoria;
+    this.titulo = localStorage.tituloConvocatoria;
     $('.switch').click(function () {
       $(this).toggleClass("switchOn");
     });
     this.getItemsBD();
     this.getDatosRotuloConvBD();
-    //this.addListeners();
   }
 
- cargarLista(nombreLista){
-     nombreLista=this.lista;
-     console.log(nombreLista+"--------------------");
- }
+  cargarLista(nombreLista): void {
+    nombreLista = this.lista;
+  }
 
- enviarDatos(){
-   for (let index = 0; index < this.listaTipos.length; index++) {
-       this.cargarLista(this.listaTipos[index]);     
-   }
- }
+  enviarDatos():void {
+    for (let index = 0; index < this.listaTipos.length; index++) {
+      this.cargarLista(this.listaTipos[index]);
+    }
+  }
 
-  //////refactorizando
-  addListeners() {
+  addListeners() :void{
     if (this.banderaDatosCargados) {
       for (let index = 0; index < this.listaDatosRotulo.length; index++) {
         let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
         let inputTipe = this.listaDatosRotulo[index].getTipoDato().getTipoDeDato();
         let tipoDatoRotulo = this.listaDatosRotulo[index].getTipoDato();
         if (inputTipe == 'number') {
-          console.log("presiono un number" + id);
           this.cargarListenersTipoNumber(id, this.listaDatosRotulo[index].getTipoDato());
         } else {
           if (inputTipe == 'text') {
             this.cargarListenersTipoText(id, this.listaDatosRotulo[index].getTipoDato());
-            console.log("presiono un text" + id)
           } else {
             if (inputTipe == 'email') {
               this.cargarListenersTipoEmail(id, this.listaDatosRotulo[index].getTipoDato());
@@ -98,8 +92,8 @@ export class FormPostulanteComponent implements OnInit {
     }
     this.banderaDatosCargados = false;
   }
-  //  validacion de datos de tipo number
-  cargarListenersTipoNumber(id: string, tipoDatoRotul: TipoDatoRotulo) {
+
+  cargarListenersTipoNumber(id: string, tipoDatoRotul: TipoDatoRotulo):void {
     let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
     let form = document.getElementById(id);
     form.addEventListener("blur", function (event) {
@@ -125,12 +119,9 @@ export class FormPostulanteComponent implements OnInit {
         }
       }
     }, true);
-
-    //validando el tecleo del datos
     let contador = 0;
     $("#" + id).keydown(function (e) {
       let value = (<HTMLInputElement>document.getElementById(id)).value;
-      console.log("oresiono un btn")
       if (e.which == 8) {
         if (contador > 0) {
           contador -= 1;
@@ -147,7 +138,6 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "11").css('display', 'none');
             $("#" + id + "12").css('display', 'block');
           }
-          console.log("el contador esta en:" + contador + " tl tamano minimo es:" + tipoDatoRotulo.getTamanioMinimo() + " y el tamano del value es: " + (value.length));
         }
       }
       else {
@@ -170,13 +160,12 @@ export class FormPostulanteComponent implements OnInit {
     });
   }
 
-  cargarListenersTipoText(id: string, tipoDatoRotul: TipoDatoRotulo) {
+  cargarListenersTipoText(id: string, tipoDatoRotul: TipoDatoRotulo) :void{
     let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
     let form = document.getElementById(id);
     form.addEventListener("blur", function (event) {
       let value = (<HTMLInputElement>document.getElementById(id)).value;
       if (value.length == 0) {
-        console.log("ingreso a tamano d value 0");
         $("#" + id).removeClass("is-valid");
         $("#" + id).addClass("is-invalid");
         $("#" + id + "21").css('display', 'block');
@@ -198,8 +187,6 @@ export class FormPostulanteComponent implements OnInit {
         }
       }
     }, true);
-
-    //validando el tecleo del datos
     let contador = 0;
     $("#" + id).keydown(function (e) {
       let value = (<HTMLInputElement>document.getElementById(id)).value;
@@ -207,7 +194,6 @@ export class FormPostulanteComponent implements OnInit {
         if (contador > 0) {
           contador -= 1;
         }
-        console.log(contador + "el contador")
         if (contador == 0) {
           $("#" + id).removeClass("is-valid");
           $("#" + id).addClass("is-invalid");
@@ -242,7 +228,7 @@ export class FormPostulanteComponent implements OnInit {
     });
   }
 
-  cargarListenersTipoEmail(id: string, tipoDatoRotul: TipoDatoRotulo) {
+  cargarListenersTipoEmail(id: string, tipoDatoRotul: TipoDatoRotulo):void {
     let tipoDatoRotulo: TipoDatoRotulo = tipoDatoRotul;
     let form = document.getElementById(id);
     form.addEventListener("blur", function (event) {
@@ -283,16 +269,12 @@ export class FormPostulanteComponent implements OnInit {
         }
       }
     }, true);
-
-    //-------------------------------------------
-    //validando el tecleo del datos
     let contador1 = 0;
     $("#" + id).keydown(function (e) {
       var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
       let value = (<HTMLInputElement>document.getElementById(id)).value;
-      let min=tipoDatoRotulo.getTamanioMinimo();
+      let min = tipoDatoRotulo.getTamanioMinimo();
       if (e.which == 8) {
-        console.log("min--"+min+"--"+contador1)
         if (contador1 > 0) {
           contador1 -= 1;
         }
@@ -325,8 +307,7 @@ export class FormPostulanteComponent implements OnInit {
             $("#" + id + "31").css('display', 'none');
             $("#" + id + "32").css('display', 'none');
             $("#" + id + "33").css('display', 'none');
-            contador1=$("#" + id).val().length;
-            console.log("==========="+contador1)
+            contador1 = $("#" + id).val().length;
           }
         }
       }
@@ -334,12 +315,11 @@ export class FormPostulanteComponent implements OnInit {
   }
 
 
-  getId(dato: TipoDatoRotulo) {
-    console.log(dato.getNombre());
+  getId(dato: TipoDatoRotulo):string {
     return dato.getNombre();
   }
 
-  seleccionItem(index: number) {
+  seleccionItem(index: number) :void{
     if (this.listaItems[index].getSeleccionado()) {
       this.listaItems[index].setSeleccionado(false);
     }
@@ -348,42 +328,33 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  cambio() {
+  cambio() :void{
     this.presionandoSwitch(false)
   }
 
-  presionandoSwitch(bandera) {
+  presionandoSwitch(bandera) :void{
     if (bandera) {
-      console.log("presiono el switch ---------------------------")
       $('.switch').click();
     }
   }
 
-  datosValidos() {
+  datosValidos() :void{
     let banderaItems = false;
-    //rrecorremos la lista de items a los que se puede postular
     for (let index = 0; index < this.listaItems.length; index++) {
       if (this.listaItems[index].getSeleccionado()) {
         banderaItems = true;
       }
     }
-
     let banderaDatosRotulo = true;
-    //recorremos la lista de los datos rotulo para ver si sus campos son validos
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
       if ($("#" + id).hasClass("is-invalid") || $("#" + id).val() == "") {
-        console.log(this.listaDatosRotulo[index].getTipoDato().getNombre() + " notiene un dato")
         banderaDatosRotulo = false;
       }
     }
-
     if (banderaDatosRotulo == false) {
       this.remarcarInputsInvalidos();
     }
-    console.log(banderaItems + "items")
-    console.log(banderaDatosRotulo + "datosR")
-
     if (banderaDatosRotulo == false && banderaItems == false) {
       this.mensajeToastError(`Seleccione un item por favor <br> Debe llenar todos los campos`);
     } else {
@@ -401,8 +372,7 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  //marcar los datos que estan  vacios
-  remarcarInputsInvalidos() {
+  remarcarInputsInvalidos():void {
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       let id = this.listaDatosRotulo[index].getTipoDato().getNombre();
       let inputTipe = $("#" + id).attr('type');
@@ -427,29 +397,23 @@ export class FormPostulanteComponent implements OnInit {
     }
   }
 
-  generarRotulo(){
-    if(this.listaCodigosRotulo.length>0){
-      if(this.listaCodigosRotulo.length==1){
-        //rotulo por convocatoria
+  generarRotulo():void {
+    if (this.listaCodigosRotulo.length > 0) {
+      if (this.listaCodigosRotulo.length == 1) {
         this.pdfPorConvocatoria();
-      }else{
-        //rotulo por item
+      } else {
         this.pdfPorItem();
       }
-    }else{
-      console.log("no hay nada que crear")
     }
   }
-  guardarDatos() {
-    console.log("ingreso para guardar !!!!!!!!!!!!!!!!");
-    console.log("todo valido !!!!!!!!!!!!!!!!");
+  guardarDatos() :void{
     let valor;
     let datosPostulante: DatosPostulante[] = [];
     let dato: TipoDatoRotulo;
     let codigoSis: number = 0;
-    let nombre: string="";
-    let apellidoP: string="";
-    let apellidoM: string="";
+    let nombre: string = "";
+    let apellidoP: string = "";
+    let apellidoM: string = "";
     for (let index = 0; index < this.listaDatosRotulo.length; index++) {
       dato = this.listaDatosRotulo[index].getTipoDato();
       let id = dato.getNombre();
@@ -458,14 +422,14 @@ export class FormPostulanteComponent implements OnInit {
         valor = parseInt(valor);
       }
       if (dato.getNombre() == 'apellido_paterno') {
-        apellidoP=valor;
-      }else if(dato.getNombre() == 'codigo_sis'){
+        apellidoP = valor;
+      } else if (dato.getNombre() == 'codigo_sis') {
         codigoSis = valor;
-      }else if(dato.getNombre() == 'apellido_materno'){
-        apellidoM=valor;
-      }else if(dato.getNombre() == 'nombre'){
-        nombre=valor;
-      }else{
+      } else if (dato.getNombre() == 'apellido_materno') {
+        apellidoM = valor;
+      } else if (dato.getNombre() == 'nombre') {
+        nombre = valor;
+      } else {
         datosPostulante.push(new DatosPostulante(this.listaDatosRotulo[index].getIdDato(), id, valor));
       }
     }
@@ -480,11 +444,7 @@ export class FormPostulanteComponent implements OnInit {
     this.postulante.setNombre(nombre);
     this.postulante.setApellidoP(apellidoP);
     this.postulante.setApellidoM(apellidoM);
-    console.log(JSON.stringify(this.postulante));
-    this.registrarPostulanteBD(); // no registra --------------------------------------------------------------------------
-    
-   
-
+    this.registrarPostulanteBD(); 
   }
 
 
@@ -492,11 +452,11 @@ export class FormPostulanteComponent implements OnInit {
     tata.error("Error", mensaje);
 
   }
-  mensajeToastErrorBD(mensaje) {
+  mensajeToastErrorBD(mensaje) :void{
     tata.error("Error", mensaje);
 
   }
-  mensajeToastExito(mensaje) {
+  mensajeToastExito(mensaje) :void{
     tata.success("Registro Exitoso", mensaje);
   }
 
@@ -518,7 +478,7 @@ export class FormPostulanteComponent implements OnInit {
           'Se generó su rotulo con exito.',
           'success'
         ).then((result) => {
-        this.router.navigate(['/convocatoriasEnCurso']);
+          this.router.navigate(['/convocatoriasEnCurso']);
         });
       } else {
         swal.fire(
@@ -526,16 +486,11 @@ export class FormPostulanteComponent implements OnInit {
           'Sus datos no fueron guardados.',
           'warning'
         );
-
       }
     });
   }
 
-
-  /**
-   * metodos que interactuan con la base de datos
-   */
-  getItemsBD() {
+  getItemsBD() :void{
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.servicePostulante.getItems(idConv).subscribe(
       (resultado: Item) => {
@@ -550,7 +505,7 @@ export class FormPostulanteComponent implements OnInit {
 
 
 
-  getDatosRotuloConvBD() {
+  getDatosRotuloConvBD() :void{
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     let letListaAux: DatoRotulo[] = [];
     this.servicePostulante.getDatosPostulante(idConv).subscribe(
@@ -562,53 +517,38 @@ export class FormPostulanteComponent implements OnInit {
           let tipoAux = objAux.tipoDatoRotulo;
           tipoDato = new TipoDatoRotulo(tipoAux.nombre, tipoAux.tipoDato, tipoAux.minimo);
           datoRotulo = new DatoRotulo(objAux.idTipo, tipoDato);
-          /*if (!this.banderaMostrar) {
-            this.listaDatosRotulo.push(new DatoRotulo(0, new TipoDatoRotulo("codigo_sis", "number", 5)));
-          }*/
           this.listaDatosRotulo.push(datoRotulo);
-
-          this.banderaMostrar = true
-          /*setInterval(() => {
-            this.banderaMostrar=true;
-            }, 2000);*/
+          this.banderaMostrar = true;
         }
       }
     )
-
-    console.log("la lista de datos rotulo desde la base de datos");
-    console.log(this.listaDatosRotulo);
   }
 
 
-  registrarPostulanteBD() {
-      this.servicePostulante.agregarPostulante(this.postulante).subscribe(
-        resultado=>{
-          if(resultado['resultado']=='correcto'){
-            //this.mensajeToastExito("datos registrados correctamente");
-            let codigos=resultado['rotulos'];
-            this.mensajeToastExito('Registro exítoso');
-            this.habilitarBotonRotulo = true;
-            console.log(codigos);
-            for(let i in codigos){
-              this.listaCodigosRotulo.push(codigos[i]);
-            }
-            this.generarRotulo();
-          }else{
-            console.log("error al registrar el postulante");
-            //this.mensajeToastErrorBD("error al registrar el postulante");
+  registrarPostulanteBD() :void{
+    this.servicePostulante.agregarPostulante(this.postulante).subscribe(
+      resultado => {
+        if (resultado['resultado'] == 'correcto') {
+          let codigos = resultado['rotulos'];
+          this.mensajeToastExito('Registro exítoso');
+          this.habilitarBotonRotulo = true;
+          for (let i in codigos) {
+            this.listaCodigosRotulo.push(codigos[i]);
           }
-        },
-        error => {
-          this.mensajeToastError('El postulante con este codigo sis ya esta registrado');
-          $("#codigo_sis").removeClass("is-valid");
-          $("#codigo_sis").addClass("is-invalid");
-          $("#codigo_sis13").css('display', 'block');
+          this.generarRotulo();
         }
-      )
+      },
+      error => {
+        this.mensajeToastError('El postulante con este codigo sis ya esta registrado');
+        $("#codigo_sis").removeClass("is-valid");
+        $("#codigo_sis").addClass("is-invalid");
+        $("#codigo_sis13").css('display', 'block');
+      }
+    )
   }
-  
 
-  pdfPorConvocatoria() {
+
+  pdfPorConvocatoria() :void{
     var pdf = new PdfMakeWrapper();
 
     pdf.pageMargins([50, 60]);
@@ -620,7 +560,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
     //la cabecera
-    pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() +'\n==========\n GESTION '+localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
+    pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() + '\n==========\n GESTION ' + localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
     pdf.add(
       pdf.ln(1)
     );
@@ -684,7 +624,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.create().download('rotulo');
   }
 
-  pdfPorItem() {
+  pdfPorItem() :void{
     var pdf = new PdfMakeWrapper();
     var aux = 1;
     for (let index = 0; index < this.postulante.getListaItems().length; index++) {
@@ -697,7 +637,7 @@ export class FormPostulanteComponent implements OnInit {
       pdf.watermark({ text: 'Universidad Mayor de San Simón', color: '#f2f2f2', opacity: 0.3, bold: true });
 
       //la cabecera
-      pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() +'\n==========\n GESTION '+localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
+      pdf.add(new Txt(localStorage.getItem('tituloConvocatoria').toUpperCase() + '\n==========\n GESTION ' + localStorage.getItem('gestionConvocatoria')).alignment('center').fontSize(18).bold().end);
       pdf.add(
         pdf.ln(1)
       );
@@ -763,7 +703,7 @@ export class FormPostulanteComponent implements OnInit {
     pdf.create().download('rotulo');
   }
 
-  capitalize(word) {
+  capitalize(word) :any{
     return word[0].toUpperCase() + word.slice(1);
   }
 

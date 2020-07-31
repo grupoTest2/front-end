@@ -22,35 +22,18 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.cargarDatosP();
   }
 
-  cargarDatosP() {
-    let convocatoria = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    let convocatoria1 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    let convocatoria2 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    let convocatoria3 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    let convocatoria4 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    let convocatoria5 = new Convocatoria(1, "convocatoria prueba", "Gestion 2020");
-    this.listaConv.push(convocatoria);
-    this.listaConv.push(convocatoria1);
-    this.listaConv.push(convocatoria2);
-    this.listaConv.push(convocatoria3);
-    this.listaConv.push(convocatoria4);
-    this.listaConv.push(convocatoria5);
-  }
-
-  listarPostulantes(conv: Convocatoria) {
+  listarPostulantes(conv: Convocatoria):void {
     this.listarPos.emit(conv);
   }
 
-  setUsuario(usuario: Usuario) {
+  setUsuario(usuario: Usuario):void {
     console.log("convocatorias")
     this.usuario = usuario;
   }
-  //interaccion con la base de datos
 
-  cargarConvocatoriasUsuarioBD(){
+  cargarConvocatoriasUsuarioBD():void{
     this.listaConv = [];
     this.habilitacion.getConvocatoriasDisponibles(this.usuario.getIdUsuario()).subscribe(
       resp=>{
@@ -58,7 +41,6 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
           let convocatoria=new Convocatoria(0,resp[i].titulo,resp[i].gestion);
           convocatoria.setIdConv(resp[i].idConv);
           this.listaConv.push(convocatoria);
-
         }
       }
     )

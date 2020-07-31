@@ -12,7 +12,6 @@ import { Requisito } from 'src/app/models/clases/convocatoria/requisito';
 })
 export class PostulantesAsignadasComponent implements OnInit {
 
-
   listaPostulantes: PostulanteEvaluado[] = [];
   @Output() datosPostulante = new EventEmitter();
   @Output() requisitosEvaluadosPost = new EventEmitter();
@@ -23,37 +22,14 @@ export class PostulantesAsignadasComponent implements OnInit {
   constructor(private habilitacion:HabilitacionService) {
 
   }
-
   ngOnInit(): void {
   }
 
-  listarTodo() {
+  listarTodo():void {
     this.filtroCodigo = '';
   }
-  /*cargarDatosPrueba() {
-    let postlulante1 = new PostulanteEvaluado(1, 2021333, "pepe", "predes", "gomes", "inhabilitado", new Usuario(0, "", "", "", ""));
-    let postlulante2 = new PostulanteEvaluado(1, 42021, "pepemmm", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante3 = new PostulanteEvaluado(1, 52021, "pepeuuu", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
-    let postlulante4 = new PostulanteEvaluado(1, 62021, "pepajj", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
-    let postlulante5 = new PostulanteEvaluado(1, 7202144, "pepew", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante6 = new PostulanteEvaluado(1, 82021, "pepee", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante7 = new PostulanteEvaluado(1, 2021, "pepedd", "predes", "gomes", "habilitado", new Usuario(0, "", "", "", ""));
-    let postlulante8 = new PostulanteEvaluado(1, 920216, "pepeww", "predes", "gomes", "sin evaluar", new Usuario(0, "", "", "", ""));
-    let postlulante9 = new PostulanteEvaluado(1, 2021, "pepeuuu", "predes", "gomes", "inhabilitado", new Usuario(0, "", "", "", ""));
 
-
-    this.listaPostulantes.push(postlulante1);
-    this.listaPostulantes.push(postlulante2);
-    this.listaPostulantes.push(postlulante3);
-    this.listaPostulantes.push(postlulante4);
-    this.listaPostulantes.push(postlulante5);
-    this.listaPostulantes.push(postlulante6);
-    this.listaPostulantes.push(postlulante7);
-    this.listaPostulantes.push(postlulante8);
-    this.listaPostulantes.push(postlulante9);
-
-  }*/
-  evaluador(postulante:PostulanteEvaluado){
+  evaluador(postulante:PostulanteEvaluado):boolean{
     let res=false;
     if(postulante.getEstado()=="habilitado"||postulante.getEstado()=="inhabilitado"){
        res=true;
@@ -61,29 +37,26 @@ export class PostulantesAsignadasComponent implements OnInit {
     return res;
   }
 
-  listarPostulantes(conv: Convocatoria) {
+  listarPostulantes(conv: Convocatoria):void {
     this.titulo = conv.getTitulo();
     this.gestion = conv.getGestion();
-    console.log("estamos en postulantes");
-    //this.cargarDatosPrueba();
     this.listaPostulantes=[];
     this.getPostulantesConvBD(conv.getIdConv());
   }
 
-  registrarRequisitos(postulante: PostulanteEvaluado) {
-    console.log("primero")
+  registrarRequisitos(postulante: PostulanteEvaluado):void {
     this.datosPostulante.emit(postulante);
   }
-  revisarRequisitos(postulante: PostulanteEvaluado) {
+
+  revisarRequisitos(postulante: PostulanteEvaluado):void {
     this.requisitosEvaluadosPost.emit(postulante);
   }
-  setUsuario(usuario: Usuario) {
-    console.log("postulantes")
+
+  setUsuario(usuario: Usuario):void {
     this.usuario = usuario;
   }
 
-  //interaccion con la base de datos
-  getPostulantesConvBD(idConv:number){
+  getPostulantesConvBD(idConv:number):void{
     this.habilitacion.getPostulantesConv(idConv).subscribe(
       resp=>{
         for(let i in resp){
@@ -110,8 +83,6 @@ export class PostulantesAsignadasComponent implements OnInit {
           this.listaPostulantes.push(postulante);
           
         }
-        console.log("los postulantes de la base de datos");
-        console.log(this.listaPostulantes);
       }
     );
   }

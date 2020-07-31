@@ -21,8 +21,9 @@ export class TipoComision{
     public getListaTipoUsuario(): TipoUsuario[]{
         return this.listaTipoUsuario;
     }
-    public getNombreTipoUsuario(idTipoUsuario:number){
-        let res="---";
+    
+    public getNombreTipoUsuario(idTipoUsuario:number):string{
+        let res="";
         for(let i in this.listaTipoUsuario){
             if(this.listaTipoUsuario[i].getIdTipoUsuario()==idTipoUsuario){
                 res=this.listaTipoUsuario[i].getNombre();
@@ -30,6 +31,7 @@ export class TipoComision{
         }
         return res;
     }
+    
     public setListaTipoUsuario(listaTipoUsuario:TipoUsuario[]): void{
         this.listaTipoUsuario=listaTipoUsuario;
     }

@@ -17,7 +17,7 @@ export class Comision {
         return this.listaUsuarios;
     }
 
-    public setListaUsuarios(value: UsuarioComision[]) {
+    public setListaUsuarios(value: UsuarioComision[]):void {
         this.listaUsuarios = value;
     }
 
@@ -25,7 +25,7 @@ export class Comision {
         return this.idTipoComision;
     }
 
-    public setTipoComision(value: number) {
+    public setTipoComision(value: number):void {
         this.idTipoComision = value;
     }
 
@@ -33,7 +33,7 @@ export class Comision {
         return this.idConv;
     }
 
-    public agregarUsuarioComision(usuario: UsuarioComision){
+    public agregarUsuarioComision(usuario: UsuarioComision):void{
         this.listaUsuarios.push(usuario);
     }
     public existeUsuario(idUsuario):boolean{
@@ -44,7 +44,6 @@ export class Comision {
                 res=true;
                 break;
             }
-
         }
         return res;
     }
@@ -57,7 +56,6 @@ export class Comision {
                 res=objAux.getIdTipoUsuario();
                 break;
             }
-
         }
         return res;
     }

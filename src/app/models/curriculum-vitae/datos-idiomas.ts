@@ -19,25 +19,25 @@ export class Idioma {
     public getIdiomas(): string {
         return this.idiom;
     }
-    public setIdioma(value: string) {
+    public setIdioma(value: string) :void{
         this.idiom = value;
     }
     public getHabla(): string {
         return this.habla;
     }
-    public setHabla(value: string) {
+    public setHabla(value: string):void {
         this.habla = value;
     }
     public getLee(): string {
         return this.lee;
     }
-    public setLee(value: string) {
+    public setLee(value: string):void {
         this.lee = value;
     }
     public getEscribe(): string {
         return this.escribe;
     }
-    public setEscribe(value: string) {
+    public setEscribe(value: string):void {
         this.escribe = value;
     }
 

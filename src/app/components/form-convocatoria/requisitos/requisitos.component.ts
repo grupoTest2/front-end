@@ -27,7 +27,6 @@ export class RequisitosComponent implements OnInit {
   seleccionRequisitos: SeleccionRequisito = new SeleccionRequisito();
   href: string = '';
 
-
   constructor(private editarConv: EditarConvocatoriaServicePhp, private formBuilder: FormBuilder, private router: Router) {
     this.buildForm();
     this.getRequisitosBD();
@@ -38,7 +37,7 @@ export class RequisitosComponent implements OnInit {
 
   }
 
-  ruta() {
+  ruta():boolean {
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     } else {
@@ -46,11 +45,6 @@ export class RequisitosComponent implements OnInit {
     }
   }
 
-  mostrarMensaje() {
-    console.log("mostrando mensaje");
-  }
-
-  //enviando los datos al com[ponente formulario
   getDatos(): Requisito[] {
     return this.listaRequisitos;
   }
@@ -96,7 +90,6 @@ export class RequisitosComponent implements OnInit {
     return caracter;
   }
 
-  // validaciones ----------------------------------------------------------------------
   private buildForm(): void {
     this.formRequisitos = this.formBuilder.group({
       detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
@@ -116,30 +109,23 @@ export class RequisitosComponent implements OnInit {
     this.buildForm();
   }
 
-  get detalleForm() {
+  get detalleForm():any {
     return this.formRequisitos.get('detalle');
   }
-  get detalleFormIsValid() {
+  get detalleFormIsValid():boolean {
     return this.detalleForm.touched && this.detalleForm.valid;
   }
-  get detalleFormIsInvalid() {
+
+  get detalleFormIsInvalid():boolean {
     return this.detalleForm.touched && this.detalleForm.invalid;
   }
 
-  /**
-   *indica si la convocatoria es apta para ser lanzada 
-   */
-  estaHabilitado() {
+  estaHabilitado():string {
     return this.listaRequisitos.length > 0?"bien":"establecer al menos un requisito!!";
   }
 
-  /**
-   * metodos que interactuan con el servidor php y la base de datos
-   */
-
-  getRequisitosBD() {
+  getRequisitosBD():void {
     if(localStorage.getItem("idConv")===""){
-      //console.log("esta vacio en los requisitos");
     }else{
       let idConv: number = parseInt(localStorage.getItem("idConv"));
       this.editarConv.getRequisitos(idConv).subscribe(
@@ -153,5 +139,4 @@ export class RequisitosComponent implements OnInit {
       )
     }
   }
-
 }

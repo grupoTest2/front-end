@@ -22,12 +22,12 @@ declare var $: any;
 })
 
 export class DocumentosPresentarComponent implements OnInit {
+  
   documento: DocumentoPresentar;
   listaDocumentos: DocumentoPresentar[] = [];
   formDocumentos: FormGroup;
   seleccionDocumento:SeleccionDocumentos;
   href: string = '';
-
 
   constructor(private formBuilder: FormBuilder,private editarConv: EditarConvocatoriaServicePhp, private router: Router) { 
     this.buildForm();
@@ -39,7 +39,7 @@ export class DocumentosPresentarComponent implements OnInit {
     this.href = this.router.url;
   }
 
-  ruta(){
+  ruta():boolean{
     if (this.href === '/habilitarConvocatoria/formulario') {
       return true;
     }else{
@@ -73,13 +73,10 @@ export class DocumentosPresentarComponent implements OnInit {
     return caracter;
   }
 
-    /*-------------- metodo para recuperar los datos de este componente*/
     getDatos():DocumentoPresentar[]{
       return this.listaDocumentos;
     }
 
-
-    //validaciones ---------------------------------------------------------------------------------
     private buildForm():void {
       this.formDocumentos = this.formBuilder.group({
         detalle: ['', Validators.compose([Validators.required, Validators.minLength(10)])]
@@ -106,37 +103,29 @@ export class DocumentosPresentarComponent implements OnInit {
       }
     }
 
-
-    ErrorAlInsertarDocumento(mensaje:string='Formulario invalido'){
+    ErrorAlInsertarDocumento(mensaje:string='Formulario invalido'):void{
       this.formDocumentos.markAllAsTouched();
         tata.error('Error', mensaje);
     }
 
-  
-    get detalleForm() {
+    get detalleForm() :any{
       return this.formDocumentos.get('detalle');
     }
-    get detalleFormIsValid() {
+
+    get detalleFormIsValid():any {
       return this.detalleForm.touched && this.detalleForm.valid;
     }
-    get detalleFormIsInvalid() {
+
+    get detalleFormIsInvalid():boolean {
       return this.detalleForm.touched && this.detalleForm.invalid;
     }
 
-    
-    /**
-     *indica si la convocatoria es apta para ser lanzada 
-    */
-    estaHabilitado(){
+    estaHabilitado():string{
       return this.listaDocumentos.length>0?"bien":"establecer al menos un documento a presentar!!";
     }
-    /**
-     * metodos que interactuan con la base de datos
-     */
 
-    getDocumentosPresentar(){
+    getDocumentosPresentar():void{
       if(localStorage.getItem("idConv")===""){
-        //console.log("esta vacio en los documentos");
       }else{
         let idConv: number = parseInt(localStorage.getItem('idConv'));
         this.editarConv.getDocumentos(idConv).subscribe(

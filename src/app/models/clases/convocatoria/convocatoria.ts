@@ -46,11 +46,11 @@ export class Convocatoria{
         this.gestion = gestion;
     }
 
-    public setTipoConv(idTipoConv){
+    public setTipoConv(idTipoConv):void{
         this.idTipoConv = idTipoConv;
     }
 
-    public setRotuloConvocatoria(rotuloConvocatoria:boolean){
+    public setRotuloConvocatoria(rotuloConvocatoria:boolean):void{
         this.rotuloConvocatoria=rotuloConvocatoria;
     }
     

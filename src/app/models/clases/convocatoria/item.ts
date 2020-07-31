@@ -27,7 +27,7 @@ export class Item{
         return this.seleccionado;
     }
 
-    public setSeleccionado(seleccionado){
+    public setSeleccionado(seleccionado):void{
         this.seleccionado=seleccionado;
     }
 

@@ -27,8 +27,8 @@ export class CrearConvocatoriaComponent implements OnInit {
 
   formCrearConv: FormGroup;
   listaTiposConvocatoria: TipoConvocatoria[] = [];
-  rotuloPorConvocatoria = true; //false => rotulo por item
-  texto;
+  rotuloPorConvocatoria = true; 
+  texto="";
   constructor(private formBuilder: FormBuilder, private apiPHP: PhpServeConvocatoria,
     private router: Router, private datosConvocatoria: DatosConvocatoriaService) {
       localStorage.setItem('tituloConvocatoria', "");
@@ -47,12 +47,11 @@ export class CrearConvocatoriaComponent implements OnInit {
       }
   }
 
-cambiar2(){
+cambiar2():void{
   $("#radio").click();
 }
 
-  cambiar(){
-    console.log(this.rotuloPorConvocatoria);
+  cambiar():void{
     if(this.rotuloPorConvocatoria){
     this.texto = 'Rótulo por convocatorias';
     }else{
@@ -66,7 +65,6 @@ cambiar2(){
     this.datosConvocatoria.tituloConvocatoria = $('#tituloConvocatoria').val();
     this.datosConvocatoria.gestionConvocatoria = $('#seleccionGestion').val();
     this.datosConvocatoria.idTipoConvocatoria = $('#tipoConvocatoria').val();
-    console.log(this.datosConvocatoria.idTipoConvocatoria);
     convocatoria = new Convocatoria(parseInt(this.datosConvocatoria.idTipoConvocatoria),
       this.datosConvocatoria.tituloConvocatoria,
       this.datosConvocatoria.gestionConvocatoria);
@@ -75,20 +73,16 @@ cambiar2(){
     localStorage.setItem('gestionConvocatoria', this.datosConvocatoria.gestionConvocatoria);
     localStorage.setItem('idTipo', this.datosConvocatoria.idTipoConvocatoria);
     this.crearConvocatoriaBD(convocatoria);
-    console.log(this.rotuloPorConvocatoria,"llllllllllllllllllll");
   }
 
-  setRotulo(){
+  setRotulo():void{
     if($('#porItem').is(':checked')){
       this.rotuloPorConvocatoria = false;
     }else{
       this.rotuloPorConvocatoria = true;
     }
-    console.log(this.rotuloPorConvocatoria,"llllllllllllllllllll");
-
   }
 
-  // Validaciones -------------------------------------------------------------------------
   private buildForm(): void {
     this.formCrearConv = this.formBuilder.group({
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
@@ -109,39 +103,37 @@ cambiar2(){
     this.buildForm();
   }
 
-  get tituloForm() {
+  get tituloForm():any {
     return this.formCrearConv.get('titulo');
   }
-  get tituloFormIsValid() {
+  get tituloFormIsValid():boolean {
     return this.tituloForm.touched && this.tituloForm.valid;
   }
-  get tituloFormIsInvalid() {
+  get tituloFormIsInvalid():boolean {
     return this.tituloForm.touched && this.tituloForm.invalid;
   }
 
-  get gestionForm() {
+  get gestionForm():any {
     return this.formCrearConv.get('gestion');
   }
-  get gestionFormIsValid() {
+  get gestionFormIsValid():boolean {
     return this.gestionForm.touched && this.gestionForm.valid;
   }
-  get gestionFormIsInvalid() {
+  get gestionFormIsInvalid():boolean {
     return this.gestionForm.touched && this.gestionForm.invalid;
   }
 
-  get tipoForm() {
+  get tipoForm() :any{
     return this.formCrearConv.get('tipo');
   }
-  get tipoFormIsValid() {
+  get tipoFormIsValid():boolean {
     return this.tipoForm.touched && this.tipoForm.valid;
   }
-  get tipoFormIsInvalid() {
+  get tipoFormIsInvalid():boolean {
     return this.tipoForm.touched && this.tipoForm.invalid;
   }
 
-
-  /*---------------------------------interaccion con la BD-------------------------------*/
-  getTipoConvocatoriaBD() {
+  getTipoConvocatoriaBD():void {
     let idDep = 1;
     let listaTipos: any[] = new Array();
     this.apiPHP.getTipoConvocatoria(idDep).subscribe(
@@ -156,19 +148,15 @@ cambiar2(){
         }
       }
     );
-
   }
 
   crearConvocatoriaBD(objAux: Convocatoria): void {
     this.apiPHP.crearConvocatoria(objAux).subscribe(
       respuesta => {
         if (respuesta['resultado'] == 'correcto') {
-          //se crea correctamente la convocatoria
           if (respuesta['idConvocatoria'] !== -1) {
             localStorage.setItem("idConv", respuesta['idConvocatoria']);
           }
-        } else {
-          //no se pudo agregar
         }
       }
     );

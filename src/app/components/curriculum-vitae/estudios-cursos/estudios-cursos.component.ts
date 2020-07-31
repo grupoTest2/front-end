@@ -17,23 +17,22 @@ declare var $: any;
 export class EstudiosCursosComponent implements OnInit {
 
   form: NgForm = new NgForm([], []);
-
-
   listaEstudiosCusrsosTomados: EstudiosCursosTomados[] = [];
   estudioCurso: EstudiosCursosTomados;
   constructor() { }
   ngOnInit(): void {
   }
 
-  reset() {
+  reset():void {
     this.form.resetForm();
   }
 
-  asignacion(form: NgForm) {
+  asignacion(form: NgForm):boolean {
     this.form = form;
     return true;
   }
-  guardar(form: NgForm) {
+
+  guardar(form: NgForm):void {
     this.form = form;
     if (form.invalid) {
       Object.values(form.controls).forEach(
@@ -43,14 +42,13 @@ export class EstudiosCursosComponent implements OnInit {
       );
       tata.error('Error', 'Llene todos los campos por favor');
     } else {
-
       $('#modalEstudiosCursosTomados').modal('hide');
       tata.success('Exitoso', 'Se guardaron sus datos');
       this.enlistarDatosFormacion(form);
     }
   }
   
-  enlistarDatosFormacion(form: NgForm) {
+  enlistarDatosFormacion(form: NgForm):void {
     let tipoDocumento = form.controls['tipoDocumento'].value;
     let tituloDocumento = form.controls['tituloDocumento'].value;
     let institucion = form.controls['institucion'].value;
@@ -61,10 +59,9 @@ export class EstudiosCursosComponent implements OnInit {
     fechaObtuvoDoc = aux[2] + '-' + aux[1] + '-' + aux[0];
     this.estudioCurso = new EstudiosCursosTomados(tipoDocumento, tituloDocumento, institucion, lugar, fechaObtuvoDoc);
     this.listaEstudiosCusrsosTomados.push(this.estudioCurso);
-
   }
 
-  eliminarInformacion(dato: EstudiosCursosTomados) {
+  eliminarInformacion(dato: EstudiosCursosTomados):void {
     let listaAux: EstudiosCursosTomados[] = [];
     for (let i = 0; i < this.listaEstudiosCusrsosTomados.length; i++) {
       if (!(this.listaEstudiosCusrsosTomados[i].getTipoDocumento() == dato.getTipoDocumento() &&

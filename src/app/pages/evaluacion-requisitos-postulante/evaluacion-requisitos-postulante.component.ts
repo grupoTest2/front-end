@@ -32,8 +32,7 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listarPos(conv: Convocatoria) {
-    console.log("ingresooooooooo");
+  listarPos(conv: Convocatoria):void {
     this.banderaPostulantes = true;
     this.postulantes.listarPostulantes(conv);
     $("#postulantes").click();
@@ -41,22 +40,19 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
     this.enviarUsuario();
   }
 
-  datosPostulante(postulante: PostulanteEvaluado) {
-    console.log("ingresooooooooo");
+  datosPostulante(postulante: PostulanteEvaluado):void {
     this.banderaEvaluacion = true;
     this.datosPost.listarRequisitos(postulante);
     $("#evaluacion").click();
     $("#evaluacion").removeClass('invisible')
   }
 
-  redireccion() {
-    console.log("ingresooooooooo");
+  redireccion():void {
     this.banderaPostulantes = true;
     $("#postulantes").click();
     $("#evaluacion").addClass('invisible')
   }
   requisitosEvaluadosPost(postulante: PostulanteEvaluado) {
-    console.log("ingresooooooooo");
     this.banderaEvaluacion = true;
     this.datosPost.listarRequisitosLectura(postulante);
     $("#evaluacion").click();
@@ -64,7 +60,7 @@ export class EvaluacionRequisitosPostulanteComponent implements OnInit {
   }
 
 
-  enviarUsuario() {
+  enviarUsuario():boolean {
     this.postulantes.setUsuario(this.usuarioComision);
     this.datosPost.setUsuario(this.usuarioComision);
     this.convocatorias.setUsuario(this.usuarioComision);

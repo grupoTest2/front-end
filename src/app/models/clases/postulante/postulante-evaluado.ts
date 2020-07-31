@@ -56,40 +56,10 @@ export class PostulanteEvaluado {
     public setNombreUsuario(value): void{
         this.nombreUsuario=value;
     }
-
-    /*public getNombres(): string {
-        return this.nombres;
-    }
-
-    public setNombres(nombres): void {
-        this.nombres = nombres;
-    }
-    public getApellidoPaterno(): string {
-        return this.apellidoPaterno;
-    }
-
-    public setApellidoPaterno(apellidoPaterno): void {
-        this.apellidoPaterno = apellidoPaterno;
-    }
-    public getApellidoMaterno(): string {
-        return this.apellidoMaterno;
-    }
-
-    public setApellidoMaterno(apellidoMaterno): void {
-        this.apellidoMaterno = apellidoMaterno;
-    }*/
     public getEstado(): string {
         return this.estado;
     }
-    public setEstado(value: string) {
+    public setEstado(value: string):void {
         this.estado = value;
     }
-    /*public getEvaluador(): Usuario {
-        return this.evaluador;
-    }
-    public setEvaluador(value: Usuario) {
-        this.evaluador = value;
-    }*/
-
-
 }

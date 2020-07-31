@@ -27,7 +27,7 @@ export class Postulante{
     public setIdPostulante(idPos:number){
         this.idPos=idPos;
     }
-    public getIdPostulante(){
+    public getIdPostulante():number{
         return this.idPos;
     }
     public getEstado(): string {
@@ -39,32 +39,32 @@ export class Postulante{
     public getEvaluador(): string {
         return this.evaluador;
     }
-    public setEvaluador(value: string) {
+    public setEvaluador(value: string):void {
         this.evaluador = value;
     }
     
-    public setNombre(nombre:string){
+    public setNombre(nombre:string):void{
         this.nombre=nombre;
     }
 
-    public setApellidoP(apellidoP:string){
+    public setApellidoP(apellidoP:string):void{
         this.apellidoP=apellidoP;
     }
 
-    public setApellidoM(apellidoM){
+    public setApellidoM(apellidoM):void{
         this.apellidoM=apellidoM;
     }
 
-    public getNombre(){
+    public getNombre():string{
         return this.nombre;
     }
-    public getApellidoP(){
+    public getApellidoP():string{
         return this.apellidoP;
     }
-    public getApellidoM(){
+    public getApellidoM():string{
         return this.apellidoM;
     }
-    public getCodigoSis(){
+    public getCodigoSis():number{
         return this.codigoSis;
     }
     public agregarItems(item:Item){

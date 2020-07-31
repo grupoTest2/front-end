@@ -19,19 +19,19 @@ export class TipoDatoRotulo {
     public getTipoDeDato(): string {
         return this.tipoDeDato;
     }
-    public setTipoDeDato(value: string) {
+    public setTipoDeDato(value: string):void {
         this.tipoDeDato = value;
     }
     public getTamanioMinimo(): number {
         return this.tamanioMinimo;
     }
-    public setTamanioMinimo(value: number) {
+    public setTamanioMinimo(value: number):void {
         this.tamanioMinimo = value;
     }
     public getValor(): string {
         return this.valor;
     }
-    public setValor(value: string) {
+    public setValor(value: string):void {
         this.valor = value;
     }
 }

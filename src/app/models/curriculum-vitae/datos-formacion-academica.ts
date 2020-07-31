@@ -22,32 +22,32 @@ export class FormacionAcademica {
     public getGrado(): string {
         return this.grado;
     }
-    public setGrado(value: string) {
+    public setGrado(value: string) :void{
         this.grado = value;
     }
     public getTitulo(): string {
         return this.titulo;
     }
-    public setTitulo(value: string) {
+    public setTitulo(value: string):void {
         this.titulo = value;
     }
     public getInstitucionObtuvoGrado(): string {
         return this.institucionObtuvoGrado;
     }
-    public setInstitucionObtuvoGrado(value: string) {
+    public setInstitucionObtuvoGrado(value: string):void {
         this.institucionObtuvoGrado = value;
     }
 
     public getLugarObtuvoGrado(): string {
         return this.lugarObtuvoGrado;
     }
-    public setLugarObtuvoGrado(value: string) {
+    public setLugarObtuvoGrado(value: string) :void{
         this.lugarObtuvoGrado = value;
     }
     public getFechaObtuvoGrado(): Date {
         return this.fechaObtuvoGrado;
     }
-    public setFechaObtuvoGrado(value: Date) {
+    public setFechaObtuvoGrado(value: Date) :void{
         this.fechaObtuvoGrado = value;
     }
 }

@@ -41,16 +41,9 @@ export class ConvocatoriasComponent implements OnInit {
     localStorage.setItem('gestionConvocatoria', "");
     localStorage.setItem('idTipo',"");
     localStorage.setItem("idConv","");
-    /*console.log("mi lista");
-    console.log(this.listaConvocatoria);
-    console.log("mis estados");
-    console.log(this.listaEstados);
-    console.log("mis tipos de convocatoria");
-    console.log(this.listaTiposConv);*/
   }
 
   ngOnInit(): void {
-//    this.cargarDatosConvocatoria();
     this.cargarEstados();
     this.cargarTiposConv();
     this.cargarDatosConvocatoria();
@@ -64,30 +57,28 @@ export class ConvocatoriasComponent implements OnInit {
     });
   }
   clickComision(item: Convocatoria){
-    console.log("hice click en comision");
     localStorage.setItem("idConv",item.getIdConv()+"");
     localStorage.setItem("tituloConvocatoria",item.getTitulo()+"");
   }
 
-  cambiar(id: string){
+  cambiar(id: string):void{
     $('#id2'+id).toggleClass('color');
     $('#id2'+id).toggleClass('shadow-sm').toggleClass('rounded');
     $('#idIcono'+id).toggleClass('fa-angle-right');
     $('#idIcono'+id).toggleClass('fa-angle-down');
-    console.log("iddddd", '#id2'+id)
   }
 
-  expand(){
+  expand():void{
     this.expandContent = !this.expandContent
     }
   
-  listarTodo() {
+  listarTodo() :void{
     this.filtroGestion = '';
     this.filtroTipo = '';
     this.filtroEstado = '';
   }
 
-  listaConvocatoriaComision() {
+  listaConvocatoriaComision() :void{
     let listaAuxiliar:Convocatoria[]=[];
     for (let index = 0; index < this.listaConvocatoria.length; index++) {
       if (this.listaConvocatoria[index].getEstado().toLowerCase() === 'en curso' || 
@@ -99,7 +90,7 @@ export class ConvocatoriasComponent implements OnInit {
   }
 
 
-  editar(item: Convocatoria) {
+  editar(item: Convocatoria) :void{
     this.formCrearConv.reset();
     this.formCrearConv.get('titulo').setErrors(null);
     this.formCrearConv.get('gestion').setErrors(null);
@@ -111,22 +102,14 @@ export class ConvocatoriasComponent implements OnInit {
     localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
-  habilitar(item: Convocatoria){
+  habilitar(item: Convocatoria):void{
     localStorage.setItem('tituloConvocatoria', item.getTitulo());
     localStorage.setItem('gestionConvocatoria',item.getGestion());
     localStorage.setItem('idTipo',item.getIdTipoConv()+"");
     localStorage.setItem("idConv",item.getIdConv()+"");
   }
 
-  /*loading() {
-    $.fakeLoader({
-      bgColor: '#2ecc71',
-      spinner: "spinner3"
-    });
-  }*/
-
-  // Validaciones -------------------------------------------------------------------------
-  private buildForm(): void {
+ private buildForm(): void {
     this.formCrearConv = this.formBuilder.group({
       titulo: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       gestion: ['', [Validators.required]]
@@ -141,7 +124,7 @@ export class ConvocatoriasComponent implements OnInit {
     }
   }
 
-  formValido(){
+  formValido():void{
     if (this.formCrearConv.valid) {
       tata.success('Cambios.', 'Se cambió los datos con exito.');
       $('#tablaEditar').modal('hide');
@@ -155,40 +138,37 @@ export class ConvocatoriasComponent implements OnInit {
     this.buildForm();
   }
 
-  get tituloForm() {
+  get tituloForm() :any{
     return this.formCrearConv.get('titulo');
   }
-  get tituloFormIsValid() {
+  get tituloFormIsValid():boolean {
     return this.tituloForm.touched && this.tituloForm.valid;
   }
-  get tituloFormIsInvalid() {
+  get tituloFormIsInvalid():boolean {
     return this.tituloForm.touched && this.tituloForm.invalid;
   }
 
-  get gestionForm() {
+  get gestionForm() :any{
     return this.formCrearConv.get('gestion');
   }
-  get gestionFormIsValid() {
+  get gestionFormIsValid():boolean {
     return this.gestionForm.touched && this.gestionForm.valid;
   }
-  get gestionFormIsInvalid() {
+  get gestionFormIsInvalid() :boolean{
     return this.gestionForm.touched && this.gestionForm.invalid;
   }
 
-  get tipoForm() {
+  get tipoForm() :any{
     return this.formCrearConv.get('tipo');
   }
-  get tipoFormIsValid() {
+  get tipoFormIsValid():boolean {
     return this.tipoForm.touched && this.tipoForm.valid;
   }
-  get tipoFormIsInvalid() {
+  get tipoFormIsInvalid() :boolean{
     return this.tipoForm.touched && this.tipoForm.invalid;
   }
 
-  /**
-   * metodos que interactuan con la base de datos
-   */
-  cargarDatosConvocatoria() {
+  cargarDatosConvocatoria():void{
     let idDep=1;
     this.editarConv.getConvocatorias(idDep).subscribe(
       resultado => {
@@ -211,7 +191,7 @@ export class ConvocatoriasComponent implements OnInit {
     );
   }
 
-  cargarEstados(){
+  cargarEstados():void{
     this.cargarDatos.getEstadosConv().subscribe(
       (resultado:EstadoConv[])=>{
         for(let i in resultado){
@@ -221,14 +201,13 @@ export class ConvocatoriasComponent implements OnInit {
     )
   }
 
-  cargarTiposConv(){
+  cargarTiposConv():void{
     this.cargarDatos.getTipoConvocatoria(1).subscribe(
       (resultado:TipoConvocatoria[])=>{
         for(let i in resultado){
           this.listaTiposConv.push(resultado[i]);
         }
       }
-    )
-    
+    )    
   }
 }

@@ -47,7 +47,6 @@ export class FormConvocatoriaComponent implements OnInit {
   @Input() titulo: string = '';
   @Input() gestion: string = '';
 
-  // lista de los datos de los diferentes componentes
   listaDatosRequerimientos: Requerimiento[] = [];
   listaDatosRequisitos: Requisito[] = [];
   listaDatosDocumentosPresentar: DocumentoPresentar[] = [];
@@ -55,8 +54,6 @@ export class FormConvocatoriaComponent implements OnInit {
   listaItemsConCalificaciones: Requerimiento[] = [];
   listaDatosEventos: Evento[] = [];
   listaDatosRotulo: DatoRotulo[] = [];
-  //listaJhon: Requerimiento[];
-  // lista de los requerimientos
   listaRequerimientos: Requerimiento[] = [];
   tituloConvocatoria: string = '';
   gestionConvocatoria: string = '';
@@ -67,7 +64,6 @@ export class FormConvocatoriaComponent implements OnInit {
   subscription: Subscription;
 
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-    console.log("Processing beforeunload...");
     event.returnValue = false;
   }
 
@@ -79,8 +75,6 @@ export class FormConvocatoriaComponent implements OnInit {
     this.gestionConvocatoria = localStorage.getItem('gestionConvocatoria');
     this.idTipo = localStorage.getItem('idTipo');
     datosConvocatoria.idTipoConvocatoria = this.idTipo;
-
-    
   }
 
 
@@ -96,16 +90,16 @@ export class FormConvocatoriaComponent implements OnInit {
     }
   }
 
-  estaHabilitado() {
+  estaHabilitado():any {
     return this.requerimiento.estaHabilitado();
   }
-  // modificando la lsta de codigos de la componente calificaciones
-  setListaRequerimientos(listaRequerimientos: Requerimiento[]) {
+
+  setListaRequerimientos(listaRequerimientos: Requerimiento[]) :void{
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
     this.listaRequerimientos = listaRequerimientos;
   }
-  // metodo que recu[era todos los datos
-  recuperarLosDatosDeLosComponentes() {
+
+  recuperarLosDatosDeLosComponentes():void {
     this.listaRequerimientos = this.requerimiento.getDatos();
     this.listaDatosRequisitos = this.requisitos.getDatos();
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
@@ -130,7 +124,6 @@ export class FormConvocatoriaComponent implements OnInit {
     if(req=="bien"&&requi=="bien"&&doc=="bien"&&me=="bien"&&calif=="bien"&&eventos=="bien"&&datos=="bien"){
       this.lanzarConvocatoria();
       habilitar = true;
-      console.log("habilita bien")
     }else{
       if (req!="bien") {
         mensaje += '<hr>'+req;
@@ -154,14 +147,11 @@ export class FormConvocatoriaComponent implements OnInit {
         mensaje += '<hr>'+datos;
       }
       habilitar = false
-      //this.mensajeToastErrorBD(mensaje + '<hr>A llenar faltantes!');
       this.mensajeToastErrorBD(mensaje);
-      console.log("Falla algo")
     }
     return habilitar;
   }
 
-  // metodo para lanzar convocatoria
   lanzarConvocatoria() {
     let idConv: number = parseInt(localStorage.getItem("idConv"));
     this.editarConv.habilitarConvocatoria(idConv).subscribe(
@@ -176,13 +166,13 @@ export class FormConvocatoriaComponent implements OnInit {
 
   }
 
-  mensajeToastErrorBD(mensaje) {
+  mensajeToastErrorBD(mensaje):void {
     tata.error('Error', mensaje, {
       duration: 10000
     });
 
   }
-  mensajeToastExito(mensaje) {
+  mensajeToastExito(mensaje) :void{
     tata.success('Registro Exitoso', mensaje);
   }
 
@@ -280,11 +270,7 @@ export class FormConvocatoriaComponent implements OnInit {
     });
   }
 
-  prueba(){
-    console.log("okkkk 2do")
-  }
-
-  agregarBD() {
+  agregarBD():boolean {
     let agregar = false;
     this.recuperarLosDatosDeLosComponentes();
     if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
@@ -297,11 +283,9 @@ export class FormConvocatoriaComponent implements OnInit {
   agregarRequerimientos(): boolean {
     let agregar: boolean = true;
     if (this.listaRequerimientos.length !== 0) {
-      //console.log(JSON.stringify(this.listaRequerimientos));
       this.apiPHP.agregarRequerimientos(this.listaRequerimientos).subscribe(
         respuesta => {
           if (respuesta['resultado'] === 'correcto') {
-            console.log('todo bien con los requerimientos');
             this.agregarCalificaciones();
           } else {
             console.log('error con los requerimientos');
@@ -328,7 +312,7 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     return agregar;
   }
-  agregarDocumentosPresentar() {
+  agregarDocumentosPresentar():boolean {
     let agregar: boolean = true;
     if (this.listaDatosDocumentosPresentar.length !== 0) {
       this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
@@ -346,10 +330,7 @@ export class FormConvocatoriaComponent implements OnInit {
 
   }
 
-  /**
-   * revisar la impresion del metodo
-   */
-  agregarCalificaciones() {
+  agregarCalificaciones():boolean {
     let agregar: boolean = true;
     let resp: boolean = false;
     console.log(JSON.stringify(this.listaItemsConCalificaciones));
@@ -375,10 +356,9 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
     return agregar;
-
   }
 
-  agregarMeritos() {
+  agregarMeritos():boolean {
     let agregar: boolean = true;
     if (this.listaDatosMerito.length !== 0) {
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
@@ -393,10 +373,9 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
     return agregar;
-
   }
 
-  agregarEventos() {
+  agregarEventos():boolean {
     let agregar: boolean = true;
     if (this.listaDatosEventos.length !== 0) {
       this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
@@ -411,11 +390,10 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
     return agregar;
-
   }
 
 
-  agregarDatosRotulo() {
+  agregarDatosRotulo():boolean {
     let agregar: boolean = true;
     console.log(JSON.stringify(this.listaDatosRotulo));
     if (this.listaDatosRotulo.length !== 0) {
@@ -431,6 +409,5 @@ export class FormConvocatoriaComponent implements OnInit {
       );
     }
     return agregar;
-
   }
 }

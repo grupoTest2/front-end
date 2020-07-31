@@ -59,7 +59,7 @@ export class DatosPersonales {
         }
         return this.idiomas;
     }
-    public setIdiomas(value: Idioma[]) {
+    public setIdiomas(value: Idioma[]):void {
         this.idiomas = value;
     }
 
@@ -126,7 +126,7 @@ export class DatosPersonales {
         return this.lugarEmisionCI;
     }
 
-    public setLugarEmisionCI(value: string) {
+    public setLugarEmisionCI(value: string):void {
         this.lugarEmisionCI = value;
     }
 
@@ -176,19 +176,19 @@ export class DatosPersonales {
     public getCorreo(): string {
         return this.correo;
     }
-    public setCorreo(value: string) {
+    public setCorreo(value: string) :void{
         this.correo = value;
     }
     public getNombreColegio(): string {
         return this.nombreColegio;
     }
-    public setNombreColegio(value: string) {
+    public setNombreColegio(value: string) :void{
         this.nombreColegio = value;
     }
     public getTipoColegio(): string {
         return this.tipoColegio;
     }
-    public setTipoColegio(value: string) {
+    public setTipoColegio(value: string):void {
         this.tipoColegio = value;
     }
 
@@ -199,20 +199,20 @@ export class DatosPersonales {
     public getCarrera(): string {
         return this.carrera;
     }
-    public setCarrera(value: string) {
+    public setCarrera(value: string):void {
         this.carrera = value;
     }
     public getEgresado(): boolean {
         return this.egresado;
     }
-    public setEgresado(value: boolean) {
+    public setEgresado(value: boolean):void {
         this.egresado = value;
     }
 
     public getFechaEgreso(): Date {
         return this.fechaEgreso;
     }
-    public setFechaEgreso(value: Date) {
+    public setFechaEgreso(value: Date):void {
         this.fechaEgreso = value;
         const fechaN = this.fechaEgreso.toLocaleString().split(' ')[0];
         let aux = fechaN.split('/', 3);
@@ -222,7 +222,7 @@ export class DatosPersonales {
         return this.nivelEnCurso;
     }
     
-    public setNivelCurso(value: string) {
+    public setNivelCurso(value: string):void {
         this.nivelEnCurso = value;
     }
 }

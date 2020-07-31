@@ -49,7 +49,6 @@ export class CurriculumVitaeComponent implements OnInit {
   botonGuardar = 0;
   isLinear = false;
 
-  //variables para los datos de los diferentes componentes
   llenoDatosPersonales = false;
   datosPersonales: DatosPersonales = new DatosPersonales("", "", "", new Date(), "", "", "", "", "", "", "", "", 0, "", "", "", new Date(), "", "");
   listaDatosFormacionAcademica: FormacionAcademica[];
@@ -124,29 +123,21 @@ export class CurriculumVitaeComponent implements OnInit {
     return bandera;
   }
 
-  recuperarLosDatosDeLosComponentes() {
+  recuperarLosDatosDeLosComponentes():void {
     if (!this.llenoDatosPersonales) {
       this.datosPersonales = this.datos_personales.getDatosPersonales();
-      console.log(this.datosPersonales + "----------");
-      // if (this.datosPersonales.getIdiomas() == undefined || this.datosPersonales.getIdiomas() == []) {
-        this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
-      // }
+      this.datosPersonales.getIdiomas().push(new Idioma("español", "bien", "bien", "bien"));
     }
     this.listaDatosFormacionAcademica = this.formacion_academica.getDatosFC();
     this.listaDatosEstudios = this.estudios_cursos.getDatosEC();
     this.listaExperienciaUniversitaria = this.experiencia_universitaria.getDatosEU();
     this.listaExperienciaExtraU = this.experiencia_extra_universitaria.getDatosEEU();
     this.listaDatosProduccion = this.produccion.getDatosProduccion();
-    if (!this.llenoDatosPersonales){
-      console.log(JSON.stringify(this.datosPersonales));
-    }
-    console.log("          ******    " + JSON.stringify(this.datosPersonales.getIdiomas()) + "    ---------   " + JSON.stringify(this.listaDatosFormacionAcademica) + "iiiiiiiiiiiiiiiiiiii" + JSON.stringify(this.listaDatosEstudios) + "*******1**" + JSON.stringify(this.listaExperienciaUniversitaria) + "*************2*********" + JSON.stringify(this.listaExperienciaExtraU) + "********3**********" + JSON.stringify(this.listaDatosProduccion), "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-  }
+   }
 
-  guardar() {
+  guardar():void {
     if (this.llenoDatosPersonales) {
       this.recuperarLosDatosDeLosComponentes();
-      // this.registrarDatosPersonalesCvBD();
       this.alertRegistrar()
     }
     else {
@@ -156,33 +147,22 @@ export class CurriculumVitaeComponent implements OnInit {
       }
     }
   }
-  mostrarBoton() {
+  mostrarBoton():void {
     this.botonGuardar++;
-    console.log(this.botonGuardar);
   }
 
-  registrarDatosPersonalesCvBD() {
+  registrarDatosPersonalesCvBD():void {
     let datosPos = JSON.parse(localStorage.getItem("postulante"));
     if (datosPos.llenoCv == 0) {
       this.serviceCv.agregarDatosPersonales(this.datosPersonales).subscribe(
         resultado => {
           if (resultado['resultado'] == 'correcto') {
-            //alert("todo posi");
             this.registrarIdiomas();
             this.registrarFormacionAcademicaBD();
             this.registrarEstudiosCursosBD();
             this.registrarExperienciaUniBD();
             this.registrarExperienciaExtraUniBD();
             this.registrarDatosProduccion();
-            /*swal.fire(
-              'Exitoso!',
-              'Se guardaron los usuarios.',
-              'success'
-            ).then((result) => {
-            this.router.navigate(['/convocatoriasEnCurso']);
-            });*/
-          } else {
-            //alert("algo anda mal");
           }
         }
       )
@@ -195,73 +175,73 @@ export class CurriculumVitaeComponent implements OnInit {
     }
   }
 
-  registrarIdiomas() {
+  registrarIdiomas():void {
     this.serviceCv.agregarIdiomas(this.datosPersonales.getIdiomas()).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con los idiomas");
+          //console.log("todo bien con los idiomas");
         } else {
-          console.log("error con los idiomas")
+          //console.log("error con los idiomas")
         }
       }
     )
   }
 
-  registrarFormacionAcademicaBD() {
+  registrarFormacionAcademicaBD():void {
     this.serviceCv.agregarFormacionAcademica(this.listaDatosFormacionAcademica).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con la formacion academica");
+          //console.log("todo bien con la formacion academica");
         } else {
-          console.log("error con la formacion academica");
+          //console.log("error con la formacion academica");
         }
       }
     );
   }
 
-  registrarEstudiosCursosBD() {
+  registrarEstudiosCursosBD():void {
     this.serviceCv.agregarEstudiosCursosTomados(this.listaDatosEstudios).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con los estudios cursos");
+         // console.log("todo bien con los estudios cursos");
         } else {
-          console.log("error con los estudios cursos");
+          //console.log("error con los estudios cursos");
         }
       }
     );
   }
 
-  registrarExperienciaUniBD() {
+  registrarExperienciaUniBD() :void{
     this.serviceCv.agregarExperienciaUniversitaria(this.listaExperienciaUniversitaria).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con la experiencia universitaria");
+         // console.log("todo bien con la experiencia universitaria");
         } else {
-          console.log("error con la experiencia universitaria");
+          //console.log("error con la experiencia universitaria");
         }
       }
     );
   }
 
-  registrarExperienciaExtraUniBD() {
+  registrarExperienciaExtraUniBD():void {
     this.serviceCv.agregarExperienciaExtraUniversitaria(this.listaExperienciaExtraU).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con la experiencia extra universitaria");
+          //console.log("todo bien con la experiencia extra universitaria");
         } else {
-          console.log("error con la experiencia extra universitaria");
+         // console.log("error con la experiencia extra universitaria");
         }
       }
     );
   }
 
-  registrarDatosProduccion() {
+  registrarDatosProduccion():void {
     this.serviceCv.agregarProduccion(this.listaDatosProduccion).subscribe(
       resp => {
         if (resp == 'correcto') {
-          console.log("todo bien con los datos produccion");
+         // console.log("todo bien con los datos produccion");
         } else {
-          console.log("error con los datos produccion");
+         // console.log("error con los datos produccion");
         }
       }
     );
