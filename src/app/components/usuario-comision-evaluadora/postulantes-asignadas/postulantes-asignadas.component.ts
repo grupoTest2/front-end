@@ -41,7 +41,12 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.titulo = conv.getTitulo();
     this.gestion = conv.getGestion();
     this.listaPostulantes=[];
-    this.getPostulantesConvBD(conv.getIdConv());
+    let idItem=1;
+    let convAux={
+      "idConv": conv.getIdConv(),
+      "idItem": idItem
+    }
+    this.getPostulantesConvBD(convAux);
   }
 
   registrarRequisitos(postulante: PostulanteEvaluado):void {
@@ -56,8 +61,8 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.usuario = usuario;
   }
 
-  getPostulantesConvBD(idConv:number):void{
-    this.habilitacion.getPostulantesConv(idConv).subscribe(
+  getPostulantesConvBD(convAux:any):void{
+    this.habilitacion.getPostulantesConv(convAux).subscribe(
       resp=>{
         for(let i in resp){
           let estado=resp[i].estado;
