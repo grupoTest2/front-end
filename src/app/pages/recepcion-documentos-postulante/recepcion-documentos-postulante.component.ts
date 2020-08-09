@@ -23,16 +23,16 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
   horas: number = 0;
   minutos: number = 0;
   segundos: number = 0;
-  editar=false;
+  editar = false;
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
-  postulante:Postulante;
+  postulante: Postulante;
   listaAuxiliar = ['nombre: jhonn', 'apellidos: Camacho Ledezma', 'correo: jhonnwcl@gmail.com', 'codigo_sis: 2010342'];
   bandera = false;
+  banderaLimite = false;
+  constructor(private recepcion: RecepcionService, private router: Router) {
 
-  constructor(private recepcion: RecepcionService, private router:Router) {
- 
   }
 
   ngOnInit(): void {
@@ -55,9 +55,49 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
         this.horas = 1;
       }
     }, 1000);
+
+    //this.fechaValida(new Date(2020, 11, 12),2,3);
+    console.log(this.banderaLimite, "------------")
   }
 
-  cargarPruebas():void {
+  fechaValida(fechaLimite: Date, horaC: number, minutosC: number) {
+    let anio = this.hoyFecha()[0]
+    let mes = this.hoyFecha()[1]
+    let dia = this.hoyFecha()[2]
+    console.log(anio, "----", mes, "-----", "----", dia)
+    var fecha = new Date(anio, mes, dia);
+    let horas = this.getHora();
+    let minutos = this.getMinutos();
+    console.log(horas, "----", minutos)
+    this.banderaLimite = false;
+    if (fecha < fechaLimite) {
+      this.banderaLimite = true;
+    } else {
+      if (horas < horaC) {
+        this.banderaLimite = true;
+      } else {
+        if (minutos < minutosC) {
+          this.banderaLimite = true;
+        }
+      }
+    }
+  }
+
+  hoyFecha() {
+    var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth() + 1;
+    var yyyy = hoy.getFullYear();
+    return [yyyy, mm, dd];
+  }
+
+  addZero(i) {
+    if (i < 10) {
+      i = '0' + i;
+    }
+    return i;
+  }
+  cargarPruebas(): void {
     this.item = new Item(1, "1", "Introduccion");
     this.listaItems.push(this.item);
     this.item = new Item(1, "1", "Elementos Y Estructura De Progra");
@@ -68,7 +108,8 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
 
   }
 
-  editarHora():void{
+
+  editarHora(): void {
     this.editar = !this.editar;
   }
 
@@ -77,34 +118,35 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     return hr;
 
   }
-  getMinutos():number {
+  getMinutos(): number {
     let mn = this.minutos = this.fecha.getMinutes();
     return mn;
   }
-  getSegundos():number {
+  getSegundos(): number {
     let sg = this.fecha.getSeconds();
     return sg;
   }
 
-  buscarCodigo():void {
+  buscarCodigo(): void {
     let codigo = $('#codigo').val();
     this.existeCodigoBD(codigo);
   }
 
-  limpiarDatos():void {
+  limpiarDatos(): void {
     $('#codigo').val("");
     $('#numero_doc').val("");
     this.bandera = false;
+    this.banderaLimite = false;
     $('#hora').val(this.getHora() + "");
   }
 
-  guardarDatos() :void{
+  guardarDatos(): void {
     let numeroDoc = $('#numero_doc').val();
     let hora = $('#hora').val();
-    this.registrarRecepcionBD(numeroDoc,this.horas + ":" + this.minutos + ":" + this.segundos);
+    this.registrarRecepcionBD(numeroDoc, this.horas + ":" + this.minutos + ":" + this.segundos);
     this.limpiarDatos();
   }
-//          
+  //          
 
   alertGuardar(): void {
     let numDocs = parseInt($('#numero_doc').val());
@@ -116,11 +158,11 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     }
   }
 
-  salir():void{
+  salir(): void {
     this.router.navigate(['/home']);
   }
 
-  alertConfirmacion():void {
+  alertConfirmacion(): void {
     swal.fire({
       title: 'Guardar',
       text: "¿Desea guardar los datos registrados",
@@ -132,7 +174,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-          this.guardarDatos();
+        this.guardarDatos();
       } else {
         swal.fire(
           'Cancelado!',
@@ -143,49 +185,54 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     })
   }
 
-  existeCodigoBD(codigo: string):void{
+  existeCodigoBD(codigo: string): void {
     this.recepcion.getInformacionPostulante(codigo).subscribe(
-      resp=>{
-        if(resp['existe']==0){
-          let conv=resp['convocatoria'];
-          this.convocatoria=new Convocatoria(0,conv.titulo,conv.gestion);
+      resp => {
+        if (resp['existe'] == 0) {
+          let conv = resp['convocatoria'];
+          this.convocatoria = new Convocatoria(0, conv.titulo, conv.gestion);
           this.convocatoria.setIdConv(conv.idConv);
-          let post=resp['postulante'];
-          let items=post.listaItems;
-          for(let i in items){
-            this.listaItems.push(new Item(items[i].idItem,items[i].codigoItem,items[i].nombreItem));
+          let post = resp['postulante'];
+          let items = post.listaItems;
+          for (let i in items) {
+            this.listaItems.push(new Item(items[i].idItem, items[i].codigoItem, items[i].nombreItem));
           }
-          this.postulante=new Postulante(post.codigoSis,items);
+          this.postulante = new Postulante(post.codigoSis, items);
           this.postulante.setNombre(post.nombre);
           this.postulante.setApellidoP(post.apellidoP);
           this.postulante.setApellidoM(post.apellidoM);
           this.postulante.setIdPostulante(post.idPos);
-          this.bandera=true;
-          if (this.bandera) {
+          this.bandera = true;
+          this.fechaValida(new Date(2020, 5, 12), 2, 3);
+          console.log(this.banderaLimite,"))))))))))")
+          if (this.banderaLimite) {
             tata.success("Exito:", "puede configurar el registro");
           }
-        }else if(resp['existe']==-1){
+          else {
+            tata.error("Error:", "la fecha limite de este evento concluyo!");
+          }
+        } else if (resp['existe'] == -1) {
           tata.error("Error:", "el codigo ingresaado no existe!");
-          this.bandera=false;
-        }else{
+          this.bandera = false;
+        } else {
           tata.error("Error:", "la recepcion de los documentos de este postulante ya se realizo!");
-          this.bandera=false;
+          this.bandera = false;
         }
       }
     );
   }
-  
-  registrarRecepcionBD(nroDoc,hora):void{
-    let datos={
-      "idConv":this.convocatoria.getIdConv(),
-      "idPos":this.postulante.getIdPostulante(),
-      "idItem":this.listaItems[0].getIdItem(),
-      "nroDocumentos":nroDoc,
-      "horaRegistro":hora
+
+  registrarRecepcionBD(nroDoc, hora): void {
+    let datos = {
+      "idConv": this.convocatoria.getIdConv(),
+      "idPos": this.postulante.getIdPostulante(),
+      "idItem": this.listaItems[0].getIdItem(),
+      "nroDocumentos": nroDoc,
+      "horaRegistro": hora
     }
     this.recepcion.registrarRecepcion(datos).subscribe(
-      resp=>{
-        if(resp=="correcto"){
+      resp => {
+        if (resp == "correcto") {
           swal.fire(
             'Exitoso!',
             'El registro fue guardado',
@@ -196,3 +243,15 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     );
   }
 }
+/*
+this.bandera = true;
+          this.fechaValida(new Date(2020, 1, 12),2,3);
+          if (this.bandera) {
+            if(this.banderaLimite){
+              tata.success("Exito:", "puede configurar el registro");
+            }
+            else{
+              tata.error("Error:","la fecha limite de este evento concluyo!");
+            }
+          }
+          */

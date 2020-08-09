@@ -7,7 +7,8 @@
             <label for="items"> </label>
             <div class="d-flex mt-2 justify-content-end">
                 <button [disabled]="!bandera" (click)="limpiarDatos()" class="btn btn-outline-primary"> Limpiar Datos</button>
-                <button [disabled]="!bandera" (click)="alertGuardar()" class="ml-4 btn btn-outline-success"> Guardar Registro</button>
+                <button [disabled]="!banderaLimite" (click)="alertGuardar()" class="ml-4 btn btn-outline-success"> Guardar
+          Registro</button>
                 <button (click)="salir()" class="ml-4 btn btn-outline-danger"> Salir</button>
             </div>
         </div>
@@ -39,6 +40,11 @@
                     <input placeholder="numero de documentos" type="number" class="form-control d-inline" id="numero_doc">
                 </div>
             </div>
+            <br><br>
+            <div *ngIf="!banderaLimite&& bandera" class="container mt-4 alert alert-danger text-center" role="alert">
+                La fecha limite de recepcion de documentos de la convocatoria a la cual postulo este estudiante finalizo
+            </div>
+            <br><br>
             <ng-container *ngIf="bandera">
                 <div class="col-sm-12 col-lg-6">
                     <div class="card mt-4">
@@ -49,7 +55,8 @@
                             <p class="card-text">{{convocatoria.getTitulo() | titlecase}}
                             </p>
                             <hr class="bg-dark mt-0 h-10">
-                            <p class="card-text"><span class="font-weight-bold">Gestion:</span> &nbsp; &nbsp;{{convocatoria.getGestion()}}</p>
+                            <p class="card-text"><span class="font-weight-bold">Gestion:</span> &nbsp; &nbsp;{{convocatoria.getGestion()}}
+                            </p>
                             <hr class="bg-dark mt-0 h-10">
                         </div>
                     </div>
@@ -61,17 +68,19 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="pb-2">
-                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Codigo Sis:</span>&nbsp;&nbsp;{{postulante.getCodigoSis()}}</p>
+                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Codigo
+                    Sis:</span>&nbsp;&nbsp;{{postulante.getCodigoSis()}}</p>
                                 <hr class="bg-dark mt-0 h-10">
-                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Apellidos:</span>&nbsp;&nbsp;{{postulante.getApellidoP() | titlecase}}&nbsp;{{postulante.getApellidoM() | titlecase}}</p>
+                                <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Apellidos:</span>&nbsp;&nbsp;{{postulante.getApellidoP() | titlecase}}&nbsp;{{postulante.getApellidoM() | titlecase}}
+                                </p>
                                 <hr class="bg-dark mt-0 h-10">
                                 <p class="card-text mb-0 text-capitalize"><span class="font-weight-bold">Nombres:</span>&nbsp;&nbsp;{{postulante.getNombre() | titlecase}}</p>
                                 <hr class="bg-dark mt-0 h-10">
                             </div>
                         </div>
                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#staticBackdrop">
-                          Itemes del postulante
-                        </button>
+              Itemes del postulante
+            </button>
                     </div>
                 </div>
             </ng-container>
