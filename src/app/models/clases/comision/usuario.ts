@@ -7,14 +7,24 @@ export class Usuario {
     private usuario: string;
     private correo:string;
     private seleccionado:boolean;
+    private ocupacion:string;
 
-    constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string,correo:string) {
+    constructor(idUsuario: number, nombres: string, apellidoPaterno: string, apellidoMaterno: string, correo:string, ocupacion:string="") {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo=correo;
         this.seleccionado=false;
+        this.ocupacion=ocupacion;
+    }
+
+    public getOcupacion(): string {
+        return this.ocupacion;
+    }
+
+    public setOcupacion(value: string): void {
+        this.ocupacion=value;
     }
 
     public getIdUsuario(): number {
@@ -24,6 +34,7 @@ export class Usuario {
     public setLdUsuario(idUsuario): void {
         this.idUsuario = idUsuario;
     }
+
     public getNombres(): string {
         return this.nombres;
     }
