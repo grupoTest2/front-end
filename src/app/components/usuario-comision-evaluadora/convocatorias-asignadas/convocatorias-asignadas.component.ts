@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
+import { PostulanteServicePhp } from 'src/app/servicios/form-postulante/postulante.service';
+import { Item } from 'src/app/models/clases/convocatoria/item';
 
 declare var $: any;
 
@@ -17,7 +19,8 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
 
   usuario: Usuario;
   convocatoria: Convocatoria;
-  constructor(private habilitacion: HabilitacionService) {
+  listaItems:Item[]=[];
+  constructor(private habilitacion: HabilitacionService,private items:PostulanteServicePhp) {
     let datos = JSON.parse(localStorage.getItem("usuario"));
     this.usuario = new Usuario(datos.idUsuario, datos.nombres, datos.apellidoPaterno, datos.apellidoMaterno, datos.correo);
 
@@ -34,6 +37,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
 
   setConvocatoria(conv: Convocatoria) {
     this.convocatoria = conv;
+    this.getItemsBD();
   }
 
   listarPostulantes(): void {
@@ -43,6 +47,25 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   setUsuario(usuario: Usuario): void {
     console.log("convocatorias")
     this.usuario = usuario;
+  }
+
+  getItemsBD(){
+    this.listaItems=[];
+    let idConv=this.convocatoria.getIdConv();
+    this.items.getItems(idConv).subscribe(
+      (resultado: Item) => {
+        let item: Item;
+        for (let i in resultado) {
+          item = new Item(resultado[i].idItem, resultado[i].codigoItem, resultado[i].nombreItem);
+          this.listaItems.push(item);
+        }
+        console.log("mis items");
+        console.log(this.listaItems);
+      }
+      
+
+    )
+    
   }
 
   cargarConvocatoriasUsuarioBD(): void {
