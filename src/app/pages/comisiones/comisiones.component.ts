@@ -50,7 +50,9 @@ export class ComisionesComponent implements OnInit {
   this.listaAux = [];
 
   }
-
+  existeUsrComision(){
+    return this.listaComision[0].getListaUsuarios.length==0;
+  }
   existeUsuario(idTipoComision: number, idUsuario: number): boolean {
     let res = false;
     for (let i = 0; i < this.listaComision.length && !res; i++) {

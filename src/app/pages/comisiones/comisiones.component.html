@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end mt-5">
-                        <button [disabled]="banderaConocimiento" class="btn btn-outline-dark mr-3" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active">Asignar areas de conocimiento </button>
+                        <button [disabled]="existeUsrComision()" class="btn btn-outline-dark mr-3" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active">Asignar areas de conocimiento </button>
                         <button class="btn btn-outline-dark" type="button" (click)="lista()">Guardar </button>
                     </div>
                 </div>
