@@ -3,6 +3,9 @@ import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
 
+
+declare var $:any;
+
 @Component({
   selector: 'app-convocatorias-asignadas',
   templateUrl: './convocatorias-asignadas.component.html',
@@ -14,6 +17,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   @Output() listarPos = new EventEmitter();
 
   usuario: Usuario;
+  convocatoria: Convocatoria;
   constructor(private habilitacion: HabilitacionService) {
     let datos=JSON.parse(localStorage.getItem("usuario"));
     this.usuario=new Usuario(datos.idUsuario,datos.nombres,datos.apellidoPaterno,datos.apellidoMaterno,datos.correo);
@@ -24,8 +28,17 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listarPostulantes(conv: Convocatoria):void {
-    this.listarPos.emit(conv);
+  recuperarPostulantes(){
+    $("#seleccionItem").modal("hide");
+  this.listarPostulantes();
+  }
+
+  setConvocatoria(conv: Convocatoria){
+  this.convocatoria=conv;
+  }
+
+  listarPostulantes():void {
+    this.listarPos.emit(this.convocatoria);
   }
 
   setUsuario(usuario: Usuario):void {

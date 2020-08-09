@@ -1,24 +1,59 @@
 <div class="table-responsive mt-3">
-    <table class="table align-middle table-hover table-bordered" id="requerimientos">
-        <thead class="thead-dark">
-            <tr>
-                <th class="text-center" scope="col-7">Titulo</th>
-                <th class="text-center" scope="col-3">Gestion</th>
-                <th class="text-center" scope="col-2">Ver Postulantes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let conv of listaConv; index as i">
-                <td>{{conv.getTitulo()}}</td>
-                <td>{{conv.getGestion()}}</td>
-                <td class="text-center">
-                    <div class="btn btn-group" role="group">
-                        <button class="btn btn-outline-info mr-1" type="button" (click)=listarPostulantes(conv)>
-                            <i class="fa fa-users"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table align-middle table-hover table-bordered" id="requerimientos">
+    <thead class="thead-dark">
+      <tr>
+        <th class="text-center" scope="col-7">Titulo</th>
+        <th class="text-center" scope="col-3">Gestion</th>
+        <th class="text-center" scope="col-2">Ver Postulantes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let conv of listaConv; index as i">
+        <td>{{conv.getTitulo()}}</td>
+        <td>{{conv.getGestion()}}</td>
+        <td class="text-center">
+          <div class="btn btn-group" role="group">
+            <button class="btn btn-outline-info mr-1" type="button" (click)=setConvocatoria(conv) data-toggle="modal" data-target="#seleccionItem">
+              <!--(click)=listarPostulantes(conv)>-->
+              <i class="fa fa-users"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!--                   Modal           -->
+<div class="modal fade" id="seleccionItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Seleccione un Item</h5>
+        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalMeritos">
+        <form autocomplete="off">
+          <div class="form-group">
+            <label for="seleccionGestion" class="col-form-label">Itemes: </label>
+            <select class="custom-select" id="seleccionGestion">
+              <option value="Intro">Intro</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click)="recuperarPostulantes()">Evaluar</button>
+      </div>
+    </div>
+  </div>
 </div>
