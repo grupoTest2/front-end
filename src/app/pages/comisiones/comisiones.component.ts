@@ -273,7 +273,11 @@ export class ComisionesComponent implements OnInit {
         let usuario: Usuario;
         for (let i in resultado) {
           let objAux = resultado[i];
-          usuario = new Usuario(objAux.idUsuario, objAux.nombre, objAux.apellidoP, objAux.apellidoM, objAux.correo);
+          let ocupacion="estudiante";
+          if(objAux.ocupacion){
+            ocupacion="docente";
+          }
+          usuario = new Usuario(objAux.idUsuario, objAux.nombre, objAux.apellidoP, objAux.apellidoM, objAux.correo,ocupacion);
           this.listaUsuarios.push(usuario);
         }
       }
