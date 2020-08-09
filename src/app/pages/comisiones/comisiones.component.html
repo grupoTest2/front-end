@@ -18,6 +18,7 @@
                                     <tr>
                                         <th class="text-center" scope="col">Apellidos y Nombres</th>
                                         <th class="text-center" scope="col">Correo Electronico</th>
+                                        <th class="text-center" scope="col">Estudiante/Docente</th>
                                         <th class="text-center" scope="col">Tipo de Usuario</th>
                                         <th class="text-center" scope="col">Acciones</th>
                                     </tr>
@@ -27,12 +28,13 @@
                                         <tr [class.text-muted]="!existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.text-primary]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" id="id{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}">
                                             <td>{{usuario.getApellidoPaterno() | titlecase}}&nbsp;{{usuario.getApellidoMaterno() | titlecase}}&nbsp;{{usuario.getNombres() | titlecase }}</td>
                                             <td class="text-center">{{usuario.getCorreo()}}</td>
+                                            <td class="text-center">{{usuario.getOcupacion()}}</td>
                                             <td class="text-center text-capitalize" id="nombreTipo{{usuario.getIdUsuario()}}">{{getNombreTipoUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())}}</td>
                                             <td class="text-center">
                                                 <div class="btn btn-group" role="group">
                                                     <button class="btn btn-outline-info mr-1" type="button" data-toggle="modal" data-target="#tablaRequerimientos">
                                                         <i class="fas fa-book-user"></i>
-                                                </button>
+                                                </button >
                                                     <button (click)="modal(j, tipo.getIdTipoComision(), usuario.getIdUsuario())" data-toggle="modal" data-target="#tablaTipo" class="btn btn-outline-secondary" id="boton{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}" type="button">
                                                     <i [class.fa-user-times]="!existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.fa-user-check]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" [class.btn-outline-success]="existeUsuario(tipo.getIdTipoComision(),usuario.getIdUsuario())" class="fas" id="check{{tipo.getIdTipoComision()}}{{usuario.getIdUsuario()}}"></i>
                                                 </button>
@@ -40,7 +42,6 @@
                                             </td>
                                         </tr>
                                     </ng-container>
-
                                 </tbody>
                             </table>
                         </div>
@@ -48,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end mt-5">
-                        <button [disabled]="existeUsrComision()" class="btn btn-outline-dark mr-3" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active">Asignar areas de conocimiento </button>
+                        <button  *ngIf="j==0" [disabled]="existeUsrComision()" class="btn btn-outline-dark mr-3" type="button" [routerLink]="['/comisiones/asingnacion_area_conocimiento']" routerLinkActive="router-link-active">Asignar areas de conocimiento </button>
                         <button class="btn btn-outline-dark" type="button" (click)="lista()">Guardar </button>
                     </div>
                 </div>

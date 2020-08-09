@@ -47,11 +47,27 @@ export class ComisionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.listaAux = [];
+    this.listaAux = [];
 
   }
-  existeUsrComision(){
-    return this.listaComision[0].getListaUsuarios.length==0;
+  existeUsrComision() {
+    let res = true;
+    let listaAux = this.listaComision[0].getListaUsuarios()
+    for (let i = 0; i < listaAux.length && res; i++) {
+      if (listaAux[i].getAccion() == 'nada') {
+        res = false;
+      }
+    }
+    return res;//this.listaComision[0].getListaUsuarios().length==0;
+  }
+
+  setAccionUsuario() {
+    for (let i = 0; i < this.listaComision.length; i++) {
+      let listaAux = this.listaComision[i].getListaUsuarios()
+      for (let j = 0; j < listaAux.length; j++) {
+        listaAux[j].setAccion('nada');
+      }
+    }
   }
   existeUsuario(idTipoComision: number, idUsuario: number): boolean {
     let res = false;
@@ -62,7 +78,7 @@ export class ComisionesComponent implements OnInit {
     }
     return res;
   }
-  getNombreTipoUsuario(idTipoComision, idUsuario):string {
+  getNombreTipoUsuario(idTipoComision, idUsuario): string {
     let res = "----";
     let bandera = true;
     for (let i = 0; i < this.listaComision.length && bandera; i++) {
@@ -84,7 +100,7 @@ export class ComisionesComponent implements OnInit {
     return res;
   }
 
-  agregarUsuarioComison(idUsuario, idTipoComision, idTipoUsuario):void {
+  agregarUsuarioComison(idUsuario, idTipoComision, idTipoUsuario): void {
     for (let i in this.listaComision) {
       let objCom: Comision = this.listaComision[i];
       if (objCom.getIdTipoComision() === idTipoComision) {
@@ -94,7 +110,7 @@ export class ComisionesComponent implements OnInit {
     }
   }
 
-  getComision(idTipoComision) :Comision{
+  getComision(idTipoComision): Comision {
     let objCom: Comision;
     for (let i in this.listaComision) {
       objCom = this.listaComision[i];
@@ -105,7 +121,7 @@ export class ComisionesComponent implements OnInit {
     return objCom;
   }
 
-  crearComisiones() :void{
+  crearComisiones(): void {
     let com: Comision;
     for (let i in this.listaTipoComision) {
       let objAux = this.listaTipoComision[i];
@@ -115,16 +131,16 @@ export class ComisionesComponent implements OnInit {
     this.getComisionesBD();
   }
 
-  lista() :void{
+  lista(): void {
     this.banderaConocimiento = true;
-    if(this.verificar()){
-    this.alertRegistrar();
-    }else{
+    if (this.verificar()) {
+      this.alertRegistrar();
+    } else {
       tata.error('Error', 'Por favor debe elegir al menos un usuario')
     }
   }
 
-  verificar():boolean{
+  verificar(): boolean {
     let hayUsuarios: boolean = false;
     for (let i in this.listaComision) {
       hayUsuarios = this.listaComision[i].getListaUsuarios().length > 0;
@@ -135,7 +151,7 @@ export class ComisionesComponent implements OnInit {
     return hayUsuarios;
   }
 
-  modal(indice1: number, idTipoComision: number, idUsuario: number):void {
+  modal(indice1: number, idTipoComision: number, idUsuario: number): void {
     this.listaAux = [];
     this.idComisionAux = idTipoComision;
     this.idUsuarioAux = idUsuario;
@@ -165,6 +181,7 @@ export class ComisionesComponent implements OnInit {
           'Se guardaron los usuarios.',
           'success'
         ).then((result) => {
+          this.setAccionUsuario();
         });
       } else {
         swal.fire(
@@ -211,26 +228,26 @@ export class ComisionesComponent implements OnInit {
     this.buildForm();
   }
 
-  get tipoForm():any {
+  get tipoForm(): any {
     return this.formTipoUsuario.get('tipo');
   }
 
-  get tipoFormIsValid():boolean {
+  get tipoFormIsValid(): boolean {
     return this.tipoForm.touched && this.tipoForm.valid;
   }
 
-  get tipoFormIsInvalid():boolean {
+  get tipoFormIsInvalid(): boolean {
     return this.tipoForm.touched && this.tipoForm.invalid;
   }
 
-  marcar():void {
+  marcar(): void {
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('text-primary').toggleClass("text-muted");
     $('#id' + this.idComisionAux + this.idUsuarioAux).toggleClass('shadow-sm');
     $('#check' + this.idComisionAux + this.idUsuarioAux).toggleClass('fa-user-times').toggleClass('fa-user-check');
     $('#boton' + this.idComisionAux + this.idUsuarioAux).toggleClass('btn-outline-secondary').toggleClass('btn-outline-success');
   }
 
-  getTipoComisionesBD():void {
+  getTipoComisionesBD(): void {
     this.comisionServ.getTiposComision().subscribe(
       resultado => {
         let tipoCom: TipoComision;
@@ -250,7 +267,7 @@ export class ComisionesComponent implements OnInit {
     )
   }
 
-  getUsuariosBD():void {
+  getUsuariosBD(): void {
     this.comisionServ.getUsuarios().subscribe(
       resultado => {
         let usuario: Usuario;
@@ -263,7 +280,7 @@ export class ComisionesComponent implements OnInit {
     )
   }
 
-  getComisionesBD() :void{
+  getComisionesBD(): void {
     for (let i in this.listaComision) {
       let objAux = {
         idConv: this.listaComision[i].getIdConv(),
@@ -282,7 +299,7 @@ export class ComisionesComponent implements OnInit {
     }
   }
 
-  agregarUsuarioComisionBD():void {
+  agregarUsuarioComisionBD(): void {
     let hayUsuarios: boolean = false;
     for (let i in this.listaComision) {
       hayUsuarios = this.listaComision[i].getListaUsuarios().length > 0;
