@@ -34,6 +34,7 @@ export class FechasComponent implements OnInit {
   listaEventosSeleccionados: Evento[] = [];
   seleccionEventos: SeleccionEventos;
   href: string = '';
+  nombreEventos:EventoBD[]=[];
 
   constructor(private apiPHP: PhpServeConvocatoria, 
     private formBuilder: FormBuilder,
@@ -59,6 +60,15 @@ export class FechasComponent implements OnInit {
     }else{
       return false;
     }
+  }
+  quitarNombreEvento(evento:Evento){
+    /*let listaAux:string[]=[];
+    for(let i in this.nombreEventos){
+      if(evento.getNombre()!=this.nombreEventos[i]){
+        listaAux.push(this.nombreEventos[i]);
+      }
+    }
+    this.nombreEventos=listaAux;*/
   }
 
   agregarEvento(): void {
@@ -160,6 +170,17 @@ export class FechasComponent implements OnInit {
     return this.listaEventosSeleccionados.length>1? "bien": "establecer al menos 2 eventos!!";
   }
 
+  getNombreEventosBD(){
+    let idDep=1;
+    this.apiPHP.getNombreEventos(idDep).subscribe(
+      resp=>{
+        for(let i in resp){
+          this.nombreEventos.push(new EventoBD(resp[i].idEvento,resp[i].nombre));
+        }
+      }
+    );
+  }
+
   getEventosBD():void{
     if(localStorage.getItem("idConv")===""){
     }else{
@@ -174,11 +195,36 @@ export class FechasComponent implements OnInit {
               resultado[i].horaInicio,
               resultado[i].idEvento
             );
+
             this.seleccionEventos.agregarEvento(this.evento);
+            this.quitarNombreEvento(this.evento);
           }
           this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
         }
       )
     }
+  }
+}
+
+export class EventoBD{
+  private idEvento: number;
+  private nombre: string;
+  private seleccionado: boolean;
+  public constructor(idEvento: number,nombre:string,seleccionado:boolean=false){
+    this.idEvento= idEvento;
+    this.nombre= nombre;
+    this.seleccionado=seleccionado;
+  }
+
+  public getNombre(){
+    return this.nombre;
+  }
+
+  public getIdEvento(){
+    return this.idEvento;
+  }
+
+  public getSeleccionado(){
+    return this.seleccionado;
   }
 }
