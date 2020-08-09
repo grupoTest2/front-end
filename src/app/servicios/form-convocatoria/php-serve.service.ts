@@ -8,11 +8,16 @@ import { Convocatoria } from 'src/app/models/clases/convocatoria/convocatoria';
 export class PhpServeConvocatoria {
 
   URL = "http://localhost/back-end/apiPHP/convocatoria/crearConvocatoria/";
+
   constructor(private http: HttpClient) { }
 
   //recuperan informacion de la base de datos
   public getItems(idTipoConv: number) {
     return this.http.get(`${this.URL}obtenerItems.php?idTipoConv=${idTipoConv}`);
+  }
+
+  public getNombreEventos(idDep:number){
+    return this.http.get(`${this.URL}obtenerNombreEventos.php`);
   }
 
   public getRequisitos() {
