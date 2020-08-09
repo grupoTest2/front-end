@@ -3,8 +3,7 @@ import { Convocatoria } from '../../../models/clases/convocatoria/convocatoria';
 import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
 
-
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-convocatorias-asignadas',
@@ -19,39 +18,39 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   usuario: Usuario;
   convocatoria: Convocatoria;
   constructor(private habilitacion: HabilitacionService) {
-    let datos=JSON.parse(localStorage.getItem("usuario"));
-    this.usuario=new Usuario(datos.idUsuario,datos.nombres,datos.apellidoPaterno,datos.apellidoMaterno,datos.correo);
-    
+    let datos = JSON.parse(localStorage.getItem("usuario"));
+    this.usuario = new Usuario(datos.idUsuario, datos.nombres, datos.apellidoPaterno, datos.apellidoMaterno, datos.correo);
+
     this.cargarConvocatoriasUsuarioBD();
   }
 
   ngOnInit(): void {
   }
 
-  recuperarPostulantes(){
+  recuperarPostulantes() {
     $("#seleccionItem").modal("hide");
-  this.listarPostulantes();
+    this.listarPostulantes();
   }
 
-  setConvocatoria(conv: Convocatoria){
-  this.convocatoria=conv;
+  setConvocatoria(conv: Convocatoria) {
+    this.convocatoria = conv;
   }
 
-  listarPostulantes():void {
+  listarPostulantes(): void {
     this.listarPos.emit(this.convocatoria);
   }
 
-  setUsuario(usuario: Usuario):void {
+  setUsuario(usuario: Usuario): void {
     console.log("convocatorias")
     this.usuario = usuario;
   }
 
-  cargarConvocatoriasUsuarioBD():void{
+  cargarConvocatoriasUsuarioBD(): void {
     this.listaConv = [];
     this.habilitacion.getConvocatoriasDisponibles(this.usuario.getIdUsuario()).subscribe(
-      resp=>{
-        for(let i in resp){
-          let convocatoria=new Convocatoria(0,resp[i].titulo,resp[i].gestion);
+      resp => {
+        for (let i in resp) {
+          let convocatoria = new Convocatoria(0, resp[i].titulo, resp[i].gestion);
           convocatoria.setIdConv(resp[i].idConv);
           this.listaConv.push(convocatoria);
         }
