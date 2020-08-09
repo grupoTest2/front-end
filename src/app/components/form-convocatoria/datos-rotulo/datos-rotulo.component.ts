@@ -27,7 +27,6 @@ export class DatosRotuloComponent implements OnInit {
   
   constructor(private apiPHP: PhpServeConvocatoria, private editarConv: EditarConvocatoriaServicePhp, private router: Router) {
     this.getTipoDatosRotulo();
-    this.getTipoDatosRotuloBD();
 
   }
   ngOnInit(): void {
@@ -158,7 +157,8 @@ export class DatosRotuloComponent implements OnInit {
           listaTipos.push(resultado[i]);
         }
         this.seleccion = new SeleccionTipoDatoRotulo(listaTipos);
-        console.log(this.seleccion.getListaTiposDatosRotulo());
+        //console.log(this.seleccion.getListaTiposDatosRotulo());
+        this.getTipoDatosRotuloBD();
       }
     );
   }
