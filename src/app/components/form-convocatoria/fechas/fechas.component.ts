@@ -54,12 +54,12 @@ export class FechasComponent implements OnInit {
     this.href = this.router.url;
     init_plugins();
     $('.clockpicker').clockpicker();
-    this.nombreEventos.push(new EventoBD(1,"Publicacíon de la convocatoria"))
+    /*this.nombreEventos.push(new EventoBD(1,"Publicacíon de la convocatoria"))
     this.nombreEventos.push(new EventoBD(1,"lola2"))
     this.nombreEventos.push(new EventoBD(1,"lola3"))
     this.nombreEventos.push(new EventoBD(1,"lola4"))
     this.nombreEventos.push(new EventoBD(1,"lola5"))
-    this.nombreEventos.push(new EventoBD(1,"lola6"))
+    this.nombreEventos.push(new EventoBD(1,"lola6"))*/
   }
 
   ruta():boolean{
@@ -182,6 +182,7 @@ export class FechasComponent implements OnInit {
     this.apiPHP.getNombreEventos(idDep).subscribe(
       resp=>{
         for(let i in resp){
+          console.log(resp[i].idEvento,resp[i].nombre);
           this.nombreEventos.push(new EventoBD(resp[i].idEvento,resp[i].nombre));
         }
         console.log("la lista de nombres");
