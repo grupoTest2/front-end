@@ -378,6 +378,7 @@ export class FormConvocatoriaComponent implements OnInit {
   agregarEventos():boolean {
     let agregar: boolean = true;
     if (this.listaDatosEventos.length !== 0) {
+      console.log(JSON.stringify(this.listaDatosEventos));
       this.apiPHP.agregarEventos(this.listaDatosEventos).subscribe(
         respuesta => {
           if (respuesta['resultado'] === 'correcto') {

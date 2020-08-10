@@ -76,13 +76,36 @@ export class FechasComponent implements OnInit {
         this.nombreEventos[i].setSeleccionado(true);
     }
   }
+  buscarIdEvento(nombre){
+    let res=-1;
+    for(let i in this.nombreEventos){
+      if(nombre==this.nombreEventos[i].getNombre()){
+        res=this.nombreEventos[i].getIdEvento();
+        break;
+      }
+    }
+    return res;
+  }
 
+  existeEventoAgregar(){
+    let res=false;
+    for(let i in this.nombreEventos){
+      if(!this.nombreEventos[i].getSeleccionado()){
+        res=true;
+        break;
+      }
+    }
+    return res;
+  }
   agregarEvento(): void {
     let nombreNombre = $('#nombreEvento').val();
+    this.seleccionarNombre(nombreNombre);
+    let idEvento=this.buscarIdEvento(nombreNombre);
     let fecha = $('#fecha').val();
     let hora = $('#hora').val();
     this.evento = new Evento(nombreNombre, fecha, hora);
     this.evento.setAccion("insertar");
+    this.evento.setIdEvento(idEvento);
     let resp = this.seleccionEventos.agregarEvento(this.evento);
     if (resp==='exito') {
       tata.success('Agregado.', 'Se agregó con exito.');
@@ -158,7 +181,22 @@ export class FechasComponent implements OnInit {
   }
 
   resetForm(): void {
-    if (this.listaEventosSeleccionados.length <= 5) {
+    let nombreEvento="";
+    for(let i in this.nombreEventos){
+      if(!this.nombreEventos[i].getSeleccionado()){
+        nombreEvento=this.nombreEventos[i].getNombre();
+        break;
+      }
+    }
+    if(nombreEvento!=""){
+      $('#nombreEvento').val(nombreEvento);
+      this.formEventos.get('evento').setErrors(null);
+      $('#nombreEvento').prop('readonly', true);
+      $('#nombreEvento').css("background-color", "#fff");
+      this.formEventos.markAsUntouched();
+      $('#hora').val("");
+    }
+    /*if (this.listaEventosSeleccionados.length <= 5) {
       $('#nombreEvento').val(this.nombreEventos[this.cont].getNombre());
       this.formEventos.get('evento').setErrors(null);
       $('#nombreEvento').prop('readonly', true);
@@ -170,7 +208,7 @@ export class FechasComponent implements OnInit {
       $('#nombreEvento').prop('readonly', false);
       this.formEventos.reset();
       $('#hora').val("");
-    }
+    }*/
   }
   
   estaHabilitado(): string{
