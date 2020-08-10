@@ -35,6 +35,7 @@ export class FechasComponent implements OnInit {
   seleccionEventos: SeleccionEventos;
   href: string = '';
   nombreEventos:EventoBD[]=[];
+  cont=0;
 
   constructor(private apiPHP: PhpServeConvocatoria, 
     private formBuilder: FormBuilder,
@@ -52,6 +53,12 @@ export class FechasComponent implements OnInit {
     this.href = this.router.url;
     init_plugins();
     $('.clockpicker').clockpicker();
+    this.nombreEventos.push(new EventoBD(1,"Publicacíon de la convocatoria"))
+    this.nombreEventos.push(new EventoBD(1,"lola2"))
+    this.nombreEventos.push(new EventoBD(1,"lola3"))
+    this.nombreEventos.push(new EventoBD(1,"lola4"))
+    this.nombreEventos.push(new EventoBD(1,"lola5"))
+    this.nombreEventos.push(new EventoBD(1,"lola6"))
   }
 
   ruta():boolean{
@@ -83,6 +90,7 @@ export class FechasComponent implements OnInit {
       $('#tablaFechas').modal('hide');
       this.formEventos.reset();
       $('#hora').val("");
+      this.cont+=1;
     } else {
        this.ErrorAlInsertarEvento(resp);
     }
@@ -151,8 +159,8 @@ export class FechasComponent implements OnInit {
   }
 
   resetForm(): void {
-    if (this.listaEventosSeleccionados.length == 0) {
-      $('#nombreEvento').val("Publicacíon de la convocatoria");
+    if (this.listaEventosSeleccionados.length <= 5) {
+      $('#nombreEvento').val(this.nombreEventos[this.cont].getNombre());
       this.formEventos.get('evento').setErrors(null);
       $('#nombreEvento').prop('readonly', true);
       $('#nombreEvento').css("background-color", "#fff");
