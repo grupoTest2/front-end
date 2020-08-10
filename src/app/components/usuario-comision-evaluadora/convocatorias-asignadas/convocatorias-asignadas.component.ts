@@ -23,7 +23,6 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   constructor(private habilitacion: HabilitacionService,private items:PostulanteServicePhp) {
     let datos = JSON.parse(localStorage.getItem("usuario"));
     this.usuario = new Usuario(datos.idUsuario, datos.nombres, datos.apellidoPaterno, datos.apellidoMaterno, datos.correo);
-
     this.cargarConvocatoriasUsuarioBD();
   }
 
@@ -31,8 +30,12 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   }
 
   recuperarPostulantes() {
-    $("#seleccionItem").modal("hide");
-    this.listarPostulantes();
+    let id= $("#itemes option:selected").val();
+    if(id!=0){
+      console.log(id,"------------------------------")
+      $("#seleccionItem").modal("hide");
+      this.listarPostulantes();
+    }
   }
 
   setConvocatoria(conv: Convocatoria) {
@@ -62,8 +65,6 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
         console.log("mis items");
         console.log(this.listaItems);
       }
-      
-
     )
     
   }

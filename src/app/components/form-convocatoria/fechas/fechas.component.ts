@@ -180,6 +180,8 @@ export class FechasComponent implements OnInit {
     }
   }
 
+
+
   resetForm(): void {
     let nombreEvento="";
     for(let i in this.nombreEventos){
