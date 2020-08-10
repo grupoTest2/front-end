@@ -72,6 +72,10 @@ export class Evento{
     public setAccion(accion:string): void {
         this.accion=accion;
     }
+
+    public setIdEvento(value){
+        this.idEvento=value;
+    }
     public convertirseString(): void{
         const fechaF = this.fechaFin.toLocaleString().split(' ')[0];
         const fechaI = this.fechaIni.toLocaleString().split(' ')[0];

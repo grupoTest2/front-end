@@ -46,7 +46,8 @@ export class FechasComponent implements OnInit {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 5, 12, 31);
     this.maxDate = new Date(currentYear + 5, 12, 31);
-    this.getEventosBD();
+    this.getNombreEventosBD();
+    
   }
 
   ngOnInit(): void {
@@ -68,14 +69,12 @@ export class FechasComponent implements OnInit {
       return false;
     }
   }
-  quitarNombreEvento(evento:Evento){
-    /*let listaAux:string[]=[];
+
+  seleccionarNombre(nombre){
     for(let i in this.nombreEventos){
-      if(evento.getNombre()!=this.nombreEventos[i]){
-        listaAux.push(this.nombreEventos[i]);
-      }
+      if(nombre==this.nombreEventos[i].getNombre())
+        this.nombreEventos[i].setSeleccionado(true);
     }
-    this.nombreEventos=listaAux;*/
   }
 
   agregarEvento(): void {
@@ -185,6 +184,9 @@ export class FechasComponent implements OnInit {
         for(let i in resp){
           this.nombreEventos.push(new EventoBD(resp[i].idEvento,resp[i].nombre));
         }
+        console.log("la lista de nombres");
+        console.log(this.nombreEventos);
+        this.getEventosBD();
       }
     );
   }
@@ -205,7 +207,7 @@ export class FechasComponent implements OnInit {
             );
 
             this.seleccionEventos.agregarEvento(this.evento);
-            this.quitarNombreEvento(this.evento);
+            this.seleccionarNombre(this.evento.getNombre());
           }
           this.listaEventosSeleccionados=this.seleccionEventos.getListaEventosSeleccionados();
         }
@@ -218,6 +220,7 @@ export class EventoBD{
   private idEvento: number;
   private nombre: string;
   private seleccionado: boolean;
+
   public constructor(idEvento: number,nombre:string,seleccionado:boolean=false){
     this.idEvento= idEvento;
     this.nombre= nombre;
@@ -234,5 +237,8 @@ export class EventoBD{
 
   public getSeleccionado(){
     return this.seleccionado;
+  }
+  public setSeleccionado(value){
+    return this.seleccionado=value;
   }
 }

@@ -17,7 +17,7 @@ export class PhpServeConvocatoria {
   }
 
   public getNombreEventos(idDep:number){
-    return this.http.get(`${this.URL}obtenerNombreEventos.php`);
+    return this.http.get(`${this.URL}obtenerNombreEventos.php?idDep=${idDep}`);
   }
 
   public getRequisitos() {
