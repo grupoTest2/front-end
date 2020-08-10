@@ -157,8 +157,10 @@ export class FechasComponent implements OnInit {
     }
   }
 
+
+
   resetForm(): void {
-    if (this.listaEventosSeleccionados.length <= 5) {
+    if (this.listaEventosSeleccionados.length <= this.nombreEventos.length) {
       $('#nombreEvento').val(this.nombreEventos[this.cont].getNombre());
       this.formEventos.get('evento').setErrors(null);
       $('#nombreEvento').prop('readonly', true);
