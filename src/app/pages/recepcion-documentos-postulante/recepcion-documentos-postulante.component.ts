@@ -57,14 +57,14 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     }, 1000);
 
     //this.fechaValida(new Date(2020, 11, 12),2,3);
-    console.log(this.banderaLimite, "------------")
+    //console.log(this.banderaLimite, "------------")
   }
 
   fechaValida(fechaLimite: Date, horaC: number, minutosC: number) {
     let anio = this.hoyFecha()[0]
     let mes = this.hoyFecha()[1]
     let dia = this.hoyFecha()[2]
-    console.log(anio, "----", mes, "-----", "----", dia)
+    //console.log(anio, "----", mes, "-----", "----", dia)
     var fecha = new Date(anio, mes, dia);
     let fecha2=new Date();
     let horas = this.getHora();
@@ -209,7 +209,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
           let horaFin= resp['horaFin'];
           let fechaPartes=fechaFin.split('-');
           let fechita=new Date(parseInt(fechaPartes[0]),parseInt(fechaPartes[1])-1,parseInt(fechaPartes[2]));
-          console.log(fechita);
+         // console.log(fechita);
           let hora= 0;
           let min= 0;
           if(horaFin!=null){
@@ -217,12 +217,11 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
             hora= parseInt(horaPartes[0]);
             min= parseInt(horaPartes[1]);
           }else{
-            console.log("es nulll");
+           // console.log("es nulll");
           }
-          console.log("jhon putazo");
-          console.log(fechita);
+          //console.log(fechita);
           this.fechaValida(fechita, hora, min);
-          console.log(this.banderaLimite,"))))))))))")
+          //console.log(this.banderaLimite,"))))))))))")
           if (this.banderaLimite) {
             tata.success("Exito:", "puede configurar el registro");
           }
