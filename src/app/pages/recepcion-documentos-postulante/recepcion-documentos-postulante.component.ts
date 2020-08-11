@@ -129,7 +129,9 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
 
   buscarCodigo(): void {
     let codigo = $('#codigo').val();
-    this.existeCodigoBD(codigo);
+    if(codigo!=""){
+      this.existeCodigoBD(codigo);
+    }
   }
 
   limpiarDatos(): void {
