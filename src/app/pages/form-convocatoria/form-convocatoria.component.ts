@@ -333,7 +333,7 @@ export class FormConvocatoriaComponent implements OnInit {
   agregarCalificaciones():boolean {
     let agregar: boolean = true;
     let resp: boolean = false;
-    console.log(JSON.stringify(this.listaItemsConCalificaciones));
+    //console.log(JSON.stringify(this.listaItemsConCalificaciones));
     for (let i in this.listaItemsConCalificaciones) {
       let listaTem = this.listaItemsConCalificaciones[i].getListaTematicas();
       console.log("las tematicasssss");
