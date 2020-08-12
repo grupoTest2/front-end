@@ -90,16 +90,16 @@ export class FormConvocatoriaComponent implements OnInit {
     }
   }
 
-  estaHabilitado():any {
+  estaHabilitado(): any {
     return this.requerimiento.estaHabilitado();
   }
 
-  setListaRequerimientos(listaRequerimientos: Requerimiento[]) :void{
+  setListaRequerimientos(listaRequerimientos: Requerimiento[]): void {
     this.calificacionConocimiento.setListaRequerimiento(listaRequerimientos);
     this.listaRequerimientos = listaRequerimientos;
   }
 
-  recuperarLosDatosDeLosComponentes():void {
+  recuperarLosDatosDeLosComponentes(): void {
     this.listaRequerimientos = this.requerimiento.getDatos();
     this.listaDatosRequisitos = this.requisitos.getDatos();
     this.listaDatosDocumentosPresentar = this.documentosPresentar.getDatos();
@@ -114,37 +114,37 @@ export class FormConvocatoriaComponent implements OnInit {
   habilitar(): boolean {
     let habilitar = true;
     let mensaje = '';
-    let req:string = this.requerimiento.estaHabilitado();
-    let requi:string = this.requisitos.estaHabilitado();
-    let doc: string =this.documentosPresentar.estaHabilitado();
-    let me: string =this.merito.estaHabilitado();
-    let calif: string =this.calificacionConocimiento.estaHabilitado();
-    let eventos: string=this.eventos.estaHabilitado();
-    let datos: string=this.datosRotulo.estaHabilitado();
-    if(req=="bien"&&requi=="bien"&&doc=="bien"&&me=="bien"&&calif=="bien"&&eventos=="bien"&&datos=="bien"){
+    let req: string = this.requerimiento.estaHabilitado();
+    let requi: string = this.requisitos.estaHabilitado();
+    let doc: string = this.documentosPresentar.estaHabilitado();
+    let me: string = this.merito.estaHabilitado();
+    let calif: string = this.calificacionConocimiento.estaHabilitado();
+    let eventos: string = this.eventos.estaHabilitado();
+    let datos: string = this.datosRotulo.estaHabilitado();
+    if (req == "bien" && requi == "bien" && doc == "bien" && me == "bien" && calif == "bien" && eventos == "bien" && datos == "bien") {
       this.lanzarConvocatoria();
       habilitar = true;
-    }else{
-      if (req!="bien") {
-        mensaje += '<hr>'+req;
+    } else {
+      if (req != "bien") {
+        mensaje += '<hr>' + req;
       }
-      if (requi!="bien") {
-        mensaje += '<hr>'+requi;
+      if (requi != "bien") {
+        mensaje += '<hr>' + requi;
       }
-      if (doc!="bien") {
-        mensaje += '<hr>'+doc;
+      if (doc != "bien") {
+        mensaje += '<hr>' + doc;
       }
-      if (me!="bien") {
-        mensaje += '<hr>'+me;
+      if (me != "bien") {
+        mensaje += '<hr>' + me;
       }
-      if (calif!="bien") {
-        mensaje += '<hr>'+calif;
+      if (calif != "bien") {
+        mensaje += '<hr>' + calif;
       }
-      if (eventos!="bien") {
-        mensaje += '<hr>'+eventos;
+      if (eventos != "bien") {
+        mensaje += '<hr>' + eventos;
       }
-      if (datos!="bien") {
-        mensaje += '<hr>'+datos;
+      if (datos != "bien") {
+        mensaje += '<hr>' + datos;
       }
       habilitar = false
       this.mensajeToastErrorBD(mensaje);
@@ -166,13 +166,13 @@ export class FormConvocatoriaComponent implements OnInit {
 
   }
 
-  mensajeToastErrorBD(mensaje):void {
+  mensajeToastErrorBD(mensaje): void {
     tata.error('Error', mensaje, {
       duration: 10000
     });
 
   }
-  mensajeToastExito(mensaje) :void{
+  mensajeToastExito(mensaje): void {
     tata.success('Registro Exitoso', mensaje);
   }
 
@@ -188,24 +188,19 @@ export class FormConvocatoriaComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        if(this.agregarBD()){
+        if (this.agregarBD()) {
           swal.fire(
-            {title: 'Exitoso',
-            text: "¿Desea habilitar la convocatoria?",
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'OK',
-            cancelButtonText: 'Cancelar'}
+            {
+              title: 'Se Guardaron Los Datos Exitosamente',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            }
           ).then((result) => {
-            //if (result.value) {
-              //this.router.navigate(['/habilitarConvocatoria/formulario']);
-            //}else{
-              this.router.navigate(['/editar/convocatorias']);
+            this.router.navigate(['/editar/convocatorias']);
             //}
           });
-        }else{
+        } else {
           swal.fire(
             'Error!',
             'Error al guardar los datos.',
@@ -234,31 +229,33 @@ export class FormConvocatoriaComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        if(this.habilitar()){
+        if (this.habilitar()) {
           swal.fire(
             'Exitoso!',
             'La convactoria fue habilitada correctamente',
             'success'
           );
           this.router.navigate(['/editar/convocatorias']);
-          }else{
-            swal.fire(
-              {title: 'Editar convocatoria',
+        } else {
+          swal.fire(
+            {
+              title: 'Editar convocatoria',
               text: "¿Desea completar los datos faltantes?",
               icon: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
               confirmButtonText: 'Ir a editar',
-              cancelButtonText: 'Cancelar'}
-            ).then((result) => {
-              if (result.value) {
-                this.router.navigate(['/editarConvocatoria/formulario']);
-              }else{
-                this.router.navigate(['/editar/convocatorias']);
-              }
-            });
-          }
+              cancelButtonText: 'Cancelar'
+            }
+          ).then((result) => {
+            if (result.value) {
+              this.router.navigate(['/editarConvocatoria/formulario']);
+            } else {
+              this.router.navigate(['/editar/convocatorias']);
+            }
+          });
+        }
       } else {
         swal.fire(
           'Cancelado!',
@@ -270,16 +267,16 @@ export class FormConvocatoriaComponent implements OnInit {
     });
   }
 
-  agregarBD():boolean {
+  agregarBD(): boolean {
     let agregar = false;
     this.recuperarLosDatosDeLosComponentes();
-    if(this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
-    this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()){
+    if (this.agregarRequerimientos() && this.agregarRequisitos() && this.agregarDocumentosPresentar() &&
+      this.agregarMeritos() && this.agregarEventos() && this.agregarDatosRotulo()) {
       agregar = true;
     }
     return agregar;
   }
- 
+
   agregarRequerimientos(): boolean {
     let agregar: boolean = true;
     if (this.listaRequerimientos.length !== 0) {
@@ -312,7 +309,7 @@ export class FormConvocatoriaComponent implements OnInit {
     }
     return agregar;
   }
-  agregarDocumentosPresentar():boolean {
+  agregarDocumentosPresentar(): boolean {
     let agregar: boolean = true;
     if (this.listaDatosDocumentosPresentar.length !== 0) {
       this.apiPHP.agregarDocumentosPresentar(this.listaDatosDocumentosPresentar).subscribe(
@@ -330,7 +327,7 @@ export class FormConvocatoriaComponent implements OnInit {
 
   }
 
-  agregarCalificaciones():boolean {
+  agregarCalificaciones(): boolean {
     let agregar: boolean = true;
     let resp: boolean = false;
     //console.log(JSON.stringify(this.listaItemsConCalificaciones));
@@ -342,7 +339,7 @@ export class FormConvocatoriaComponent implements OnInit {
         resp = true;
         break;
       }
-    }    
+    }
     if (resp) {
       this.apiPHP.agregarConocimientos(this.listaItemsConCalificaciones).subscribe(
         respuesta => {
@@ -358,7 +355,7 @@ export class FormConvocatoriaComponent implements OnInit {
     return agregar;
   }
 
-  agregarMeritos():boolean {
+  agregarMeritos(): boolean {
     let agregar: boolean = true;
     if (this.listaDatosMerito.length !== 0) {
       this.apiPHP.agregarMeritos(this.listaDatosMerito).subscribe(
@@ -375,7 +372,7 @@ export class FormConvocatoriaComponent implements OnInit {
     return agregar;
   }
 
-  agregarEventos():boolean {
+  agregarEventos(): boolean {
     let agregar: boolean = true;
     if (this.listaDatosEventos.length !== 0) {
       console.log(JSON.stringify(this.listaDatosEventos));
@@ -394,7 +391,7 @@ export class FormConvocatoriaComponent implements OnInit {
   }
 
 
-  agregarDatosRotulo():boolean {
+  agregarDatosRotulo(): boolean {
     let agregar: boolean = true;
     console.log(JSON.stringify(this.listaDatosRotulo));
     if (this.listaDatosRotulo.length !== 0) {
