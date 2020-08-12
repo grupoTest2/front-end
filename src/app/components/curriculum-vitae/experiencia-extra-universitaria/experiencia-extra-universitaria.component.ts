@@ -42,6 +42,7 @@ export class ExperienciaExtraUniversitariaComponent implements OnInit {
   }
 
   reset():void {
+    this.min = null;
     this.form.resetForm();
   }
 
