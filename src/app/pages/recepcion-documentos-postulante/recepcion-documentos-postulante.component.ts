@@ -24,6 +24,8 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
   minutos: number = 0;
   segundos: number = 0;
   editar = false;
+  horaLimite: string;
+  fechaLimite: Date;
   item: Item;
   listaItems: Item[] = [];
   convocatoria: Convocatoria;
@@ -69,6 +71,8 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     let fecha2=new Date();
     let horas = this.getHora();
     let minutos = this.getMinutos();
+    this.fechaLimite = fechaLimite;
+    this.horaLimite = horaC+':'+minutosC;
     this.banderaLimite = false;
     if (fecha2 < fechaLimite) {
       this.banderaLimite = true;
