@@ -401,6 +401,7 @@ export class FormConvocatoriaComponent implements OnInit {
             console.log('todo bien con los datos rotulo');
           } else {
             console.log('error con los datos rotulo');
+            alert('error con los datos rotulo');
             agregar = false;
           }
         }

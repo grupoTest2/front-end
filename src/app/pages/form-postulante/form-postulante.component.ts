@@ -529,6 +529,7 @@ export class FormPostulanteComponent implements OnInit {
     this.servicePostulante.agregarPostulante(this.postulante).subscribe(
       resultado => {
         if (resultado['resultado'] == 'correcto') {
+          console.log("correcto")
           let codigos = resultado['rotulos'];
           this.mensajeToastExito('Registro exítoso');
           this.habilitarBotonRotulo = true;
@@ -536,6 +537,9 @@ export class FormPostulanteComponent implements OnInit {
             this.listaCodigosRotulo.push(codigos[i]);
           }
           this.generarRotulo();
+        }else{
+          console.log("incorrecto");
+          console.log(resultado);
         }
       },
       error => {

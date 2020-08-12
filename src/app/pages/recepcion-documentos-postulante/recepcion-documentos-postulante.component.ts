@@ -77,16 +77,18 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
 
     if (fecha2 > fechaLimite) {
       this.banderaLimite = false;
-    } else {
+    } else if(fecha2 ==fechaLimite) {
       if (horas > horaC) {
         this.banderaLimite = false;
-      } else {
-        if (minutos > minutosC) {
-          this.banderaLimite = false;
-        }else{
+      } else if(horas==horaC) {
+        if (minutos < minutosC) {
           this.banderaLimite = true;
         }
+      }else{
+        this.banderaLimite = true;
       }
+    }else{
+      this.banderaLimite=true;
     }
   }
 
