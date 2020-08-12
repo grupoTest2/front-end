@@ -72,7 +72,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
     let horas = this.getHora();
     let minutos = this.getMinutos();
     this.fechaLimite = fechaLimite;
-    this.horaLimite = horaC+':'+minutosC;
+    this.horaLimite = horaC+':'+minutosC;  
     this.banderaLimite = false;
 
     if (fecha2 > fechaLimite) {
@@ -214,6 +214,7 @@ export class RecepcionDocumentosPostulanteComponent implements OnInit {
           this.bandera = true;
           let fechaFin:string= resp['fechaFin'];
           let horaFin= resp['horaFin'];
+          console.log(horaFin);
           let fechaPartes=fechaFin.split('-');
           let fechita=new Date(parseInt(fechaPartes[0]),parseInt(fechaPartes[1])-1,parseInt(fechaPartes[2]));
          //console.log(fechita);
