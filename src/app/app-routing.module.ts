@@ -13,7 +13,6 @@ import { CurriculumVitaeComponent } from './pages/curriculum-vitae/curriculum-vi
 import { RecepcionDocumentosPostulanteComponent } from './pages/recepcion-documentos-postulante/recepcion-documentos-postulante.component';
 import { EvaluacionRequisitosPostulanteComponent } from './pages/evaluacion-requisitos-postulante/evaluacion-requisitos-postulante.component';
 
-
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'crearConvocatoria', component: CrearConvocatoriaComponent },
