@@ -3,6 +3,7 @@ import { Requisito } from '../../../models/clases/convocatoria/requisito';
 import { PostulanteEvaluado } from 'src/app/models/clases/postulante/postulante-evaluado';
 import { Usuario } from 'src/app/models/clases/comision/usuario';
 import { HabilitacionService } from 'src/app/servicios/habilitacionPostulantes/habilitacion.service';
+import { parse } from 'path';
 declare var $: any;
 declare var swal: any;
 @Component({
@@ -127,7 +128,12 @@ export class RegistroRequisitosPresentadosComponent implements OnInit {
   }
 
   guardarRequisitosPostulanteBD():void {
-    this.habilitacion.registrarCumplimientoRequisitos(this.postulante).subscribe(
+    let datos={
+      "postulante": this.postulante,
+      "idItem": parseInt(localStorage.getItem('idca'))
+    }
+    console.log(JSON.stringify(datos));
+    this.habilitacion.registrarCumplimientoRequisitos(datos).subscribe(
       resp => {
         if (resp == 'correcto') {
           swal.fire(

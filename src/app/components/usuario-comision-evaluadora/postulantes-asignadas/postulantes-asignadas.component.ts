@@ -41,7 +41,7 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.titulo = conv.getTitulo();
     this.gestion = conv.getGestion();
     this.listaPostulantes=[];
-    let idItem = localStorage.getItem('idca');
+    let idItem = parseInt(localStorage.getItem('idca'));
     let convAux={
       "idConv": conv.getIdConv(),
       "idItem": idItem
@@ -62,6 +62,7 @@ export class PostulantesAsignadasComponent implements OnInit {
   }
 
   getPostulantesConvBD(convAux:any):void{
+    console.log(JSON.stringify(convAux));
     this.habilitacion.getPostulantesConv(convAux).subscribe(
       resp=>{
         for(let i in resp){

@@ -29,7 +29,7 @@ export class HabilitacionService {
   }
   //envian informacion al servidor phpç
 
-  public registrarCumplimientoRequisitos(postulante: PostulanteEvaluado){
-    return this.http.post(`${this.URL}registrarCumplimientoRequisitos.php`, JSON.stringify(postulante));
+  public registrarCumplimientoRequisitos(datos:any){
+    return this.http.post(`${this.URL}registrarCumplimientoRequisitos.php`, JSON.stringify(datos));
   }
 }
