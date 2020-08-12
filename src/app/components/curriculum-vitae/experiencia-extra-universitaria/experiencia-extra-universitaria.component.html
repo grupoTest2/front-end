@@ -74,8 +74,8 @@
                         <div class="form-group col">
                             <label class="col-form-label mr-1 ">Fecha de inicio:</label>
                             <div class="d-flex justify-content ">
-                                <input required name="fechaInicio" #fechaInicio="ngModel" ngModel [class.is-invalid]="fechaInicio.invalid && fechaInicio.touched" [class.is-valid]="fechaInicio.valid && fechaInicio.touched" placeholder="Fecha inicio" [matDatepicker]="pickerm3 " class="form-control "
-                                    readonly>
+                                <input id="fechaI2" [max]="max" (dateInput)="setFecha()" required name="fechaInicio" #fechaInicio="ngModel" ngModel [class.is-invalid]="fechaInicio.invalid && fechaInicio.touched" [class.is-valid]="fechaInicio.valid && fechaInicio.touched" placeholder="Fecha inicio"
+                                    [matDatepicker]="pickerm3 " class="form-control " readonly>
                                 <mat-datepicker-toggle matSuffix [for]="pickerm3 "></mat-datepicker-toggle>
                                 <mat-datepicker #pickerm3></mat-datepicker>
                             </div>
@@ -83,8 +83,8 @@
                         <div class="form-group col">
                             <label class="col-form-label mr-1 ">Fecha de conclusion:</label>
                             <div class="d-flex justify-content ">
-                                <input required name="fechaConclusion" #fechaConclusion="ngModel" ngModel [class.is-invalid]="fechaConclusion.invalid && fechaConclusion.touched" [class.is-valid]="fechaConclusion.valid && fechaConclusion.touched" placeholder="Fecha Conclusion" [matDatepicker]="pickerm4 "
-                                    class="form-control " readonly>
+                                <input [max]="max" [min]="min" required name="fechaConclusion" #fechaConclusion="ngModel" ngModel [class.is-invalid]="fechaConclusion.invalid && fechaConclusion.touched" [class.is-valid]="fechaConclusion.valid && fechaConclusion.touched" placeholder="Fecha Conclusion"
+                                    [matDatepicker]="pickerm4 " class="form-control " readonly>
                                 <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
                                 <mat-datepicker #pickerm4></mat-datepicker>
                             </div>

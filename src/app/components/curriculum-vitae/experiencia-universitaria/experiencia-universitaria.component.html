@@ -113,7 +113,7 @@
                         <div class="form-group col">
                             <label class="col-form-label mr-1 ">Fecha de conclusion:</label>
                             <div class="d-flex justify-content ">
-                                <input [min]="fechaInicio" required name="fechaConclusion" [max]="max" #fechaConclusion="ngModel" ngModel [class.is-invalid]="fechaConclusion.invalid && fechaConclusion.touched" [class.is-valid]="fechaConclusion.valid && fechaConclusion.touched" placeholder="Fecha Conclusion"
+                                <input [min]="min" required name="fechaConclusion" [max]="max" #fechaConclusion="ngModel" ngModel [class.is-invalid]="fechaConclusion.invalid && fechaConclusion.touched" [class.is-valid]="fechaConclusion.valid && fechaConclusion.touched" placeholder="Fecha Conclusion"
                                     [matDatepicker]="pickerm4 " class="form-control " readonly>
                                 <mat-datepicker-toggle matSuffix [for]="pickerm4 "></mat-datepicker-toggle>
                                 <mat-datepicker #pickerm4></mat-datepicker>

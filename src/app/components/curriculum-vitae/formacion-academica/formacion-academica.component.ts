@@ -15,7 +15,13 @@ export class FormacionAcademicaComponent implements OnInit {
   form: NgForm = new NgForm([], []);
   listaDatosFormacion: FormacionAcademica[] = [];
   datoFormacion: FormacionAcademica;
-  constructor() { }
+  max: Date;
+  constructor() {
+    const dia = new Date().getDate() - 1;
+    const mes = new Date().getMonth();
+    const anio = new Date().getFullYear();
+    this.max = new Date(anio, mes, dia);
+  }
   ngOnInit(): void {
   }
 
