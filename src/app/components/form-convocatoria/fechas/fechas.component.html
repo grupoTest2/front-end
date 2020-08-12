@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label class="col-form-label mr-1">Fecha:</label>
                         <div class="d-flex justify-content">
-                            <input [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" class="form-control" placeholder="Fecha:" [class.is-invalid]="fechaIsInvalid" [class.is-valid]="fechaIsValid" formControlName="fecha" id="fecha" readonly>
+                            <input [min]="min" [matDatepicker]="picker1" class="form-control" placeholder="Fecha:" [class.is-invalid]="fechaIsInvalid" [class.is-valid]="fechaIsValid" formControlName="fecha" id="fecha" readonly>
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </div>

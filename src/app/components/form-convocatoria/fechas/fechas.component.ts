@@ -26,8 +26,7 @@ declare function init_plugins();
 })
 export class FechasComponent implements OnInit {
 
-  minDate: Date;
-  maxDate: Date;
+  min: Date;
   //Formulario
   formEventos: FormGroup
   evento: Evento;
@@ -41,11 +40,13 @@ export class FechasComponent implements OnInit {
     private formBuilder: FormBuilder,
     private editarConv:EditarConvocatoriaServicePhp,
     private router: Router) {
+    const dia = new Date().getDate();
+    const mes = new Date().getMonth();
+    const anio = new Date().getFullYear();
+    this.min = new Date(anio, mes, dia);
     this.buildForm();
     this.seleccionEventos = new SeleccionEventos();
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 5, 12, 31);
-    this.maxDate = new Date(currentYear + 5, 12, 31);
     this.getNombreEventosBD();
     
   }
