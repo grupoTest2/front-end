@@ -14,12 +14,31 @@ declare var $: any;
 
 export class ExperienciaExtraUniversitariaComponent implements OnInit {
 
+  max: Date;
+  fechaInicio: Date;
+  min:Date;
   form: NgForm = new NgForm([], []);
   listaExperienciaExtraUniversitaria: ExperienciaExtraUniversitaria[] = [];
   datoExperienciaEU: ExperienciaExtraUniversitaria;
-  constructor() { }
+  constructor() { 
+    const dia = new Date().getDate() - 1;
+    const mes = new Date().getMonth();
+    const anio = new Date().getFullYear();
+    this.max = new Date(anio, mes, dia);
+  }
 
   ngOnInit(): void {
+  }
+
+  setFecha(){
+    this.fechaInicio =$('#fechaI2').val();
+    var fecha = ($('#fechaI2').val()).split('/');
+    console.log(fecha);
+    this.min = new Date(fecha[2],fecha[1]-1,fecha[0]);
+    console.log(this.min,"ddddddd")
+    console.log(this.fechaInicio);
+    
+
   }
 
   reset():void {
