@@ -1,49 +1,49 @@
-<div class="container">
-  <div class="d-flex justify-content-between">
-    <h3 class="text-center mb-2" id="inicio">Hoja De Vida</h3>
-    <div>
-      <button type="button" class="btn btn-outline-info mb-2 mr-2" (click)="guardar()">Guardar</button>
-      <button type="button" class="btn btn-outline-danger mb-2" (click)="alertSalir()">Salir</button>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+        <h3 class="text-center mb-2" id="inicio">Hoja De Vida</h3>
+        <div>
+            <button type="button" class="btn btn-outline-info mb-2 mr-2" (click)="guardar()">Guardar</button>
+            <button type="button" class="btn btn-outline-danger mb-2" (click)="alertSalir()">Salir</button>
+        </div>
     </div>
-  </div>
-  <mat-horizontal-stepper>
-    <mat-step label="Datos">
-      <br>
-      <div *ngIf="!llenoDatosPersonales">
-        <app-datos-personales #datos_personales></app-datos-personales>
-      </div>
-      <div *ngIf="llenoDatosPersonales">
-        <p class="display-3 text-center">ya registro sus datos personales anterioremente</p>
-      </div>
-    </mat-step>
-    <mat-step label="Formacion">
-      <!--state="chat"-->
-      <br>
-      <app-formacion-academica #formacion_academica></app-formacion-academica>
-    </mat-step>
-    <mat-step label="Estudios">
-      <br>
-      <app-estudios-cursos #estudios_cursos></app-estudios-cursos>
-    </mat-step>
-    <mat-step label="Exp. universitaria">
-      <br>
-      <app-experiencia-universitaria #experiencia_universitaria></app-experiencia-universitaria>
-    </mat-step>
-    <mat-step label="Exp. extra universitaria">
-      <br>
-      <app-experiencia-extra-universitaria #experiencia_extra_universitaria></app-experiencia-extra-universitaria>
-    </mat-step>
-    <mat-step label="Produccion">
-      <br>
-      <app-produccion #produccion></app-produccion>
-    </mat-step>
+    <mat-horizontal-stepper>
+        <mat-step label="Datos">
+            <br>
+            <div *ngIf="!llenoDatosPersonales">
+                <app-datos-personales #datos_personales></app-datos-personales>
+            </div>
+            <div *ngIf="llenoDatosPersonales">
+                <p class="display-3 text-center">ya registro sus datos personales anterioremente</p>
+            </div>
+        </mat-step>
+        <mat-step label="Formacion">
+            <!--state="chat"-->
+            <br>
+            <app-formacion-academica #formacion_academica></app-formacion-academica>
+        </mat-step>
+        <mat-step label="Estudios">
+            <br>
+            <app-estudios-cursos #estudios_cursos></app-estudios-cursos>
+        </mat-step>
+        <mat-step label="Exp. universitaria">
+            <br>
+            <app-experiencia-universitaria #experiencia_universitaria></app-experiencia-universitaria>
+        </mat-step>
+        <mat-step label="Exp. extra universitaria">
+            <br>
+            <app-experiencia-extra-universitaria #experiencia_extra_universitaria></app-experiencia-extra-universitaria>
+        </mat-step>
+        <mat-step label="Produccion">
+            <br>
+            <app-produccion #produccion></app-produccion>
+        </mat-step>
 
-    <!-- Icon overrides.
+        <!-- Icon overrides.
     <ng-template matStepperIcon="phone">
       <mat-icon>call_end</mat-icon>
     </ng-template>
     <ng-template matStepperIcon="chat">
       <mat-icon>forum</mat-icon>
     </ng-template> -->
-  </mat-horizontal-stepper>
+    </mat-horizontal-stepper>
 </div>
