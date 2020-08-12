@@ -196,14 +196,14 @@ export class FormConvocatoriaComponent implements OnInit {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Ir a habilitar',
+            confirmButtonText: 'OK',
             cancelButtonText: 'Cancelar'}
           ).then((result) => {
-            if (result.value) {
-              this.router.navigate(['/habilitarConvocatoria/formulario']);
-            }else{
+            //if (result.value) {
+              //this.router.navigate(['/habilitarConvocatoria/formulario']);
+            //}else{
               this.router.navigate(['/editar/convocatorias']);
-            }
+            //}
           });
         }else{
           swal.fire(
