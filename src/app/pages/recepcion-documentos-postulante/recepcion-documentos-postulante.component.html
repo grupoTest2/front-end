@@ -42,7 +42,7 @@
             </div>
             <br><br>
             <div *ngIf="!banderaLimite && bandera" class="container mt-4 alert alert-danger text-center" role="alert">
-                La fecha limite de recepcion de documentos de la convocatoria a la cual postulo este estudiante finalizo {{fechaLimite.getDate()}}/{{fechaLimite.getMonth()+1}}/{{fechaLimite.getFullYear()}}Horas: {{horaLimite}}
+                La fecha limite de recepcion de documentos de la convocatoria a la cual postulo este estudiante finalizo {{fechaLimite.getDate()}}/{{fechaLimite.getMonth()+1}}/{{fechaLimite.getFullYear()}} &nbsp; Horas: &nbsp;{{horaLimite}}
             </div>
             <br><br>
             <ng-container *ngIf="bandera">
