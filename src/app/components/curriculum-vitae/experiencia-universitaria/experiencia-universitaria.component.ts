@@ -32,6 +32,7 @@ export class ExperienciaUniversitariaComponent implements OnInit {
 
   reset():void {
     this.form.resetForm();
+    this.min = null;
   }
 
   asignacion(form: NgForm):boolean {
