@@ -32,6 +32,7 @@ export class ConvocatoriasAsignadasComponent implements OnInit {
   recuperarPostulantes() {
     let id= $("#itemes option:selected").val();
     if(id!=0){
+      localStorage.setItem('idca', id);
       console.log(id,"------------------------------")
       $("#seleccionItem").modal("hide");
       this.listarPostulantes();

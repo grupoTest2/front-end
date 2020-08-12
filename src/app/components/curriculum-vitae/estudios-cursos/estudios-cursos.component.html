@@ -76,7 +76,7 @@
                     <div class="form-group ">
                         <label class="col-form-label mr-1 ">Fecha documento:</label>
                         <div class="d-flex justify-content ">
-                            <input placeholder="Fecha" [matDatepicker]="pickerm2 " class="form-control " readonly required name="fecha" #fecha="ngModel" ngModel [class.is-invalid]="fecha.invalid && fecha.touched" [class.is-valid]="fecha.valid && fecha.touched">
+                            <input placeholder="Fecha" [matDatepicker]="pickerm2 " [max]="max" class="form-control " readonly required name="fecha" #fecha="ngModel" ngModel [class.is-invalid]="fecha.invalid && fecha.touched" [class.is-valid]="fecha.valid && fecha.touched">
                             <mat-datepicker-toggle matSuffix [for]="pickerm2 "></mat-datepicker-toggle>
                             <mat-datepicker #pickerm2></mat-datepicker>
                         </div>

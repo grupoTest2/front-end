@@ -17,8 +17,15 @@ export class ExperienciaUniversitariaComponent implements OnInit {
   form: NgForm = new NgForm([], []);
   listaExperienciaUniversitaria: ExperienciaUniversitaria[] = [];
   datoExperienciaU: ExperienciaUniversitaria;
-
-  constructor() { }
+  max: Date;
+  fechaInicio: Date;
+  min:Date;
+  constructor() {
+    const dia = new Date().getDate() - 1;
+    const mes = new Date().getMonth();
+    const anio = new Date().getFullYear();
+    this.max = new Date(anio, mes, dia);
+   }
 
   ngOnInit(): void {
   }
@@ -30,6 +37,15 @@ export class ExperienciaUniversitariaComponent implements OnInit {
   asignacion(form: NgForm):boolean {
     this.form = form;
     return true;
+  }
+
+  setFecha(){
+    this.fechaInicio =$('#fechaI').val();
+    this.min = new Date();
+    console.log(this.min,"ddddddd")
+    console.log(this.fechaInicio);
+    
+
   }
 
   guardar(form: NgForm):void {

@@ -41,7 +41,7 @@ export class PostulantesAsignadasComponent implements OnInit {
     this.titulo = conv.getTitulo();
     this.gestion = conv.getGestion();
     this.listaPostulantes=[];
-    let idItem=1;
+    let idItem = localStorage.getItem('idca');
     let convAux={
       "idConv": conv.getIdConv(),
       "idItem": idItem
