@@ -32,6 +32,7 @@ export class ExperienciaUniversitariaComponent implements OnInit {
 
   reset():void {
     this.form.resetForm();
+    this.min = null;
   }
 
   asignacion(form: NgForm):boolean {
@@ -41,7 +42,9 @@ export class ExperienciaUniversitariaComponent implements OnInit {
 
   setFecha(){
     this.fechaInicio =$('#fechaI').val();
-    this.min = new Date();
+    var fecha = ($('#fechaI').val()).split('/');
+    console.log(fecha);
+    this.min = new Date(fecha[2],fecha[1]-1,fecha[0]);
     console.log(this.min,"ddddddd")
     console.log(this.fechaInicio);
     

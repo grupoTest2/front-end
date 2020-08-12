@@ -15,8 +15,13 @@ export class ProduccionComponent implements OnInit {
   form: NgForm = new NgForm([], []);
   listaInformacionProduc: Produccion[] = [];
   datoInfoPrd: Produccion;
-
-  constructor() { }
+  max: Date;
+  constructor() {
+    const dia = new Date().getDate() - 1;
+    const mes = new Date().getMonth();
+    const anio = new Date().getFullYear();
+    this.max = new Date(anio, mes, dia);
+   }
 
   ngOnInit(): void {
   }

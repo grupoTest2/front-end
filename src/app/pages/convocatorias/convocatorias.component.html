@@ -72,9 +72,11 @@
                             <td colspan="4" class="pt-2 pb-4">
                                 <span class="font-weight-bold mr-2">Acciones:&nbsp;</span><br>
                                 <button routerLink="/habilitarConvocatoria/formulario" class="ml-5 mr-2 btn btn-outline-primary badge" [disabled]="item.getEstado() !='En configuracion'" (click)="habilitar(item)"><i class="fa fa-file-alt"></i>&nbsp; Habilitar</button>
-                                <button routerLink="/comisiones" class="mr-2 btn btn-outline-info badge" [disabled]="item.getEstado() != 'En configuracion'" (click)=" clickComision(item)"><i class="fas fa-users"></i>&nbsp; Comisiones</button>
+                                <button routerLink="/comisiones" class="mr-2 btn btn-outline-info badge" (click)=" clickComision(item)"><i class="fas fa-users"></i>&nbsp; Comisiones</button>
+                                <!-- [disabled]="item.getEstado() != 'En configuracion'"-->
                                 <button class="mr-2 btn btn-outline-success badge" [disabled]="item.getEstado() !='En configuracion'" data-toggle="modal" data-target="#tablaEditar" (click)="editar(item)"><i class="fa fa-pencil"></i>&nbsp; Editar</button>
-                                <button class="mr-2 btn btn-outline-danger badge" [disabled]="item.getEstado() !='En configuracion'"><i class="fa fa-trash-alt"></i>&nbsp; Borrar</button>
+                                <button class="mr-2 btn btn-outline-danger badge" [disabled]="true"><i class="fa fa-trash-alt"></i>&nbsp; Borrar</button>
+                                <!-- [disabled]="item.getEstado() !='En configuracion'"-->
                             </td>
                         </tr>
                     </ng-container>

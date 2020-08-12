@@ -149,7 +149,8 @@ cambiar2():void{
       }
     );
   }
-
+//
+//ssssss
   crearConvocatoriaBD(objAux: Convocatoria): void {
     this.apiPHP.crearConvocatoria(objAux).subscribe(
       respuesta => {
@@ -162,3 +163,6 @@ cambiar2():void{
     );
   }
 }
+
+/*
+*/
